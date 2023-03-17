@@ -1,0 +1,52 @@
+#
+#   status.toml
+#
+url = "https://theweeklychallenge.org"
+last-modified = 2023-03-14T00:06:43+01:00
+link = "/blog/perl-weekly-challenge-208"
+
+[ mail ]
+
+document-start = '''
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+    <!-- Basic Page Needs -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="description" content="The Weekly Challenge - 208">
+    <meta name="author" content="The Weekly Challenge Team">
+    <meta name="generator" content="Hugo 0.67.0-DEV" />
+
+    <!-- Mobile Specific Metas -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Weekly Challenge - 208</title>
+
+    <!-- Mobile Specific Metas -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Weekly Challenge - 208</title>
+    <link rel="icon" href="https://theweeklychallenge.org/images/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+
+    <!-- template main css file -->
+    <link rel="stylesheet" href="https://theweeklychallenge.org/css/style.min.css" integrity="" media="screen">
+</head>
+
+<body>
+'''
+
+section-start = '''
+<section class="single-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="text-align: justify" class="post-content">
+'''
+
+document-end = '''
+</body>
+</html>
+'''
+
