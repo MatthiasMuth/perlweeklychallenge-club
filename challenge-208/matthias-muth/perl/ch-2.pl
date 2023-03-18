@@ -16,8 +16,8 @@ use List::Util qw( reduce );
 sub dup_and_missing {
     my ( $dup, $missing );
     reduce {
-        $dup     = $b     if $b == $a;
-        $missing = $b - 1 if $b > $a + 1;
+        $dup     = $b     if $a == $b;
+        $missing = $b - 1 if $a < $b - 1;
         $b;
     } @_;
     return
