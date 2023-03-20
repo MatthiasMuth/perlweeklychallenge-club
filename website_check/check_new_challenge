@@ -79,6 +79,24 @@ unless ( $link ) {
     say STDERR "ERROR: Could not extract challenge link. Aborting.";
     exit 1;
 }
+ 
+if ( $link eq $status->{link} ) {
+    # Update the status toml file.
+    $toml =~ s/^(\s* last-modified \s* = \s* ).*?$/${1}${modified_time}/xm;
+    spit_file( $toml_file, $toml )
+	unless $options{DRY_RUN};
+
+    vsay "Link to challenge page has not changed. Exiting.";
+    exit 0
+        unless $options{FORCE};
+}
+
+my ( $challenge ) = $link =~ /(\d+)$/;
+prot "New challenge $challenge detected."
+    unless $options{QUIET};
+
+# Extract the interesting portion from the challenge page.
+my $title = "Perl Weekly Challenge $challenge";
 
 # Get variable HTML parts from the challenge page.
 my $html = get( "$url/$link" );
@@ -99,14 +117,6 @@ $html = join "\n",
     ${tasks},
     $status->{mail}{'document-end'};
 # vsay "html\n", $html;
-
-# Extract the interesting portion from the challenge page.
-
-my ( $challenge ) = $link =~ /(\d+)$/;
-my $title = "Perl Weekly Challenge $challenge";
-
-prot "New challenge $challenge detected."
-    unless $options{QUIET};
 
 # Send mail.
 if ( $html && $options{MAIL_TO} ) {
