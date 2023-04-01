@@ -42,7 +42,6 @@ The existing accounts are given in an 'array_ref' parameter.
 sub merge_accounts {
     my ( $input_accounts ) = $_[0];
 ```
-12345677801234567780123456778012345677801234567780123456778012345677801234567780
 We create an array for those accounts that we merge into, should any other
 account have an address in common with this one.
 ```perl
