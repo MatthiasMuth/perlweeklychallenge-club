@@ -1,10 +1,26 @@
-# Juggling with indexes.
+# Bits and addresses
 *Challenge 208 solutions in Perl by Matthias Muth*
 
 ## Task 1: Minimum Index Sum
 
-> You are given two arrays of strings.<br/>
-> Write a script to find out all common strings in the given two arrays with minimum index sum. If no common strings found returns an empty list.
+> You are given an array of binary bits that ends with 0.<br/>
+Valid sequences in the bit string are:
+```
+[0] -decodes-to-> "a"
+[1, 0] -> "b"
+[1, 1] -> "c"
+```
+>Write a script to print 1 if the last character is an a otherwise print 0.
+
+oh.
+
+
+
+
+
+
+
+
 
 Let's take one step at a time for this one:
 
