@@ -12,15 +12,32 @@ use strict;
 use warnings;
 
 sub merge_accounts {
+    my ( $input_accounts ) = $_[0];
 
     my @merged_accounts;
+    # For every address, this will contain all accounts that contain that address.
     my %merged_accounts_by_address;
 
-    for ( @{$_[0]} ){
+    for ( @$input_accounts ){
+        # The first entry is the name of the account,
+        # all following entries a mail address.
         my ( $name, @addresses ) = @$_;
+
+        # Check whether we already have another account for any one of our
+        # addresses.
         my $merged_account =
             ( map $merged_accounts_by_address{$_},
                 grep $merged_accounts_by_address{$_}, @addresses )[0];
+        # If no other account so far had any of our addresses, our account will
+        # be the one that will be merged into further on, if there are addresses
+        # in common with other accounts. We therefore create a new entry into
+        # @merged_accounts.
+        # If we did find an already existing account for at least one of our
+        # addresses, we use that one.
+        # These 'merged accounts' remain with no addresses until later,
+        # but we keep track of the addresses in %merged_accounts_by_address.
+        # This way, we immediately know the account to merge for any address
+        # we have encountered
         push @merged_accounts, $merged_account = [ $name ]
             unless $merged_account;
         $merged_accounts_by_address{$_} = $merged_account
