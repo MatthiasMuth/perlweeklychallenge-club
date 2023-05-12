@@ -279,7 +279,7 @@ sub read_toml( $filename ) {
 }
 
 sub write_toml( $hash_ref ) {
-    my ( $filename, $toml_text ) = @$hash_ref->{ qw( TOML_FILE TOML_TEXT ) };
+    my ( $filename, $toml_text ) = @$hash_ref{ qw( TOML_FILE TOML_TEXT ) };
     # Update the toml file if needed.
     spit_file( $filename, $toml_text )
 	if $hash_ref->{TOML_CHANGED} && ! $options{DRY_RUN};
