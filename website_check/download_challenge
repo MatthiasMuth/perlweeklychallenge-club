@@ -145,8 +145,6 @@ sub process_challenge( $challenge ) {
     }
 
     unless ( $options{NO_FILE} ) {
-	# Write the file
-	spit_file( "challenge-${challenge}.html", $html );
 	my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
 
 	$tree->parse_content( $html )
