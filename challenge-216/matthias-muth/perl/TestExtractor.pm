@@ -36,9 +36,9 @@ sub run_tests {
     ) or do { say "usage!"; exit 2 };
 
     my $dir = dirname abs_path $0;
-    my ( $challenge_no, $task_no ) =
+    my ( $challenge, $task ) =
         abs_path( $0 ) =~ m{challenge-(\d+) .* (\d+)[^[/\\]*$}x;
-    unless ( $challenge_no && $task_no ) {
+    unless ( $challenge && $task ) {
         say STDERR "ERROR: ",
             "Cannot determine challenge number or task number. Exiting.";
         exit 1;
@@ -47,12 +47,12 @@ sub run_tests {
     no warnings 'once';
     my ( undef, $local_tests ) = read_tests( *::DATA );
     use warnings 'once';
-    my ( $task, $challenge_examples ) =
-        read_tests( "$dir/challenge.txt", $task_no );
+    my ( $task_title, $challenge_examples ) =
+        read_tests( "$dir/challenge-${challenge}.txt", $task );
     my @tests = ( @$local_tests, @$challenge_examples );
     # say pp @tests;
 
-    ( my $test_object = lc $task ) =~ s/\W+/_/g;
+    ( my $test_object = lc $task_title ) =~ s/\W+/_/g;
     my $test_sub = \&{"::$test_object"};
 
     do {
@@ -65,7 +65,7 @@ sub run_tests {
     done_testing;
 }
 
-sub read_tests( $fd_or_filename, $wanted_task_no = undef ) {
+sub read_tests( $fd_or_filename, $wanted_task = undef ) {
 
     my $fd;
     if ( ref \$fd_or_filename eq 'SCALAR' ) {
@@ -78,19 +78,19 @@ sub read_tests( $fd_or_filename, $wanted_task_no = undef ) {
     }
 
     my @tests;
-    my ( $task_no, $task ) = ( -1, undef );
+    my ( $task, $task_title ) = ( -1, undef );
     while ( <$fd> ) {
         chomp $_;
 
         /^Task (\d+):\s*(.*?)\s*$/ and do {
-            $task_no = $1;
-            $task = $2
-                if $wanted_task_no && $task_no == $wanted_task_no;
+            $task = $1;
+            $task_title = $2
+                if $wanted_task && $task == $wanted_task;
             next;
         };
 
         next
-            unless ! $wanted_task_no || $task_no == $wanted_task_no;
+            unless ! $wanted_task || $task == $wanted_task;
 
         /^((?:Example|Test).*?)\W*$/ and do {
             push @tests, { TEST => $1 };
@@ -119,7 +119,7 @@ sub read_tests( $fd_or_filename, $wanted_task_no = undef ) {
             next;
         };
     }
-    return $task, \@tests;
+    return $task_title, \@tests;
 }
 
 1;
