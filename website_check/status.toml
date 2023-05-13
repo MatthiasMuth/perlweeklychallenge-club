@@ -1,0 +1,7 @@
+#
+#   status.toml
+#
+url = "https://theweeklychallenge.org"
+last-modified = 2023-05-13T15:16:15+02:00
+link = "/blog/perl-weekly-challenge-216"
+recipients = [ "muthm@gmx.de" ]

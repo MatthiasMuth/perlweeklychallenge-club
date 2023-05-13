@@ -1,0 +1,59 @@
+Output: 1
+Expect: ( 1 )
+
+Output: [ 1 2 3 4 ]
+Expect: ( [ 1, 2, 3, 4 ] )
+
+Output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ]
+Expect: ( [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ] )
+
+Output: ("Alaska","Dad")
+Output: ( "Alaska", "Dad" )
+
+Output: ()
+Output: ()
+
+Output: ("A")
+Output: ( "A" )
+
+Output: (2,3)
+Output: ( 2, 3 )
+
+Output: -1
+Output: ( -1 )
+
+Output: [ ["A", "a1@a.com", "a2@a.com"],
+          ["A", "a3@a.com"],
+          ["B", "b1@b.com", "b2@b.com"] ]
+Expect: ( [ [ "A", "a1@a.com", "a2@a.com" ], [ "A", "a3@a.com" ], [ "B", "b1@b.com", "b2@b.com" ] ] )
+
+Output: (2, 3)
+Output: ( 2, 3 )
+
+Output: (-4)
+Output: ( -4 )
+
+Output: true
+Expect: ( "true" ) (Implement 'ok <call> ? <expected> : ! <expected>, <test>;'.
+
+Output: false
+Expect: ( "false" ) (Implement 'ok <call> ? <expected> : ! <expected>, <test>;'.
+
+Output: Raku
+Expect: ( "Raku" )
+
+Output: 'Perl'
+Expect: ( "Perl" )
+
+Output: (1,2,3), (1,2,3), (5,6,7)
+Expect: ( [ 1, 2, 3 ], [ 1, 2, 3 ], [ 5, 6, 7 ] )
+
+Output: (G,4,B,S,5)
+Expect: ( "G", 4, "B", "S", 5 )
+
+Output: ('abcd')
+Expect: ( "abcd" )
+
+Output: ('job', 'bjorg')
+Expect: ( "job", "bjorg" )
+

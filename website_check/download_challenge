@@ -1,0 +1,295 @@
+#!/usr/bin/env perl
+#
+#	download_challenge [<challenge> ...]
+#		checks whether there is a new weekly challenge, extracts
+#		the new task descriptions if so,
+#		writes them as ascii into a text file,
+#		and sends them via HTML email.
+#	
+#		
+#
+#	Usage:
+#	    get_weekly_challenge
+#		Retrieves the task descriptions for the most recent weekly
+#		challenge, copies them as a text file into the
+#		../challenge-<challenge>/matthias-muth/perl directory,
+#		and sends an email to a default list of recipients.
+#	    get_weekly_challenge <challenge> ...
+#		Retrieves the task descriptions for the given challenges
+#		and copies them as text files into the
+#		../challenge-<challenge>/matthias-muth/perl directories.
+#		No mail is sent unless the -mail <recipient> option is
+#		given explicitly.
+#	Options:
+#	    -nomail | -nom
+#		Do not send emails.
+#	    -nofile | -nof
+#	        Do not write a text file with the challenge tasks.
+#	    -mail <recipient>
+#		Send mail (or mails) to <recipient>.
+#		The default list of recipients is not used if this option is
+#		given.
+#		This option can be used multiple times.
+#
+
+use strict;
+use warnings;
+
+use M;
+use Getopt::Long;
+use TOML;
+use Time::Piece;
+
+use LWP::Simple;
+use HTML::TreeBuilder::XPath;
+use URI::Escape;
+use Encode;
+
+use File::Basename;
+use File::Path qw( make_path );
+
+use Email::Stuffer;
+
+sub usage {
+    say STDERR "Usage!";
+    exit 2;
+};
+
+GetOptions(
+    "force|f!"               => \$options{FORCE},
+    "check|n"                => \$options{DRY_RUN},
+    "mail|m:s@"              => \$options{MAIL_TO},
+    "nomail|nom"             => sub {
+				    # Make sure it's defined but empty.
+				    $options{MAIL_TO} = [];
+				},
+    "nofile|nof"             => \$options{NO_FILE},
+    "quiet|q!"               => \$options{QUIET},
+    "verbose|v!"             => \$verbose,
+    "help|?"                 => \&usage,
+) or do {
+    say STDERR
+        "    Use '$0 -help' for usage information.";
+    exit 2;
+};
+
+# Read 'status.toml', keep it as a global variable.
+our $status = read_toml( "status.toml" );
+
+# Defaults:
+# Send mail to default recipients if no challenge arguments are given.
+$options{MAIL_TO} //= $status->{'recipients'}
+    unless @ARGV;
+
+# Process challenges given as arguments, or maybe an update.
+for ( @ARGV ? @ARGV : get_challenge_update() ) {
+    process_challenge( $_ );
+}
+
+exit 0;
+
+sub process_challenge( $challenge ) {
+
+    # Extract the interesting portion from the challenge page.
+    my $title = "Perl Weekly Challenge $challenge";
+
+    # Get variable HTML parts from the challenge page.
+    my ( $url, $link ) = @$status{ qw( url link ) };
+    $link =~ s/\d+/$challenge/;
+
+    my $html = get( "$url/$link" );
+    # my $html = slurp_file( "challenge.html" );
+
+    my ( $page_header ) = 
+	$html =~ m'(<section class="global-page-header">.*?</section>)'s;
+    # vsay "page_header:\n", $page_header;
+
+    my ( $tasks ) =
+	$html =~ m'(<h2 id="TASK1">.*?</section>)'s;
+    # vsay "tasks:\n", pp( $tasks );
+
+    my $template = read_toml( "template.toml" );
+    $html = join "\n",
+	$template->{'mail'}{'document-start'},
+	${page_header},
+	$template->{'mail'}{'section-start'},
+	${tasks},
+	$template->{'mail'}{'document-end'};
+    $html =~ s((<title>.*?)\d+(</title>))(${1}${challenge}${2}r);
+    # vsay "html\n", $html;
+
+    unless ( $html ) {
+	say STDERR "ERROR: html is empty. Aborting.";
+	exit 1;
+    }
+
+    if ( $options{MAIL_TO} ) {
+	# Send mail.
+	for my $rcpt ( @{$options{MAIL_TO}} ) {
+	    if ( $options{DRY_RUN} ) {
+		say "not sending email to $rcpt"
+		    unless $options{QUIET};
+	    }
+	    else {
+		vsay "sending email to $rcpt";
+		Email::Stuffer
+		    ->from( 'muthm@muthnet.de' )
+		    ->to( $rcpt )
+		    ->subject( $title )
+		    ->html_body( $html )
+		    ->send_or_die;
+		prot "Sent email to $rcpt"
+		    unless $options{QUIET};
+	    }
+	}
+    }
+
+    unless ( $options{NO_FILE} ) {
+	my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
+
+	$tree->parse_content( $html )
+	    or die "ERROR: could not parse html data.\n";
+
+	# Extract nodes containing the title and the date,
+	# followed by two <br> to create empty lines,
+	# followed by everything inside the <div class="post-content"> block,
+	# individually.
+	my @nodes = map $tree->findnodes( $_ ),
+	    qw(
+		//section[@class="global-page-header"]//h2
+		//div[@class="block"]//span[1]
+		//br[1]
+		//br[1]
+		//div[@class="post-content"]/*
+	    );
+	# Extract the text from the nodes.
+	# Ignore <hr> to avoid empty lines where they are not needed.
+	# Instead add an extra empty line after <h4> ('Example...') and
+	# <h5> ('submitted by'). 
+	my $challenge_text = join "",
+	    map { $_->as_text . "\n" . ( $_->{_tag} =~ /^h[45]/ ? "\n" : "" ) }
+	        grep $_->{_tag} ne "hr", @nodes;
+	my $target_dir = "../challenge-$challenge/matthias-muth/perl";
+	vsay $challenge_text;
+	vsay 
+	    $options{DRY_RUN} ? "not " : "",
+	    "writing '$target_dir/challenge-$challenge.txt'";
+	unless ( $options{DRY_RUN} ) { 
+	    make_path $target_dir;
+	    spit_file( "$target_dir/challenge-$challenge.txt",
+		$challenge_text );
+	}
+    }
+}
+
+exit 0;
+
+sub slurp_file( $file ) {
+    open my $fh, "<", $file
+	or die "cannot open '$file': $!\n";
+    my $text = do { local $/ = undef; <$fh> };
+    close $fh;
+    return $text;
+}
+
+sub spit_file( $file, $text ) {
+    open my $fh, ">", $file
+	or die "cannot open '$file' for writing: $!\n";
+    print $fh $text;
+    close $fh;
+}
+
+sub get_href( $base_url, $pattern ) {
+    my $tree = HTML::TreeBuilder::XPath->new_from_url( $base_url )
+	or die "ERROR: could not retrieve data from $base_url.\n";
+    my $xpath  = "//\@href[.=~/$pattern/";
+    my $link = $tree->findvalue( $xpath )
+	or die "ERROR: did not find xpath '$xpath' in data.\n";
+    return $link;
+}
+
+sub get_challenge_update {
+
+    # TODO:
+    # Return the text of the challenge.
+    # Compare modification time of challenge page to determine if there is an
+    # updated version of the page that we already have retrieved.
+    # Keep a checksum of the extracted text for this. 
+
+    my ( $challenge ) = $status->{'link'} =~ /(\d+)/;
+
+    my $url = $status->{'url'};
+    my @header = head( $url );
+
+    my $modified_time = time_string( $header[2] );
+    vsay "modified_time: ", pp( $modified_time );
+
+    if ( $modified_time eq $status->{'last-modified'} ) {
+	vsay "Main page has not changed.";
+	return ()
+	    unless $options{FORCE};
+    }
+    set_toml( $status, "last-modified", $modified_time );
+
+    my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
+    my $link = get_href( $url, $xpath_pattern );
+    vsay "challenge link: ", pp( $link );
+    unless ( $link ) {
+	say STDERR "ERROR: Could not extract challenge link. Aborting.";
+	exit 1;
+    }
+
+    if ( $link ne $status->{'link'} ) {
+	( $challenge ) = $link =~ /(\d+)$/;
+	prot "New challenge $challenge detected."
+	    unless $options{QUIET};
+	set_toml( $status, "link", $link );
+    }
+    else {
+	vsay "Link to challenge page has not changed.";
+	$challenge = undef
+	    unless $options{FORCE};
+    }
+
+    # Update the status toml file.
+    write_toml( $status )
+	unless $options{DRY_RUN};
+
+    return $challenge // ();
+}
+
+sub time_string( $time ) {
+    my $time_struct = localtime( $time );
+    my $time_string = $time_struct->strftime( "%FT%T%z" );
+    # Insert a ':' between the time zone hours and minutes to be RFC 3339
+    # compatible (which is what TOML promotes), even if ISO allows time zones
+    # without ':'. Actually with no real effect, since Perl TOML doesn't
+    # convert datetime strings if no 'inflate_datetime' subroutine is given
+    # to the TOML parser. So we will get the string back that we store.
+    $time_string =~ s/(?=\d{2}$)/:/;
+    return $time_string;
+}
+
+sub read_toml( $filename ) {
+    my $toml_text = slurp_file( $filename );
+    my $hash_ref = TOML::from_toml( $toml_text );
+    # Keep the filename and the toml text for later writing back the file.
+    @$hash_ref{ qw( TOML_FILE TOML_TEXT ) } = ( $filename, $toml_text );
+    return $hash_ref;
+}
+
+sub write_toml( $hash_ref ) {
+    my ( $filename, $toml_text ) = @$hash_ref{ qw( TOML_FILE TOML_TEXT ) };
+    # Update the toml file if needed.
+    spit_file( $filename, $toml_text )
+	if $hash_ref->{TOML_CHANGED} && ! $options{DRY_RUN};
+    delete $hash_ref->{TOML_CHANGED};
+}
+
+sub set_toml( $hash_ref, $name, $value ) {
+    $hash_ref->{$name} = $value;
+    $hash_ref->{TOML_TEXT} =~ s/^(\s* ${name} \s* = \s* ).*?$/${1}${value}/xm;
+    $hash_ref->{TOML_CHANGED} = 1;
+}
+
+1;
