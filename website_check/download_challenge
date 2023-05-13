@@ -247,7 +247,7 @@ sub get_challenge_update {
     }
     else {
 	vsay "Link to challenge page has not changed.";
-	return ()
+	$challenge = undef
 	    unless $options{FORCE};
     }
 
@@ -255,7 +255,7 @@ sub get_challenge_update {
     write_toml( $status )
 	unless $options{DRY_RUN};
 
-    return $challenge;
+    return $challenge // ();
 }
 
 sub time_string( $time ) {
