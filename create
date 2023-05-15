@@ -1,0 +1,45 @@
+#!/bin/bash
+
+[ $1 ] || { echo "Usage: $0 <challenge number>" >&2; exit 2; }
+
+challenge="$1"
+previous=$(( challenge - 1 ))
+
+set -e
+set -v
+
+git checkout master
+git pull
+
+git fetch upstream
+git merge upstream/master
+
+git checkout dev
+git merge origin/dev
+git merge master
+
+git push
+
+mkdir -p challenge-$challenge/matthias-muth
+
+# Copy and adapt blog.txt.
+sed -e "1,\$s/208/$challenge/g" challenge-208/matthias-muth/blog.txt \
+	> challenge-$challenge/matthias-muth/blog.txt
+
+# Copy and adapt README-no-blog.md
+sed -e "1,\$s/210/$challenge/g" challenge-210/matthias-muth/README.md \
+	> challenge-$challenge/matthias-muth/README-no-blog.md
+
+# Find the most recent source files.
+while [ ! -f challenge-$previous/matthias-muth/perl/ch-1.pl ]; do
+    previous=$(( previous - 1 ))
+done
+
+echo "copying from challenge $previous"
+cp -r challenge-$previous/matthias-muth/perl/*{.pl,.pm} \
+	challenge-$challenge/matthias-muth/perl
+
+# TODO: Adapt challenge number in source files.
+# TODO: Adapt challenge descriptions in source files.
+
+exit 0
