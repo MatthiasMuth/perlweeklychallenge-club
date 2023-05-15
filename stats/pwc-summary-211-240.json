@@ -1,7 +1,115 @@
 {
-   "chart" : {
-      "type" : "column"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
+   "series" : [
+      {
+         "name" : "Perl",
+         "data" : [
+            1,
+            38,
+            0,
+            2,
+            42,
+            11,
+            21,
+            2,
+            0,
+            9,
+            0,
+            4,
+            3,
+            0,
+            0,
+            0,
+            0,
+            64,
+            112,
+            2,
+            0,
+            3,
+            400,
+            113,
+            85,
+            56,
+            10,
+            10,
+            0,
+            6
+         ]
+      },
+      {
+         "data" : [
+            0,
+            28,
+            11,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            17,
+            4,
+            0,
+            0,
+            1,
+            4,
+            4,
+            20,
+            0,
+            91,
+            6,
+            120,
+            0,
+            360,
+            113,
+            59,
+            0,
+            0,
+            10,
+            3,
+            0
+         ],
+         "name" : "Raku"
+      },
+      {
+         "data" : [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            13,
+            0,
+            19,
+            0,
+            0,
+            0,
+            0,
+            196,
+            0,
+            51,
+            1,
+            4,
+            0,
+            0,
+            0
+         ],
+         "name" : "Blog"
+      }
+   ],
    "xAxis" : {
       "categories" : [
          "Phillip Hartfield Sr",
@@ -36,132 +144,24 @@
          "Sergio Iglesias"
       ]
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-05-15 04:02:44 GMT"
+   },
+   "chart" : {
+      "type" : "column"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "series" : [
-      {
-         "name" : "Perl",
-         "data" : [
-            1,
-            38,
-            0,
-            2,
-            42,
-            11,
-            21,
-            2,
-            0,
-            9,
-            0,
-            4,
-            3,
-            0,
-            0,
-            0,
-            0,
-            62,
-            112,
-            2,
-            0,
-            3,
-            400,
-            113,
-            85,
-            56,
-            10,
-            10,
-            0,
-            6
-         ]
-      },
-      {
-         "name" : "Raku",
-         "data" : [
-            0,
-            28,
-            11,
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            17,
-            4,
-            0,
-            0,
-            1,
-            4,
-            4,
-            20,
-            0,
-            91,
-            6,
-            120,
-            0,
-            360,
-            113,
-            59,
-            0,
-            0,
-            10,
-            3,
-            0
-         ]
-      },
-      {
-         "data" : [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            13,
-            0,
-            18,
-            0,
-            0,
-            0,
-            0,
-            195,
-            0,
-            51,
-            1,
-            4,
-            0,
-            0,
-            0
-         ],
-         "name" : "Blog"
-      }
-   ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-05-13 13:10:15 GMT"
    }
 }
