@@ -1,0 +1,20 @@
+#!/bin/bash
+
+[ $1 ] || { echo "Usage: $0 <challenge number>" >&2; exit 2; }
+
+challenge="$1"
+
+set -e
+set -v
+
+git checkout master
+
+git fetch upstream
+git merge upstream/master
+
+git pull
+git checkout muthm-$challenge \
+    || git checkout -b muthm-$challenge
+git checkout dev -- challenge-$challenge/matthias-muth
+git commit -m "Challenge $challenge solutions in Perl by Matthias Muth"
+git push --set-upstream origin muthm-$challenge
