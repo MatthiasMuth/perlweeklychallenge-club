@@ -36,7 +36,7 @@ while [ ! -f challenge-$previous/matthias-muth/perl/ch-1.pl ]; do
 done
 
 echo "copying from challenge $previous"
-cp -r challenge-$previous/matthias-muth/perl \
+cp -r challenge-$previous/matthias-muth/perl/*{.pl,.pm} \
 	challenge-$challenge/matthias-muth
 
 # TODO: Adapt challenge number in source files.
