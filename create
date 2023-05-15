@@ -37,7 +37,7 @@ done
 
 echo "copying from challenge $previous"
 cp -r challenge-$previous/matthias-muth/perl/*{.pl,.pm} \
-	challenge-$challenge/matthias-muth
+	challenge-$challenge/matthias-muth/perl
 
 # TODO: Adapt challenge number in source files.
 # TODO: Adapt challenge descriptions in source files.
