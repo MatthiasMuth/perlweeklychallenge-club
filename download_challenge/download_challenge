@@ -5,8 +5,6 @@
 #		the new task descriptions if so,
 #		writes them as ascii into a text file,
 #		and sends them via HTML email.
-#	
-#		
 #
 #	Usage:
 #	    get_weekly_challenge
@@ -48,7 +46,9 @@ use Encode;
 use File::Basename;
 use File::Path qw( make_path );
 
+use Digest::MD5 qw( md5_hex );
 use Email::Stuffer;
+
 
 sub usage {
     say STDERR "Usage!";
@@ -77,14 +77,21 @@ GetOptions(
 our $status = read_toml( "status.toml" );
 
 # Defaults:
-# Send mail to default recipients if no challenge arguments are given.
-$options{MAIL_TO} //= $status->{'recipients'}
-    unless @ARGV;
+unless ( @ARGV ) {
+    # We use the following option to decide whether to check the challenge's
+    # html checksum.
+    $options{CHALLENGE_UPDATE_ONLY} = 1;
 
-# Process challenges given as arguments, or maybe an update.
-for ( @ARGV ? @ARGV : get_challenge_update() ) {
-    process_challenge( $_ );
+    # Send mail to default recipients if no challenge arguments are given.
+    $options{MAIL_TO} //= $status->{'recipients'};
 }
+
+process_challenge( $_ )
+    for @ARGV ? @ARGV : get_challenge_update();
+
+# Update the status toml file.
+write_toml( $status )
+    unless $options{DRY_RUN};
 
 exit 0;
 
@@ -94,10 +101,11 @@ sub process_challenge( $challenge ) {
     my $title = "Perl Weekly Challenge $challenge";
 
     # Get variable HTML parts from the challenge page.
-    my ( $url, $link ) = @$status{ qw( url link ) };
-    $link =~ s/\d+/$challenge/;
+    my ( $main_url, $challenge_path ) =
+	@$status{ qw( main-url challenge-path ) };
+    $challenge_path =~ s/\d+/$challenge/;
 
-    my $html = get( "$url/$link" );
+    my $html = get( $main_url . $challenge_path );
     # my $html = slurp_file( "challenge.html" );
 
     my ( $page_header ) = 
@@ -123,23 +131,40 @@ sub process_challenge( $challenge ) {
 	exit 1;
     }
 
-    if ( $options{MAIL_TO} ) {
-	# Send mail.
-	for my $rcpt ( @{$options{MAIL_TO}} ) {
-	    if ( $options{DRY_RUN} ) {
-		say "not sending email to $rcpt"
-		    unless $options{QUIET};
+    # Send mails.
+    if ( $options{MAIL_TO} && @{$options{MAIL_TO}} ) {
+	# For updates, send mails only if the html text has changed.
+	my $send_html = 1;
+	if ( $options{CHALLENGE_UPDATE_ONLY} ) {
+	    if ( ( my $md5 = md5_hex( $html ) )
+		eq $status->{'challenge-html-md5'} )
+	    {
+		vsay "html md5 has not changed";
+		$send_html = 0;
 	    }
 	    else {
-		vsay "sending email to $rcpt";
-		Email::Stuffer
-		    ->from( 'muthm@muthnet.de' )
-		    ->to( $rcpt )
-		    ->subject( $title )
-		    ->html_body( $html )
-		    ->send_or_die;
-		prot "Sent email to $rcpt"
-		    unless $options{QUIET};
+		vsay "html md5 has changed";
+		set_toml( $status, 'challenge-html-md5', $md5 );
+	    }
+	}
+
+	if ( $send_html ) {
+	    for my $rcpt ( @{$options{MAIL_TO}} ) {
+		if ( $options{DRY_RUN} ) {
+		    say "not sending email to $rcpt"
+			unless $options{QUIET};
+		}
+		else {
+		    vsay "sending email to $rcpt";
+		    Email::Stuffer
+			->from( 'muthm@muthnet.de' )
+			->to( $rcpt )
+			->subject( $title )
+			->html_body( $html )
+			->send_or_die;
+		    prot "Sent email to $rcpt"
+			unless $options{QUIET};
+		}
 	    }
 	}
     }
@@ -216,46 +241,68 @@ sub get_challenge_update {
     # updated version of the page that we already have retrieved.
     # Keep a checksum of the extracted text for this. 
 
-    my ( $challenge ) = $status->{'link'} =~ /(\d+)/;
+    my ( $challenge ) = $status->{'challenge-path'} =~ /(\d+)/;
 
-    my $url = $status->{'url'};
+    # Step 1:
+    # Determine the current challenge number:
+    # Check whether the main page was modified.
+    # Update to the current challenge number if it has.
+    # If no change was detected, use what we have cached in status.toml.
+
+    my $main_url = $status->{'main-url'};
+    my $challenge_path = $status->{'challenge-path'};
+    if ( check_page_change( $main_url, 'main-last-modified' ) ) {
+	my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
+	$challenge_path = get_href( $main_url, $xpath_pattern );
+	vsay "challenge-path: ", pp( $challenge_path );
+	unless ( $challenge_path ) {
+	    say STDERR "ERROR: Could not extract challenge url. Aborting.";
+	    exit 1;
+	}
+
+	if ( $challenge_path ne $status->{'challenge-path'} ) {
+	    ( $challenge ) = $challenge_path =~ /(\d+)$/;
+	    prot "New challenge $challenge detected."
+		unless $options{QUIET};
+	    set_toml( $status, "challenge-path", $challenge_path );
+	    set_toml( $status, "challenge-last-modified", "" );
+	}
+	else {
+	    vsay "challenge url has not changed";
+	}
+    }
+    else {
+	vsay "main page was not modified";
+    }
+
+    # Step 2:
+    # Check the challenge page for modification.
+    if ( ! check_page_change(
+	$main_url . $challenge_path, 'challenge-last-modified' ) )
+    {
+        vsay "challenge was not modified";
+	$challenge = undef;
+    }
+    else {
+	vsay "challenge page was modified";
+    }
+
+    return $challenge // ();
+}
+
+sub check_page_change( $url, $last_modified_field_name ) {
     my @header = head( $url );
-
     my $modified_time = time_string( $header[2] );
     vsay "modified_time: ", pp( $modified_time );
-
-    if ( $modified_time eq $status->{'last-modified'} ) {
-	vsay "Main page has not changed.";
+    if ( $status->{$last_modified_field_name} 
+	&& $modified_time eq $status->{$last_modified_field_name} )
+    {
+	# vsay "'$url' was not modified";
 	return ()
 	    unless $options{FORCE};
     }
-    set_toml( $status, "last-modified", $modified_time );
-
-    my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
-    my $link = get_href( $url, $xpath_pattern );
-    vsay "challenge link: ", pp( $link );
-    unless ( $link ) {
-	say STDERR "ERROR: Could not extract challenge link. Aborting.";
-	exit 1;
-    }
-
-    if ( $link ne $status->{'link'} ) {
-	( $challenge ) = $link =~ /(\d+)$/;
-	prot "New challenge $challenge detected."
-	    unless $options{QUIET};
-	set_toml( $status, "link", $link );
-    }
-    else {
-	vsay "Link to challenge page has not changed.";
-	$challenge = undef
-	    unless $options{FORCE};
-    }
-
-    # Update the status toml file.
-    write_toml( $status )
-	unless $options{DRY_RUN};
-
-    return $challenge // ();
+    set_toml( $status, $last_modified_field_name, $modified_time );
+    return 1;
 }
 
 sub time_string( $time ) {
@@ -288,7 +335,7 @@ sub write_toml( $hash_ref ) {
 
 sub set_toml( $hash_ref, $name, $value ) {
     $hash_ref->{$name} = $value;
-    $hash_ref->{TOML_TEXT} =~ s/^(\s* ${name} \s* = \s* ).*?$/${1}${value}/xm;
+    $hash_ref->{TOML_TEXT} =~ s/^(\s* ${name} \s* = \s* ).*?$/${1}"${value}"/xm;
     $hash_ref->{TOML_CHANGED} = 1;
 }
 
