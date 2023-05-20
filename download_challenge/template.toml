@@ -39,3 +39,30 @@ document-end = '''
 </html>
 '''
 
+[code]
+
+ch-N_pl = '''
+#!/usr/bin/env perl
+#
+#       The Weekly Challenge - Perl & Raku
+#       (https://theweeklychallenge.org)
+#
+#       Challenge <CHALLENGE> Task <TASK_NUMBER>: <TASK_NAME>
+#
+#       Perl solution by Matthias Muth.
+#
+
+use strict;
+use warnings;
+use feature 'say';
+
+sub <SUB_NAME> {
+    my ( <INPUT_PARAMS> ) = @_;
+    my <RESULT_VAR>;
+    return <RETURN>;
+}
+
+use lib '.';
+use TestExtractor;
+run_tests();
+'''

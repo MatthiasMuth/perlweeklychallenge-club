@@ -5,29 +5,45 @@
 #		the new task descriptions if so,
 #		writes them as ascii into a text file,
 #		and sends them via HTML email.
+#		It also generates template files for perl/ch-[12].pl based on
+#		the challenge task descriptions.
 #
 #	Usage:
 #	    get_weekly_challenge
-#		Retrieves the task descriptions for the most recent weekly
-#		challenge, copies them as a text file into the
-#		../challenge-<challenge>/matthias-muth/perl directory,
-#		and sends an email to a default list of recipients.
+#		Without parameters, executes these default tasks:
+#		  * retrieve the task descriptions for the most recent weekly
+#		    challenge from the Weekly Challenge website.
+#	        If the challenge number or the task descriptions have changed:
+#		  * write a text file 'challenge-<challenge>.txt' containing the
+#		    task descriptions in the
+#		    .../challenge-<challenge>/<user>/perl directory,
+#		    if the task descriptions have changed,
+#		    (where <user> is the challenge user name, as specified in
+#		    the 'status.toml' file),
+#		  * send the task descriptions as html email to a default list
+#		    of recipients (specified in 'status.toml').
+#		  * generate template files for .../perl/ch-[12].pl based on
+#		    the challenge task descriptions, if they do not yet exist.
+#
 #	    get_weekly_challenge <challenge> ...
-#		Retrieves the task descriptions for the given challenges
-#		and copies them as text files into the
-#		../challenge-<challenge>/matthias-muth/perl directories.
+#		When challenge numbers are explicitly given as command line
+#		parameters, only these steps are done by default:
+#		  * retrieve the task descriptions for the given challenges,
+#		  * write the task text files if they have changed,
+#		  * generate the code template files if they do not yet exist.
 #		No mail is sent unless the -mail <recipient> option is
 #		given explicitly.
+#
 #	Options:
-#	    -nomail | -nom
-#		Do not send emails.
-#	    -nofile | -nof
-#	        Do not write a text file with the challenge tasks.
+#	    -nofiles | -nof
+#	        Do not write any output files.
 #	    -mail <recipient>
 #		Send mail (or mails) to <recipient>.
 #		The default list of recipients is not used if this option is
 #		given.
 #		This option can be used multiple times.
+#	    -nomail | -nom
+#		Do not send any default emails.
 #
 
 use strict;
@@ -73,14 +89,15 @@ GetOptions(
     exit 2;
 };
 
-# Read 'status.toml', keep it as a global variable.
-our $status = read_toml( "status.toml" );
+# Read 'status.toml' and templates, keep it as a global variable.
+our $status   = read_toml( "status.toml" );
+our $template = read_toml( "template.toml" );
 
 # Defaults:
 unless ( @ARGV ) {
-    # We use the following option to decide whether to check the challenge's
-    # html checksum.
-    $options{CHALLENGE_UPDATE_ONLY} = 1;
+    # We use the following option to decide whether to always send mails
+    # or only when there was a change.
+    $options{MAIL_ONLY_FOR_UPDATES} = 1;
 
     # Send mail to default recipients if no challenge arguments are given.
     $options{MAIL_TO} //= $status->{'recipients'};
@@ -116,7 +133,6 @@ sub process_challenge( $challenge ) {
 	$html =~ m'(<h2 id="TASK1">.*?</section>)'s;
     # vsay "tasks:\n", pp( $tasks );
 
-    my $template = read_toml( "template.toml" );
     $html = join "\n",
 	$template->{'mail'}{'document-start'},
 	${page_header},
@@ -135,7 +151,7 @@ sub process_challenge( $challenge ) {
     if ( $options{MAIL_TO} && @{$options{MAIL_TO}} ) {
 	# For updates, send mails only if the html text has changed.
 	my $send_html = 1;
-	if ( $options{CHALLENGE_UPDATE_ONLY} ) {
+	if ( $options{MAIL_ONLY_FOR_UPDATES} ) {
 	    if ( ( my $md5 = md5_hex( $html ) )
 		eq $status->{'challenge-html-md5'} )
 	    {
@@ -171,6 +187,7 @@ sub process_challenge( $challenge ) {
 	}
     }
 
+    # Write files.
     unless ( $options{NO_FILE} ) {
 	my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
 
@@ -196,37 +213,27 @@ sub process_challenge( $challenge ) {
 	my $challenge_text = join "",
 	    map { $_->as_text . "\n" . ( $_->{_tag} =~ /^h[45]/ ? "\n" : "" ) }
 	        grep $_->{_tag} ne "hr", @nodes;
-	my $target_dir = "../challenge-$challenge/matthias-muth/perl";
-	vsay $challenge_text;
-	vsay 
-	    $options{DRY_RUN} ? "not " : "",
+	my $target_dir = "../challenge-$challenge/$status->{user}/perl";
+
+	my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
+
+	my ( $task_1_code, $task_2_code ) =
+	    map generate_code( $challenge, $_ ), ( $task_1, $task_2 );
+	vsay $options{DRY_RUN} ? "not " : "",
 	    "writing '$target_dir/challenge-$challenge.txt'";
 	unless ( $options{DRY_RUN} ) { 
 	    make_path $target_dir;
 	    spit_file( "$target_dir/challenge-$challenge.txt",
 		$challenge_text );
+	    spit_file( "$target_dir/ch-1.pl", $task_1_code );
+	    spit_file( "$target_dir/ch-2.pl", $task_2_code );
 	}
     }
 }
 
 exit 0;
 
-sub slurp_file( $file ) {
-    open my $fh, "<", $file
-	or die "cannot open '$file': $!\n";
-    my $text = do { local $/ = undef; <$fh> };
-    close $fh;
-    return $text;
-}
-
-sub spit_file( $file, $text ) {
-    open my $fh, ">", $file
-	or die "cannot open '$file' for writing: $!\n";
-    print $fh $text;
-    close $fh;
-}
-
-sub get_href( $base_url, $pattern ) {
+sub retrieve_challenge_link( $base_url, $pattern ) {
     my $tree = HTML::TreeBuilder::XPath->new_from_url( $base_url )
 	or die "ERROR: could not retrieve data from $base_url.\n";
     my $xpath  = "//\@href[.=~/$pattern/";
@@ -236,12 +243,6 @@ sub get_href( $base_url, $pattern ) {
 }
 
 sub get_challenge_update {
-
-    # TODO:
-    # Return the text of the challenge.
-    # Compare modification time of challenge page to determine if there is an
-    # updated version of the page that we already have retrieved.
-    # Keep a checksum of the extracted text for this. 
 
     my ( $challenge ) = $status->{'challenge-path'} =~ /(\d+)/;
 
@@ -255,7 +256,7 @@ sub get_challenge_update {
     my $challenge_path = $status->{'challenge-path'};
     if ( check_page_change( $main_url, 'main-last-modified' ) ) {
 	my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
-	$challenge_path = get_href( $main_url, $xpath_pattern );
+	$challenge_path = retrieve_challenge_link( $main_url, $xpath_pattern );
 	vsay "challenge-path: ", pp( $challenge_path );
 	unless ( $challenge_path ) {
 	    say STDERR "ERROR: Could not extract challenge url. Aborting.";
@@ -305,6 +306,68 @@ sub check_page_change( $url, $last_modified_field_name ) {
     }
     set_toml( $status, $last_modified_field_name, $modified_time );
     return 1;
+}
+
+sub generate_code( $challenge, $text ) {
+
+    my ( $task, $task_name ) = $text =~ /^Task (\d+):\s*(.*?)\s*$/m;
+
+    use TestExtractor;
+    my @tests = TestExtractor::extract_tests( $text );
+
+    my $code = $template->{code}{'ch-N_pl'};
+    ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
+    my @input_vars = @{$tests[0]{VARIABLE_NAMES}};
+
+    # Turn array parameters into arrayrefs in some cases.
+    if ( @input_vars > 1
+	|| ref $tests[0]{INPUT}[0] eq 'ARRAY'
+	    && ref $tests[0]{INPUT}[0][0] eq 'ARRAY' )
+    {
+	substr $_, 0, 1, '$'
+	    for @input_vars;
+    }
+    my $input_params = join ", ", @input_vars;
+    my $result_var = 
+	ref $tests[0]{OUTPUT} eq 'ARRAY'
+	? '@results'
+	: '$result';
+    my $return = 
+	ref $tests[0]{OUTPUT} eq 'ARRAY'
+	?   $tests[0]{OUTPUT}[0] eq 'ARRAY' 
+	    ? '\@results'
+	    : '@results'
+	: '$result';
+
+    my %substitutions = (
+	CHALLENGE    => $challenge,
+	TASK_NUMBER  => $task,
+	TASK_NAME    => $task_name,
+	SUB_NAME     => $sub_name,
+	INPUT_PARAMS => $input_params,
+	RESULT_VAR   => $result_var,
+	RETURN       => $return,
+    );
+    $code =~ s/<$_>/$substitutions{$_}/g
+	for keys %substitutions;
+
+    vsay $code;
+    return $code;
+}
+    
+sub slurp_file( $file ) {
+    open my $fh, "<", $file
+	or die "cannot open '$file': $!\n";
+    my $text = do { local $/ = undef; <$fh> };
+    close $fh;
+    return $text;
+}
+
+sub spit_file( $file, $text ) {
+    open my $fh, ">", $file
+	or die "cannot open '$file' for writing: $!\n";
+    print $fh $text;
+    close $fh;
 }
 
 sub time_string( $time ) {
