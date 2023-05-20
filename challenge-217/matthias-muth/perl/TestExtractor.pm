@@ -59,8 +59,8 @@ sub run_tests {
     );
     vsay pp( @tests );
 
-    ( my $test_object = lc $task_title ) =~ s/\W+/_/g;
-    my $test_sub = \&{"::$test_object"};
+    ( my $sub_name = lc $task_title ) =~ s/\W+/_/g;
+    my $sub = \&{"::$sub_name"};
 
     do {
         my @input_params =
@@ -72,15 +72,15 @@ sub run_tests {
 	    : @{$_->{INPUT}};
 	my $expected = $_->{OUTPUT};
 	my $description = 
-	    "$_->{TEST}: $test_object( " . pp( @input_params ) . " ) == "
+	    "$_->{TEST}: $sub_name( " . pp( @input_params ) . " ) == "
 	    . pp(
 		ref $_->{OUTPUT} eq 'ARRAY' && @{$_->{OUTPUT}} == 1
 		? @{$_->{OUTPUT}}
 		: $_->{OUTPUT} );
 	my $output =
 	    ref $_->{OUTPUT} eq 'ARRAY'
-	    ? [ $test_sub->( @input_params ) ]
-	    : $test_sub->( @input_params );
+	    ? [ $sub->( @input_params ) ]
+	    : $sub->( @input_params );
 	    
 	is $output, $expected, $description;
 
