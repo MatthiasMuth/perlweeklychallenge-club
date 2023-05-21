@@ -25,6 +25,7 @@
 # (Check every half hour on Monday and Tuesday, and three times per day on
 # other days.)
 3,33 * * * 1,2 bash -c 'source .bash_login; cd ~/perl_projects/perlweeklychallenge-club/weekly_check; ./download_challenge >>download_challenge.cronlog 2>&1' >crontab.cronlog 2>&1
-3,44 0,9,15,21 * * 3,4,5,6,7 bash -c 'source .bash_login; cd ~/perl_projects/perlweeklychallenge-club/weekly_check; ./download_challenge >>download_challenge.cronlog 2>&1' >crontab.cronlog 2>&1
+14,44 0,9,15,21 * * 3,4,5,6,7 bash -c 'source .bash_login; cd ~/perl_projects/perlweeklychallenge-club/weekly_check; ./download_challenge >>download_challenge.cronlog 2>&1' >crontab.cronlog 2>&1
+# 58 * * * * bash -c 'source .bash_login; cd ~/perl_projects/perlweeklychallenge-club/weekly_check; ./download_challenge -v >>download_challenge.cronlog 2>&1' >crontab.cronlog 2>&1
 
 

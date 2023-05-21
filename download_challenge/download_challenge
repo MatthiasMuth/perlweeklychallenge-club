@@ -356,7 +356,7 @@ sub generate_code( $challenge, $text ) {
     $code =~ s/<$_>/$substitutions{$_}/g
 	for keys %substitutions;
 
-    vsay $code;
+    # vsay $code;
     return $code;
 }
 
