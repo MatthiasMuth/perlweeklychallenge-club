@@ -117,29 +117,27 @@ sub process_challenge( $challenge ) {
     # Extract the interesting portion from the challenge page.
     my $title = "Perl Weekly Challenge $challenge";
 
-    # Get variable HTML parts from the challenge page.
+    # Extract relevant HTML parts (page header and task descriptions)
+    # from the challenge page.
     my ( $main_url, $challenge_path ) =
 	@$status{ qw( main-url challenge-path ) };
     $challenge_path =~ s/\d+/$challenge/;
-
     my $html = get( $main_url . $challenge_path );
-    # my $html = slurp_file( "challenge.html" );
-
     my ( $page_header ) = 
 	$html =~ m'(<section class="global-page-header">.*?</section>)'s;
-    # vsay "page_header:\n", $page_header;
-
     my ( $tasks ) =
 	$html =~ m'(<h2 id="TASK1">.*?</section>)'s;
-    # vsay "tasks:\n", pp( $tasks );
 
-    $html = join "\n",
-	$template->{'mail'}{'document-start'},
-	${page_header},
-	$template->{'mail'}{'section-start'},
-	${tasks},
-	$template->{'mail'}{'document-end'};
-    $html =~ s((<title>.*?)\d+(</title>))(${1}${challenge}${2}r);
+    # Create the mail html from the template,
+    # copying in the extracted HTML parts.
+    $html = $template->{'mail'}{'html'};
+    my %substitutions = (
+	CHALLENGE   => $challenge,
+	PAGE_HEADER => $page_header,
+	TASKS       => $tasks,
+    );
+    $html =~ s/<$_>/$substitutions{$_}/g
+	for keys %substitutions;
     # vsay "html\n", $html;
 
     unless ( $html ) {
@@ -206,6 +204,7 @@ sub process_challenge( $challenge ) {
 		//br[1]
 		//div[@class="post-content"]/*
 	    );
+
 	# Extract the text from the nodes.
 	# Ignore <hr> to avoid empty lines where they are not needed.
 	# Instead add an extra empty line after <h4> ('Example...') and
@@ -213,20 +212,26 @@ sub process_challenge( $challenge ) {
 	my $challenge_text = join "",
 	    map { $_->as_text . "\n" . ( $_->{_tag} =~ /^h[45]/ ? "\n" : "" ) }
 	        grep $_->{_tag} ne "hr", @nodes;
-	my $target_dir = "../challenge-$challenge/$status->{user}/perl";
 
 	my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
 
+	# Generate the code templates.
 	my ( $task_1_code, $task_2_code ) =
 	    map generate_code( $challenge, $_ ), ( $task_1, $task_2 );
+	
+	# Write out the task descriptions,
+	# and write out the code files if the do not exist yet.
+	my $target_dir = "../challenge-$challenge/$status->{user}/perl";
 	vsay $options{DRY_RUN} ? "not " : "",
 	    "writing '$target_dir/challenge-$challenge.txt'";
 	unless ( $options{DRY_RUN} ) { 
 	    make_path $target_dir;
 	    spit_file( "$target_dir/challenge-$challenge.txt",
 		$challenge_text );
-	    spit_file( "$target_dir/ch-1.pl", $task_1_code );
-	    spit_file( "$target_dir/ch-2.pl", $task_2_code );
+	    spit_file( "$target_dir/ch-1.pl", $task_1_code )
+	        unless -f "$target_dir/ch-1.pl";
+	    spit_file( "$target_dir/ch-2.pl", $task_2_code )
+	        unless -f "$target_dir/ch-2.pl";
 	}
     }
 }
@@ -354,7 +359,7 @@ sub generate_code( $challenge, $text ) {
     vsay $code;
     return $code;
 }
-    
+
 sub slurp_file( $file ) {
     open my $fh, "<", $file
 	or die "cannot open '$file': $!\n";
