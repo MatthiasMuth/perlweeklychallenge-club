@@ -20,14 +20,9 @@ sub registration_number {
         push @matches, $word
             unless grep $word !~ /$_/i, @letters;
     }
-    return \@matches;
+    return @matches;
 }
 
 use lib '.';
 use TestExtractor;
 run_tests();
-
-__DATA__
-Test 1: Check some own thing.
-Input: @words = ('Matthias Kreis Germersheim'), $reg = 'GER-MM 76'
-Output: ('Matthias Kreis Germersheim')

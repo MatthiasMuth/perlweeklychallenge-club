@@ -77,6 +77,7 @@ sub run_tests {
 		ref $_->{OUTPUT} eq 'ARRAY' && @{$_->{OUTPUT}} == 1
 		? @{$_->{OUTPUT}}
 		: $_->{OUTPUT} );
+
 	my $output =
 	    ref $_->{OUTPUT} eq 'ARRAY'
 	    ? [ $sub->( @input_params ) ]
@@ -128,7 +129,7 @@ sub extract_tests( $task_text ) {
     my $literal   = qr/ ".*?" | '.*?' | [+-]?\d+ /x;
     my $bracketed = qr/ \[ [^\[]*? \] /xs;
     my $entry     = qr/ $literal | $bracketed /x;
-    my $list      = qr/ $entry (?: \s*,\s* $entry )* /xs;
+    my $list      = qr/ $entry (?: \s*,\s* $entry )* \s*,? /xs;
 
     # The combination of what we expect as input or output data.
     # Capture unparenthesized lists for special handling.
