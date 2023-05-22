@@ -1,26 +1,13 @@
-.idea
-.precomp/
-.DS_Store
-.vstags
-.vscode
-.*.swp
-*~
-*.class
-*.exe
-*.o
-*.obj
-*.ali
+.*.sw?
+**/run/
+~*
+NUL
+xx*
+yy*
+x?
+y?
 *.bak
-ch-1
-ch-2
-ch_1
-ch_2
-go.mod
-go.sum
-tags
+*~
 
-# Perl Inline module
-_Inline
+weekly_check/
 
-# Rust languageoutput directory
-target/
