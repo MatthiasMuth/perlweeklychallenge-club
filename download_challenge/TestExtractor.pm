@@ -77,6 +77,7 @@ sub run_tests {
 		ref $_->{OUTPUT} eq 'ARRAY' && @{$_->{OUTPUT}} == 1
 		? @{$_->{OUTPUT}}
 		: $_->{OUTPUT} );
+
 	my $output =
 	    ref $_->{OUTPUT} eq 'ARRAY'
 	    ? [ $sub->( @input_params ) ]
@@ -144,10 +145,6 @@ sub extract_tests( $task_text ) {
 	/xmsg )
     {
 	my ( $test, $input, $output) = ( $1, $2, $3 );
-	0 && vsay "split up task text:\n",
-	    "test: ", pp( $test ), "\n",
-	    "input: ", pp( $input ), "\n",
-	    "output: ", pp( $output );
 
 	push @tests, { TEST => $test };
 
