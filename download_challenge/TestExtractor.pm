@@ -128,7 +128,7 @@ sub extract_tests( $task_text ) {
     my $literal   = qr/ ".*?" | '.*?' | [+-]?\d+ /x;
     my $bracketed = qr/ \[ [^\[]*? \] /xs;
     my $entry     = qr/ $literal | $bracketed /x;
-    my $list      = qr/ $entry (?: \s*,\s* $entry )* /xs;
+    my $list      = qr/ $entry (?: \s*,\s* $entry )* \s*,? /xs;
 
     # The combination of what we expect as input or output data.
     # Capture unparenthesized lists for special handling.
@@ -144,6 +144,10 @@ sub extract_tests( $task_text ) {
 	/xmsg )
     {
 	my ( $test, $input, $output) = ( $1, $2, $3 );
+	0 && vsay "split up task text:\n",
+	    "test: ", pp( $test ), "\n",
+	    "input: ", pp( $input ), "\n",
+	    "output: ", pp( $output );
 
 	push @tests, { TEST => $test };
 
