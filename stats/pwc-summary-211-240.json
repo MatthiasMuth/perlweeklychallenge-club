@@ -1,65 +1,8 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-05-20 19:49:27 GMT"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Phillip Hartfield Sr",
-         "Pip Stuart",
-         "PJ Durai",
-         "Plis Acm",
-         "PokGoPun",
-         "Prajith P",
-         "Rage311",
-         "Rakesh Kumar Shardiwal",
-         "Rakulius",
-         "Randy Lauen",
-         "Rawley Fowler",
-         "RibTips",
-         "Rich Snyder",
-         "Richard Hainsworth",
-         "Richard Nuttall",
-         "Richard Park",
-         "Rick Bychowski",
-         "Robbie Hatley",
-         "Robert DiCicco",
-         "Robert Gratza",
-         "Robert Ransbottom",
-         "Robert Van Dam",
-         "Roger Bell_West",
-         "Ruben Westerberg",
-         "Ryan Thompson",
-         "Saif Ahmed",
-         "Samir Parikh",
-         "Sangeet Kar",
-         "Sean Meininger",
-         "Sergio Iglesias"
-      ]
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "series" : [
       {
          "data" : [
+            8,
             1,
             38,
             0,
@@ -88,13 +31,14 @@
             56,
             10,
             10,
-            0,
-            6
+            0
          ],
          "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
+            0,
             0,
             28,
             11,
@@ -123,13 +67,12 @@
             0,
             0,
             10,
-            3,
-            0
-         ],
-         "name" : "Raku"
+            3
+         ]
       },
       {
          "data" : [
+            0,
             0,
             0,
             0,
@@ -152,16 +95,73 @@
             0,
             0,
             0,
-            196,
+            197,
             0,
             51,
             1,
             4,
             0,
-            0,
             0
          ],
          "name" : "Blog"
       }
-   ]
+   ],
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-05-21 23:56:35 GMT"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "xAxis" : {
+      "categories" : [
+         "Phillip Harris",
+         "Phillip Hartfield Sr",
+         "Pip Stuart",
+         "PJ Durai",
+         "Plis Acm",
+         "PokGoPun",
+         "Prajith P",
+         "Rage311",
+         "Rakesh Kumar Shardiwal",
+         "Rakulius",
+         "Randy Lauen",
+         "Rawley Fowler",
+         "RibTips",
+         "Rich Snyder",
+         "Richard Hainsworth",
+         "Richard Nuttall",
+         "Richard Park",
+         "Rick Bychowski",
+         "Robbie Hatley",
+         "Robert DiCicco",
+         "Robert Gratza",
+         "Robert Ransbottom",
+         "Robert Van Dam",
+         "Roger Bell_West",
+         "Ruben Westerberg",
+         "Ryan Thompson",
+         "Saif Ahmed",
+         "Samir Parikh",
+         "Sangeet Kar",
+         "Sean Meininger"
+      ]
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   }
 }
