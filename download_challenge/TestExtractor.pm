@@ -57,7 +57,7 @@ sub run_tests {
         $local_tests      ? extract_tests( $local_tests )      : (),
 	$task_description ? extract_tests( $task_description ) : (),
     );
-    vsay pp( @tests );
+    # vsay pp( @tests );
 
     ( my $sub_name = lc $task_title ) =~ s/\W+/_/g;
     my $sub = \&{"::$sub_name"};
@@ -71,19 +71,26 @@ sub run_tests {
 		: $_->{INPUT}[0]
 	    : @{$_->{INPUT}};
 	my $expected = $_->{OUTPUT};
-	my $description = 
-	    "$_->{TEST}: $sub_name( " . pp( @input_params ) . " ) == "
+	my $diag = 
+	    "$sub_name( " . pp( @input_params ) . " ) == "
 	    . pp(
 		ref $_->{OUTPUT} eq 'ARRAY' && @{$_->{OUTPUT}} == 1
 		? @{$_->{OUTPUT}}
 		: $_->{OUTPUT} );
+
+	my $name = "$_->{TEST}";
+	$name .= ": $diag"
+	    if $_->{TEST} =~ /^(Test|Example)\s+\d+$/;
+	$diag = "test: $diag";
 
 	my $output =
 	    ref $_->{OUTPUT} eq 'ARRAY'
 	    ? [ $sub->( @input_params ) ]
 	    : $sub->( @input_params );
 	    
-	is $output, $expected, $description;
+	is $output, $expected, $name, $diag // ();
+
+        vsay "";
 
     } for @tests;
 
@@ -141,7 +148,7 @@ sub extract_tests( $task_text ) {
     while ( $task_text =~
 	/^((?:Example|Test).*?)\s*:?\s*$ .*?
 	    ^Input: \s* ( .*? ) \s*
-	    ^Output: \s* ( .*? ) \s*?$ (?=(?: ^$ | \Z ))
+	    ^Output: \s* ( .*? ) \s*? (?=(?: ^$ | ^\S | \Z ))
 	/xmsg )
     {
 	my ( $test, $input, $output) = ( $1, $2, $3 );
