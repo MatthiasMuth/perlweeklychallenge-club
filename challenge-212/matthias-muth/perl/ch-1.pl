@@ -10,6 +10,10 @@
 
 use strict;
 use warnings;
+use feature 'say';
+
+use lib '.';
+use TestExtractor;
 
 sub jumping_letters {
     my ( $word, $jump ) = @_;
@@ -22,16 +26,4 @@ sub jumping_letters {
     return $word;
 }
 
-
-use Test::More;
-use Data::Dump qw( pp );
-
-do {
-    is jumping_letters( @{$_->{INPUT}} ), $_->{EXPECTED},
-        "jumping_letters( " . pp( $_->{INPUT} ) . " ) == " . pp( $_->{EXPECTED} );
-} for (
-    { INPUT => [ "Perl", [ 2,22,19,9 ] ], EXPECTED => "Raku" },
-    { INPUT => [ "Raku", [ 24,4,7,17 ] ], EXPECTED => "Perl" },
-);
-
-done_testing;
+run_tests;

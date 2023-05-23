@@ -12,6 +12,9 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 use Data::Dump qw( pp );
 use List::Util qw( min );
 
@@ -37,28 +40,7 @@ sub rearrange_groups {
                 if --$available{$_} == 0;
         }
     }
-    return \@groups;
+    return @groups;
 }
 
-use Test::More;
-
-do {
-    is_deeply rearrange_groups( @{$_->{INPUT}} ), $_->{EXPECTED},
-        "rearrange_groups(" . pp( @{$_->{INPUT}} )
-            . ") == " . pp( $_->{EXPECTED} );
-} for (
-    { TEST => "Example 1",
-      INPUT => [ [ 1,2,3,5,1,2,7,6,3 ], 3 ],
-      EXPECTED => [ [ 1,2,3 ], [ 1,2,3 ], [ 5,6,7 ] ] },
-    { TEST => "Example 2",
-      INPUT => [ [ 1,2,3 ], 2 ],
-      EXPECTED => -1 },
-    { TEST => "Example 3",
-      INPUT => [ [ 1,2,4,3,5,3 ], 3 ],
-      EXPECTED => [ [ 1,2,3 ], [ 3,4,5 ] ] },
-    { TEST => "Example 4",
-      INPUT => [ [ 1,5,2,6,4,7 ], 3 ],
-      EXPECTED => -1 },
-);
-
-done_testing;
+run_tests;
