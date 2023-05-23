@@ -12,6 +12,9 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 use Data::Dump qw( pp );
 use List::Util qw( sum );
 
@@ -32,7 +35,7 @@ sub shortest_route {
     while ( @stack ) {
         my $path = pop @stack;
         my $last_node = $path->[-1];
-        return $path
+        return @$path
             if $last_node == $destination;
         if ( $neighbors{$last_node} ) {
             for ( @{$neighbors{$last_node}} ) {
@@ -46,17 +49,4 @@ sub shortest_route {
     return -1;
 }
 
-
-use Test::More;
-
-do {
-    is_deeply shortest_route( @{$_->{INPUT}} ), $_->{EXPECTED},
-        "shortest_route" . pp( @{$_->{INPUT}} )
-            . " == " . pp( $_->{EXPECTED} );
-} for (
-    { INPUT => [ [ [1,2,6], [5,6,7] ], 1, 7 ], EXPECTED => [ 1,2,6,7 ] },
-    { INPUT => [ [ [1,2,3], [4,5,6] ], 2, 5 ], EXPECTED => -1 },
-    { INPUT => [ [ [1,2,3], [4,5,6], [3,8,9], [7,8] ], 1, 7 ], EXPECTED => [ 1,2,3,8,7 ] },
-);
-
-done_testing;
+run_tests;
