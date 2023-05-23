@@ -1,11 +1,23 @@
 #!/usr/bin/env perl
+#
+#       The Weekly Challenge - Perl & Raku
+#       (https://theweeklychallenge.org)
+#
+#       Challenge 205 Task 2: Maximum XOR
+#
+#       Perl solution by Matthias Muth.
+#
 
 use strict;
 use warnings;
+use feature 'say';
+
+use lib '.';
+use TestExtractor;
 
 use List::Util qw( max );
 
-sub max_xor {
+sub max_xor_1 {
     my @all_xors;
     for my $i ( 0 .. ( $#_ - 1 ) ) {
         for my $j ( $i..$#_ ) {
@@ -24,20 +36,12 @@ sub max_xor_2 {
 }
 
 sub xor_slice { return map $_[0] ^ $_, @_[1..$#_] }
-sub max_xor3 {
+sub max_xor_3 {
     return max( map xor_slice( @_[$_..$#_] ), 0 .. ( $#_ - 1 ) );
 }
 
-use Test::More;
+sub maximum_xor {
+    return max_xor_3( @_ );
+}
 
-my @tests = (
-    [ [1,2,3,4,5,6,7], 7  ],
-    [ [2,4,1,3],       7  ],
-    [ [10,5,7,12,8],   15 ],
-);
-
-is max_xor3( @{$_->[0]} ), $_->[1],
-    "third_highest( @{$_->[0]} ) == " . ( $_->[1] // "undef" )
-    for @tests;
-
-done_testing;
+run_tests;
