@@ -10,12 +10,17 @@
 
 use strict;
 use warnings;
+use feature 'say';
 
-sub merge_accounts {
+use lib '.';
+use TestExtractor;
+
+sub merge_account {
     my ( $input_accounts ) = $_[0];
 
     my @merged_accounts;
-    # For every address, this will contain all accounts that contain that address.
+    # For every address, this will contain all accounts that contain that
+    # address.
     my %merged_accounts_by_address;
 
     for ( @$input_accounts ){
@@ -57,29 +62,4 @@ sub merge_accounts {
     return \@merged_accounts;
 }
 
-
-use Test::More;
-
-my @tests = (
-    { TEST_NAME => "Example 1",
-      INPUT    => [ [ 'A', 'a1@a.com', 'a2@a.com' ],
-                    [ 'B', 'b1@b.com' ],
-                    [ 'A', 'a3@a.com', 'a1@a.com' ] ],
-      EXPECTED => [ [ 'A', 'a1@a.com', 'a2@a.com', 'a3@a.com' ],
-                    [ 'B', 'b1@b.com' ] ] },
-    { TEST_NAME => "Example 2",
-      INPUT    => [ [ 'A', 'a1@a.com', 'a2@a.com' ],
-                    [ 'B', 'b1@b.com' ],
-                    [ 'A', 'a3@a.com'],
-                    [ 'B', 'b2@b.com', 'b1@b.com' ] ],
-      EXPECTED => [ [ 'A', 'a1@a.com', 'a2@a.com' ],
-                    [ 'A', 'a3@a.com'],
-                    [ 'B', 'b1@b.com', 'b2@b.com' ] ] },
-);
-
-for ( @tests ) {
-    is_deeply
-        merge_accounts( $_->{INPUT} ), $_->{EXPECTED}, $_->{TEST_NAME};
-}
-
-done_testing;
+run_tests;
