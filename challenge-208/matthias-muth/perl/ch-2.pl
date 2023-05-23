@@ -10,10 +10,14 @@
 
 use strict;
 use warnings;
+use feature 'say';
+
+use lib '.';
+use TestExtractor;
 
 use List::Util qw( reduce );
 
-sub dup_and_missing {
+sub duplicate_and_missing {
     my ( $dup, $missing );
     reduce {
         $dup     = $b     if $a == $b;
@@ -26,19 +30,9 @@ sub dup_and_missing {
         : -1;
 }
 
-use Test::More;
+run_tests;
 
-do {
-    is_deeply [ dup_and_missing( @{$_->{INPUT}} ) ], $_->{EXPECTED},
-        "dup_and_missing(" . join( ",", @{$_->{INPUT}} ) . ") == "
-        . ( @{$_->{EXPECTED}} > 1
-            ? ( "(" . join( ",", @{$_->{EXPECTED}} ) . ")" )
-            : $_->{EXPECTED}->[0] );
-} for (
-    { INPUT => [ 1,2,2,4 ], EXPECTED => [ 2,3 ] },
-    { INPUT => [ 1,2,3,4 ], EXPECTED => [ -1 ]},
-    { INPUT => [ 1,2,3,3 ], EXPECTED => [ 3,4 ] },
-    { INPUT => [ 11,12,12,13,15,16,17 ], EXPECTED => [ 12,14 ] },
-);
-
-done_testing;
+__DATA__
+Test 1:
+Input: @nums = ( 11,12,12,13,15,16,17 )
+Output: ( 12,14 )
