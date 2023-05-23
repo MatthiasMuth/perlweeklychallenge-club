@@ -72,8 +72,7 @@ sub maximum_product {
     return product( ( reverse @neg )[0..2] )
 }
 
-run_tests();
-
+run_tests;
 
 __DATA__
 

@@ -52,4 +52,4 @@ sub matrix_score {
     return sum( map binary_list_to_integer( @$_ ), @$matrix );
 }
 
-run_tests();
+run_tests;
