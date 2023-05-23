@@ -10,6 +10,10 @@
 
 use strict;
 use warnings;
+use feature 'say';
+
+use lib '.';
+use TestExtractor;
 
 use List::Util qw( sum max );
 
@@ -29,14 +33,4 @@ sub kill_and_win {
         );
 }
 
-use Test::More;
-
-do {
-    is kill_and_win( @{$_->{INPUT}} ), $_->{EXPECTED},
-        "kill_and_win(" . join( ",", @{$_->{INPUT}} ) . ") == $_->{EXPECTED}";
-} for (
-    { INPUT => [ 2,3,1 ], EXPECTED => 6 },
-    { INPUT => [ 1,1,2,2,2,3 ], EXPECTED => 11 },
-);
-
-done_testing;
+run_tests;

@@ -10,6 +10,10 @@
 
 use strict;
 use warnings;
+use feature 'say';
+
+use lib '.';
+use TestExtractor;
 
 use List::Util qw( all );
 
@@ -40,16 +44,4 @@ sub number_collision {
     return @list;
 }
 
-use Test::More;
-
-do {
-    is_deeply [ number_collision( @{$_->{INPUT}} ) ], $_->{EXPECTED},
-        "number_collision(" . join( ",", @{$_->{INPUT}} ) . ") == "
-        . ( "(" . join( ",", @{$_->{EXPECTED}} ) . ")" );
-} for (
-    { INPUT => [ 2,3,-1 ], EXPECTED => [ 2,3 ] },
-    { INPUT => [ 3,2,-4 ], EXPECTED => [ -4 ]},
-    { INPUT => [ 1,-1 ], EXPECTED => [] },
-);
-
-done_testing;
+run_tests;
