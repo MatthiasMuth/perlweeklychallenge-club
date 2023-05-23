@@ -12,6 +12,9 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 sub collect_points {
     my @numbers = @_;
 
@@ -40,17 +43,4 @@ sub collect_points {
     return $max;
 }
 
-
-use Test::More;
-
-do {
-    is collect_points( @{$_->{INPUT}} ), $_->{EXPECTED},
-        "collect_points( @{$_->{INPUT}} ) == $_->{EXPECTED}";
-} for (
-    { INPUT => [ 2,4,3,3,3,4,5,4,2 ], EXPECTED => 23 },
-    { INPUT => [ 1,2,2,2,2,1 ],       EXPECTED => 20 },
-    { INPUT => [ 1 ],                 EXPECTED => 1 },
-    { INPUT => [ 2,2,2,1,1,2,2,2 ],   EXPECTED => 40 },
-);
-
-done_testing;
+run_tests;
