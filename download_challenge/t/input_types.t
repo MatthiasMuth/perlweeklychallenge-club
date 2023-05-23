@@ -9,7 +9,7 @@ no warnings 'experimental::signatures';
 use Data::Dump qw( pp );
 use Test2::V0;
 
-use lib '../challenge-217/matthias-muth/perl';
+use lib qw( . ..);
 use TestExtractor;
 
 use Getopt::Long;
@@ -53,7 +53,7 @@ do {
 
     0 && vsay "expected: ", pp( $_->{EXPECTED} );
     my $expected = eval $_->{EXPECTED};
-    vsay "expected:", pp \$expected;
+    vsay "expected: ", pp $expected;
     is [ $extracted[0]{VARIABLE_NAMES}, $extracted[0]{INPUT} ],
         $expected,
 	$_->{TEST},

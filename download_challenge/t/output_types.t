@@ -9,7 +9,7 @@ no warnings 'experimental::signatures';
 use Data::Dump qw( pp );
 use Test2::V0;
 
-use lib '../challenge-217/matthias-muth/perl';
+use lib qw( . .. );
 use TestExtractor;
 
 use Getopt::Long;
@@ -53,7 +53,7 @@ do {
 
     0 && vsay "expected: ", pp( $_->{EXPECTED} );
     my $expected = eval $_->{EXPECTED};
-    vsay "expected:", pp \$expected;
+    vsay "expected: ", pp $expected;
     is $extracted[0]{OUTPUT},
         $expected,
 	$_->{TEST},
@@ -65,13 +65,13 @@ done_testing;
 
 __DATA__
 Output: 1
-Expect: 1
+Expect: [ 1 ]
 
 Output: [ 1 2 3 4 ]
-Expect: [ 1, 2, 3, 4 ]
+Expect: [ [ 1, 2, 3, 4 ] ]
 
 Output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ]
-Expect: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ]
+Expect: [ [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ] ]
 
 Output: ("Alaska","Dad")
 Expect: [ "Alaska", "Dad" ]
@@ -86,12 +86,12 @@ Output: (2,3)
 Expect: [ 2, 3 ]
 
 Output: -1
-Expect: -1
+Expect: [ -1 ]
 
 Output: [ ["A", "a1@a.com", "a2@a.com"],
           ["A", "a3@a.com"],
           ["B", "b1@b.com", "b2@b.com"] ]
-Expect: [ [ 'A', 'a1@a.com', 'a2@a.com' ], [ 'A', 'a3@a.com' ], [ 'B', 'b1@b.com', 'b2@b.com' ] ]
+Expect: [ [ [ 'A', 'a1@a.com', 'a2@a.com' ], [ 'A', 'a3@a.com' ], [ 'B', 'b1@b.com', 'b2@b.com' ] ] ]
 
 Output: (2, 3)
 Expect: [ 2, 3 ]
@@ -100,16 +100,16 @@ Output: (-4)
 Expect: [ -4 ]
 
 Output: true
-Expect: "true" # (Implement 'ok <call> ? <expected> : ! <expected>, <test>;'.
+Expect: [ "true" ] # (Implement 'ok <call> ? <expected> : ! <expected>, <test>;'.
 
 Output: false
-Expect: "false" # (Implement 'ok <call> ? <expected> : ! <expected>, <test>;'.
+Expect: [ "false" ] # (Implement 'ok <call> ? <expected> : ! <expected>, <test>;'.
 
 Output: Raku
-Expect: 'Raku'
+Expect: [ 'Raku' ]
 
 Output: 'Perl'
-Expect: "Perl"
+Expect: [ "Perl" ]
 
 Output: (1,2,3), (1,2,3), (5,6,7)
 Expect: [ [ 1, 2, 3 ], [ 1, 2, 3 ], [ 5, 6, 7 ] ]

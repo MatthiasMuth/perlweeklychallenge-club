@@ -1,0 +1,61 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use feature 'say';
+
+use lib '.';
+use TestExtractor;
+
+use TOML;
+use File::Basename;
+
+$| = 1;
+
+my $templates = from_toml( do { local ( @ARGV, $/ ) = "template.toml"; <> } );
+
+my $header_template = $templates->{code}{'ch-N_pl'};
+$header_template =~ s'^\s*$.*''ms;
+
+for ( @ARGV ) {
+    # Extract the challenge information from the challenge-<NNN>.txt file
+    # in the same directory as the code file.
+    my $dir = dirname $_;
+    my ( $challenge, %tasks );
+    ( $challenge, @tasks{1,2} ) =
+	do { local ( @ARGV, $/ ) = <$dir/challenge-*.txt>; <> }
+	    =~ / (\d+) .* ^Task\s+1:\s*(.*?)$ .* ^Task \s+ 2:\s*(.*?)$/xms;   
+
+    # Extract the task number from the code file's name (like 'ch-1.pl').
+    my ( $task ) = /(\d+)[^\/]*$/;
+
+    say "$challenge $task <$tasks{1}> <$tasks{2}>";
+
+    # Edit the challenge information into the header.
+    my $header = $header_template;
+    for ( $header ) {
+	s/<CHALLENGE>/$challenge/;
+	s/<TASK_NUMBER>/$task/;
+	s/<TASK_NAME>/$tasks{$task}/;
+    }
+    # say "<$header>";
+
+    # Edit the header into the code.
+    my @code = do { local @ARGV = $_; <> };
+    @code = grep { ( /^\s*$/ .. /^_EOF_$/ ) && ! /^_EOF_$/ } @code, "_EOF_";
+
+    # say "\@code:\n", pp( @code );
+
+    my $code = join "", $header, @code;
+    # say "<$code>";
+    # say "";
+
+    rename $_, "$_~"
+	or die "cannot rename '$_' to '$_~': $!\n";
+    open my $fh, ">", $_
+	or die "cannot open '$_' for writing: $!\n";
+    print $fh $code;
+    close $fh;
+}
+
+1;
