@@ -12,6 +12,9 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 use Data::Dump qw( pp );
 use List::Util qw( min max any all );
 
@@ -57,22 +60,17 @@ sub is_toeplitz_by_elements {
     return "true";
 }
 
+sub toeplitz_matrix {
+    # return is_toeplitz_by_diagonals( @_ );
+    return is_toeplitz_by_elements( @_ );
+}
 
-use Test::More;
-use Data::Dump qw( pp );
+run_tests;
 
-do {
-    is is_toeplitz_by_diagonals( $_->{INPUT} ), $_->{EXPECTED},
-        "is_toeplitz_by_diagonals(" . pp( $_->{INPUT} ) . " == $_->{EXPECTED}";
-    is is_toeplitz_by_elements( $_->{INPUT} ), $_->{EXPECTED},
-        "is_toeplitz_by_elements(" . pp( $_->{INPUT} ) . " == $_->{EXPECTED}";
-} for (
-    { INPUT => [ [ 4,3,2,1 ], [ 5,4,3,2 ], [ 6,5,4,3 ] ], EXPECTED => "true" },
-    { INPUT => [ [ 1,2,3 ], [ 3,2,1 ] ], EXPECTED => "false" },
-    { INPUT =>  [ [1, 2, 3, 4],
-                  [5, 1, 2, 3],
-                  [9, 5, 1, 2]
-                ], EXPECTED => "true" },
-);
-
-done_testing;
+__DATA__
+Test 1:
+Input: @matrix = [ [1, 2, 3, 4],
+                   [5, 1, 2, 3],
+                   [9, 5, 1, 2]
+                 ]
+Output: true

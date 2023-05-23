@@ -3,7 +3,7 @@
 #       The Weekly Challenge - Perl & Raku
 #       (https://theweeklychallenge.org)
 #
-#       Challenge 210 Task 2: Split Same Average
+#       Challenge 211 Task 2: Split Same Average
 #
 #       Perl solution by Matthias Muth.
 #
@@ -11,6 +11,9 @@
 use strict;
 use warnings;
 use feature 'say';
+
+use lib '.';
+use TestExtractor;
 
 use List::Util qw( sum );
 
@@ -36,23 +39,14 @@ sub split_same_average {
     return find_sum( $target_sum, @list ) ? "true" : "false";
 }
 
-use Test::More;
-
+# Separate tests for the 'find_sum' function.
+use Test2::V0;
 do {
     is find_sum( @{$_->{INPUT}} ), $_->{EXPECTED},
-        "find_sum(" . join( ",", @{$_->{INPUT}} )
+        "$_->{TEST}: find_sum(" . join( ",", @{$_->{INPUT}} )
             . ") == " . $_->{EXPECTED};
 } for (
-    { INPUT => [ 6, 8,1,7,3,4,2,6,7 ], EXPECTED => 1 },
+    { TEST => "Test 1", INPUT => [ 6, 8,1,7,3,4,2,6,7 ], EXPECTED => 1 },
 );
 
-do {
-    is_deeply split_same_average( @{$_->{INPUT}} ), $_->{EXPECTED},
-        "split_same_average(" . join( ",", @{$_->{INPUT}} )
-            . ") == " . $_->{EXPECTED};
-} for (
-    { INPUT => [ 1..8 ], EXPECTED => "true" },
-    { INPUT => [ 1,3 ], EXPECTED => "false", },
-);
-
-done_testing;
+run_tests;
