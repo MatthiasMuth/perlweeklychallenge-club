@@ -12,6 +12,9 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 sub max_number_permute {
     my ( @list ) = @_;
 
@@ -33,11 +36,7 @@ sub max_number {
     return join "", sort { ( $b . $a ) <=> ( $a . $b ) } @_;
 }
 
-
-use lib '.';
-use TestExtractor;
-run_tests();
-
+run_tests;
 
 __DATA__
 

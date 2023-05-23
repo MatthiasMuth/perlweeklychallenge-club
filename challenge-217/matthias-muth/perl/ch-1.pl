@@ -12,10 +12,11 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 sub sorted_matrix {
     return ( sort { $a <=> $b } map @$_, @{$_[0]} )[2];
 }
 
-use lib '.';
-use TestExtractor;
-run_tests();
+run_tests;
