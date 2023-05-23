@@ -12,6 +12,9 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 sub registration_number {
     my ( $words, $reg ) = @_;
     my @letters = $reg =~ /[a-z]/ig;
@@ -23,6 +26,4 @@ sub registration_number {
     return @matches;
 }
 
-use lib '.';
-use TestExtractor;
-run_tests();
+run_tests;

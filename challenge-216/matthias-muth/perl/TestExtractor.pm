@@ -71,19 +71,24 @@ sub run_tests {
 		: $_->{INPUT}[0]
 	    : @{$_->{INPUT}};
 	my $expected = $_->{OUTPUT};
-	my $description = 
-	    "$_->{TEST}: $sub_name( " . pp( @input_params ) . " ) == "
-	    . pp(
-		ref $_->{OUTPUT} eq 'ARRAY' && @{$_->{OUTPUT}} == 1
-		? @{$_->{OUTPUT}}
-		: $_->{OUTPUT} );
+	my $diag = 
+	    "$sub_name( " . pp( @input_params ) . " ) == "
+	    . pp( @{$_->{OUTPUT}} );
+	    # . pp(
+		# @{$_->{OUTPUT}} == 1 && ref $_->{OUTPUT}[0] eq 'ARRAY' && 
+		# ? @{$_->{OUTPUT}}
+		# : $_->{OUTPUT} );
 
-	my $output =
-	    ref $_->{OUTPUT} eq 'ARRAY'
-	    ? [ $sub->( @input_params ) ]
-	    : $sub->( @input_params );
+	my $name = "$_->{TEST}";
+	$name .= ": $diag"
+	    if $_->{TEST} =~ /^(Test|Example)\s+\d+$/;
+	$diag = "test: $diag";
+
+	my @output = $sub->( @input_params );
 	    
-	is $output, $expected, $description;
+	is \@output, $expected, $name, $diag // ();
+
+        vsay "";
 
     } for @tests;
 
@@ -125,23 +130,25 @@ sub extract_tests( $task_text ) {
 
     # These regular expressions are used for extracting input or output
     # test data.
-    my $var_name  = qr/ [\@\$]\w+ /x;
-    my $literal   = qr/ ".*?" | '.*?' | [+-]?\d+ /x;
-    my $bracketed = qr/ \[ [^\[]*? \] /xs;
-    my $entry     = qr/ $literal | $bracketed /x;
-    my $list      = qr/ $entry (?: \s*,\s* $entry )* \s*,? /xs;
+    my $var_name      = qr/ [\@\$]\w+ /x;
+    my $literal       = qr/ ".*?" | '.*?' | [+-]?\d+ | undef /x;
+    my $bracketed     = qr/ \[ [^\[]*? \] /xs;
+    my $parenthesized = qr/ \( [^\[]*? \) /xs;
+    my $entry         = qr/ $literal | $bracketed | $parenthesized /x;
+    my $list          = qr/ $entry (?: \s*,\s* $entry )* \s*,? /xs;
 
     # The combination of what we expect as input or output data.
     # Capture unparenthesized lists for special handling.
     my $data_re = qr/ (?<lit>      $literal )
-		    | (?<list>     \[ \s* (?:$list)? \s* \] )
+		    | (?<br_list>     \[ \s* (?:$list)? \s* \] )
+		    | (?<par_list>    \( \s* (?:$list)? \s* \) )
 		    | (?<no_paren> $list ) /x;
 
     my @tests;
     while ( $task_text =~
 	/^((?:Example|Test).*?)\s*:?\s*$ .*?
 	    ^Input: \s* ( .*? ) \s*
-	    ^Output: \s* ( .*? ) \s*?$ (?=(?: ^$ | \Z ))
+	    ^Output: \s* ( .*? ) \s*? (?=(?: ^$ | ^\S | \Z ))
 	/xmsg )
     {
 	my ( $test, $input, $output) = ( $1, $2, $3 );
@@ -162,7 +169,7 @@ sub extract_tests( $task_text ) {
 	    # After we are sure it's none of those, we also check unquoted
 	    # 'barewords' (here: combinations of letters, digits or underscores,
 	    # starting with a letter) and enclose them in single quotes.
-	    my $bareword = qr/[a-z_][a-z0-9_]*/i;
+	    my $bareword = qr/ \b (?!undef) [a-z_][a-z0-9_]* \b /ix;
 	    while ( / ^Input: | ^Output: | '.*?' | [\$\@]$bareword
 		    | ( $bareword ) /xg )
 	    {
@@ -175,8 +182,8 @@ sub extract_tests( $task_text ) {
 
 	    # As all arrays will be stored as array references, so we just
 	    # convert parentheses (...) to angle brackets [...].
-	    s/\(/\[/g;
-	    s/\)/\]/g;
+	    # s/\(/\[/g;
+	    # s/\)/\]/g;
 
 	    # Add missing commas between literals.
 	    while ( s/($literal)\s+($literal)/$1, $2/ ) {}
@@ -184,11 +191,22 @@ sub extract_tests( $task_text ) {
 
 	while ( $input =~ / ($var_name) \s* = \s* ($data_re) /xg ) {
 	    push @{$tests[-1]{VARIABLE_NAMES}}, $1;
-	    push @{$tests[-1]{INPUT}}, eval( $+{no_paren} ? "[ $2 ]" : $2 );
+	    push @{$tests[-1]{INPUT}},
+		eval( ( $+{no_paren} || $+{par_list} ) ? "[ $2 ]" : $2 );
         };
 
 	while ( $output =~ /^\s* ($data_re) $/xg ) {
-	    $tests[-1]{OUTPUT} = eval( $+{no_paren} ? "[ $1 ]" : $1 );
+	    local $_ = $1;
+	    vsay "\$_: <$_>";
+	    # Special case:  (1,2),(3,4),(5,6)
+	    # should become: [1,2],[3,4],[5,6] ]
+	    if ( $+{no_paren} && /$parenthesized/ ) {
+		vsay "found special case <$_>";
+		s/\(/\[/g;
+		s/\)/\]/g;
+	    }
+	    push @{$tests[-1]{OUTPUT}},
+		eval( $+{no_paren} ? "( $_ )" : $_ );
         };
     }
     return @tests;

@@ -12,6 +12,9 @@ use strict;
 use warnings;
 use feature 'say';
 
+use lib '.';
+use TestExtractor;
+
 use Data::Dump qw( pp );
 use List::Util qw( min );
 
@@ -98,16 +101,11 @@ sub word_stickers {
     return $n_stickers_used;
 }
 
-
-use lib '.';
-use TestExtractor;
-run_tests();
-
+run_tests;
 
 __DATA__
 
 Test 1:
 Input: @stickers = ('bubble', 'aaron'), $word = 'bubba'
 Output: 2
-
 Watch out for the same letter appearing several times on the same sticker.
