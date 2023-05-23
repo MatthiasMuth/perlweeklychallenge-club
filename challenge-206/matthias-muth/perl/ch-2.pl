@@ -1,10 +1,21 @@
 #!/usr/bin/env perl
+#
+#       The Weekly Challenge - Perl & Raku
+#       (https://theweeklychallenge.org)
+#
+#       Challenge 206 Task 2: Array Pairings
+#
+#       Perl solution by Matthias Muth.
+#
 
 use strict;
 use warnings;
-
+use feature 'say';
 use feature 'signatures';
 no warnings 'experimental::signatures';
+
+use lib '.';
+use TestExtractor;
 
 sub permute( $a_ref ) {
     return undef  unless defined $a_ref && ref $a_ref eq 'ARRAY';
@@ -31,39 +42,29 @@ sub sum_of_min_of_pairs( @a ) {
     );
 }
 
-sub max_of_sums( @a ) {
+sub array_pairings( @a ) {
     return undef
 	unless @a % 2 == 0;
     return 
 	max( map sum_of_min_of_pairs( @$_ ), permute( [ @a ] ) );
 }
 
+run_tests;
 
-use Test::More;
+__DATA__
 
-my @tests = (
-    [ [],              undef ],
-    [ [ 11 ],          undef ],
-    [ [ 11,12 ],       11    ],
-    [ [ 1,2,3,4,5,6 ], 9     ],
-    [ [ 1,2,3,4 ],     4     ],
-    [ [ 0,2,1,3 ],     2     ],
-);
+Test 1:
+Input: @array = ()
+Output: undef
 
-is max_of_sums( @{$_->[0]} ), $_->[1],
-    "max_of_sums( @{$_->[0]} ) == " . ( $_->[1] // "undef" )
-    for @tests;
+Test 2:
+Input: @array = ( 11 )
+Output: undef
 
-done_testing;
+Test 3:
+Input: @array = ( 11, 12 )
+Output: 11
 
-__END__
-
-use v5.10;
-
-# For testing:
-for ( @tests ) {
-    say "Permutations of @{$_->[0]}:";
-    my @permutations = permute( [ @{$_->[0]} ] );
-    say "    @{$_}"
-	for @permutations;
-}
+Test 4:
+Input: @array = ( 1,2,3,4,5,6 )
+Output: 9

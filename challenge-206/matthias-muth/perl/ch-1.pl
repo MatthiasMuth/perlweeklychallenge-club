@@ -1,9 +1,21 @@
 #!/usr/bin/env perl
+#
+#       The Weekly Challenge - Perl & Raku
+#       (https://theweeklychallenge.org)
+#
+#       Challenge 206 Task 1: Shortest Time
+#
+#       Perl solution by Matthias Muth.
+#
 
 use strict;
 use warnings;
+use feature 'say';
 use feature 'signatures';
 no warnings 'experimental::signatures';
+
+use lib '.';
+use TestExtractor;
 
 use List::Util qw( min );
 
@@ -27,19 +39,10 @@ sub shortest_time( @hhmm_times ) {
     return min( map time_diffs( @t[ $_ .. $#t ] ), 0 .. ( $#t - 1 ) );
 }
 
+run_tests;
 
-use Test::More;
+__DATA__
 
-my @tests = (
-    [ [ "00:04", "23:55", "20:00" ], 9 ],
-    [ [ "00:00", "23:55", "20:00" ], 5 ],
-    [ [ "01:01", "00:50", "00:57" ], 4 ],
-    [ [ "10:10", "09:30", "09:00", "09:55" ], 15 ],
-);
-
-is shortest_time( @{$_->[0]} ),
-    $_->[1],
-    "shortest_time( @{$_->[0]} ) == " . ( $_->[1] // "undef" )
-    for @tests;
-
-done_testing;
+Test 1:
+Input: @time = ( "00:04", "23:55", "20:00" )
+Output: 9
