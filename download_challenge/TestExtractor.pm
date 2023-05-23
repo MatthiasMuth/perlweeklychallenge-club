@@ -169,7 +169,7 @@ sub extract_tests( $task_text ) {
 	    # After we are sure it's none of those, we also check unquoted
 	    # 'barewords' (here: combinations of letters, digits or underscores,
 	    # starting with a letter) and enclose them in single quotes.
-	    my $bareword = qr/[a-z_][a-z0-9_]*/i;
+	    my $bareword = qr/ \b (?!undef) [a-z_][a-z0-9_]* \b /ix;
 	    while ( / ^Input: | ^Output: | '.*?' | [\$\@]$bareword
 		    | ( $bareword ) /xg )
 	    {
