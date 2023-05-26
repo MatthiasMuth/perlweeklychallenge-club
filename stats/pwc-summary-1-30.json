@@ -1,4 +1,10 @@
 {
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-05-26 07:54:47 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -26,36 +32,30 @@
          "Arpad Toth",
          "Athanasius",
          "Aubrey Quarcoo",
-         "Aut0exec",
          "Avery Adams",
          "BarrOff",
          "Bartosz Jarzyna",
-         "Baryshev Sergey"
+         "Baryshev Sergey",
+         "Bejoy Mathews"
       ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-05-21 23:56:35 GMT"
-   },
    "yAxis" : {
+      "min" : 0,
       "title" : {
          "text" : ""
-      },
-      "min" : 0
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
+      }
    },
    "series" : [
       {
@@ -85,11 +85,11 @@
             11,
             354,
             0,
-            9,
-            21,
+            22,
             3,
             21,
-            1
+            1,
+            2
          ],
          "name" : "Perl"
       },
@@ -122,14 +122,13 @@
             314,
             0,
             0,
-            0,
             23,
             3,
+            0,
             0
          ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -156,12 +155,13 @@
             0,
             4,
             0,
-            0,
-            15,
+            17,
             2,
             6,
+            0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ]
 }
