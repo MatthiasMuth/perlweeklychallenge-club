@@ -40,7 +40,7 @@ sub matrix_score {
     # Second step: Flip all columns (starting with the second one)
     # that have less ones than zeroes. 
     my $n_columns = scalar @{$matrix->[0]};
-    for my $c ( 0 .. $n_columns - 1 ) {
+    for my $c ( 1 .. $n_columns - 1 ) {
 	my $column_sum = sum( map $_->[$c], @$matrix ); 
 	if ( $column_sum < $n_columns / 2 ) {
 	    $_->[$c] ^= 1
