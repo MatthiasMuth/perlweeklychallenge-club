@@ -67,3 +67,36 @@ sub <SUB_NAME> {
 
 run_tests;
 '''
+
+[readme]
+
+readme_md = '''
+# Challenge <CHALLENGE> tasks: <TASK_1_NAME> - <TASK_2_NAME>
+**Challenge <CHALLENGE> solutions in Perl by Matthias Muth**
+
+## Task 1: <TASK_1_NAME>
+
+<TASK_1_TEXT_QUOTE>
+
+Lore ipsum...
+
+```perl
+sub task_1() {
+    return undef;
+}
+```
+
+## Task 2: <TASK_2_NAME>
+
+<TASK_2_TEXT_QUOTE>
+
+Lorem ipsum...
+
+```perl
+sub task_2() {
+    return undef;
+}
+```
+
+#### **Thank you for the challenge!**
+'''

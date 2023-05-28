@@ -5,7 +5,7 @@
 #		the new task descriptions if so,
 #		writes them as ascii into a text file,
 #		and sends them via HTML email.
-#		It also generates template files for perl/ch-[12].pl based on
+#		It also generates skeleton files for perl/ch-[12].pl based on
 #		the challenge task descriptions.
 #
 #	Usage:
@@ -22,7 +22,7 @@
 #		    the 'status.toml' file),
 #		  * send the task descriptions as html email to a default list
 #		    of recipients (specified in 'status.toml').
-#		  * generate template files for .../perl/ch-[12].pl based on
+#		  * generate skeleton files for .../perl/ch-[12].pl based on
 #		    the challenge task descriptions, if they do not yet exist.
 #
 #	    get_weekly_challenge <challenge> ...
@@ -30,7 +30,7 @@
 #		parameters, only these steps are done by default:
 #		  * retrieve the task descriptions for the given challenges,
 #		  * write the task text files if they have changed,
-#		  * generate the code template files if they do not yet exist.
+#		  * generate the code skeleton files if they do not yet exist.
 #		No mail is sent unless the -mail <recipient> option is
 #		given explicitly.
 #
@@ -218,10 +218,13 @@ sub process_challenge( $challenge ) {
 	    map { $_->as_text . "\n" . ( $_->{_tag} =~ /^h[45]/ ? "\n" : "" ) }
 	        grep $_->{_tag} ne "hr", @nodes;
 
-	# Generate the code templates.
+	# Generate the code skeletons.
 	my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
 	my ( $task_1_code, $task_2_code ) =
 	    map generate_code( $challenge, $_ ), ( $task_1, $task_2 );
+
+	# Generate README.md.
+	my $readme_text = generate_readme_md( $challenge, $challenge_text );
 
 	# Write out
 	#  - a local archive copy of the html if the html has changed,
@@ -230,18 +233,25 @@ sub process_challenge( $challenge ) {
 	#  - a copy of TestExtractor.pm if it doesn't exist yet.
 	my $archive_dir = "./challenge_htmls/$challenge";
 	my $archive_file = timestamp() . "_$md5";
-	my $target_dir = "../challenge-$challenge/$status->{user}/perl";
-	my $test_extractor_file = "$target_dir/TestExtractor.pm";
+	my $target_dir = "../challenge-$challenge/$status->{user}";
+	my $test_extractor_file = "$target_dir/perl/TestExtractor.pm";
 
 	my @file_operations =
 	    ( ! $options{UPDATE} || $html_has_changed || $options{FORCE} )
 	    ? (
-		$options{UPDATE} ? [ "$archive_dir/$archive_file", $html ] : (),
-		[ "$target_dir/challenge-$challenge.txt", $challenge_text ],
-		[ "$target_dir/ch-1.pl", $task_1_code, 'DO_NOT_OVERWRITE' ],
-		[ "$target_dir/ch-2.pl", $task_2_code, 'DO_NOT_OVERWRITE' ],
-		[ $test_extractor_file, slurp_file( "./TestExtractor.pm" ),
-						       'DO_NOT_OVERWRITE' ],
+		$options{UPDATE}
+		    ? [ "$archive_dir/$archive_file", $html ]
+		    : (),
+		[ "$target_dir/README.md",
+		    $readme_text, 'DO_NOT_OVERWRITE' ],
+		[ "$target_dir/perl/challenge-$challenge.txt",
+		    $challenge_text ],
+		[ "$target_dir/perl/ch-1.pl",
+		    $task_1_code, 'DO_NOT_OVERWRITE' ],
+		[ "$target_dir/perl/ch-2.pl",
+		    $task_2_code, 'DO_NOT_OVERWRITE' ],
+		[ $test_extractor_file,
+		    slurp_file( "./TestExtractor.pm" ), 'DO_NOT_OVERWRITE' ],
 	    ) : ();
 
 	for ( @file_operations ) {
@@ -346,12 +356,12 @@ sub check_page_change( $url, $last_modified_field_name ) {
     return 1;
 }
 
-sub generate_code( $challenge, $text ) {
+sub generate_code( $challenge, $task_text ) {
 
-    my ( $task, $task_name ) = $text =~ /^Task (\d+):\s*(.*?)\s*$/m;
+    my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
 
     use TestExtractor;
-    my @tests = TestExtractor::extract_tests( $text );
+    my @tests = TestExtractor::extract_tests( $task_text );
 
     my $code = $template->{code}{'ch-N_pl'};
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
@@ -391,6 +401,48 @@ sub generate_code( $challenge, $text ) {
 
     # vsay $code;
     return $code;
+}
+
+sub generate_readme_md( $challenge, $text ) {
+
+    my ( $task_1_name, $task_1_text, $task_2_name, $task_2_text ) =
+	$text =~ /^Task\s+1: \s* (.*?) \s*$ \n
+		  ^Submitted .*? $ \n
+		  \s*? \n
+	          ( ^\S.*?$
+		      (?: \n ^.*?$ )*? ) \n
+		  (?:^\s* $ \n )*
+		  ^Example  .*? $ \n
+		  (?:^\s* $ \n )*
+		  ^Task\s+2: \s* (.*?) \s*$ \n
+		  ^Submitted .*? $ \n
+		  \s*? \n
+	          ( ^\S.*?$
+		      (?: \n ^.*?$ )*? ) \n
+		  (?:^\s* $ \n )*
+		  ^Example  .*? $ \n
+		  (?:^\s* $ \n )*
+		  ^Last \s+ date \s+ to \s+ submit
+	    /xms;
+    # vsay "task_1_name: ", pp $task_1_name;
+    # vsay "task_1_text: ", pp $task_1_text;
+    # vsay "task_2_name: ", pp $task_2_name;
+    # vsay "task_2_text: ", pp $task_2_text;
+
+    my $readme_text = $template->{readme}{'readme_md'};
+    # vsay $readme_text;
+    my %substitutions = (
+	CHALLENGE          => $challenge,
+	TASK_1_NAME        => $task_1_name,
+	TASK_1_TEXT_QUOTE  => $task_1_text =~ s/^(.*)$/> $1<br\/>/mgr,
+	TASK_2_NAME        => $task_2_name,
+	TASK_2_TEXT_QUOTE  => $task_2_text =~ s/^(.*)$/> $1<br\/>/mgr,
+    );
+    $readme_text =~ s/<$_>/$substitutions{$_}/g
+	for keys %substitutions;
+
+    # vsay $readme_text;
+    return $readme_text;
 }
 
 sub slurp_file( $file ) {
