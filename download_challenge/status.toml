@@ -2,11 +2,11 @@
 #   status.toml
 #
 main-url = "https://theweeklychallenge.org"
-main-last-modified = "2023-05-22T07:15:00+02:00"
+main-last-modified = "2023-05-30T12:00:22+02:00"
 
-current-challenge-path = "/blog/perl-weekly-challenge-218"
-current-challenge-last-modified = "2023-05-22T07:14:59+02:00"
-current-challenge-html-md5 = "bfb542edf66f89964383e623989097eb"
+current-challenge-path = "/blog/perl-weekly-challenge-219"
+current-challenge-last-modified = "2023-05-30T12:00:22+02:00"
+current-challenge-html-md5 = "6189bec2083ffce4b787e5026890fa96"
 
 user = "matthias-muth"
 recipients = [ "muthm@gmx.de" ]
