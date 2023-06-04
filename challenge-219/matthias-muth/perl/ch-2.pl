@@ -15,9 +15,9 @@ use feature 'say';
 use lib '.';
 use TestExtractor;
 
-use List::Util qw( sum min max );
+use List::Util qw( min );
 
-my @durations = qw( 1 7 30 );
+my @durations = ( 1, 7, 30 );
 
 sub travel_expenditure {
     my ( $costs, $days ) = @_;

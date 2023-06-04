@@ -16,7 +16,7 @@ use lib '.';
 use TestExtractor;
 
 sub sorted_squares {
-    return sort { $a <=> $b } map $_ * $_, @_;
+    return sort { $a <=> $b } map { $_ ** 2 } @_;
 }
 
 run_tests;
