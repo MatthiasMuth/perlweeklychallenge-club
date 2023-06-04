@@ -1,63 +1,63 @@
 {
-   "subtitle" : {
-      "text" : "Last updated at 2023-05-30 09:46:46 GMT"
+   "series" : [
+      {
+         "dataLabels" : {
+            "align" : "right",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "y" : 10,
+            "enabled" : "true",
+            "format" : "{point.y:.0f}",
+            "color" : "#FFFFFF",
+            "rotation" : -90
+         },
+         "data" : [
+            [
+               "Blog",
+               3632
+            ],
+            [
+               "Perl",
+               11184
+            ],
+            [
+               "Raku",
+               6463
+            ]
+         ],
+         "name" : "Contributions"
+      }
+   ],
+   "xAxis" : {
+      "labels" : {
+         "style" : {
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
+         }
+      },
+      "type" : "category"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : null
+      },
+      "min" : 0
    },
    "legend" : {
       "enabled" : "false"
    },
-   "chart" : {
-      "type" : "column"
-   },
-   "xAxis" : {
-      "type" : "category",
-      "labels" : {
-         "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
-         }
-      }
-   },
    "tooltip" : {
       "pointFormat" : "<b>{point.y:.0f}</b>"
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
-      }
+   "chart" : {
+      "type" : "column"
    },
-   "series" : [
-      {
-         "dataLabels" : {
-            "format" : "{point.y:.0f}",
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "y" : 10,
-            "enabled" : "true",
-            "color" : "#FFFFFF",
-            "align" : "right",
-            "rotation" : -90
-         },
-         "name" : "Contributions",
-         "data" : [
-            [
-               "Blog",
-               3621
-            ],
-            [
-               "Perl",
-               11163
-            ],
-            [
-               "Raku",
-               6448
-            ]
-         ]
-      }
-   ],
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
+   "subtitle" : {
+      "text" : "Last updated at 2023-06-04 22:19:02 GMT"
    }
 }
