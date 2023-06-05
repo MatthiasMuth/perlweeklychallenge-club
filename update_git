@@ -1,0 +1,18 @@
+#!/bin/bash
+
+[ $# = 0 ] || { echo "Usage: $0" >&2; exit 2; }
+
+set -e
+set -v
+
+git checkout master
+git pull
+
+git fetch upstream
+git merge --ff-only upstream/master
+
+git checkout dev
+git merge --no-ff --no-edit master
+
+git push --all
+git push --tags
