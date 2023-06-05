@@ -1,12 +1,33 @@
 #!/usr/bin/env perl
 #
-#	download_challenge [<challenge> ...]
-#		checks whether there is a new weekly challenge, extracts
-#		the new task descriptions if so,
-#		writes them as ascii into a text file,
-#		and sends them via HTML email.
-#		It also generates skeleton files for perl/ch-[12].pl based on
-#		the challenge task descriptions.
+#	download_challenge [<options>] [<challenge> ...]
+#		downloads the challenges given as parameters from the
+#		Weekly Challenge website at https://theweeklychallenge.org,
+#		and writes out several files based on the information extracted
+#		from the challenge. All files will be written into the
+#		subdirectory 'challenge-<challenge>/<user>' (where <challenge>
+#		is the challenge number, and <user> is a hardcoded user name).
+#		These files will be written:
+#		  * README.md
+#		  * README-no-blog.md
+#		  * blog.txt
+#		  * perl/ch-1.pl
+#		  * perl/ch-1.pl
+#		  * perl/challenge-<challenge>.
+#		No files will be overwritten if they already exist, except the
+#		'perl/challenge-<challenge>' file. This is because the
+#		challenge text is not supposed to be changed locally, but it
+#		might receive updates or corrections on the website.
+#
+#		If no parameters are given, the script checks whether there is
+#		a new challenge, or an update to the current challenge.
+#		Header and checksum information of the challenge main page and
+#		the current challenge page are kept to avoid downloading and
+#		updating files unnecessarily if nothing has changed.
+#		If there is a change, an email containing the extracted
+#		challenge text HTML is sent to a default list of recipients,
+#		in addition to writing the above mentioned output files.
+#		[TBC...]
 #
 #	Usage:
 #	    get_weekly_challenge
@@ -34,7 +55,7 @@
 #		No mail is sent unless the -mail <recipient> option is
 #		given explicitly.
 #
-#	Options:
+#	Options:	[WIP!]
 #	    -nofiles | -nof
 #	        Do not write any output files.
 #	    -mail <recipient>
@@ -46,10 +67,12 @@
 #		Do not send any default emails.
 #
 
+use v5.26;
 use strict;
 use warnings;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
-use M;
 use Getopt::Long qw( :config no_ignore_case );
 use TOML;
 use Time::Piece;
@@ -65,6 +88,16 @@ use File::Path qw( make_path );
 use Digest::MD5 qw( md5_hex );
 use Email::Stuffer;
 
+use Data::Dump qw( pp );
+
+our ( $verbose, %options, %debug );
+
+sub vsay( @args ) { print @args, "\n" if $verbose }
+
+sub prot( @args ) {
+    my $timestamp = strftime( "%Y-%m-%d %H:%M:%S", localtime( time ) );
+    say $timestamp, " ", @args;
+}
 
 sub usage {
     say STDERR "Usage!";
@@ -72,41 +105,39 @@ sub usage {
 };
 
 GetOptions(
-    "force|f!"               => sub {
-				   $options{FORCE} =
-				    $_[1] ? ++$options{FORCE} : 0;
-				},
-    "FORCE|F"                => sub { $options{FORCE} = 2 },
-    "check|n"                => \$options{DRY_RUN},
-    "mail|m:s@"              => \$options{MAIL_TO},
-    "nomail|nom"             => sub {
-				    # Make sure it's defined but empty.
-				    $options{MAIL_TO} = [];
-				},
-    "nofile|nof"             => \$options{NO_FILE},
-    "quiet|q!"               => \$options{QUIET},
-    "verbose|v!"             => \$verbose,
-    "help|?"                 => \&usage,
+    "force!"     => sub { $options{FORCE} = $_[1] ? ++$options{FORCE} : 0 },
+    "FORCE"      => sub { $options{FORCE} = 2 },
+    "check|n"    => \$options{DRY_RUN},
+    "mail:s@"    => \$options{MAIL_TO},
+    "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
+    "files!"     => \$options{WRITE_FILES},
+    "archive!"   => \$options{ARCHIVE},
+    "quiet|q!"   => \$options{QUIET},
+    "verbose|v!" => \$verbose,
+    "help|?"     => \&usage,
 ) or do {
     say STDERR
         "    Use '$0 -help' for usage information.";
     exit 2;
 };
 
-$options{FORCE} //= 0;
-
-# Read 'status.toml' and templates, keep it as a global variable.
+# Read 'status.toml' and templates, keep them as global variables.
 our $status   = read_toml( "status.toml" );
 our $templates = read_toml( "templates.toml" );
 
 # Defaults:
+$options{FORCE} //= 0;
+$options{WRITE_FILES} //= 1;
 unless ( @ARGV ) {
     # We use the following option to decide whether to always send mails
     # or only when there was a change.
     # Also, for updates of the most recent challenge, we need to keep track of
     # the modification times and md5 checksums.
-    # We do not do that if the challenge numbers are given explicitly.
+    # Also write an archive file for the challenge html if not told otherwise.
+    # We do none of these by default if the challenge numbers are given
+    # explicitly.
     $options{UPDATE} = 1;
+    $options{ARCHIVE} //= 1;
 
     # Send mail to default recipients if no challenge arguments are given.
     $options{MAIL_TO} //= $status->{'recipients'};
@@ -160,7 +191,7 @@ sub process_challenge( $challenge ) {
     if ( $options{UPDATE} ) {
 	$html_has_changed = $md5 ne $status->{'current-challenge-html-md5'};
 	if ( $html_has_changed ) {
-	    vsay "curent md5: $status->{'current-challenge-html-md5'}";
+	    vsay "current md5: $status->{'current-challenge-html-md5'}";
 	    prot "Task description html has changed (md5:$md5)"
 		unless ! $status->{'current-challenge-html-md5'};
 	    set_toml( $status, 'current-challenge-html-md5', $md5 );
@@ -180,12 +211,11 @@ sub process_challenge( $challenge ) {
        && $options{MAIL_TO} && @{$options{MAIL_TO}} )
     {
 	for my $rcpt ( @{$options{MAIL_TO}} ) {
-	    my $msg = "sending email to $rcpt";
 	    if ( $options{DRY_RUN} ) {
-		say $msg;
+		say "would send email to $rcpt";
 	    }
 	    else {
-		vsay $msg;
+		vsay "sending email to $rcpt";
 		Email::Stuffer
 		    ->from( 'muthm@muthnet.de' )
 		    ->to( $rcpt )
@@ -199,7 +229,7 @@ sub process_challenge( $challenge ) {
     }
 
     # Write files.
-    unless ( $options{NO_FILE} ) {
+    if ( $options{WRITE_FILES} ) {
 	my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
 
 	$tree->parse_content( $html )
@@ -234,17 +264,20 @@ sub process_challenge( $challenge ) {
 	# Generate README.md.
 	my $readme_text = generate_readme_md( $challenge, $challenge_text );
 
+	# Generate README-no-blog.md
+	my $readme_no_blog_text = $templates->{readme}{readme_no_blog};
+	$readme_no_blog_text =~ s/<CHALLENGE>/$challenge/g;
+
 	# Generate blog.txt
 	my $blog_text = $templates->{readme}{blog_txt};
 	$blog_text =~ s/<CHALLENGE>/$challenge/g;
 
-	# Write out
+	# Write out all files.
 	#  - a local archive copy of the html if the html has changed,
 	#  - the task descriptions text file,
 	#  - the code files, not overwriting them if they already exist.
 	#  - a copy of TestExtractor.pm if it doesn't exist yet.
 	my $archive_dir = "./challenge_htmls/$challenge";
-	# my $archive_file = timestamp() . "_$md5";
 	my $archive_file =
 	    $status->{'current-challenge-last-modified'} . "_$md5";
 	$archive_file =~ s/[-:]//g;
@@ -254,11 +287,13 @@ sub process_challenge( $challenge ) {
 	my @file_operations =
 	    ( ! $options{UPDATE} || $html_has_changed || $options{FORCE} )
 	    ? (
-		$options{UPDATE}
+		$options{UPDATE} && $options{ARCHIVE}
 		    ? [ "$archive_dir/$archive_file", $html ]
 		    : (),
 		[ "$target_dir/README-$challenge.md",
 		    $readme_text, 'DO_NOT_OVERWRITE' ],
+		[ "$target_dir/README-no-blog.md",
+		    $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/blog.txt",
 		    $blog_text, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/perl/challenge-$challenge.txt",
@@ -342,7 +377,6 @@ sub get_challenge_update {
 	    set_toml( $status, "current-challenge-path", $challenge_path );
 	    set_toml( $status, "current-challenge-last-modified", "" );
 	    set_toml( $status, "current-challenge-html-md5", "" );
-	    return $challenge;
 	}
 	else {
 	    vsay "challenge url has not changed";

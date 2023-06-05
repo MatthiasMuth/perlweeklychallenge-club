@@ -99,6 +99,14 @@ sub task_2() {
 #### **Thank you for the challenge!**
 '''
 
+readme_no_blog = '''
+**Challenge <CHALLENGE> solutions in Perl by Matthias Muth**
+<br/>
+(no blog post this time...)
+
+**Thank you for the challenge!**
+'''
+
 blog_txt = '''
 https://github.com/MatthiasMuth/perlweeklychallenge-club/tree/muthm-<CHALLENGE>/challenge-<CHALLENGE>/matthias-muth#readme
 '''

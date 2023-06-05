@@ -6,7 +6,7 @@
 files="
     TestExtractor.pm
     download_challenge
-    template.toml
+    templates.toml
     download_challenge.crontab
 "
 
