@@ -55,8 +55,6 @@ use feature 'say';
 use lib '.';
 use TestExtractor;
 
-use List::Util qw( sum min max );
-
 sub <SUB_NAME> {
     my ( <INPUT_PARAMS> ) = @_;
 
@@ -99,4 +97,8 @@ sub task_2() {
 ```
 
 #### **Thank you for the challenge!**
+'''
+
+blog_txt = '''
+https://github.com/MatthiasMuth/perlweeklychallenge-club/tree/muthm-<CHALLENGE>/challenge-<CHALLENGE>/matthias-muth#readme
 '''

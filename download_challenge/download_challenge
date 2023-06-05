@@ -50,7 +50,7 @@ use strict;
 use warnings;
 
 use M;
-use Getopt::Long;
+use Getopt::Long qw( :config no_ignore_case );
 use TOML;
 use Time::Piece;
 
@@ -72,7 +72,11 @@ sub usage {
 };
 
 GetOptions(
-    "force|f!"               => \$options{FORCE},
+    "force|f!"               => sub {
+				   $options{FORCE} =
+				    $_[1] ? ++$options{FORCE} : 0;
+				},
+    "FORCE|F"                => sub { $options{FORCE} = 2 },
     "check|n"                => \$options{DRY_RUN},
     "mail|m:s@"              => \$options{MAIL_TO},
     "nomail|nom"             => sub {
@@ -89,9 +93,11 @@ GetOptions(
     exit 2;
 };
 
+$options{FORCE} //= 0;
+
 # Read 'status.toml' and templates, keep it as a global variable.
 our $status   = read_toml( "status.toml" );
-our $template = read_toml( "template.toml" );
+our $templates = read_toml( "templates.toml" );
 
 # Defaults:
 unless ( @ARGV ) {
@@ -133,7 +139,7 @@ sub process_challenge( $challenge ) {
 
     # Create the mail html from the template,
     # copying in the extracted HTML parts.
-    $html = $template->{'mail'}{'html'};
+    $html = $templates->{'mail'}{'html'};
     my %substitutions = (
 	CHALLENGE   => $challenge,
 	PAGE_HEADER => $page_header,
@@ -154,7 +160,9 @@ sub process_challenge( $challenge ) {
     if ( $options{UPDATE} ) {
 	$html_has_changed = $md5 ne $status->{'current-challenge-html-md5'};
 	if ( $html_has_changed ) {
-	    prot "Task description html has changed (md5:$md5)";
+	    vsay "curent md5: $status->{'current-challenge-html-md5'}";
+	    prot "Task description html has changed (md5:$md5)"
+		unless ! $status->{'current-challenge-html-md5'};
 	    set_toml( $status, 'current-challenge-html-md5', $md5 );
 	}
 	else {
@@ -226,13 +234,21 @@ sub process_challenge( $challenge ) {
 	# Generate README.md.
 	my $readme_text = generate_readme_md( $challenge, $challenge_text );
 
+	# Generate blog.txt
+	my $blog_text = $templates->{readme}{blog_txt};
+	$blog_text =~ s/<CHALLENGE>/$challenge/g;
+
 	# Write out
 	#  - a local archive copy of the html if the html has changed,
 	#  - the task descriptions text file,
 	#  - the code files, not overwriting them if they already exist.
 	#  - a copy of TestExtractor.pm if it doesn't exist yet.
+
 	my $archive_dir = "./challenge_htmls/$challenge";
-	my $archive_file = timestamp() . "_$md5";
+	my $archive_file =
+	    $status->{'current-challenge-last-modified'} . "_$md5";
+	$archive_file =~ s/[-:]//g;
+
 	my $target_dir = "../challenge-$challenge/$status->{user}";
 	my $test_extractor_file = "$target_dir/perl/TestExtractor.pm";
 
@@ -242,8 +258,10 @@ sub process_challenge( $challenge ) {
 		$options{UPDATE}
 		    ? [ "$archive_dir/$archive_file", $html ]
 		    : (),
-		[ "$target_dir/README.md",
+		[ "$target_dir/README-$challenge.md",
 		    $readme_text, 'DO_NOT_OVERWRITE' ],
+		[ "$target_dir/blog.txt",
+		    $blog_text, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/perl/challenge-$challenge.txt",
 		    $challenge_text ],
 		[ "$target_dir/perl/ch-1.pl",
@@ -256,22 +274,25 @@ sub process_challenge( $challenge ) {
 
 	for ( @file_operations ) {
 	    my ( $file, $contents, $do_not_overwrite ) = @$_;
+	    my %verb_form =
+		$options{DRY_RUN}
+		?  ( write => "write", overwrite => "overwrite" )
+		:  ( write => "writing", overwrite => "overwriting" );
 	    my $msg =
-		( ( $options{DRY_RUN}
-		    || ( -f $file && $do_not_overwrite && ! $options{FORCE} ) )
-		? "not " : "" )
-		. ( 
-		    -f $file
-		    ? ( ( $options{FORCE} ? "forcefully " : "" )
-			. "overwriting" )
-		    : "writing"
-		) . " '$file'";
-
+		( $options{DRY_RUN} ? "would " : "" )
+		. ( ( -f $file && $do_not_overwrite && $options{FORCE} < 2 )
+		    ? "not " : "" )
+		. ( -f $file
+		    ? ( ( ( $do_not_overwrite && $options{FORCE} >= 2 )
+			    ? "forcefully " : "" )
+			. $verb_form{"overwrite"} )
+		    : $verb_form{"write"} )
+		. " '$file'";
 	    vsay $msg;
 	    unless ( $options{DRY_RUN} ) {
 		make_path dirname( $file );
 		spit_file( $file, $contents )
-		    if ! -f $file || ! $do_not_overwrite || $options{FORCE};
+		    unless -f $file && $do_not_overwrite && $options{FORCE} < 2;
 		chmod 0755, $file
 		    if $file =~ /.pl$/;
 	    }
@@ -291,6 +312,10 @@ sub retrieve_challenge_link( $base_url, $pattern ) {
 }
 
 sub get_challenge_update {
+
+    # Return the current challenge number if there needs to be an update,
+    # or the new challenge number if it has changed.
+    # Otherwise return nothing.
 
     my ( $challenge ) = $status->{'current-challenge-path'} =~ /(\d+)/;
 
@@ -317,6 +342,8 @@ sub get_challenge_update {
 		unless $options{QUIET};
 	    set_toml( $status, "current-challenge-path", $challenge_path );
 	    set_toml( $status, "current-challenge-last-modified", "" );
+	    set_toml( $status, "current-challenge-html-md5", "" );
+	    return $challenge;
 	}
 	else {
 	    vsay "challenge url has not changed";
@@ -328,17 +355,16 @@ sub get_challenge_update {
 
     # Step 2:
     # Check the challenge page for modification.
-    if ( ! check_page_change(
+    if ( check_page_change(
 	$main_url . $challenge_path, 'current-challenge-last-modified' ) )
     {
-        vsay "challenge page was not modified";
-	$challenge = undef;
+	vsay "challenge page was modified";
+	return $challenge;
     }
     else {
-	vsay "challenge page was modified";
+        vsay "challenge page was not modified";
+	return ();
     }
-
-    return $challenge // ();
 }
 
 sub check_page_change( $url, $last_modified_field_name ) {
@@ -363,7 +389,7 @@ sub generate_code( $challenge, $task_text ) {
     use TestExtractor;
     my @tests = TestExtractor::extract_tests( $task_text );
 
-    my $code = $template->{code}{'ch-N_pl'};
+    my $code = $templates->{code}{'ch-N_pl'};
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
     my @input_vars = @{$tests[0]{VARIABLE_NAMES}};
 
@@ -429,7 +455,7 @@ sub generate_readme_md( $challenge, $text ) {
     # vsay "task_2_name: ", pp $task_2_name;
     # vsay "task_2_text: ", pp $task_2_text;
 
-    my $readme_text = $template->{readme}{'readme_md'};
+    my $readme_text = $templates->{readme}{'readme_md'};
     # vsay $readme_text;
     my %substitutions = (
 	CHALLENGE          => $challenge,
