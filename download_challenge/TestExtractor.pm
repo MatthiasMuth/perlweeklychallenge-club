@@ -197,11 +197,11 @@ sub extract_tests( $task_text ) {
 
 	while ( $output =~ /^\s* ($data_re) $/xg ) {
 	    local $_ = $1;
-	    vsay "\$_: <$_>";
+	    # vsay "\$_: <$_>";
 	    # Special case:  (1,2),(3,4),(5,6)
 	    # should become: [1,2],[3,4],[5,6] ]
 	    if ( $+{no_paren} && /$parenthesized/ ) {
-		vsay "found special case <$_>";
+		# vsay "found special case <$_>";
 		s/\(/\[/g;
 		s/\)/\]/g;
 	    }
