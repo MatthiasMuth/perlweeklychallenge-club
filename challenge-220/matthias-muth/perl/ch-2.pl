@@ -17,13 +17,15 @@ use TestExtractor;
 
 use List::Util qw( sum min max );
 
-sub is_int {
-    return $_[0] - int( $_[0] ) == 0;
+sub is_perfect_square {
+    my $sqrt = sqrt( $_[0] );
+    return int( $sqrt ) == $sqrt;
 }
 
 $| = 1;
 
 my $indent = "";
+
 sub squareful {
     my ( @ints ) = @_;
     vsay $indent, "squareful( @ints )";
@@ -55,8 +57,14 @@ sub squareful {
         vsay $indent, "squareful_subsets: ", pp( @squareful_subsets );
         push @results,
             map [ $int, @{$squareful_subsets[$_]} ],
-                grep is_int( sqrt( $int + $squareful_subsets[$_][0] ) ),
-                    0..$#squareful_subsets;
+                grep {
+		    my $perfect =
+			is_perfect_square( $int + $squareful_subsets[$_][0] );
+		    vsay $indent, "$int + $squareful_subsets[$_][0] = ",
+		        $int + $squareful_subsets[$_][0], " is",
+			$perfect ? " a" : " no", " perfect square";
+		    $perfect
+		} 0..$#squareful_subsets;
         vsay $indent, "\@results now: ", pp @results;
     }
 
