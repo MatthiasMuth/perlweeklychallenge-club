@@ -17,12 +17,53 @@ use TestExtractor;
 
 use List::Util qw( sum min max );
 
+sub is_int {
+    return $_[0] - int( $_[0] ) == 0;
+}
+
+$| = 1;
+
+my $indent = "";
 sub squareful {
     my ( @ints ) = @_;
+    vsay $indent, "squareful( @ints )";
+    $indent .= "    ";
+
+    if ( @ints == 1 ) {
+        vsay $indent, "returning ( [ @ints ] )";
+        substr $indent, -4, 4, "";
+        return [ @ints ];
+    }
+
+    my %frequencies;
+    $frequencies{$_}++
+        for @ints;
+    vsay $indent, "frequencies: ", pp \%frequencies;
+
+    my %first_positions;
+    $first_positions{$ints[$_]} //= $_
+        for 0..$#ints;
+    vsay $indent, "first_positions: ", pp \%first_positions;
 
     my @results;
+    for my $int ( sort keys %frequencies ) {
+        vsay $indent, "trying to start with $int";
+        my @remaining_ints = @ints;
+        splice @remaining_ints, $first_positions{$int}, 1, ();
+        vsay $indent, "remaining_ints: ( @remaining_ints )";
+        my @squareful_subsets = squareful( @remaining_ints );
+        vsay $indent, "squareful_subsets: ", pp( @squareful_subsets );
+        push @results,
+            map [ $int, @{$squareful_subsets[$_]} ],
+                grep is_int( sqrt( $int + $squareful_subsets[$_][0] ) ),
+                    0..$#squareful_subsets;
+        vsay $indent, "\@results now: ", pp @results;
+    }
 
+    vsay $indent, "returning ", pp @results;
+    substr $indent, -4, 4, "";
     return @results;
 }
 
+# @ARGV = qw( -v );
 run_tests;

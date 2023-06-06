@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 #
 #       The Weekly Challenge - Perl & Raku
 #       (https://theweeklychallenge.org)
@@ -22,6 +21,7 @@ use Data::Dump qw( pp );
 use Getopt::Long;
 use Cwd qw( abs_path );
 use File::Basename;
+use List::Util qw( any );
 use Test2::V0;
 no warnings 'experimental::signatures';
 
@@ -51,13 +51,13 @@ sub run_tests {
 
     my ( $task_title, $task_description ) =
         read_task( "$dir/challenge-${challenge}.txt", $task );
-    vsay $task_title;
+	# vsay $task_title;
 
     my @tests = (
         $local_tests      ? extract_tests( $local_tests )      : (),
 	$task_description ? extract_tests( $task_description ) : (),
     );
-    vsay pp( @tests );
+    # vsay pp( @tests );
 
     ( my $sub_name = lc $task_title ) =~ s/\W+/_/g;
     my $sub = \&{"::$sub_name"};
@@ -71,11 +71,11 @@ sub run_tests {
 		: $_->{INPUT}[0]
 	    : @{$_->{INPUT}};
 	my $expected = $_->{OUTPUT};
-	my $diag = 
+	my $diag =
 	    "$sub_name( " . pp( @input_params ) . " ) == "
 	    . pp( @{$_->{OUTPUT}} );
 	    # . pp(
-		# @{$_->{OUTPUT}} == 1 && ref $_->{OUTPUT}[0] eq 'ARRAY' && 
+		# @{$_->{OUTPUT}} == 1 && ref $_->{OUTPUT}[0] eq 'ARRAY' &&
 		# ? @{$_->{OUTPUT}}
 		# : $_->{OUTPUT} );
 
@@ -85,7 +85,7 @@ sub run_tests {
 	$diag = "test: $diag";
 
 	my @output = $sub->( @input_params );
-	    
+
 	is \@output, $expected, $name, $diag // ();
 
         vsay "";
@@ -158,7 +158,7 @@ sub extract_tests( $task_text ) {
 	for ( $input, $output ) {
 	    # To avoid misinterpretations of '@' or '$' when the data is
 	    # 'eval'ed, we turn all double quotes into single quotes.
-	    s/"/'/g;
+	    s/\"/'/g;
 
 	    # We convert 'barewords' into quoted strings.
 	    # We search for these patterns, but we just skip them without
@@ -209,6 +209,13 @@ sub extract_tests( $task_text ) {
 		eval( $+{no_paren} ? "( $_ )" : $_ );
         };
     }
+
+    # Use array refs for all OUTPUT lists if at least one of tests does.
+    if ( any { ref $_->{OUTPUT}[0] } @tests ) {
+	$_->{OUTPUT} = [ $_->{OUTPUT} ]
+	    for grep { ! ref $_->{OUTPUT}[0] } @tests;
+    }
+
     return @tests;
 }
 
