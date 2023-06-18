@@ -22,14 +22,12 @@ sub arithmetic_subsequence {
     # Choose a starting number.
     for my $i ( 0..$#ints ) {
 	# Choose a second number from the rest of the list.
-        for my $j ( $i..$#ints ) {
+        for my $j ( $i + 1 .. $#ints ) {
 	    # The two numbers already form an arithmetic subsequence
 	    # of length 2.
 	    my $count = 2;
-	    # Let's look for other numbers that have the same difference
-	    # compared to the last element of this subsequence.
-	    # Go through the rest of the list searching for more numbers with
-	    # the given difference between them.
+	    # Go through the rest of the list looking for more numbers with
+	    # the same difference between them.
 	    my $diff = $ints[$j] - $ints[$i];
 	    my $next_expected = $ints[$j] + $diff;
 	    for my $k ( $j + 1 .. $#ints ) {
