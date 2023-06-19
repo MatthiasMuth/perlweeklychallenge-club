@@ -33,6 +33,9 @@
          "Leoltron"
       ]
    },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
@@ -68,7 +71,7 @@
             4,
             32,
             37,
-            23,
+            24,
             16,
             22,
             401,
@@ -113,7 +116,6 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             2,
             0,
@@ -139,29 +141,27 @@
             0,
             2,
             0,
-            16,
+            17,
             0,
             0,
             284,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
    "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-06-19 04:43:33 GMT"
    },
    "yAxis" : {
       "title" : {
          "text" : ""
       },
       "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-06-17 08:03:43 GMT"
    }
 }
