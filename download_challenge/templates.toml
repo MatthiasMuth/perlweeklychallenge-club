@@ -74,25 +74,25 @@ readme_md = '''
 
 ## Task 1: <TASK_1_NAME>
 
-<TASK_1_TEXT_QUOTE>
+<TASK_1_Q_TEXT>
 
 Lore ipsum...
 
 ```perl
 sub task_1() {
-    return undef;
+    ...;
 }
 ```
 
 ## Task 2: <TASK_2_NAME>
 
-<TASK_2_TEXT_QUOTE>
+<TASK_2_Q_TEXT>
 
 Lorem ipsum...
 
 ```perl
 sub task_2() {
-    return undef;
+    ...;
 }
 ```
 
