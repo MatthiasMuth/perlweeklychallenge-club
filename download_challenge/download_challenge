@@ -185,7 +185,7 @@ sub process_challenge( $challenge ) {
 	exit 1;
     }
 
-    # If we are running an updates, check whether challenge html has changed.
+    # If we are running an update, check whether the challenge html has changed.
     my $md5 = md5_hex( $html );
     my $html_has_changed = undef;
     if ( $options{UPDATE} ) {
@@ -277,10 +277,12 @@ sub process_challenge( $challenge ) {
 	#  - the task descriptions text file,
 	#  - the code files, not overwriting them if they already exist.
 	#  - a copy of TestExtractor.pm if it doesn't exist yet.
+
 	my $archive_dir = "./challenge_htmls/$challenge";
 	my $archive_file =
 	    $status->{'current-challenge-last-modified'} . "_$md5";
 	$archive_file =~ s/[-:]//g;
+
 	my $target_dir = "../challenge-$challenge/$status->{user}";
 	my $test_extractor_file = "$target_dir/perl/TestExtractor.pm";
 
@@ -464,38 +466,36 @@ sub generate_code( $challenge, $task_text ) {
 
 sub generate_readme_md( $challenge, $text ) {
 
-    my ( $task_1_name, $task_1_text, $task_2_name, $task_2_text ) =
-	$text =~ /^Task\s+1: \s* (.*?) \s*$ \n
-		  ^Submitted .*? $ \n
-		  \s*? \n
-	          ( ^\S.*?$
-		      (?: \n ^.*?$ )*? ) \n
+    $text =~ /^Task\s+1: \s* (?<t1_name>.*?) \s*$ \n
+	      ^Submitted .*? $ \n
+	      \s*? \n
+	      (?<t1_text> ^\S.*?$
+		  (?: \n ^.*?$ )*? \n
 		  (?:^\s* $ \n )*
-		  ^Example  .*? $ \n
+		  ^Example .*? $ ) \n
+	      (?:^\s* $ \n )*
+	      ^Task\s+2: \s* (?<t2_name>.*?) \s*$ \n
+	      ^Submitted .*? $ \n
+	      \s*? \n
+	      (?<t2_text> ^\S.*?$
+		  (?: \n ^.*?$ )*? \n
 		  (?:^\s* $ \n )*
-		  ^Task\s+2: \s* (.*?) \s*$ \n
-		  ^Submitted .*? $ \n
-		  \s*? \n
-	          ( ^\S.*?$
-		      (?: \n ^.*?$ )*? ) \n
-		  (?:^\s* $ \n )*
-		  ^Example  .*? $ \n
-		  (?:^\s* $ \n )*
-		  ^Last \s+ date \s+ to \s+ submit
-	    /xms;
-    # vsay "task_1_name: ", pp $task_1_name;
-    # vsay "task_1_text: ", pp $task_1_text;
-    # vsay "task_2_name: ", pp $task_2_name;
-    # vsay "task_2_text: ", pp $task_2_text;
+		  ^Example .*? $ ) \n
+	      (?:^\s* $ \n )*
+	      ^Last \s+ date \s+ to \s+ submit
+	/xms;
+    my %parts = ( %+ );
+    vsay "$_: ", pp( $parts{$_} )
+        for qw( t1_name t1_text t1_examples t2_name t2_text t2_examples );
 
     my $readme_text = $templates->{readme}{'readme_md'};
     # vsay $readme_text;
     my %substitutions = (
-	CHALLENGE          => $challenge,
-	TASK_1_NAME        => $task_1_name,
-	TASK_1_TEXT_QUOTE  => $task_1_text =~ s/^(.*)$/> $1<br\/>/mgr,
-	TASK_2_NAME        => $task_2_name,
-	TASK_2_TEXT_QUOTE  => $task_2_text =~ s/^(.*)$/> $1<br\/>/mgr,
+	CHALLENGE         => $challenge,
+	TASK_1_NAME       => $parts{t1_name},
+	TASK_1_Q_TEXT     => $parts{t1_text} =~ s/^(.*)$/> $1<br\/>/mgr,
+	TASK_2_NAME       => $parts{t2_name},
+	TASK_2_Q_TEXT     => $parts{t2_text} =~ s/^(.*)$/> $1<br\/>/mgr,
     );
     $readme_text =~ s/<$_>/$substitutions{$_}/g
 	for keys %substitutions;
