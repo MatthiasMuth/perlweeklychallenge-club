@@ -22,7 +22,8 @@ sub last_member {
 	# Sort the array, largest first.
 	@ints = sort { $b <=> $a } @ints;
 
-	# Get the (non-negative) difference between the first two elements.
+	# Get the difference between the first two elements
+        # (it will be non-negative because the first element is the largest).
 	my $diff = $ints[0] - $ints[1];
 
 	# Replace the first two entries by their difference,
