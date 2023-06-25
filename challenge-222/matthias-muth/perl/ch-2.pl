@@ -10,7 +10,7 @@
 
 use strict;
 use warnings;
-use feature qw( say state );
+use feature qw( say );
 
 use lib '.';
 use TestExtractor;
@@ -18,46 +18,18 @@ use TestExtractor;
 sub last_member {
     my @ints = @_;
 
-    state $indent = "";
-    vsay $indent, "last_member( @ints ):";
-    $indent .= "    ";
-
     while ( @ints >= 2 ) {
-	my @sorted_ints = sort { $b <=> $a } @ints;
-	my %positions;
-	push @{ $positions{ $ints[$_] } }, $_
-	    for 0..$#ints;
-	vsay $indent, "sorted_ints: ( @sorted_ints )";
-	vsay $indent, "positions: ", pp \%positions;
+	# Sort the array, largest first.
+	@ints = sort { $b <=> $a } @ints;
 
-	my ( $i, $j ) =
-	    sort { $a <=> $b }
-		map shift @{$positions{$_}},
-		    @sorted_ints[ 0, 1 ];
-	print $indent, "pick $ints[$i] and $ints[$j],",
-	    " we remove both"
-	    if $verbose;
+	# Get the (non-negative) difference between the first two elements.
+	my $diff = $ints[0] - $ints[1];
 
-	if ( my $diff = abs( $ints[$j] - $ints[$i] ) ) {
-	    print " and add new member $diff"
-		if $verbose;
-	    $ints[$j] = $diff;
-	    splice @ints, $i, 1, ();
-	}
-	else {
-	    # Remove both $i and $ji (starting with the latter one).
-	    splice @ints, $j, 1, ();
-	    splice @ints, $i, 1, ();
-	}
-	vsay " => ( @ints )";
+	# Replace the first two entries by their difference,
+	# or by nothing if the difference is zero.
+	splice @ints, 0, 2, $diff || ();
     }
-
-    # If there is one member, we return it up the chain.
-    # If there is no member, we return 0 up the chain.
-    my $result = $ints[0] // 0;
-    vsay $indent, "returning $result";
-    substr $indent, 0, 4, "";
-    return $result;
+    return $ints[0] // 0;
 }
 
 run_tests;

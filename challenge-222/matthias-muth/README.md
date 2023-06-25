@@ -39,8 +39,10 @@
 Lore ipsum...
 
 ```perl
-sub task_1() {
-    ...;
+sub matching_members {
+    my @ints = @_;
+    my @sorted_ints = sort { $a <=> $b } @ints;
+    return sum map { $ints[$_] == $sorted_ints[$_] } 0..$#ints;
 }
 ```
 
@@ -76,8 +78,21 @@ sub task_1() {
 Lorem ipsum...
 
 ```perl
-sub task_2() {
-    ...;
+sub last_member {
+    my @ints = @_;
+
+    while ( @ints >= 2 ) {
+	# Sort the array, largest first.
+	@ints = sort { $b <=> $a } @ints;
+
+	# Get the (non-negative) difference between the first two elements.
+	my $diff = $ints[0] - $ints[1];
+
+	# Replace the first two entries by their difference,
+	# or by nothing if the difference is zero.
+	splice @ints, 0, 2, $diff || ();
+    }
+    return $ints[0] // 0;
 }
 ```
 
