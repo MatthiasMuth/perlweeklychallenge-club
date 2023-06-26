@@ -18,3 +18,5 @@ git checkout muthm-$challenge \
 git checkout dev -- challenge-$challenge/matthias-muth
 git commit -m "Challenge $challenge solutions in Perl by Matthias Muth"
 git push --set-upstream origin muthm-$challenge
+
+git checkout dev
