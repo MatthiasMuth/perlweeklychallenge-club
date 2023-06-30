@@ -6,19 +6,20 @@
 > You are given a positive integer, $n.<br/>
 > Write a script to find the total count of primes less than or equal to the given integer.<br/>
 
-This looks very straightforward: gett an array of prime numbers and returning its length.<br/>
-The only question is how to get the prime numbers that are prime between 2 and *n*.
+This looks very straightforward: get an array of prime numbers and return its length.<br/>
+The only question is how to get the prime numbers between 2 and *n*.
 
 If the number *n* is not too high, the '[Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)'
 is a fairly simple and easy to implement algorithm to find prime numbers up to a limit *n*.<br/>
 Its advantage is that it does not need any divisions,
 and it has a runtime complexity of *O*( *n* log log *n* ),
-which I guess makes it faster than using a prime factorization for each number to check whether it is prime or not.
+which I guess makes it faster than using a prime factorization for each candidate number.
 
 Only if `n` gets larger it can run into memory issues.
 But we are talking about *very* large numbers here,
 since we are only limited by the RAM available for running our program,
-and the RAM usage rises linearly with *n* (one integer for each added number checked).
+and the RAM usage rises linearly with *n* (one integer for each added number checked).<br/>
+So let's not worry too much about it.
 
 The other big advantage for us is that it computes and returns
 the whole set of prime numbers up to *n*.
