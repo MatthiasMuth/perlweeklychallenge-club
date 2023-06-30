@@ -1,51 +1,93 @@
-# Challenge 223 tasks: Count Primes - Box Coins
+# Sieves and Coins
 **Challenge 223 solutions in Perl by Matthias Muth**
 
 ## Task 1: Count Primes
 
 > You are given a positive integer, $n.<br/>
 > Write a script to find the total count of primes less than or equal to the given integer.<br/>
-> <br/>
-> Example 1<br/>
-> Input: $n = 10<br/>
-> Output: 4<br/>
-> Since there are 4 primes (2,3,5,7) less than or equal to 10.<br/>
-> <br/>
-> Example 2<br/>
-> Input: $n = 1<br/>
-> Output: 0<br/>
-> <br/>
-> Example 3<br/>
-> Input: $n = 20<br/>
-> Output: 8<br/>
-> Since there are 4 primes (2,3,5,7,11,13,17,19) less than or equal to 20.<br/>
 
-Lore ipsum...
+This looks very straightforward: gett an array of prime numbers and returning its length.<br/>
+The only question is how to get the prime numbers that are prime between 2 and *n*.
+
+If the number *n* is not too high, the '[Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)'
+is a fairly simple and easy to implement algorithm to find prime numbers up to a limit *n*.<br/>
+Its advantage is that it does not need any divisions,
+and it has a runtime complexity of *O*( *n* log log *n* ),
+which I guess makes it faster than using a prime factorization for each number to check whether it is prime or not.
+
+Only if `n` gets larger it can run into memory issues.
+But we are talking about *very* large numbers here,
+since we are only limited by the RAM available for running our program,
+and the RAM usage rises linearly with *n* (one integer for each added number checked).
+
+The other big advantage for us is that it computes and returns
+the whole set of prime numbers up to *n*.
+All that is left to do is count them!
+
+So here we go:
 
 ```perl
-sub erathostenes( $n ) {
+use strict;
+use warnings;
+use feature 'say';
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
-    use List::Util qw( first );
+use lib '.';
+use TestExtractor;
 
+use List::Util qw( first );
+
+sub eratosthenes( $n ) {
     my @non_primes;
     my $sqrt = sqrt( $n );
     my $i = 2;
     while ( $i <= $sqrt ) {
-        vsay "trying $i:";
+        say "trying $i:";
         for ( my $j = 2 * $i; $j <= $n; $j += $i ) {
-            vsay "    mark $j as non-prime";
+            say "    mark $j as non-prime";
             $non_primes[$j] = 1;
         }
         $i = first { ! $non_primes[$_] } $i + 1 .. $n;
-        vsay "    next \$i to try: $i";
+        say "    next \$i to try: $i";
     }
-    vsay "$i is larger than sqrt( $n ) ($sqrt)";
-    vsay pp( grep { ! $non_primes[$_] } 2..$n );
+    say "    $i is larger than sqrt( $n ) ($sqrt)";
+    say "    returning ( ", join( " ", grep { ! $non_primes[$_] } 2..$n ), " )";
     return grep { ! $non_primes[$_] } 2..$n;
 }
 
+eratosthenes( 20 );
+```
+
+which prints
+```
+$ ch-1.pl
+trying 2:
+    mark 4 as non-prime
+    mark 6 as non-prime
+    mark 8 as non-prime
+    mark 10 as non-prime
+    mark 12 as non-prime
+    mark 14 as non-prime
+    mark 16 as non-prime
+    mark 18 as non-prime
+    mark 20 as non-prime
+    next $i to try: 3
+trying 3:
+    mark 6 as non-prime
+    mark 9 as non-prime
+    mark 12 as non-prime
+    mark 15 as non-prime
+    mark 18 as non-prime
+    next $i to try: 5
+    5 is larger than sqrt( 20 ) (4.47213595499958)
+    returning ( 2 3 5 7 11 13 17 19 )
+```
+
+Then the actual solution to the task is this little function:
+```perl
 sub count_primes( $n ) {
-    return scalar erathostenes( $n );
+    return scalar eratosthenes( $n );
 }
 ```
 
