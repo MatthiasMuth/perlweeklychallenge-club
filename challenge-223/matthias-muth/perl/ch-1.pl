@@ -17,31 +17,30 @@ no warnings 'experimental::signatures';
 use lib '.';
 use TestExtractor;
 
-sub erathostenes( $n ) {
+use List::Util qw( first );
 
-    use List::Util qw( first );
-
+sub eratosthenes( $n ) {
     my @non_primes;
     my $sqrt = sqrt( $n );
     my $i = 2;
     while ( $i <= $sqrt ) {
-	vsay "trying $i:";
-	for ( my $j = 2 * $i; $j <= $n; $j += $i ) {
-	    vsay "    mark $j as non-prime";
-	    $non_primes[$j] = 1;
-	}
-	$i = first { ! $non_primes[$_] } $i + 1 .. $n;
-	vsay "    next \$i to try: $i"; 
+        say "trying $i:";
+        for ( my $j = 2 * $i; $j <= $n; $j += $i ) {
+            say "    mark $j as non-prime";
+            $non_primes[$j] = 1;
+        }
+        $i = first { ! $non_primes[$_] } $i + 1 .. $n;
+        say "    next \$i to try: $i";
     }
-    vsay "$i is larger than sqrt( $n ) ($sqrt)";
-    vsay pp( grep { ! $non_primes[$_] } 2..$n );
+    say "    $i is larger than sqrt( $n ) ($sqrt)";
+    say "    returning ( ", join( " ", grep { ! $non_primes[$_] } 2..$n ), " )";
     return grep { ! $non_primes[$_] } 2..$n;
 }
 
 sub count_primes( $n ) {
-    return scalar erathostenes( $n );
+    return scalar eratosthenes( $n );
 }
 
-erathostenes( 20 );
+eratosthenes( 20 );
 
 run_tests;
