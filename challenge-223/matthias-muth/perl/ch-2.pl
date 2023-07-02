@@ -15,22 +15,20 @@ use feature 'say';
 use lib '.';
 use TestExtractor;
 
+use List::Util qw( max );
+
 sub box_coins {
     my ( @box ) = @_;
 
     return $box[0]
 	if @box == 1;
 
-    my $max = 0;
-    for ( 0..$#box ) {
-        my $value = ( $box[$_]
-		* ( $_ > 0     ? $box[ $_ - 1 ] : 1 )
-		* ( $_ < $#box ? $box[ $_ + 1 ] : 1 )
-	    ) + box_coins( @box[ 0 .. $_ - 1, $_ + 1 .. $#box ] );
-	$max = $value
-	    if $value > $max;
-    }
-    return $max;
+    return max( map {
+	( $box[$_]
+	    * ( $_ > 0     ? $box[ $_ - 1 ] : 1 )
+	    * ( $_ < $#box ? $box[ $_ + 1 ] : 1 ) )
+	+ box_coins( @box[ 0 .. $_ - 1, $_ + 1 .. $#box ] );
+    } 0..$#box );
 }
 
 run_tests;
