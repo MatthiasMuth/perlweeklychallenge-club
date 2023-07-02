@@ -13,17 +13,20 @@ If the number *n* is not too high, the '[Sieve of Eratosthenes](https://en.wikip
 is a fairly simple and easy to implement algorithm to find prime numbers up to a limit *n*.<br/>
 Its advantage is that it does not need any divisions,
 and it has a runtime complexity of *O*( *n* log log *n* ),
-which I guess makes it faster than using a prime factorization for each candidate number.
+which probably makes it faster than using a prime factorization for each candidate number.
 
 Only if `n` gets larger it can run into memory issues.
 But we are talking about *very* large numbers here,
 since we are only limited by the RAM available for running our program,
-and the RAM usage rises linearly with *n* (one integer for each added number checked).<br/>
-So let's not worry too much about it.
+and the RAM usage rises linearly with *n*
+(one integer for each added number checked,
+which might even be reduced to one *bit* per number).<br/>
+So let's not worry too much about it,
+also knowing that the challenge examples are up to *n* = 20 only.
 
-The other big advantage for us is that it computes and returns
+The big advantage for us is that it computes and returns
 the whole set of prime numbers up to *n*.
-All that is left to do is count them!
+All that is left to do is to count them!
 
 So here we go:
 
@@ -53,7 +56,7 @@ sub eratosthenes( $n ) {
         say "    next \$i to try: $i";
     }
     say "    $i is larger than sqrt( $n ) ($sqrt)";
-    say "    returning ( ", join( " ", grep { ! $non_primes[$_] } 2..$n ), " )";
+    say "returning ( ", join( " ", grep { ! $non_primes[$_] } 2..$n ), " )";
     return grep { ! $non_primes[$_] } 2..$n;
 }
 
@@ -82,7 +85,7 @@ trying 3:
     mark 18 as non-prime
     next $i to try: 5
     5 is larger than sqrt( 20 ) (4.47213595499958)
-    returning ( 2 3 5 7 11 13 17 19 )
+returning ( 2 3 5 7 11 13 17 19 )
 ```
 
 Then the actual solution to the task is this little function:
@@ -95,27 +98,40 @@ sub count_primes( $n ) {
 ## Task 2: Box Coins
 
 > You are given an array representing box coins, @box.<br/>
-> Write a script to collect the maximum coins until you took out all boxes. If we pick box[i] then we collect the coins $box[i-1] * $box[i] * $box[i+1]. If $box[i+1] or $box[i-1] is out of bound then treat it as 1 coin.<br/>
+> Write a script to collect the maximum coins until you took out all boxes.
+> If we pick box[i] then we collect the coins $box[i-1] * $box[i] * $box[i+1].
+> If $box[i+1] or $box[i-1] is out of bound then treat it as 1 coin.<br/>
 > <br/>
 > Example 1:<br/>
-> <br/>
 > Input: @box = (3, 1, 5, 8)<br/>
 > Output: 167<br/>
-> <br/>
 > Step 1: pick box [i=1] and collected coins 3 * 1 * 5 => 15.  Boxes available (3, 5, 8).<br/>
 > Step 2: pick box [i=1] and collected coins 3 * 5 * 8 => 120. Boxes available (3, 8).<br/>
 > Step 3: pick box [i=0] and collected coins 1 * 3 * 8 => 24.  Boxes available (8).<br/>
 > Step 4: pick box [i=0] and collected coins 1 * 8 * 1 => 8.   No more box available.<br/>
 > <br/>
 > Example 2:<br/>
-> <br/>
 > Input: @box = (1, 5)<br/>
 > Output: 10<br/>
-> <br/>
 > Step 1: pick box [i=0] and collected coins 1 * 1 * 5 => 5. Boxes available (5).<br/>
 > Step 2: pick box [i=0] and collected coins 1 * 5 * 1 => 5. No more box available.<br/>
 
-Lorem ipsum...
+We need to find out with which box to start.
+It is the one that delivers the highest sum from taking this coin
+*and* from finding the highest number possible from taking the rest of the coins in the right order.
+
+A typical scenario for a recursive solution!
+
+The stop condition is met when there is ony one coin.
+Then it's obvious which one to take.
+
+If there is more than one coin, we use a `map` call
+to compute the maximum achievable value for all coins,
+just as described:
+multiply the coin with its neighbors (if they exist),
+and do the recursive call for all coins but the current one.<br/>
+
+And of course we return the maximum of this list.
 
 ```perl
 sub box_coins {
@@ -124,16 +140,12 @@ sub box_coins {
     return $box[0]
         if @box == 1;
 
-    my $max = 0;
-    for ( 0..$#box ) {
-        my $value = ( $box[$_]
-                * ( $_ > 0     ? $box[ $_ - 1 ] : 1 )
-                * ( $_ < $#box ? $box[ $_ + 1 ] : 1 )
-            ) + box_coins( @box[ 0 .. $_ - 1, $_ + 1 .. $#box ] );
-        $max = $value
-            if $value > $max;
-    }
-    return $max;
+    return max( map {
+        ( $box[$_]
+            * ( $_ > 0     ? $box[ $_ - 1 ] : 1 )
+            * ( $_ < $#box ? $box[ $_ + 1 ] : 1 ) )
+        + box_coins( @box[ 0 .. $_ - 1, $_ + 1 .. $#box ] );
+    } 0..$#box );
 }
 ```
 
