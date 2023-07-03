@@ -72,12 +72,10 @@ sub run_tests {
 	    : @{$_->{INPUT}};
 	my $expected = $_->{OUTPUT};
 	my $diag =
-	    "$sub_name( " . pp( @input_params ) . " ) == "
-	    . pp( @{$_->{OUTPUT}} );
-	    # . pp(
-		# @{$_->{OUTPUT}} == 1 && ref $_->{OUTPUT}[0] eq 'ARRAY' &&
-		# ? @{$_->{OUTPUT}}
-		# : $_->{OUTPUT} );
+	    "$sub_name( " . pp( @input_params ) . " ) "
+	    . ( ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ )
+	        ? "is $expected->[0]"
+		: ( "== " . pp( @{$_->{OUTPUT}} ) ) );
 
 	my $name = "$_->{TEST}";
 	$name .= ": $diag"
@@ -86,7 +84,12 @@ sub run_tests {
 
 	my @output = $sub->( @input_params );
 
-	is \@output, $expected, $name, $diag // ();
+	if ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ ) {
+	    ok $1 ? $output[0] : ! $output[0], $name, $diag // ();
+	}
+	else {
+	    is \@output, $expected, $name, $diag // ();
+	}
 
         vsay "";
 
