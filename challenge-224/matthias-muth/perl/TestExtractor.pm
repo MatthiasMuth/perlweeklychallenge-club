@@ -84,7 +84,9 @@ sub run_tests {
 
 	my @output = $sub->( @input_params );
 
-	if ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ ) {
+	if ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/
+	    && defined $output[0] )
+	{
 	    ok $1 ? $output[0] : ! $output[0], $name, $diag // ();
 	}
 	else {
