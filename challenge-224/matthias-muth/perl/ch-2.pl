@@ -36,12 +36,12 @@ sub additive_number {
 	    vsay "    trying $n1 and $n2, leaving '$rest'";
 	    while ( $rest ne "" ) {
 		my $sum = $n1 + $n2;
-		$rest =~ s/^($sum)// or do {
-		    vsay "        sum $sum can't be found";
+		$rest =~ s/^$sum// or do {
+		    vsay "        no match for sum $sum";
 		    last;
 		};
-		vsay "        sum $sum is there";
-		( $n1, $n2 ) = ( $n2, $1 );
+		vsay "        sum $sum found";
+		( $n1, $n2 ) = ( $n2, $sum );
 	    }
 	    if ( $rest eq "" ) {
 		return 1

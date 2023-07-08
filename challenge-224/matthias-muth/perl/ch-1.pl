@@ -17,13 +17,16 @@ use TestExtractor;
 
 sub special_notes {
     my ( $source, $target ) = @_;
+    vsay "special_notes( '$source', '$target' )";
 
-    my $ordered_chars = join "", sort split '', $source;
-    vsay "ordered chars: $ordered_chars";
+    my $ordered_source = join "", sort split '', $source;
+    vsay "    ordered source: '$ordered_source'";
 
     my $pattern = '^.*' . join( '.*', sort split '', $target ) . '.*$';
-    vsay "pattern for '$target': qr/$pattern/";
-    return $ordered_chars =~ /${pattern}/ ? 1 : 0;
+    vsay "    target pattern: qr/$pattern/";
+
+    vsay "    pattern match:  '$ordered_source' =~ /$pattern/";
+    return $ordered_source =~ /${pattern}/ // 0;
 }
 
 run_tests;
