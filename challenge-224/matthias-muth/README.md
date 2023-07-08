@@ -1,4 +1,4 @@
-# Challenge 224 tasks: Special Notes - Additive Number
+# Addictive additive
 **Challenge 224 solutions in Perl by Matthias Muth**
 
 ## Task 1: Special Notes
@@ -37,7 +37,7 @@ All other characters from `$source` that are not needed
 will be matched by `.*` patterns and ignored.
 
 To illustrate this, here is how Example 2 is solved using a pattern match:
-```perl
+```
 special_notes( 'scriptinglanguage', 'perl' )
     ordered source: 'aacegggiilnnprstu'
     target pattern: qr/^.*e.*l.*p.*r.*$/
@@ -101,8 +101,53 @@ sub special_notes {
 >  1 +  99 => 100<br/>
 > 99 + 100 => 199<br/>
 
- 
+In this task, we need to choose the first two numbers of the sequence.<br/>
+Depending on that choice, we will find a continuation of the sequence
+in the remaining string, or we won't.
 
+So how do we choose the first two numbers?<br/>
+We start with the first number having one digit, then two digits, and so on.<br/>
+With each first number chosen, we then choose the second number,
+again first using one digit, then two digits and so on. 
+
+The maximum number of digits to use for the first and then the second number
+is what took me longest to think about.<br/>
+For the first number, it is relatively clear that
+* we need to leave at least on digit for the second number,
+* the sum will have at least the same number of digits that the first number has.
+
+So if *len* is the length of the whole string, we can split it up between
+the length of the first number *len1*, the minimum length of the second number *1*,
+and the minimum length of the sum, which is also *len1*:<br/>
+&nbsp;&nbsp; *len1* + 1 + *len1* <= *len* <br/>
+which makes<br/>
+&nbsp;&nbsp; *len1* <= ( *len* - 1 ) / 2.
+    
+For the length of the second number, *len2*, things are less obvious.<br/>
+We can assume that the sum always has *at least* as many digits as the longer one
+of the first and second number.<br>
+&nbsp;&nbsp; *len1* + *len2* + max( *len1*, *len2* ) <= *len* <br/>
+which is the same as<br/>
+&nbsp;&nbsp; <*len1* + *len2* + *len1* <= *len* **and** *len1* + *len2* + *len2* <= *len* <br/>
+which transforms to<br/>
+&nbsp;&nbsp; *len2* <= *len* - 2 * *len1* **and** *len2* <= ( *len* - *len1* ) / 2<br/>
+which means for *len2*:<br/>
+&nbsp;&nbsp; *len2* <= min( *len* - 2 * *len1*, ( *len* - *len1* ) / 2 ).
+
+We choose the lengths of the first and second number using two nested loops.<br/>
+Inside the loop body we extract these numbers,
+and we check whether the rest of the string starts with the sum of the two.<br/>
+We use a regular expression for this,
+at the same time removing that sum from the rest string if it matched.<br/>
+We do the checking and removing sums in a loop until we don't find a match
+or the string is completely used.
+
+We can return from the subroutine onece we find a complete match.
+But for demonstration, when `$verbose` is set, we continue going through
+the rest ofcombinations, creating some nice output to see that
+everything works nicely.
+
+This is the whole subroutine:
 ```perl
 sub additive_number {
     my ( $string ) = @_;
@@ -111,7 +156,7 @@ sub additive_number {
     my $len = length $string;
     my $is_additive_number = 0;
     for my $len1 ( 1 .. int( ( $len - 1 ) / 2 ) ) {
-        vsay "len1: $len1, trying len2 1 .. min( ",
+        vsay "    len1: $len1, trying len2 1 .. min( ",
             $len - 2 * $len1, ", ",
             int( ( $len - $len1 ) / 2 ), " )";
         for my $len2 (
@@ -120,26 +165,84 @@ sub additive_number {
             my $n1 = substr $string, 0, $len1;
             my $n2 = substr $string, $len1, $len2;
             my $rest = substr $string, $len1 + $len2;
-            vsay "    trying $n1 and $n2, leaving '$rest'";
+            vsay "        trying $n1 and $n2, leaving '$rest'";
             while ( $rest ne "" ) {
                 my $sum = $n1 + $n2;
-                $rest =~ s/^($sum)// or do {
-                    vsay "        sum $sum can't be found";
+                $rest =~ s/^$sum// or do {
+                    vsay "            no match for sum $sum";
                     last;
                 };
-                vsay "        sum $sum is there";
+                vsay "            sum $sum found";
                 ( $n1, $n2 ) = ( $n2, $sum );
             }
             if ( $rest eq "" ) {
                 return 1
                     unless $verbose;
-                vsay "        SUCCESS!";
+                vsay "            SUCCESS!";
                 $is_additive_number = 1;
             }
         }
     }
     return $is_additive_number;
 }
+```
+
+With *$verbose* set, it produces this output for the examples:
+```
+additive_number( '112358' )
+    len1: 1, trying len2 1 .. min( 4, 2 )
+        trying 1 and 1, leaving '2358'
+            sum 2 found
+            sum 3 found
+            sum 5 found
+            sum 8 found
+            SUCCESS!
+        trying 1 and 12, leaving '358'
+            no match for sum 13
+    len1: 2, trying len2 1 .. min( 2, 2 )
+        trying 11 and 2, leaving '358'
+            no match for sum 13
+        trying 11 and 23, leaving '58'
+            no match for sum 34
+additive_number( '12345' )
+    len1: 1, trying len2 1 .. min( 3, 2 )
+        trying 1 and 2, leaving '345'
+            sum 3 found
+            no match for sum 5
+        trying 1 and 23, leaving '45'
+            no match for sum 24
+    len1: 2, trying len2 1 .. min( 1, 1 )
+        trying 12 and 3, leaving '45'
+            no match for sum 15
+additive_number( '199100199' )
+    len1: 1, trying len2 1 .. min( 7, 4 )
+        trying 1 and 9, leaving '9100199'
+            no match for sum 10
+        trying 1 and 99, leaving '100199'
+            sum 100 found
+            sum 199 found
+            SUCCESS!
+        trying 1 and 991, leaving '00199'
+            no match for sum 992
+        trying 1 and 9910, leaving '0199'
+            no match for sum 9911
+    len1: 2, trying len2 1 .. min( 5, 3 )
+        trying 19 and 9, leaving '100199'
+            no match for sum 28
+        trying 19 and 91, leaving '00199'
+            no match for sum 110
+        trying 19 and 910, leaving '0199'
+            no match for sum 929
+    len1: 3, trying len2 1 .. min( 3, 3 )
+        trying 199 and 1, leaving '00199'
+            no match for sum 200
+        trying 199 and 10, leaving '0199'
+            no match for sum 209
+        trying 199 and 100, leaving '199'
+            no match for sum 299
+    len1: 4, trying len2 1 .. min( 1, 2 )
+        trying 1991 and 0, leaving '0199'
+            no match for sum 1991
 ```
 
 #### **Thank you for the challenge!**
