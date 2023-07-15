@@ -1,11 +1,13 @@
 {
-   "chart" : {
-      "type" : "column"
-   },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
+      },
+      "min" : 0
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
       }
    },
    "tooltip" : {
@@ -14,6 +16,7 @@
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             2,
             3,
@@ -21,7 +24,7 @@
             0,
             0,
             4,
-            144,
+            150,
             6,
             62,
             2,
@@ -29,7 +32,7 @@
             31,
             22,
             0,
-            293,
+            294,
             2,
             3,
             0,
@@ -45,10 +48,10 @@
             6,
             21,
             5
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -80,8 +83,7 @@
             0,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "name" : "Blog",
@@ -119,10 +121,14 @@
          ]
       }
    ],
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-07-14 05:01:38 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -157,11 +163,5 @@
          "Dario Mazzeo",
          "Darren Bottin"
       ]
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-07-03 00:29:57 GMT"
    }
 }
