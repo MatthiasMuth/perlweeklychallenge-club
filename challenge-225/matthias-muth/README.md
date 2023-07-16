@@ -2,12 +2,10 @@
 **Challenge 225 solutions in Perl by Matthias Muth**
 
 The tasks of this challenge are good ones,
-in the sense that the solutions can be short, nice and well-arrnged and clear.
+in the sense that the solutions can be short, nice, well-arranged, clear -- perly!
 
 However the second task took me some time to understand what really is happening
-in the examples and in the task description.
-And actually I found the task description not super consistent
-with the story that the examples tell.
+in the task description and in the examples.
 
 But let's start with the first one:
 
@@ -87,11 +85,36 @@ sub max_words {
 > @left_right_sum_diff = ( |0-14|, |1-12|, |3-9|, |6-5|, |10-0|)<br/>
 >                      = (14, 11, 6, 1, 10)<br/>
 
-Lorem ipsum dolor sit amet...
+Maybe I don't fully understand the definition,
+but for me, there seems to be a little inconsistency between the definition and the examples.
+In the definiton we have 5 elements as input, but only 4 elements in the left and right sums,
+whereas all the examples are explained using arrays of left and right sums
+that have the same number of elements as the input array.<br/>
+I decided in favor of the examples. :-)
+
+For this task, I completely avoided writing any for loops,
+and based my solution on list-processing functions:
+* `reductions` from `List::Util` does the summing up of the 'left' sum,
+starting with a 0 and going through all input elements except the last one (to get the correct number of elements),
+* `reductions` from `List::Util` also does the summing up of the 'right' sum,
+starting with a 0 and going through the input elements *in reverse order*,
+leaving out the first element, and then doing another `reverse` to have the 0 at the end of the list,
+* `pairwise` from the `List::MoreUtils` module from CPAN then builds the list of differences
+between corresponding elements of the 'left' and 'right' arrays.
+ 
+So actually the task can be solved using three lines of actual code:
 
 ```perl
-sub task_2() {
-    ...;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
+use List::Util qw( reductions );
+use List::MoreUtils qw( pairwise );
+
+sub left_right_sum_diff( @ints ) {
+    my @left  = reductions { $a + $b } 0, @ints[ 0 .. $#ints - 1 ];
+    my @right = reverse reductions { $a + $b } 0, reverse @ints[ 1 .. $#ints ];
+    return pairwise { abs( $a - $b ) } @left, @right
 }
 ```
 
