@@ -24,7 +24,7 @@ sub left_right_sum_diff {
 
     my @left  = reductions { $a + $b } 0, @ints[ 0 .. $#ints - 1 ];
     my @right = reverse reductions { $a + $b } 0, reverse @ints[ 1 .. $#ints ];
-    my @diffs = pairwise { abs( $a -$b ) } @left, @right;
+    my @diffs = pairwise { abs( $a - $b ) } @left, @right;
 
     vsay "    left sum:  @left";
     vsay "    right sum: @right";
