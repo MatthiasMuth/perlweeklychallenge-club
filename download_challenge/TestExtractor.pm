@@ -79,7 +79,7 @@ sub run_tests() {
 
 	my $name = "$_->{TEST}";
 	$name .= ": $diag"
-	    if $_->{TEST} =~ /^(Test|Example)\s+\d+$/;
+	    if $_->{TEST} =~ /^(Test|Example)(?:\s+\d+)?$/;
 	$diag = "test: $diag";
 
 	my @output = $sub->( @input_params );
