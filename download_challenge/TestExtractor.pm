@@ -28,7 +28,7 @@ no warnings 'experimental::signatures';
 our ( $verbose, %options );
 sub vsay { say @_ if $verbose };
 
-sub run_tests {
+sub run_tests() {
 
     $| = 1;
 
@@ -91,7 +91,7 @@ sub run_tests {
 	    is \@output, $expected, $name, $diag // ();
 	}
 
-        vsay "";
+        # vsay "";
 
     } for @tests;
 
@@ -211,6 +211,21 @@ sub extract_tests( $task_text ) {
 	    push @{$tests[-1]{OUTPUT}},
 		eval( $+{no_paren} ? "( $_ )" : $_ );
         };
+    }
+
+    unless ( @tests ) {
+	# Try an alternative description format:
+	# <input...> => <output...>
+	my $n_examples = 0;
+	while ( $task_text =~ /^( .*? ) \s* => \s* ( .* )$/xmg ) {
+	    # vsay pp @{^CAPTURE};
+	    push @tests, {
+	        TEST => "Example " . ++$n_examples,
+		INPUT => [ split " ", $1 ],
+		OUTPUT => [ $2 ],
+		VARIABLE_NAMES => [ '@input' ],
+	    }
+	}
     }
 
     # Use array refs for all OUTPUT lists if at least one of tests does.

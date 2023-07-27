@@ -485,8 +485,8 @@ sub generate_readme_md( $challenge, $text ) {
 	      ^Last \s+ date \s+ to \s+ submit
 	/xms;
     my %parts = ( %+ );
-    vsay "$_: ", pp( $parts{$_} )
-        for qw( t1_name t1_text t1_examples t2_name t2_text t2_examples );
+    # vsay "$_: ", pp( $parts{$_} )
+        # for qw( t1_name t1_text t1_examples t2_name t2_text t2_examples );
 
     my $readme_text = $templates->{readme}{'readme_md'};
     # vsay $readme_text;
