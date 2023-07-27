@@ -1,63 +1,63 @@
 {
-   "yAxis" : {
-      "title" : {
-         "text" : null
-      },
-      "min" : 0
+   "subtitle" : {
+      "text" : "Last updated at 2023-07-26 22:11:55 GMT"
    },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
    },
    "chart" : {
       "type" : "column"
    },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : null
+      }
+   },
+   "legend" : {
+      "enabled" : "false"
+   },
    "xAxis" : {
+      "type" : "category",
       "labels" : {
          "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
          }
-      },
-      "type" : "category"
+      }
    },
    "series" : [
       {
+         "name" : "Contributions",
          "dataLabels" : {
-            "y" : 10,
-            "rotation" : -90,
-            "align" : "right",
             "color" : "#FFFFFF",
-            "format" : "{point.y:.0f}",
-            "enabled" : "true",
+            "align" : "right",
+            "y" : 10,
             "style" : {
                "fontFamily" : "Verdana, sans-serif",
                "fontSize" : "13px"
-            }
+            },
+            "enabled" : "true",
+            "format" : "{point.y:.0f}",
+            "rotation" : -90
          },
          "data" : [
             [
                "Blog",
-               3755
+               3778
             ],
             [
                "Perl",
-               11551
+               11603
             ],
             [
                "Raku",
-               6646
+               6679
             ]
-         ],
-         "name" : "Contributions"
+         ]
       }
    ],
-   "legend" : {
-      "enabled" : "false"
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2023-07-18 20:06:19 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    }
 }

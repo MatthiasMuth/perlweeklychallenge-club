@@ -1,4 +1,10 @@
 {
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
    "chart" : {
       "type" : "column"
    },
@@ -6,7 +12,7 @@
       "text" : "The Weekly Challenge [2019 - 2023]"
    },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-07-18 20:06:19 GMT"
+      "text" : "[Champions: 30] Last updated at 2023-07-26 22:11:55 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -64,7 +70,7 @@
             0,
             0,
             4,
-            141,
+            143,
             0,
             4,
             42,
@@ -79,19 +85,18 @@
          ]
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             0,
             1,
-            302,
+            304,
             14,
             4,
             0,
             1,
             0,
             0,
-            329,
+            331,
             1,
             49,
             91,
@@ -111,14 +116,15 @@
             0,
             2,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "data" : [
             0,
             0,
             3,
-            552,
+            558,
             0,
             0,
             0,
@@ -149,12 +155,6 @@
          "name" : "Blog"
       }
    ],
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
