@@ -11,15 +11,58 @@
 > Output: 'challenge'<br/>
 > <br/>
 > Example 2<br/>
-> <br/>
 > Input: $string = 'rulepark', @indices = (4,7,3,1,0,5,2,6)<br/>
 > Output: 'perlraku'<br/>
 
-Lorem ipsum dolor sit amet...
-
+It took me a moment to understand
+that the array of indices is not where the letters *come from*,
+but where the letters *go to*. <br/>
+So we could write something like this for a `$result` string:
 ```perl
-sub task_1() {
-    ...;
+    my $result = " " x $indices->$#*;
+    substr( $result, $indices->[$_], 1 ) = substr( $string, $_, 1 )
+        for 0..$indices->$#*;
+```
+or this for a `@result` array:
+```perl
+    $result[ $indices->[$_] ] = substr( $string, $_, 1 )
+        for 0..$indices->$#*;
+```
+
+But of course there is more than one way to do it. :-)<br/>
+For example, we can switch from manipulating things one by one,
+and work with whole lists instead.
+This most often results in shorter, more 'elegant' code,
+because it is less cluttered with all the details needed just to do things repeatedly.
+Very often this makes the code easier to understand.
+
+So for making the letters from the string available as a list,
+we can use the common Perl idiom
+```perl
+    $string =~ /./g
+```
+or we can use the also very common (and faster) 
+```perl
+    split //, $string
+```
+
+For assigning the letters to the result array,
+Perl has the wonderful array slice syntax,
+that can not only retrieve selected parts of an array or list,
+but also assign to selected elements of an array, even in random order.
+Exactly what we need!
+
+So actually we can
+assign the letters to the given indexes
+with just one assigment,
+and solve the whole task with three lines of code, and no loop:
+```perl
+use v5.36;
+
+sub shuffle_string( $string, $indices ) {
+    my @results;
+    @results[ @$indices ] = split //, $string;
+    return join "", @results;
 }
 ```
 
