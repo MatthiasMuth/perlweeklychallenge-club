@@ -8,18 +8,14 @@
 #       Perl solution by Matthias Muth.
 #
 
-use strict;
-use warnings;
-use feature 'say';
+use v5.36;
 
 use lib '.';
 use TestExtractor;
 
-sub shuffle_string {
-    my ( $string, $indices ) = @_;
-
+sub shuffle_string( $string, $indices ) {
     my @results;
-    @results[@$indices] = split //, $string;
+    @results[ @$indices ] = split //, $string;
     return join "", @results;
 }
 

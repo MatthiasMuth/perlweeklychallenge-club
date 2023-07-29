@@ -8,18 +8,15 @@
 #       Perl solution by Matthias Muth.
 #
 
-use strict;
-use warnings;
-use feature 'say';
+use v5.36;
 
 use lib '.';
 use TestExtractor;
 
 use List::Util qw( uniq );
 
-sub zero_array {
-    my ( @ints ) = @_;
-    return scalar uniq grep $_,@ints;
+sub zero_array( @ints ) {
+    return scalar uniq grep $_ != 0, @ints;
 }
 
 run_tests;
