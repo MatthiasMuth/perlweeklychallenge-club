@@ -1,18 +1,9 @@
 {
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-07-26 22:11:55 GMT"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
    },
    "chart" : {
       "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
    },
    "xAxis" : {
       "categories" : [
@@ -69,7 +60,7 @@
             0,
             0,
             8,
-            2,
+            4,
             18,
             436,
             3,
@@ -104,7 +95,7 @@
             28,
             2,
             0,
-            2,
+            4,
             0,
             0,
             0,
@@ -139,7 +130,7 @@
             0,
             0,
             0,
-            0,
+            2,
             0,
             0,
             1,
@@ -155,6 +146,15 @@
          "name" : "Blog"
       }
    ],
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-07-29 09:00:59 GMT"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
