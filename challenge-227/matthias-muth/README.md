@@ -11,61 +11,58 @@
 > Output: 2<br/>
 > Since there are only 2 Friday 13th in the given year 2023 i.e. 13th Jan and 13th Oct.<br/>
 
-Before starting night debugging sessions dealing to get a lot of calculations on Unix epoch seconds right,
-I prefer using a core module that gives me everythng I need: `Time::Piece`.
-
-For the given year, we create twelve `Time::Piece` objects, one for each 13th of a month in that year.
-We do so for checking whether the day is a Friday using the `day_of_week` method.
+Looking for an easy way to get the weekday for a given date,
+the `Time::Piece` core module is an obvious choice.
 
 `Time::Piece`'s typical usage is for dealing with 'current' times,
 which are returned by the `localtime` and `gmtime` subroutines when called without parameter.
-If we wanted to supply a different date with them, we would need to compute a Unix epoch time to do so.
-No way.
+If we want to supply a different date with them,
+we need to compute Unix epoch time value to do so.
+We will look into that later.
 
-But we can use the `Time::Piece->strptime(STRING, FORMAT)` subroutine as a constructor.
+But there is also the `Time::Piece->strptime(STRING, FORMAT)` subroutine that works as a constructor
+for `Time::Piece` objects.
 We hand in a date string like `"2023-07-13"`, and a format of `'%Y-%m-%d'`,
 and there we have our time object.
 
-Everything in one pipeline:
+So everything in one statement (but not on one line, to make it more readable!):
 - month numbers from 1 to 12,
-- mapped to newly created objects for the 13th of each month in the `$year` year,
-- grep those of the objects that have a day_of_week of 5 (Friday),
-- and count them using `scalar`.
+- use a `grep` code block to create the `Time::Piece` objects on the fly,
+and select those who return a day_of_week of 5 (Friday),
+-  use `scalar` to put `grep` into a scalar context
+so it returns the number of elements found instead of the list.
 
 ```perl
 use v5.36;
 use Time::Piece;
 sub friday_13th( $year ) {
-    # Time::Piece->day_of_the_week: 0 = Sunday.
-    return scalar grep { $_->day_of_week == 5 }
-        map Time::Piece->strptime( "$year-$_-13", "%Y-%m-%d" ),
-            1..12;
+    return scalar grep {
+        Time::Piece->strptime( "$year-$_-13", "%Y-%m-%d" )->day_of_week == 5
+    } 1..12;
 }
 ```
 
-Maybe `strptime` is not the fastest solution, but its usage is much clearer than
+Now maybe `strptime` is not the fastest solution, 
+and we could use `timegm` from `Time::Local` to create our dates
+without the need of parsing a string with a format.
+But using `strptime` like above looks much clearer to me than
 converting month numbers from 1..12 to 0..11 and years to be offsets from 1900,
-which would be necessary if we used a `timegm` from `Time::Local`.
-There are some subtleties there:
-
+which would be necessary if we used `timegm`:
 ```perl
 use v5.36;
 use Time::Local;
 use Time::Piece;
 sub friday_13th( $year ) {
-    # Time::Piece->day_of_the_week: 0 = Sunday.
-    return scalar grep { $_->day_of_week == 5 }
-        map scalar gmtime( timegm( 0, 0, 0, 13, $_ - 1, $year - 1900 ) ),
-            1..12;
+    return scalar grep {
+        gmtime( timegm( 0, 0, 0, 13, $_ - 1, $year - 1900 ) )->day_of_week == 5
+     } 1..12;
 }
 ```
-
-Note that we need the first `scalar` to enforce scalar context for the list,
-to return the number of elements, very familiar.<br/>
-And the second `scalar` is needed to enforce scalar context for
-`Time::Piece::gmtime`, in order to return the object, not the list of values.<br/>
-Not very obvious.<br/>
-I prefer the first version!
+It's also that we would be jumping between domains
+(`localtime`/`gmtime` needing that 6-element list, returning an epoch time value,
+then we create a Time::Piece object from that),
+which does not really make it obvious what is going on.<br/>
+I prefer the first version! :-)
 
 ## Task 2: Roman Maths
 
@@ -92,7 +89,8 @@ in a more elegant way than a nested if-then-else statement.
 I chose a hash lookup to return an anonymous subroutine that implements
 the respective operation.
 
-The rest looks quite self-explanatory to me. Or is it only in my eyes??
+The rest looks quite self-explanatory to me.<br/>
+Or is it only in my eyes???
 
 ```perl
 use v5.36;
