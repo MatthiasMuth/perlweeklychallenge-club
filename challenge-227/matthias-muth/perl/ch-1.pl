@@ -8,22 +8,29 @@
 #       Perl solution by Matthias Muth.
 #
 
-use strict;
-use warnings;
-use feature 'say';
+use v5.36;
 
 use lib '.';
 use TestExtractor;
 
+use Time::Local;
 use Time::Piece;
 
-sub friday_13th {
-    my ( $year ) = @_;
+sub friday_13th_a( $year ) {
+    return scalar grep {
+        Time::Piece->strptime( "$year-$_-13", "%Y-%m-%d" )->day_of_week == 5
+    } 1..12;
+}
 
-    # Time::Piece->day_of_the_week: 0 = Sunday.
-    return scalar grep $_->day_of_week == 5,
-        map Time::Piece->strptime( "$year-$_-13", "%Y-%m-%d" ),
-            1..12;
+sub friday_13th_d( $year ) {
+    return scalar grep {
+	gmtime( timegm( 0, 0, 0, 13, $_ - 1, $year - 1900 ) )->day_of_week == 5
+    } 1..12;
+}
+
+sub friday_13th( $year ) {
+    return friday_13th_a( $year );
+    # return friday_13th_b( $year );
 }
 
 run_tests;

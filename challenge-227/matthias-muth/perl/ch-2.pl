@@ -8,9 +8,7 @@
 #       Perl solution by Matthias Muth.
 #
 
-use strict;
-use warnings;
-use feature 'say';
+use v5.36;
 
 use lib '.';
 use TestExtractor;
@@ -18,20 +16,15 @@ use TestExtractor;
 use Roman;
 
 my %ops = (
-    '+' => sub { $_[0] + $_[1] },
-    '-' => sub { $_[0] - $_[1] },
-    '*' => sub { $_[0] * $_[1] },
-    '/' => sub { $_[0] / $_[1] },
+    '+'  => sub { $_[0] + $_[1] },
+    '-'  => sub { $_[0] - $_[1] },
+    '*'  => sub { $_[0] * $_[1] },
+    '/'  => sub { $_[0] / $_[1] },
     '**' => sub { $_[0] ** $_[1] },
 );
 
-sub roman_maths {
-    my @input = @_;
-
-    my @numbers = map arabic( $_ ), @input[ 0, 2 ];
-
+sub roman_maths( @input ) {
     my $result = $ops{$input[1]}->( arabic( $input[0] ), arabic( $input[2] ) );
-
     return 
         $result == 0
 	    ? "nulla (they knew about zero but didn't have a symbol)" :
