@@ -151,10 +151,11 @@ sub extract_tests( $task_text ) {
     while ( $task_text =~
 	/^((?:Example|Test).*?)\s*:?\s*$ .*?
 	    ^Input: \s* ( .*? ) \s*
-	    ^Output: \s* ( .*? ) \s*? (?=(?: ^$ | ^\S | \Z ))
+	    ^Out?put: \s* ( .*? ) \s*? (?=(?: ^$ | ^\S | \Z ))
 	/xmsg )
     {
 	my ( $test, $input, $output) = ( $1, $2, $3 );
+	# vsay pp $test, $input, $output;
 
 	push @tests, { TEST => $test };
 
