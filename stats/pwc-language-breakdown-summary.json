@@ -1,55 +1,9 @@
 {
-   "xAxis" : {
-      "type" : "category",
-      "labels" : {
-         "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
-         }
-      }
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
    "legend" : {
       "enabled" : "false"
    },
-   "series" : [
-      {
-         "name" : "Contributions",
-         "data" : [
-            [
-               "Blog",
-               3790
-            ],
-            [
-               "Perl",
-               11634
-            ],
-            [
-               "Raku",
-               6692
-            ]
-         ],
-         "dataLabels" : {
-            "rotation" : -90,
-            "y" : 10,
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "enabled" : "true",
-            "align" : "right",
-            "format" : "{point.y:.0f}",
-            "color" : "#FFFFFF"
-         }
-      }
-   ],
-   "subtitle" : {
-      "text" : "Last updated at 2023-07-31 00:42:19 GMT"
+   "chart" : {
+      "type" : "column"
    },
    "yAxis" : {
       "title" : {
@@ -57,7 +11,53 @@
       },
       "min" : 0
    },
+   "series" : [
+      {
+         "name" : "Contributions",
+         "dataLabels" : {
+            "y" : 10,
+            "rotation" : -90,
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "align" : "right",
+            "enabled" : "true",
+            "format" : "{point.y:.0f}",
+            "color" : "#FFFFFF"
+         },
+         "data" : [
+            [
+               "Blog",
+               3808
+            ],
+            [
+               "Perl",
+               11684
+            ],
+            [
+               "Raku",
+               6710
+            ]
+         ]
+      }
+   ],
    "title" : {
       "text" : "The Weekly Challenge Contributions [2019 - 2023]"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2023-08-03 22:42:18 GMT"
+   },
+   "xAxis" : {
+      "labels" : {
+         "style" : {
+            "fontFamily" : "Verdana, sans-serif",
+            "fontSize" : "13px"
+         }
+      },
+      "type" : "category"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    }
 }
