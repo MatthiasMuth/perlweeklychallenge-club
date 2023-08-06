@@ -268,6 +268,6 @@ And for a 1000 elements array, the simple version needs more than 2 seconds for 
 while the optimized version does it in 31.4 milliseconds.<br/>
 More than 600 times faster!
 
-It gives me a good feeling to have a PWC solution that scales so well! :-D 
+It gives me a good feeling to have a PWC solution that scales so well! :-D
 
 #### **Thank you for the challenge!**
