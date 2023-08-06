@@ -1,4 +1,4 @@
-# The non-unique meaning of 'unique'.
+# Fast empty arrays, and the non-unique meaning of 'unique'
 **Challenge 228 Task 1 and 2 solutions in Perl by Matthias Muth**
 
 ## Task 1: Unique Sum
