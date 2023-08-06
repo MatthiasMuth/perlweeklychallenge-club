@@ -7,16 +7,22 @@ challenge="$1"
 set -e
 set -v
 
+git checkout dev
+git pull
+
 git checkout master
+git pull
 
 git fetch upstream
-git merge upstream/master
+git merge --ff-only upstream/master
 
-git pull
 git checkout muthm-$challenge \
     || git checkout -b muthm-$challenge
 git checkout dev -- challenge-$challenge/matthias-muth
-git commit -m "Challenge $challenge solutions in Perl by Matthias Muth"
+git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth"
 git push --set-upstream origin muthm-$challenge
+
+git push --all
+git push --tags
 
 git checkout dev
