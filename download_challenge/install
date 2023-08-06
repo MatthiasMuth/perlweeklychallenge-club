@@ -12,9 +12,10 @@ files="
 
 target_dir="../weekly_check"
 
+mkdir -p "$target_dir"
 for f in $files; do
-    if ! cmp --quiet $f $target_dir/$f; then
+    if ! cmp --quiet "$f" "$target_dir/$f"; then
 	echo "copying $f to $target_dir"
-	cp -p $f $target_dir/$f
+	cp -p "$f" "$target_dir/$f"
     fi
 done
