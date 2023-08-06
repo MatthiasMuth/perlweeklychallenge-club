@@ -7,15 +7,14 @@ challenge="$1"
 set -e
 set -v
 
+git checkout dev
+git pull
+
 git checkout master
 git pull
 
 git fetch upstream
 git merge --ff-only upstream/master
-
-git checkout dev
-git pull
-git merge --no-ff --no-edit master
 
 git checkout muthm-$challenge \
     || git checkout -b muthm-$challenge
