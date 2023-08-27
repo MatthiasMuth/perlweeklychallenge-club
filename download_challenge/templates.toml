@@ -48,18 +48,17 @@ ch-N_pl = '''
 #       Perl solution by Matthias Muth.
 #
 
+use v5.20;
 use strict;
 use warnings;
-use feature 'say';
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 use lib '.';
 use TestExtractor;
 
-sub <SUB_NAME> {
-    my ( <INPUT_PARAMS> ) = @_;
-
+sub <SUB_NAME>( <INPUT_PARAMS> ) {
     my <RESULT_VAR>;
-
     return <RETURN>;
 }
 
