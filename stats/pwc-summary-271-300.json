@@ -1,9 +1,13 @@
 {
-   "chart" : {
-      "type" : "column"
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
    "xAxis" : {
       "categories" : [
+         "Thomas Kohler",
          "Tiago Stock",
          "Tim Potapov",
          "Tim Smith",
@@ -29,30 +33,11 @@
          "Yozen Hernandez"
       ]
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 23] Last updated at 2023-08-14 04:37:56 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
+            78,
             1,
             14,
             0,
@@ -61,14 +46,14 @@
             8,
             0,
             2,
-            311,
+            315,
             24,
             18,
             17,
             15,
             0,
             4,
-            278,
+            282,
             81,
             181,
             1,
@@ -76,12 +61,12 @@
             3,
             86,
             21
-         ],
-         "name" : "Perl"
+         ]
       },
       {
          "name" : "Raku",
          "data" : [
+            0,
             0,
             0,
             4,
@@ -90,7 +75,7 @@
             0,
             2,
             0,
-            322,
+            326,
             0,
             0,
             2,
@@ -109,6 +94,7 @@
       },
       {
          "data" : [
+            71,
             0,
             0,
             0,
@@ -124,7 +110,7 @@
             0,
             0,
             0,
-            139,
+            141,
             17,
             0,
             0,
@@ -135,5 +121,23 @@
          ],
          "name" : "Blog"
       }
-   ]
+   ],
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 24] Last updated at 2023-08-26 12:38:16 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   }
 }

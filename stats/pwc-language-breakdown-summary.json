@@ -1,24 +1,15 @@
 {
    "subtitle" : {
-      "text" : "Last updated at 2023-08-14 04:37:56 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
-   },
-   "xAxis" : {
-      "type" : "category",
-      "labels" : {
-         "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
-         }
-      }
+      "text" : "Last updated at 2023-08-26 12:38:16 GMT"
    },
    "chart" : {
       "type" : "column"
    },
-   "legend" : {
-      "enabled" : "false"
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    },
    "yAxis" : {
       "title" : {
@@ -26,38 +17,47 @@
       },
       "min" : 0
    },
+   "legend" : {
+      "enabled" : "false"
+   },
+   "xAxis" : {
+      "labels" : {
+         "style" : {
+            "fontFamily" : "Verdana, sans-serif",
+            "fontSize" : "13px"
+         }
+      },
+      "type" : "category"
+   },
    "series" : [
       {
          "data" : [
             [
                "Blog",
-               3845
+               3894
             ],
             [
                "Perl",
-               11789
+               11908
             ],
             [
                "Raku",
-               6752
+               6811
             ]
          ],
          "dataLabels" : {
             "y" : 10,
             "format" : "{point.y:.0f}",
+            "enabled" : "true",
             "align" : "right",
             "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
+               "fontSize" : "13px",
+               "fontFamily" : "Verdana, sans-serif"
             },
-            "rotation" : -90,
-            "enabled" : "true",
-            "color" : "#FFFFFF"
+            "color" : "#FFFFFF",
+            "rotation" : -90
          },
          "name" : "Contributions"
       }
-   ],
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   }
+   ]
 }
