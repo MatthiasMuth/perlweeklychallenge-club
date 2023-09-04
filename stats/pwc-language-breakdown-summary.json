@@ -1,12 +1,55 @@
 {
-   "subtitle" : {
-      "text" : "Last updated at 2023-08-26 12:38:16 GMT"
+   "xAxis" : {
+      "type" : "category",
+      "labels" : {
+         "style" : {
+            "fontFamily" : "Verdana, sans-serif",
+            "fontSize" : "13px"
+         }
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
    },
    "chart" : {
       "type" : "column"
    },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
+   "series" : [
+      {
+         "dataLabels" : {
+            "format" : "{point.y:.0f}",
+            "color" : "#FFFFFF",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "y" : 10,
+            "rotation" : -90,
+            "align" : "right",
+            "enabled" : "true"
+         },
+         "data" : [
+            [
+               "Blog",
+               3903
+            ],
+            [
+               "Perl",
+               11924
+            ],
+            [
+               "Raku",
+               6851
+            ]
+         ],
+         "name" : "Contributions"
+      }
+   ],
+   "legend" : {
+      "enabled" : "false"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2023-09-04 02:10:14 GMT"
    },
    "tooltip" : {
       "pointFormat" : "<b>{point.y:.0f}</b>"
@@ -16,48 +59,5 @@
          "text" : null
       },
       "min" : 0
-   },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "xAxis" : {
-      "labels" : {
-         "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
-         }
-      },
-      "type" : "category"
-   },
-   "series" : [
-      {
-         "data" : [
-            [
-               "Blog",
-               3894
-            ],
-            [
-               "Perl",
-               11908
-            ],
-            [
-               "Raku",
-               6811
-            ]
-         ],
-         "dataLabels" : {
-            "y" : 10,
-            "format" : "{point.y:.0f}",
-            "enabled" : "true",
-            "align" : "right",
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "color" : "#FFFFFF",
-            "rotation" : -90
-         },
-         "name" : "Contributions"
-      }
-   ]
+   }
 }
