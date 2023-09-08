@@ -1,4 +1,4 @@
-# Challenge 233 tasks: Similar Words - Frequency Sort
+# Tune in to the right frequency!
 **Challenge 233 solutions in Perl by Matthias Muth**
 
 ## Task 1: Similar Words
@@ -43,8 +43,10 @@ let `uniq` remove the doubles,
 the `sort` them in string comparison oder (which is the default),
 and `join` them into a single string.
 
-We then keep a counter of how often the same alphabet word
-was produced, which gives us the number of similar words for the next step.
+We then keep a counter (or *frequency*!) of how often the same alphabet word
+was produced,
+which gives us the number of similar words for each alphabet
+which we will need in the next step.
 
 ### Counting the pairs ###
 We are asked to get the number of *pairs* of 'similar' words.
@@ -52,7 +54,7 @@ We are asked to get the number of *pairs* of 'similar' words.
 Now we could go and produce all combinations of two out of any $n$ words
 that we found being similar.<br/>
 But we won't!<br/>
-We are not asked for all the pairs, but just for how many there are!<br/>
+We are not asked for all the pairs, but just for *how many* there are<br/>
 So let's compute the number of pairs without actually producing them.
 
 For getting the number of possible pairs, if $n$ is the number of words
@@ -114,7 +116,34 @@ sub similar_words( @words ) {
 > Input: @ints = (-1,1,-6,4,5,-6,1,4,1)<br/>
 > Ouput: (5,-1,4,4,-6,-6,1,1,1)<br/>
 
-Lorem ipsum dolor sit amet...
+What sounds very complicated is actually an easy job.
+
+### Frequencies
+For each number in the list we compute the frequency with which it occurs in the list.<br/>
+We could use a typical Perl idiom for this:
+```perl
+    my %frequencies;
+    ++$frequencies{$_}
+        for @ints;
+```
+
+If performance was an issue, we could go for an alternative
+that hides the loop in a function call, like `frequency` from `List::MoreUtils`.
+Which makes it
+```perl
+    use List::MoreUtils qw( frequency );
+    my %frequencies = frequency @ints;
+```
+(I think I've said it before that this CPAN module should probably be installed in
+any Perl installation by default). 
+
+But let's stay strictly 'Core' here.
+
+### Sort, clever!
+Now we have all the data to do the sorting in one go.<br/>
+Great that `sort` lets us specify the ordering criteria in a code block.<br/>
+And nice that within that c
+
 
 ```perl
 sub task_2() {
