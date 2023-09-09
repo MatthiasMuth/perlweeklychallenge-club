@@ -26,12 +26,12 @@ sub similar_words( @words ) {
     # word, ordered alphabetically.
     # Thwo words are 'similar' in the sense of this challenge task if their
     # alphabet words are equal.
-    # Get the number of 'similar' words by attaching a counter to each
-    # alphabet word.
-    my %alphabets;
-    for ( @words ) {
-	my $al = join "", sort( uniq( split "", $_ ) );
-	++$alphabets{$al};
+    # Get the number of 'similar' words by keeping a counter of how often
+    # the same alphabet word was produced.
+    my %alphabet_counts;
+    for my $word ( @words ) {
+        my $alphabet = join "", sort( uniq( split "", $word ) );
+        ++$alphabet_counts{$alphabet};
     }
 
     # For getting the number of possible pairs, if n is the number of words
@@ -46,7 +46,7 @@ sub similar_words( @words ) {
     #               = n (n-1) / 2
     return sum(
         map $_ * ( $_ - 1 ) / 2,
-	    values %alphabets
+	    values %alphabet_counts
     );
 }
 
