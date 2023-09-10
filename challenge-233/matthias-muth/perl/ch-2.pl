@@ -17,8 +17,6 @@ no warnings 'experimental::signatures';
 use lib '.';
 use TestExtractor;
 
-use List::MoreUtils qw( frequency );
-
 sub frequency_sort_core( @ints ) {
 
     # We need the frequencies for sorting. So let's compute them...
@@ -28,29 +26,31 @@ sub frequency_sort_core( @ints ) {
 
     # Let 'sort' do the work, with the comparison code block representing
     # how we want things to be sorted.
-    return scalar %frequencies;
-	# sort { $frequencies{$a} <=> $frequencies{$b} || $b <=> $a } 
-	    # @ints;
+    return sort { $frequencies{$a} <=> $frequencies{$b} || $b <=> $a } @ints;
 }
 
-sub frequency_sort_moreutils( @ints ) {
+run_tests;
 
-    # We need the frequencies for sorting. So let's compute them...
-    my %frequencies = frequency @ints;
+=for benchmark
 
-    # Let 'sort' do the work, with the comparison code block representing
-    # how we want things to be sorted.
+sub frequency_sort_core( $ints ) {
+    my %frequencies;
+    ++$frequencies{$_}
+        for @$ints;
     return scalar %frequencies;
-	# sort { $frequencies{$a} <=> $frequencies{$b} || $b <=> $a } 
-	    # @ints;
 }
 
-# run_tests;
+use List::MoreUtils qw( frequency );
+
+sub frequency_sort_moreutils( $ints ) {
+    my %frequencies = frequency @$ints;
+    return scalar %frequencies;
+}
 
 use Benchmark qw( :all );
 
 sub gen_ints( $n ) {
-    return map rand() * $n, 1..$n; 
+    return map rand() * $n, 1..$n;
 }
 
 $| = 1;
@@ -59,7 +59,9 @@ for ( qw( 10 100 1000 10000 100000 ) ) {
     my @ints = gen_ints( $_ );
 
     cmpthese( -1, {
-	"core $_"  => sub { my @a = frequency_sort_core( @ints ) },
-	"utils $_" => sub { my @a = frequency_sort_moreutils( @ints ) },
+	"core $_"  => sub { my @a = frequency_sort_core( \@ints ) },
+	"utils $_" => sub { my @a = frequency_sort_moreutils( \@ints ) },
     } );
 }
+
+=cut
