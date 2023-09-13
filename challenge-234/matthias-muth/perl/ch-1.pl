@@ -42,15 +42,26 @@ sub common_characters( @words ) {
     # Prepare the number of available characters for each word.
     my @available_chars = map char_freqs( $_ ), @words;
     vsay pp \@available_chars;
- 
+
     # For each possible result character (cannot be more than the characters
     # in $word[0]) check whether all words have at least one of that character
     # available. Decrease its availability count in each word.
     return
 	grep {
 	    my $char = $_;
-	    all { ( $available_chars[$_]{$char}-- // 0 ) > 0 } 0..$#words
+	    all { ( $available_chars[$_]{$char}-- // 0 ) > 0 } 1..$#words
 	} split //, $words[0];
+}
+
+sub common_characters_2( @words ) {
+    my @sorted_words = map join( "", sort split //, $_ ), @words;
+    my $result = $sorted_words[0];
+    for ( @sorted_words[1..$#sorted_words] ) {
+	my $re = join " ", map "(?(?!$_)[a-$_])* ($_?)", split //, $result;
+	$re = qr/^$re/x;
+	$result = join "", /^$re/x;
+    }
+    return split //, $result;
 }
 
 run_tests;
