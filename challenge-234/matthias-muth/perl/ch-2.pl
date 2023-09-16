@@ -17,9 +17,28 @@ no warnings 'experimental::signatures';
 use lib '.';
 use TestExtractor;
 
+use List::Util qw( product );
+
 sub unequal_triplets( @ints ) {
-    my @results;
-    return @results;
+    my %frequencies;
+    ++$frequencies{$_}
+        for @ints;
+
+    return 0
+	unless %frequencies >= 3;
+
+    # Go through combinations of unique numbers.
+    my $combinations = 0;
+    my @uniq_ints = sort { $a <=> $b } keys %frequencies;
+    for my $i1 ( 0..$#uniq_ints ) {
+	for my $i2 ( ( $i1 + 1 ) .. $#uniq_ints ) {
+	    for my $i3 ( ( $i2 + 1 ) .. $#uniq_ints ) {
+		$combinations += product(
+		    @frequencies{ map $uniq_ints[$_], $i1, $i2, $i3 } )
+	    }
+	}
+    }
+    return $combinations;
 }
 
 run_tests;

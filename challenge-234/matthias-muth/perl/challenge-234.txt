@@ -47,9 +47,9 @@ Example 3
 Input: @ints = (4, 7, 1, 10, 7, 4, 1, 1)
 Output: 28
 
-triplets of 1, 4, 7  = 3x2×2 = 12 combinations
-triplets of 1, 4, 10 = 3×2×1 = 6  combinations
-triplets of 4, 7, 10 = 2×2×1 = 4  combinations
+triplets of 1, 4, 7  = 3x2x2 = 12 combinations
+triplets of 1, 4, 10 = 3x2x1 = 6  combinations
+triplets of 4, 7, 10 = 2x2x1 = 4  combinations
 triplets of 1, 7, 10 = 3x2x1 = 6 combinations
 
 
