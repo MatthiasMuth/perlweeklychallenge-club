@@ -25,22 +25,13 @@ use TestExtractor;
 
 use List::Util qw( all );
 
-sub char_freqs( $word ) {
-    # Return an anonymous hash containing the frequencies of the characters
-    # in $word.
-    # Example:
-    #    char_freqs( "coffee" )
-    #    returns { "c" => 1, "e" => 2, "f" => 2, "o" => 1 }.
-
-    my %freqs;
-    ++$freqs{$_}
-	for split //, $word;
-    return \%freqs;
-}
-
-sub common_characters( @words ) {
-    # Prepare the number of available characters for each word.
-    my @available_chars = map char_freqs( $_ ), @words;
+sub common_characters_1( @words ) {
+    # Produce a count of available characters for each word.
+    my @available_chars;
+    for my $i ( 0..$#words ) {
+	++$available_chars[$i]{$_}
+	    for split //, $words[$i];
+    }
     vsay pp \@available_chars;
 
     # For each possible result character (cannot be more than the characters
@@ -53,15 +44,17 @@ sub common_characters( @words ) {
 	} split //, $words[0];
 }
 
-sub common_characters_2( @words ) {
+sub common_characters( @words ) {
     my @sorted_words = map join( "", sort split //, $_ ), @words;
-    my $result = $sorted_words[0];
+    my @result_chars= split //, $sorted_words[0];
     for ( @sorted_words[1..$#sorted_words] ) {
-	my $re = join " ", map "(?(?!$_)[a-$_])* ($_?)", split //, $result;
-	$re = qr/^$re/x;
-	$result = join "", /^$re/x;
+	my $re = join " ", map "(?:(?!$_)[a-$_])* ($_?)", @result_chars;
+	@result_chars = grep $_ ne "", /^$re/x;
     }
-    return split //, $result;
+    my %freq;
+    ++$freq{$_}
+	for @result_chars;
+    return grep { $freq{$_}-- // 0 > 0 } split //, $words[0];
 }
 
 run_tests;

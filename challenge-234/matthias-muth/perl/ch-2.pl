@@ -33,8 +33,8 @@ sub unequal_triplets( @ints ) {
     for my $i1 ( 0..$#uniq_ints ) {
 	for my $i2 ( ( $i1 + 1 ) .. $#uniq_ints ) {
 	    for my $i3 ( ( $i2 + 1 ) .. $#uniq_ints ) {
-		$combinations += product(
-		    @frequencies{ map $uniq_ints[$_], $i1, $i2, $i3 } )
+		$combinations +=
+		    product( @frequencies{ @uniq_ints[ $i1, $i2, $i3 ] } );
 	    }
 	}
     }
