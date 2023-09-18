@@ -1,11 +1,10 @@
 {
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             4,
             2,
-            80,
+            82,
             1,
             14,
             0,
@@ -14,14 +13,14 @@
             8,
             0,
             2,
-            317,
+            319,
             24,
             18,
             17,
             15,
             0,
             4,
-            284,
+            286,
             81,
             185,
             1,
@@ -29,7 +28,8 @@
             3,
             86,
             21
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
@@ -45,7 +45,7 @@
             0,
             2,
             0,
-            328,
+            330,
             0,
             0,
             2,
@@ -63,10 +63,11 @@
          ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
-            73,
+            75,
             0,
             0,
             0,
@@ -82,7 +83,7 @@
             0,
             0,
             0,
-            142,
+            143,
             17,
             0,
             0,
@@ -90,23 +91,9 @@
             1,
             6,
             14
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
    "xAxis" : {
       "categories" : [
          "Tejas",
@@ -137,15 +124,28 @@
          "Yozen Hernandez"
       ]
    },
-   "subtitle" : {
-      "text" : "[Champions: 26] Last updated at 2023-09-11 03:56:21 GMT"
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 26] Last updated at 2023-09-18 08:18:08 GMT"
    }
 }
