@@ -1,6 +1,6 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-09-21 10:07:30 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -36,12 +36,19 @@
          "Ted Leahy"
       ]
    },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             3,
-            434,
+            436,
             113,
             85,
             56,
@@ -70,13 +77,13 @@
             66,
             2,
             4
-         ]
+         ],
+         "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
-            394,
+            396,
             113,
             59,
             0,
@@ -105,9 +112,11 @@
             256,
             0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             213,
@@ -139,29 +148,20 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "tooltip" : {
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
       "shared" : 1
    },
-   "chart" : {
-      "type" : "column"
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-09-18 08:18:08 GMT"
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
    }
 }
