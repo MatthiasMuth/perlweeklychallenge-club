@@ -33,3 +33,16 @@ sub remove_one( @ints ) {
 }
 
 run_tests;
+
+__DATA__
+Test 1: Perfect array
+Input: @ints = ( 1, 2, 3, 4, 5, 6 )
+Output: true
+
+Test 2: README Example 1
+Input: @ints = ( 1, 2, 3, 0, 4, 5, 6 )
+Output: true
+
+Test 1: README Example 2
+Input: @ints = ( 1, 2, 3, 99, 4, 5, 6 )
+Output: true
