@@ -8,54 +8,54 @@
    "title" : {
       "text" : "The Weekly Challenge Contributions [2019 - 2023]"
    },
+   "subtitle" : {
+      "text" : "Last updated at 2023-09-24 23:08:44 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
    "chart" : {
       "type" : "column"
    },
    "series" : [
       {
+         "dataLabels" : {
+            "align" : "right",
+            "format" : "{point.y:.0f}",
+            "color" : "#FFFFFF",
+            "enabled" : "true",
+            "y" : 10,
+            "style" : {
+               "fontSize" : "13px",
+               "fontFamily" : "Verdana, sans-serif"
+            },
+            "rotation" : -90
+         },
          "name" : "Contributions",
          "data" : [
             [
                "Blog",
-               3970
+               3980
             ],
             [
                "Perl",
-               12074
+               12101
             ],
             [
                "Raku",
-               6945
+               6957
             ]
-         ],
-         "dataLabels" : {
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "rotation" : -90,
-            "y" : 10,
-            "align" : "right",
-            "enabled" : "true",
-            "format" : "{point.y:.0f}",
-            "color" : "#FFFFFF"
-         }
+         ]
       }
    ],
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
    "xAxis" : {
+      "type" : "category",
       "labels" : {
          "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
          }
-      },
-      "type" : "category"
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2023-09-21 10:07:30 GMT"
+      }
    },
    "legend" : {
       "enabled" : "false"
