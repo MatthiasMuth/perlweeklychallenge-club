@@ -15,18 +15,21 @@ no warnings 'experimental::signatures';
 
 package TestExtractor;
 use Exporter 'import';
-our @EXPORT = qw( run_tests $verbose %options vsay pp );
+our @EXPORT = qw( run_tests $verbose %options vprint vsay pp np carp croak );
 
 use Data::Dump qw( pp );
+use Data::Printer;
 use Getopt::Long;
 use Cwd qw( abs_path );
 use File::Basename;
 use List::Util qw( any );
+use Carp;
 use Test2::V0;
 no warnings 'experimental::signatures';
 
 our ( $verbose, %options );
-sub vsay { say @_ if $verbose };
+sub vprint { print @_ if $verbose };
+sub vsay   { say   @_ if $verbose };
 
 sub run_tests() {
 
