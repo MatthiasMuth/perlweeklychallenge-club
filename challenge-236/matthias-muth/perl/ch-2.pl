@@ -17,12 +17,15 @@ no warnings 'experimental::signatures';
 use lib '.';
 use TestExtractor;
 
-sub array_loops( @ints ) {
+sub array_loops_1( @ints ) {
     my @loops;
-    my @visited = ( undef ) x @ints;
+    my @visited = ();
+
     for my $start_index ( 0..$#ints ) {
 	next if $visited[$start_index];
+
 	my @loop_indexes = ( $start_index );
+
 	vsay "starting at index $start_index";
 	my $i = $ints[$start_index];
 	while ( exists( $ints[$i] )
@@ -31,25 +34,43 @@ sub array_loops( @ints ) {
 	{
 	    vsay "  moving to index $i";
 	    push @loop_indexes, $i;
+	    $visited[$i] = 1;
 	    $i = $ints[$i];
 	}
+
 	if ( $i == $start_index ) {
 	    vsay "  we found a loop: @loop_indexes";
 	    push @loops, [ @loop_indexes ];
-	    $visited[$_] = 1
-		for @loop_indexes;
-	}
-	elsif ( ! exists( $ints[$i] ) ) {
-	    vsay "  index $i is outside the bounds";
-	}
-	elsif ( $visited[$ints[$i]] ) {
-	    vsay "  running into an existing loop";
-	}
-	else {
-	    croak "oops. didn't expect this";
 	}
     }
     return scalar @loops;
+}
+
+
+sub array_loops( @ints ) {
+    my $n_loops = 0;
+    my @visited = ();
+
+    for my $start_index ( 0..$#ints ) {
+	next if $visited[$start_index];
+
+	vsay "starting at index $start_index";
+	my $i = $ints[$start_index];
+	while ( exists( $ints[$i] )
+	    && ! $visited[$ints[$i]]
+	    && $i != $start_index )
+	{
+	    vsay "  moving to index $i";
+	    $visited[$i] = 1;
+	    $i = $ints[$i];
+	}
+
+	if ( $i == $start_index ) {
+	    vsay "  we found a loop";
+	    ++$n_loops;
+	}
+    }
+    return $n_loops;
 }
 
 run_tests;

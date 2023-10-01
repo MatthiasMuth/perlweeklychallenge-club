@@ -21,7 +21,7 @@ sub sort_num( @values ) {
     return sort { $a <=> $b } @values;
 }
 
-sub exact_change( @bills ) {
+sub exact_change_1( @bills ) {
     @bills = sort_num @bills;
     my %cash = ();
     for ( @bills ) {
@@ -58,23 +58,64 @@ sub exact_change( @bills ) {
     return 1;
 }
 
-sub exact_change_short( @bills ) {
+sub exact_change_2( @bills ) {
     @bills = sort_num @bills;
     my %cash = ();
     for ( @bills ) {
+
+	# Accept  the customer's bill.
 	++$cash{$_};
+
+	# We need to give this change:
 	my $change_to_return = $_ - 5;
-	next
-	    unless $change_to_return;
+
+	# Starting with the highest bills available,
+	# return bills that are lower than or equal to
+	# the change we need to return.
 	for ( reverse sort_num keys %cash ) {
 	    while ( $cash{$_} && $_ <= $change_to_return ) {
 		--$cash{$_};
 		$change_to_return -= $_;
 	    }
 	}
+	#
+	# No success.
 	return 0
-	    if $change_to_return;
+	    if $change_to_return > 0;
     }
+    return 1;
+}
+
+sub exact_change( @bills ) {
+
+    # Keep a count of the bills we have, separately for each value. 
+    my %cash = ();
+
+    # Serve all the customers,
+    # making sure we accept the lowest bills first, for getting change.
+    for ( sort_num @bills ) {
+
+	# Accept  the customer's bill.
+	++$cash{$_};
+
+	# We need to give this change:
+	my $change_to_return = $_ - 5;
+
+	# Starting with the highest value available,
+	# return bills that are lower than or equal to
+	# the change we need to return.
+	for ( reverse sort_num keys %cash ) {
+	    while ( $_ <= $change_to_return && $cash{$_} ) {
+		--$cash{$_};
+		$change_to_return -= $_;
+	    }
+	}
+
+	# No success if we couldn't return the correct change.
+	return 0
+	    if $change_to_return > 0;
+    }
+    # Success.
     return 1;
 }
 
