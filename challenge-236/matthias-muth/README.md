@@ -6,21 +6,18 @@
 
 > You are asked to sell juice each costs \$5. You are given an array of bills. You can only sell ONE juice to each customer but make sure you return exact change back. You only have \$5, \$10 and \$20 notes. You do not have any change in hand at first.<br/>
 > Write a script to find out if it is possible to sell to each customers with correct change.<br/>
-> <br/>Example 1<br/>
-> 
+> <br/> 
+> Example 1<br/>
 > Input: @bills = (5, 5, 5, 10, 20)<br/>
 > Output: true<br/>
-> 
 > From the first 3 customers, we collect three \$5 bills in order.<br/>
 > From the fourth customer, we collect a \$10 bill and give back a \$5.<br/>
 > From the fifth customer, we give a \$10 bill and a \$5 bill.<br/>
 > Since all customers got correct change, we output true.<br/>
 > <br/>
 > Example 2<br/>
-> 
 > Input: @bills = (5, 5, 10, 10, 20)<br/>
 > Output: false<br/>
-> 
 > From the first two customers in order, we collect two \$5 bills.<br/>
 > For the next two customers in order, we collect a \$10 bill and give back a \$5 bill.<br/>
 > For the last customer, we can not give the change of \$15 back because we only have two \$10 bills.
