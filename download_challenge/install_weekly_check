@@ -32,18 +32,39 @@ for f in $files; do
 	echo "copying $f to $target_dir"
 	[ ! "$DRY_RUN" ] &&
 	    cp -p "$f" "$target_dir/$f"
+	copied_files=1
     fi
 done
+[ "$copied_files" ] || echo "no files to copy"
 
 # Install the crontab entries.
-echo "installing crontab entries"
 crontab -l | perl -wgE '
 	$crontab = do { local @ARGV = "-"; <> };
 	$entries = do { local @ARGV = shift @ARGV; <> }; 
 	my $sig = "PERLWEEKLYCHALLENGE";
-	$crontab =~ s/(^\#\#\# BEGIN $sig.*^\#\#\# END $sig.*?\n)/$entries/sm
-	    or $crontab .= "\n$entries";
-	print $crontab;
-' weekly_check.crontab | { [ "$DRY_RUN" ] && cat || crontab -; }
+	my $new_crontab = $crontab;
+	my $msg;
+
+	if ( $new_crontab
+	    =~ s/(^\#\#\# BEGIN $sig.*^\#\#\# END $sig.*?\n)/$entries/sm )
+	{
+	    $msg = "crontab entries updated";
+	}
+	else {
+	    $new_crontab .= "\n$entries";
+	    $msg = "crontab entries appended to crontab";
+	}
+
+	if ( $new_crontab ne $crontab ) {
+	    open my $crontab_cmd, "|-", "crontab -"
+		or die "can'\''t pipe to crontab command: $!\n";
+	    print $crontab_cmd $new_crontab;
+	    close $crontab_cmd;
+	    say $msg;
+	}
+	else {
+	    say "no change to crontab";
+	}
+' weekly_check.crontab
 
 exit 0
