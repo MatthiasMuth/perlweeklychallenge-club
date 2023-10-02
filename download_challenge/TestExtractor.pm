@@ -162,6 +162,19 @@ sub extract_tests( $task_text ) {
 
 	push @tests, { TEST => $test };
 
+	# Check whether the Input: part contains any variable sigils.
+	# If not, we try to convert '<Sequence of Words> = ...'
+	# into '$sequence_of_words = ...'.
+	# This is for specification like
+	# Input: Year = 2024, Month = 4, Weekday of month = 3, day of week = 2
+	unless ( $input =~ /[\$\@]\w+/ ) {
+	    $input =~ s{(\w+?(?: \w+?)*?)(\s*=)}{
+		my ( $var_name, $equals ) = ( $1, $2 );
+		'$' . lc ( $var_name =~ s/ /_/gr ) . $equals;
+	    }eg;
+	    # vsay "changed \$input to '$input'";
+	}
+
 	for ( $input, $output ) {
 	    # To avoid misinterpretations of '@' or '$' when the data is
 	    # 'eval'ed, we turn all double quotes into single quotes.
@@ -187,7 +200,7 @@ sub extract_tests( $task_text ) {
 		}
 	    }
 
-	    # As all arrays will be stored as array references, so we just
+	    # As all arrays will be stored as array references, we just
 	    # convert parentheses (...) to angle brackets [...].
 	    # s/\(/\[/g;
 	    # s/\)/\]/g;
