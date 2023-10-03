@@ -88,11 +88,9 @@ use File::Path qw( make_path );
 use Digest::MD5 qw( md5_hex );
 use Email::Stuffer;
 
-use Data::Dump qw( pp );
+use TestExtractor;
 
-our ( $verbose, %options, %debug );
-
-sub vsay( @args ) { print @args, "\n" if $verbose }
+our ( %options, %debug );
 
 sub prot( @args ) {
     my $timestamp = strftime( "%Y-%m-%d %H:%M:%S", localtime( time ) );
@@ -105,7 +103,7 @@ sub usage {
 };
 
 GetOptions(
-    "force!"     => sub { $options{FORCE} = $_[1] ? ++$options{FORCE} : 0 },
+    "force|f!"   => sub { $options{FORCE} = $_[1] ? ++$options{FORCE} : 0 },
     "FORCE"      => sub { $options{FORCE} = 2 },
     "check|n"    => \$options{DRY_RUN},
     "mail:s@"    => \$options{MAIL_TO},
@@ -421,16 +419,33 @@ sub generate_code( $challenge, $task_text ) {
 
     my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
 
-    use TestExtractor;
     my @tests = TestExtractor::extract_tests( $task_text );
+    vsay "extracted tests: ", pp( @tests );
 
     my $code = $templates->{code}{'ch-N_pl'};
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
-    my @input_vars = @{$tests[0]{VARIABLE_NAMES}};
+
+    my @checks = (
+        [ "VARIABLE_NAMES", "input variable names" ],
+        [ "INPUT",          "input data" ],
+        [ "OUTPUT",         "expected output data" ],
+    );
+    for ( @checks ) {
+        unless ( $tests[0] && $tests[0]{$_->[0]} ) {
+            say STDERR "WARNING: ",
+                "No $_->[1] were extracted for Task $task.";
+        }
+    }
+
+    my @input_vars =
+	$tests[0] && $tests[0]{VARIABLE_NAMES}
+	? @{$tests[0]{VARIABLE_NAMES}}
+	: ();
 
     # Turn array parameters into arrayrefs in some cases.
     if ( @input_vars > 1
-	|| ref $tests[0]{INPUT}[0] eq 'ARRAY'
+	|| $tests[0] && $tests[0]{INPUT}
+	    && ref $tests[0]{INPUT}[0] eq 'ARRAY'
 	    && ref $tests[0]{INPUT}[0][0] eq 'ARRAY' )
     {
 	substr $_, 0, 1, '$'
@@ -438,12 +453,12 @@ sub generate_code( $challenge, $task_text ) {
     }
     my $input_params = join ", ", @input_vars;
     my $result_var = 
-	ref $tests[0]{OUTPUT} eq 'ARRAY'
+	$tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
 	? '@results'
 	: '$result';
     my $return = 
-	ref $tests[0]{OUTPUT} eq 'ARRAY'
-	?   $tests[0]{OUTPUT}[0] eq 'ARRAY' 
+	$tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
+	? $tests[0]{OUTPUT}[0] eq 'ARRAY' 
 	    ? '\@results'
 	    : '@results'
 	: '$result';

@@ -15,7 +15,7 @@ no warnings 'experimental::signatures';
 
 package TestExtractor;
 use Exporter 'import';
-our @EXPORT = qw( run_tests $verbose %options vsay pp np carp croak );
+our @EXPORT = qw( run_tests $verbose %options vprint vsay pp np carp croak );
 
 use Data::Dump qw( pp );
 use Data::Printer;
@@ -23,12 +23,14 @@ use Getopt::Long;
 use Cwd qw( abs_path );
 use File::Basename;
 use List::Util qw( any );
+use Carp;
 use Test2::V0;
 use Carp;
 no warnings 'experimental::signatures';
 
 our ( $verbose, %options );
-sub vsay { say @_ if $verbose };
+sub vprint { print @_ if $verbose };
+sub vsay   { say   @_ if $verbose };
 
 sub run_tests() {
 
@@ -161,6 +163,19 @@ sub extract_tests( $task_text ) {
 
 	push @tests, { TEST => $test };
 
+	# Check whether the Input: part contains any variable sigils.
+	# If not, we try to convert '<Sequence of Words> = ...'
+	# into '$sequence_of_words = ...'.
+	# This is for specification like
+	# Input: Year = 2024, Month = 4, Weekday of month = 3, day of week = 2
+	unless ( $input =~ /[\$\@]\w+/ ) {
+	    $input =~ s{(\w+?(?: \w+?)*?)(\s*=)}{
+		my ( $var_name, $equals ) = ( $1, $2 );
+		'$' . lc ( $var_name =~ s/ /_/gr ) . $equals;
+	    }eg;
+	    # vsay "changed \$input to '$input'";
+	}
+
 	for ( $input, $output ) {
 	    # To avoid misinterpretations of '@' or '$' when the data is
 	    # 'eval'ed, we turn all double quotes into single quotes.
@@ -186,7 +201,7 @@ sub extract_tests( $task_text ) {
 		}
 	    }
 
-	    # As all arrays will be stored as array references, so we just
+	    # As all arrays will be stored as array references, we just
 	    # convert parentheses (...) to angle brackets [...].
 	    # s/\(/\[/g;
 	    # s/\)/\]/g;

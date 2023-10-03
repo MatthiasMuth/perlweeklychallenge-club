@@ -1,0 +1,70 @@
+#!/bin/bash
+#
+#	install - copy current implementation to .../weekly_check.
+#
+
+target_dir="../weekly_check"
+
+
+maybe_status_toml="status.toml"
+if [ -f "$target_dir/$maybe_status_toml" ]; then
+    maybe_status_toml=""
+fi
+
+files="
+    TestExtractor.pm
+    download_challenge
+    templates.toml
+    $maybe_status_toml
+"
+
+while :; do
+    case "$1" in
+	-n )	DRY_RUN=1;;
+	* )	break;;
+    esac
+    shift
+done
+
+mkdir -p "$target_dir"
+for f in $files; do
+    if ! cmp --quiet "$f" "$target_dir/$f"; then
+	echo "copying $f to $target_dir"
+	[ ! "$DRY_RUN" ] &&
+	    cp -p "$f" "$target_dir/$f"
+	copied_files=1
+    fi
+done
+[ "$copied_files" ] || echo "no files to copy"
+
+# Install the crontab entries.
+crontab -l | perl -wgE '
+	$crontab = do { local @ARGV = "-"; <> };
+	$entries = do { local @ARGV = shift @ARGV; <> }; 
+	my $sig = "PERLWEEKLYCHALLENGE";
+	my $new_crontab = $crontab;
+	my $msg;
+
+	if ( $new_crontab
+	    =~ s/(^\#\#\# BEGIN $sig.*^\#\#\# END $sig.*?\n)/$entries/sm )
+	{
+	    $msg = "crontab entries updated";
+	}
+	else {
+	    $new_crontab .= "\n$entries";
+	    $msg = "crontab entries appended to crontab";
+	}
+
+	if ( $new_crontab ne $crontab ) {
+	    open my $crontab_cmd, "|-", "crontab -"
+		or die "can'\''t pipe to crontab command: $!\n";
+	    print $crontab_cmd $new_crontab;
+	    close $crontab_cmd;
+	    say $msg;
+	}
+	else {
+	    say "no change to crontab";
+	}
+' weekly_check.crontab
+
+exit 0
