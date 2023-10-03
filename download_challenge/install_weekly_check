@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+#	install - copy current implementation to .../weekly_check.
+#
+
+target_dir="../weekly_check"
+
+
+maybe_status_toml="status.toml"
+if [ -f "$target_dir/$maybe_status_toml" ]; then
+    maybe_status_toml=""
+fi
+
+files="
+    TestExtractor.pm
+    download_challenge
+    templates.toml
+    $maybe_status_toml
+"
+
+while :; do
+    case "$1" in
+	-n )	DRY_RUN=1;;
+	* )	break;;
+    esac
+    shift
+done
+
+mkdir -p "$target_dir"
+for f in $files; do
+    if ! cmp --quiet "$f" "$target_dir/$f"; then
+	echo "copying $f to $target_dir"
+	[ ! "$DRY_RUN" ] &&
+	    cp -p "$f" "$target_dir/$f"
+    fi
+done
+
+# Install the crontab entries.
+echo "installing crontab entries"
+crontab -l | perl -wgE '
+	$crontab = do { local @ARGV = "-"; <> };
+	$entries = do { local @ARGV = shift @ARGV; <> }; 
+	my $sig = "PERLWEEKLYCHALLENGE";
+	$crontab =~ s/(^\#\#\# BEGIN $sig.*^\#\#\# END $sig.*?\n)/$entries/sm
+	    or $crontab .= "\n$entries";
+	print $crontab;
+' weekly_check.crontab | { [ "$DRY_RUN" ] && cat || crontab -; }
+
+exit 0
