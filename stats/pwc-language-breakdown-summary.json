@@ -1,47 +1,19 @@
 {
-   "chart" : {
-      "type" : "column"
+   "subtitle" : {
+      "text" : "Last updated at 2023-10-04 19:42:01 GMT"
    },
    "legend" : {
       "enabled" : "false"
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
-      }
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    },
-   "series" : [
-      {
-         "name" : "Contributions",
-         "data" : [
-            [
-               "Blog",
-               3998
-            ],
-            [
-               "Perl",
-               12135
-            ],
-            [
-               "Raku",
-               6976
-            ]
-         ],
-         "dataLabels" : {
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "color" : "#FFFFFF",
-            "enabled" : "true",
-            "format" : "{point.y:.0f}",
-            "align" : "right",
-            "y" : 10,
-            "rotation" : -90
-         }
-      }
-   ],
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "xAxis" : {
       "type" : "category",
       "labels" : {
@@ -51,13 +23,41 @@
          }
       }
    },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
+   "yAxis" : {
+      "title" : {
+         "text" : null
+      },
+      "min" : 0
    },
-   "subtitle" : {
-      "text" : "Last updated at 2023-09-30 09:41:46 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2023]"
-   }
+   "series" : [
+      {
+         "data" : [
+            [
+               "Blog",
+               4022
+            ],
+            [
+               "Perl",
+               12169
+            ],
+            [
+               "Raku",
+               7000
+            ]
+         ],
+         "name" : "Contributions",
+         "dataLabels" : {
+            "enabled" : "true",
+            "y" : 10,
+            "align" : "right",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "format" : "{point.y:.0f}",
+            "rotation" : -90,
+            "color" : "#FFFFFF"
+         }
+      }
+   ]
 }

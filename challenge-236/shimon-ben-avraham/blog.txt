@@ -1,1 +1,1 @@
-https://github.com/manwar/perlweeklychallenge-club/tree/master/challenge-236/shimon-ben-avraham#readme
+https://deoac.github.io/challenges/236/raku/task-1/index.html
