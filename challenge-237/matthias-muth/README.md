@@ -24,24 +24,32 @@
 My idea for solving this task is to
 
 - get the first day of the given month,
-- check its day of week, and comparing it with the day of week we want, to determine how many days we need to move forward to the first such day of week,
-- then add as many weeks as needed to reach the $n$th 'Weekday of month'.
-- Before returning the day of month of the day we found, make sure we haven't passed into the following month when we moved forward.
+- check its day of week, and comparing it with the day of week we want,
+to determine how many days we need to move forward to the first such day of week,
+- then add as many weeks as needed to reach the $n$ th 'Weekday of month'.
+- Before returning the day of month of the day we found,
+make sure we haven't passed into the following month when we moved forward.
 
-For dealing with dates, I find `Time::Piece` objects much more intuitive than the 9-element integer list that the core functions `localtime` and `gmtime`  return. Maybe at the time when `struct tm` was invented for early versions of Unix it was appropriate, but with its specification that is sometimes zero based (for months, 0 is January -- not really intuitive), sometimes one-based (days count from 1 to 31), and even 1900-based (years have an offset of 1900) it feels a bit outdated today.
+For dealing with dates, I find `Time::Piece` objects much more intuitive
+than the 9-element integer list that the core functions `localtime` and `gmtime` return.
+Maybe at the time when `struct tm` was invented for early versions of Unix it was appropriate,
+but with its specification that is sometimes zero based
+(for months, 0 is January -- not really intuitive),
+sometimes one-based (days count from 1 to 31),
+and even 1900-based (years have an offset of 1900)
+it feels a bit outdated today.
 
-The only problem with `Time::Piece` is that when you want to set up an object with a given date and/or time, there is no constructor like
-
+The only problem with `Time::Piece` is that when you want to set up an object
+with a given date and/or time, there is no constructor like
 ```perl
         Time::Piece->new( year => 2023, month => 10, day => 8 );
 ```
-
-The only constructors are the overloaded `localtime` and `gmtime` functions, which take an optional Unix epoch time value as a parameter, and `strptime`, which parses a string using a format which are both given as parameters.
-
 So we are stuck between 
 
-* using the `timegm` function from the `Time::Local` core module,<br/>which takes 6 parameters for time and date, with said strange offsets, and returns a time value in seconds, which we then can use to pass it into the `Time::Piece` `gmtime` constructor:
-
+* using the `timegm` function from the `Time::Local` core module,<br/>
+which takes 6 parameters for time and date, with said strange offsets,
+and returns a time value in seconds,
+which we then can use to pass it into the `Time::Piece` `gmtime` constructor:
   ```perl
   use Time::Piece;
   use Time::Local;
@@ -49,16 +57,18 @@ So we are stuck between
           gmtime( timegm_posix( 0,0,0, 1, $month - 1, $year - 1900 ) );
   ```
 
-* using the `strptime` function to parse a date string (I prefer ISO format, like `"2023-10-01"`, but good that `strptime` is forgiving about leading zeros):
-
+* using the `strptime` function to parse a date string (I prefer ISO format, like `"2023-10-01"`):
   ```perl
-  my $first_of_month = Time::Piece->strptime( "$year-$month-1", "%F" );
+  my $first_of_month = Time::Piece->strptime( "$year-$month-01", "%F" );
   ```
+  I don't like the overhead of first constructing a string,
+  and then immediately parsing it again, but it is much easier to read.
+  We also don't need to load the `Time::Local` module,
+  and we only have exactly one call per example in the task description.<br/>
+  So let's go for this one.<br/>
+  (And good that `strptime` is forgiving about not always having leading zeros, especially for the month.)
 
-I don't like the overhead of first constructing a string, and then immediately parsing it again, but it is much easier to read, and we don't need to load the `Time::Local` module.
-
-Once we have a `Time::Piece` object for the first of month, it is not difficult to do the rest.
-
+Once we have a `Time::Piece` object for the first of month, it is not difficult to do the rest.<br/>
 I left the comments in the code, so I guess there's no need to repeat everything here.
 
 ```perl
@@ -69,7 +79,7 @@ sub seize_the_day( $year, $month, $weekday_of_month, $day_of_week ) {
 
     # Set up a Time::Piece object for the first day of the month
     # (good that strptime '%F' does not insist in leading zeros).
-    my $first_of_month = Time::Piece->strptime( "$year-$month-1", "%F" );
+    my $first_of_month = Time::Piece->strptime( "$year-$month-01", "%F" );
 
     # The Time::Piece day_of_week method is based on 0=Sunday.
     # We map our $day_of_week (1=Monday...7=Sunday) to that range by a '% 7'.
@@ -115,15 +125,20 @@ sub seize_the_day( $year, $month, $weekday_of_month, $day_of_week ) {
 > nums[2] < perm[2]<br/>
 
 For sure we could generate all possible permutations of the numbers,
-get the score for each, and find the maximum.
+get the score for each, and find the maximum.<br/>
 The problem is that the number of permutations rises very fast, as it is $n!$
-($n$ being the number of numbers in the array). Still, for the size of the example input data this probably would not matter too much. 
+($n$ being the number of numbers in the array).
+Still, for the size of the example input data this probably would not matter too much. 
 
-But there is another approach that is much easier to implement than that. And it works -- after sorting the array -- using only one pass through the array.
+But there is another approach that is much easier to implement than that.<br/>
+And it works -- after sorting the array -- using only one pass through the array.
 
-Let's start by sorting the numbers, highest to lowest, and by creating a copy of that that is going to be the 'permuted' array (even if we will develop only exactly one permutation).
+Let's start by sorting the numbers, highest to lowest,
+and by creating a copy of that,
+which is going to be the 'permuted' array
+(even if we will develop only exactly one permutation).
 
-Let's start by lining up the two arrays next to each other, both sorted from highest to lowest.
+For visualizing what happens, we line up the two arrays next to each other:
 ```perl
 @nums       5   3   3   2   1   1   1
 @permuted   5   3   3   2   1   1   1
@@ -147,7 +162,7 @@ In the permuted array this means that we move the all entries one to the right, 
 For the next rounds, we do the same:
 
 -  If the next available 'permuted' number (which is always the highest available) wins against the next original number, we leave it like that.
--  If we can't win that position, we move do a 'rotate right' from that position. 
+-  If we can't win that position, we do a 'rotate right' from that position. 
 
 ```perl
 @nums       5  -3-  3   2   1   1   1
@@ -184,35 +199,35 @@ sub maximise_greatness( @nums ) {
     @nums = sort { $b <=> $a } @nums;
 
     # Our 'permuted' array starts out the same, highest values first.
-    my @attackers = @nums;
+    my @permuted = @nums;
 
     # Now we compare the corresponding numbers one by one.
-    # If the current 'attacker' is greater than the number, that's great!
+    # If the current 'attacker' value is greater than the number, that's great!
     # (pun intended!) and we can leave the attacker in that position.
-    # If instead the attacker is less or equal than the number, we have no
-    # chance of finding a better one (remember the available attackers are
+    # If instead the 'attacker' is less or equal than the number, we have no
+    # chance of finding a better one (remember the available values are
     # sorted highest first).
     # We therefore move the *lowest* attacker value into that position,
     # 'waisting it' on the number that we could not win.
     # This keeps our best chances of winning other numbers.
-    # We also move all the rest of the attackers to the right by one position.
+    # We also move all the rest of the permuted to the right by one position.
     # The current attacker will then have another chance with the next number.
 
     my $greatness = 0;
     for ( 0..$#nums ) {
-        if ( $attackers[$_] > $nums[$_] ) {
+        if ( $permuted[$_] > $nums[$_] ) {
             ++$greatness;
         }
         else {
             # Move the last element to the current position,
             # shifting the rest to the right.
-            splice @attackers, $_, 0, pop @attackers;
+            splice @permuted, $_, 0, pop @permuted;
         }
     }
     return $greatness;
 }
 ```
 
-
+A solution that scales well like this makes a maximal great day!
 
 #### **Thank you for the challenge!**
