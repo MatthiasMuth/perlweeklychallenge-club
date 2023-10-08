@@ -24,8 +24,7 @@ use Cwd qw( abs_path );
 use File::Basename;
 use List::Util qw( any );
 use Carp;
-use Test2::V0;
-use Carp;
+use Test2::V0 qw( -no_srand );
 no warnings 'experimental::signatures';
 
 our ( $verbose, %options );
