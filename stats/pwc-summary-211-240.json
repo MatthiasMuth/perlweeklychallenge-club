@@ -1,7 +1,121 @@
 {
-   "chart" : {
-      "type" : "column"
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-10-08 22:56:50 GMT"
+   },
+   "series" : [
+      {
+         "data" : [
+            34,
+            11,
+            7,
+            1,
+            6,
+            4,
+            8,
+            1,
+            38,
+            0,
+            2,
+            46,
+            11,
+            21,
+            2,
+            0,
+            9,
+            0,
+            0,
+            6,
+            3,
+            0,
+            0,
+            0,
+            0,
+            9,
+            100,
+            147,
+            2,
+            0
+         ],
+         "name" : "Perl"
+      },
+      {
+         "name" : "Raku",
+         "data" : [
+            0,
+            0,
+            0,
+            35,
+            0,
+            0,
+            0,
+            0,
+            28,
+            11,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            17,
+            4,
+            14,
+            0,
+            0,
+            1,
+            4,
+            4,
+            20,
+            0,
+            0,
+            125,
+            6,
+            156
+         ]
+      },
+      {
+         "data" : [
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            13,
+            0,
+            0,
+            38,
+            0,
+            0,
+            0
+         ],
+         "name" : "Blog"
+      }
+   ],
    "yAxis" : {
       "title" : {
          "text" : ""
@@ -42,126 +156,12 @@
          "Robert Ransbottom"
       ]
    },
-   "series" : [
-      {
-         "data" : [
-            34,
-            11,
-            7,
-            1,
-            6,
-            4,
-            8,
-            1,
-            38,
-            0,
-            2,
-            46,
-            11,
-            21,
-            2,
-            0,
-            9,
-            0,
-            0,
-            6,
-            3,
-            0,
-            0,
-            0,
-            0,
-            9,
-            98,
-            146,
-            2,
-            0
-         ],
-         "name" : "Perl"
-      },
-      {
-         "name" : "Raku",
-         "data" : [
-            0,
-            0,
-            0,
-            35,
-            0,
-            0,
-            0,
-            0,
-            28,
-            11,
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            17,
-            4,
-            14,
-            0,
-            0,
-            1,
-            4,
-            4,
-            20,
-            0,
-            0,
-            124,
-            6,
-            152
-         ]
-      },
-      {
-         "data" : [
-            0,
-            0,
-            0,
-            0,
-            0,
-            2,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            13,
-            0,
-            0,
-            37,
-            0,
-            0,
-            0
-         ],
-         "name" : "Blog"
-      }
-   ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-10-04 19:42:01 GMT"
+   "chart" : {
+      "type" : "column"
    }
 }
