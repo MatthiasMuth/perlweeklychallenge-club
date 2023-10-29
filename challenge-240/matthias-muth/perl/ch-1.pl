@@ -17,11 +17,8 @@ no warnings 'experimental::signatures';
 use lib '.';
 use TestExtractor;
 
-use List::Util qw( reduce );
-
-sub acronym( $str, $chk ) {
-    # return lc( reduce { $b =~ /./; "$a$&" } "", @$str ) eq $chk;
-    return lc( join "", map substr( $_, 0, 1 ), @$str ) eq $chk;
+sub acronym( $str_aref, $chk ) {
+    return $chk eq lc join "", map /^(.)/, $str_aref->@*;
 }
 
 run_tests;

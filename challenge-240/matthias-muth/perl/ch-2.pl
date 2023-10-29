@@ -18,7 +18,7 @@ use lib '.';
 use TestExtractor;
 
 sub build_array( @int ) {
-    return map $int[$_], @int;
+    return @int[ @int ];
 }
 
 run_tests;

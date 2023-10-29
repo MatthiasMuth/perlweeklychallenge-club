@@ -19,7 +19,7 @@ use TestExtractor;
 
 use List::Util qw( product );
 
-sub steps_needed( $n ) {
+sub steps_needed_using_loop( $n ) {
     my $n_steps = 0;
     while ( $n > 9 ) {
 	++$n_steps;
@@ -28,8 +28,14 @@ sub steps_needed( $n ) {
     return $n_steps;
 }
 
+sub steps_needed_recursive( $n ) {
+    return 0
+	if $n <= 9;
+    return 1 + steps_needed( product( split "", $n ) );
+}
+
 sub persistence_sort( @int ) {
-    my %steps = map { ( $_, scalar steps_needed( $_ ) ) } @int;
+    my %steps = map { ( $_, scalar steps_needed_recursive( $_ ) ) } @int;
     return sort { $steps{$a} <=> $steps{$b} || $a <=> $b } @int;
 }
 
