@@ -1,27 +1,23 @@
 {
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-10-28 22:09:23 GMT"
-   },
    "yAxis" : {
       "title" : {
          "text" : ""
       },
       "min" : 0
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-11-06 00:16:30 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "xAxis" : {
       "categories" : [
@@ -57,6 +53,10 @@
          "Gurunandan Bhat"
       ]
    },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
    "series" : [
       {
          "data" : [
@@ -65,8 +65,8 @@
             21,
             5,
             68,
-            396,
-            92,
+            398,
+            94,
             4,
             0,
             8,
@@ -77,7 +77,7 @@
             0,
             82,
             397,
-            470,
+            472,
             2,
             8,
             23,

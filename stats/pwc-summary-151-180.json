@@ -1,27 +1,119 @@
 {
    "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
+   "series" : [
+      {
+         "data" : [
+            16,
+            22,
+            428,
+            17,
+            2,
+            0,
+            458,
+            0,
+            0,
+            0,
+            4,
+            1,
+            3,
+            39,
+            22,
+            1,
+            0,
+            8,
+            0,
+            0,
+            0,
+            4,
+            168,
+            0,
+            4,
+            72,
+            2,
+            6,
+            13,
+            12
+         ],
+         "name" : "Perl"
+      },
+      {
+         "name" : "Raku",
+         "data" : [
+            4,
+            0,
+            440,
+            0,
+            0,
+            6,
+            17,
+            330,
+            14,
+            4,
+            0,
+            1,
+            0,
+            0,
+            357,
+            1,
+            49,
+            91,
+            3,
+            2,
+            89,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+         ]
+      },
+      {
+         "data" : [
+            0,
+            0,
+            311,
+            0,
+            0,
+            0,
+            22,
+            643,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            29,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            32,
+            0,
+            0,
+            0,
+            0
+         ],
+         "name" : "Blog"
+      }
+   ],
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-10-28 22:09:23 GMT"
-   },
-   "chart" : {
-      "type" : "column"
    },
    "xAxis" : {
       "categories" : [
@@ -57,111 +149,19 @@
          "Maxim Nechaev"
       ]
    },
-   "series" : [
-      {
-         "data" : [
-            16,
-            22,
-            428,
-            17,
-            2,
-            0,
-            456,
-            0,
-            0,
-            0,
-            4,
-            1,
-            3,
-            39,
-            22,
-            1,
-            0,
-            8,
-            0,
-            0,
-            0,
-            4,
-            166,
-            0,
-            4,
-            68,
-            2,
-            6,
-            13,
-            12
-         ],
-         "name" : "Perl"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-11-06 00:16:30 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
       },
-      {
-         "data" : [
-            4,
-            0,
-            440,
-            0,
-            0,
-            4,
-            15,
-            328,
-            14,
-            4,
-            0,
-            1,
-            0,
-            0,
-            355,
-            1,
-            49,
-            91,
-            3,
-            2,
-            89,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0
-         ],
-         "name" : "Raku"
-      },
-      {
-         "data" : [
-            0,
-            0,
-            311,
-            0,
-            0,
-            0,
-            21,
-            635,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            2,
-            0,
-            29,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            31,
-            0,
-            0,
-            0,
-            0
-         ],
-         "name" : "Blog"
-      }
-   ]
+      "min" : 0
+   },
+   "chart" : {
+      "type" : "column"
+   }
 }
