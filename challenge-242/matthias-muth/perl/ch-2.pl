@@ -18,9 +18,7 @@ use lib '.';
 use TestExtractor;
 
 sub flip_matrix( $matrix ) {
-    @$_ = map $_ ^ 1, reverse @$_
-	for @$matrix;
-    return @$matrix;
+    return map [ map $_ ^ 1, reverse $_->@* ], $matrix->@*;
 }
 
 run_tests;
