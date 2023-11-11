@@ -1,65 +1,31 @@
 {
-   "chart" : {
-      "type" : "column"
-   },
    "yAxis" : {
+      "min" : 0,
       "title" : {
          "text" : ""
-      },
-      "min" : 0
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-11-06 00:16:30 GMT"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Peter Campbell Smith",
-         "Peter Mayr",
-         "Peter Meszaros",
-         "Peter Scott",
-         "Petr Roubicek",
-         "Philip Hood",
-         "Philippe Bricout",
-         "Philippe Bruhat",
-         "Phillip Harris",
-         "Phillip Hartfield Sr",
-         "Pip Stuart",
-         "PJ Durai",
-         "Plis Acm",
-         "PokGoPun",
-         "Prajith P",
-         "Rage311",
-         "Raghu R",
-         "Rakesh Kumar Shardiwal",
-         "Rakulius",
-         "Randy Lauen",
-         "Rawley Fowler",
-         "rcmlz",
-         "RibTips",
-         "Rich Snyder",
-         "Richard Hainsworth",
-         "Richard Nuttall",
-         "Richard Park",
-         "Rick Bychowski",
-         "Rob Turner",
-         "Robbie Hatley"
-      ]
+      }
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
-            210,
+            212,
             1,
-            42,
+            44,
             11,
             7,
             1,
@@ -86,8 +52,9 @@
             0,
             0,
             9,
-            108
-         ]
+            110
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -125,9 +92,8 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
-            98,
+            99,
             0,
             0,
             0,
@@ -156,12 +122,46 @@
             13,
             0,
             0,
-            42
-         ]
+            43
+         ],
+         "name" : "Blog"
       }
    ],
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-11-09 19:58:19 GMT"
+   },
+   "xAxis" : {
+      "categories" : [
+         "Peter Campbell Smith",
+         "Peter Mayr",
+         "Peter Meszaros",
+         "Peter Scott",
+         "Petr Roubicek",
+         "Philip Hood",
+         "Philippe Bricout",
+         "Philippe Bruhat",
+         "Phillip Harris",
+         "Phillip Hartfield Sr",
+         "Pip Stuart",
+         "PJ Durai",
+         "Plis Acm",
+         "PokGoPun",
+         "Prajith P",
+         "Rage311",
+         "Raghu R",
+         "Rakesh Kumar Shardiwal",
+         "Rakulius",
+         "Randy Lauen",
+         "Rawley Fowler",
+         "rcmlz",
+         "RibTips",
+         "Rich Snyder",
+         "Richard Hainsworth",
+         "Richard Nuttall",
+         "Richard Park",
+         "Rick Bychowski",
+         "Rob Turner",
+         "Robbie Hatley"
+      ]
    }
 }

@@ -1,7 +1,40 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "xAxis" : {
+      "categories" : [
+         "Bartosz Jarzyna",
+         "Baryshev Sergey",
+         "Bejoy Mathews",
+         "Belmark Caday",
+         "Ben Bullock",
+         "Ben Davies",
+         "Bill Palmer",
+         "Bob Kleemann",
+         "Bob Lied",
+         "Branislav Zahradnik",
+         "Bruce Gray",
+         "Bruce Van Allen",
+         "Bruno Ramos",
+         "Burkhard Nickels",
+         "Carlos Oliveira",
+         "Chenyf",
+         "Cheok-Yin Fung",
+         "Chicagoist",
+         "Christian Jaeger",
+         "Clifton Wood",
+         "Clifton Wood",
+         "Clive Holloway",
+         "Colin Crain",
+         "Craig",
+         "Creewick",
+         "Cristina Heredia",
+         "Csaba Simandi",
+         "Dan Friedman",
+         "Daniel Bowling",
+         "Daniel Mantovani"
+      ]
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2023-11-09 19:58:19 GMT"
    },
    "series" : [
       {
@@ -61,8 +94,8 @@
             9,
             0,
             0,
+            6,
             2,
-            4,
             0,
             194,
             0,
@@ -110,58 +143,25 @@
          ]
       }
    ],
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
-   "xAxis" : {
-      "categories" : [
-         "Bartosz Jarzyna",
-         "Baryshev Sergey",
-         "Bejoy Mathews",
-         "Belmark Caday",
-         "Ben Bullock",
-         "Ben Davies",
-         "Bill Palmer",
-         "Bob Kleemann",
-         "Bob Lied",
-         "Branislav Zahradnik",
-         "Bruce Gray",
-         "Bruce Van Allen",
-         "Bruno Ramos",
-         "Burkhard Nickels",
-         "Carlos Oliveira",
-         "Chenyf",
-         "Cheok-Yin Fung",
-         "Chicagoist",
-         "Christian Jaeger",
-         "Clifton Wood",
-         "Clifton Wood",
-         "Clive Holloway",
-         "Colin Crain",
-         "Craig",
-         "Creewick",
-         "Cristina Heredia",
-         "Csaba Simandi",
-         "Dan Friedman",
-         "Daniel Bowling",
-         "Daniel Mantovani"
-      ]
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-11-06 00:16:30 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
-      }
-   },
-   "chart" : {
-      "type" : "column"
+      },
+      "min" : 0
    }
 }

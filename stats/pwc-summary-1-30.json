@@ -1,18 +1,57 @@
 {
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-11-06 00:16:30 GMT"
+      "text" : "[Champions: 30] Last updated at 2023-11-09 19:58:19 GMT"
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
+   "xAxis" : {
+      "categories" : [
+         "3ter",
+         "Aaron Rowe",
+         "Aaron Sherman",
+         "Aaron Smith",
+         "Abigail",
+         "Adam Herzog",
+         "Adam Russell",
+         "Adriaan Dens",
+         "AhmetEmre",
+         "Ailbhe Tweedie",
+         "Alex Daniel",
+         "Alex Mauney",
+         "Alexander Karelas",
+         "Alexander Pankoff",
+         "Ali Moradi",
+         "Alicia Bielsa",
+         "Andinus",
+         "Andreas Voegele",
+         "Andrew Grangaard",
+         "Andrew Shitov",
+         "Andrezgz",
+         "Anton Fedotov",
+         "Antonio Gamiz",
+         "Arne Sommer",
+         "Arpad Toth",
+         "Athanasius",
+         "Aubrey Quarcoo",
+         "Augie De Blieck Jr.",
+         "Avery Adams",
+         "BarrOff"
+      ]
    },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
+      },
+      "min" : 0
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
       }
    },
    "chart" : {
       "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
    },
    "tooltip" : {
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
@@ -55,6 +94,7 @@
          "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -86,11 +126,9 @@
             0,
             0,
             60
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -122,46 +160,8 @@
             6,
             43,
             2
-         ]
+         ],
+         "name" : "Blog"
       }
-   ],
-   "xAxis" : {
-      "categories" : [
-         "3ter",
-         "Aaron Rowe",
-         "Aaron Sherman",
-         "Aaron Smith",
-         "Abigail",
-         "Adam Herzog",
-         "Adam Russell",
-         "Adriaan Dens",
-         "AhmetEmre",
-         "Ailbhe Tweedie",
-         "Alex Daniel",
-         "Alex Mauney",
-         "Alexander Karelas",
-         "Alexander Pankoff",
-         "Ali Moradi",
-         "Alicia Bielsa",
-         "Andinus",
-         "Andreas Voegele",
-         "Andrew Grangaard",
-         "Andrew Shitov",
-         "Andrezgz",
-         "Anton Fedotov",
-         "Antonio Gamiz",
-         "Arne Sommer",
-         "Arpad Toth",
-         "Athanasius",
-         "Aubrey Quarcoo",
-         "Augie De Blieck Jr.",
-         "Avery Adams",
-         "BarrOff"
-      ]
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   }
+   ]
 }
