@@ -28,19 +28,19 @@ In [perlfaq4](https://perldoc.perl.org/perlfaq4#How-can-I-get-the-unique-keys-fr
 I would like to extend this good advice to
 > Whenever you think "*existence of a value*", think "hash keys"! 
 
-So when we need to decide whether members of one array are contained inthe other,
+So when we need to decide whether members of one array are contained in the other,
 the easiest solution is to first build two hashes from the values of the two arrays.
 We create an entry containing the value 1 for each member,
 using a common Perl idiom.
 As we have two arrays as input to our function,
 we use references to the actual arrays as parameters.<br/>
-That can look look this:
+That can look like this:
 
 ```perl
     my %arr1_members = map { ( $_ => 1 ) } $arr1->@*;
     my %arr2_members = map { ( $_ => 1 ) } $arr2->@*;
 ```
-Then, we can `grep` through the two arrays, with a condition of the current value not existing in the other array's lookup hash.<br/>
+Then, we can `grep` through the two arrays, with a condition of the current value *not* existing in the other array's lookup hash.<br/>
 There may be duplicate values in the input arrays, but we are supposed to return only distinct values in the results.
 So we could  follow the above advice and create another hash to reduce multiple values into distinct ones. But, to make it easy, we can also simply leave that work to the `uniq` function from the `List::Util` core module.<br/>
 We then return the results as two anonymous arrays.
@@ -51,7 +51,7 @@ Which makes this my complete solution:
 use List::Util qw( uniq );
 
 sub missing_members( $arr1, $arr2 ) {
-	my %arr1_members = map { ( $_ => 1 ) } $arr1->@*;
+    my %arr1_members = map { ( $_ => 1 ) } $arr1->@*;
     my %arr2_members = map { ( $_ => 1 ) } $arr2->@*;
     return (
         [ uniq grep ! $arr2_members{$_}, $arr1->@* ],
@@ -84,12 +84,11 @@ sub missing_members( $arr1, $arr2 ) {
 > Input: @matrix = ([1, 1, 0, 0], [1, 0, 0, 1], [0, 1, 1, 1], [1, 0, 1, 0])<br/>
 > Output: ([1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 1], [1, 0, 1, 0])<br/>
 
-The instructions allow us to perform the operations on each row independently.
-This makes things quite easy.<br/>
+We are a bit lucky, because the operations described here can be performed on each row independently, for each row, one by one. This makes things quite easy.<br/>
 We can chain the `reverse` operation and the 'inverse' operation
 (which is a binary exclusive or, `^`. with the value `1`)
-using a `map` call for all values of that row.
-The row results go into an anonymous array.<br/>
+using a `map` call for all values of a row.
+The results go into an anonymous array, which will be the resulting row.<br/>
 Assuming that the current row is represented by `$_`
 containing a reference to the row's data, this does the transformation
 for one row:
@@ -105,7 +104,8 @@ This means that in an outer `map` call, we can loop over the rows like this:
 ```perl
     map ..., $matrix->@*;
 ```
-Putting the pieces together, this the complete (one-line! :-) ) solution:
+Putting the pieces together, this the complete (one-line :-) ) solution:
+
 ```perl
 sub flip_matrix( $matrix ) {
     return map [ map $_ ^ 1, reverse $_->@* ], $matrix->@*;
