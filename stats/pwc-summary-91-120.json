@@ -1,17 +1,14 @@
 {
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             50,
             0,
             0,
             0,
             12,
-            12,
+            14,
             1,
             2,
             2,
@@ -36,11 +33,9 @@
             0,
             8,
             2
-         ],
-         "name" : "Perl"
+         ]
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             8,
@@ -62,7 +57,7 @@
             3,
             10,
             0,
-            291,
+            293,
             4,
             0,
             14,
@@ -72,17 +67,17 @@
             2,
             0,
             1
-         ]
+         ],
+         "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             6,
             0,
             0,
             0,
             7,
-            2,
+            3,
             0,
             0,
             0,
@@ -107,26 +102,10 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
    "xAxis" : {
       "categories" : [
          "Gustavo Chaves",
@@ -161,7 +140,28 @@
          "Jeremy Carman"
       ]
    },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-11-09 19:58:19 GMT"
+      "text" : "[Champions: 30] Last updated at 2023-11-12 23:47:41 GMT"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "chart" : {
+      "type" : "column"
    }
 }

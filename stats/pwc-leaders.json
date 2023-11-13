@@ -1,11 +1,18 @@
 {
-   "xAxis" : {
-      "type" : "category"
+   "subtitle" : {
+      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2023-11-12 23:47:41 GMT"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : "Total Score"
+      }
+   },
+   "chart" : {
+      "type" : "column"
    },
    "drilldown" : {
       "series" : [
          {
-            "id" : "Laurent Rosenfeld",
             "data" : [
                [
                   "Bash",
@@ -28,13 +35,16 @@
                   442
                ]
             ],
+            "id" : "Laurent Rosenfeld",
             "name" : "Laurent Rosenfeld"
          },
          {
+            "id" : "Roger Bell_West",
+            "name" : "Roger Bell_West",
             "data" : [
                [
                   "Blog",
-                  220
+                  221
                ],
                [
                   "Perl",
@@ -48,12 +58,11 @@
                   "Shell",
                   1
                ]
-            ],
-            "name" : "Roger Bell_West",
-            "id" : "Roger Bell_West"
+            ]
          },
          {
             "id" : "Jaldhar H. Vyas",
+            "name" : "Jaldhar H. Vyas",
             "data" : [
                [
                   "Blog",
@@ -67,10 +76,11 @@
                   "Raku",
                   420
                ]
-            ],
-            "name" : "Jaldhar H. Vyas"
+            ]
          },
          {
+            "name" : "Luca Ferrari",
+            "id" : "Luca Ferrari",
             "data" : [
                [
                   "Blog",
@@ -84,9 +94,7 @@
                   "Raku",
                   332
                ]
-            ],
-            "name" : "Luca Ferrari",
-            "id" : "Luca Ferrari"
+            ]
          },
          {
             "id" : "Arne Sommer",
@@ -98,7 +106,7 @@
                ],
                [
                   "Blog",
-                  240
+                  241
                ],
                [
                   "Perl",
@@ -106,11 +114,12 @@
                ],
                [
                   "Raku",
-                  480
+                  482
                ]
             ]
          },
          {
+            "id" : "Flavio Poletti",
             "name" : "Flavio Poletti",
             "data" : [
                [
@@ -125,11 +134,11 @@
                   "Raku",
                   237
                ]
-            ],
-            "id" : "Flavio Poletti"
+            ]
          },
          {
             "id" : "Athanasius",
+            "name" : "Athanasius",
             "data" : [
                [
                   "Blog",
@@ -137,16 +146,16 @@
                ],
                [
                   "Perl",
-                  394
+                  396
                ],
                [
                   "Raku",
-                  354
+                  356
                ]
-            ],
-            "name" : "Athanasius"
+            ]
          },
          {
+            "id" : "Ulrich Rieke",
             "name" : "Ulrich Rieke",
             "data" : [
                [
@@ -157,11 +166,11 @@
                   "Raku",
                   344
                ]
-            ],
-            "id" : "Ulrich Rieke"
+            ]
          },
          {
             "name" : "Colin Crain",
+            "id" : "Colin Crain",
             "data" : [
                [
                   "Blog",
@@ -175,29 +184,27 @@
                   "Raku",
                   194
                ]
-            ],
-            "id" : "Colin Crain"
+            ]
          },
          {
-            "name" : "Adam Russell",
             "data" : [
                [
                   "Blog",
-                  233
+                  235
                ],
                [
                   "Perl",
-                  326
+                  328
                ],
                [
                   "Raku",
                   9
                ]
             ],
-            "id" : "Adam Russell"
+            "id" : "Adam Russell",
+            "name" : "Adam Russell"
          },
          {
-            "name" : "Dave Jacoby",
             "data" : [
                [
                   "Blog",
@@ -212,7 +219,8 @@
                   1
                ]
             ],
-            "id" : "Dave Jacoby"
+            "id" : "Dave Jacoby",
+            "name" : "Dave Jacoby"
          },
          {
             "data" : [
@@ -229,7 +237,6 @@
             "id" : "E. Choroba"
          },
          {
-            "id" : "Lubos Kolouch",
             "data" : [
                [
                   "Bash",
@@ -237,11 +244,11 @@
                ],
                [
                   "Blog",
-                  22
+                  23
                ],
                [
                   "Perl",
-                  458
+                  460
                ],
                [
                   "Python",
@@ -249,13 +256,13 @@
                ],
                [
                   "Raku",
-                  17
+                  19
                ]
             ],
-            "name" : "Lubos Kolouch"
+            "name" : "Lubos Kolouch",
+            "id" : "Lubos Kolouch"
          },
          {
-            "id" : "W. Luis Mochan",
             "data" : [
                [
                   "Blog",
@@ -270,7 +277,8 @@
                   2
                ]
             ],
-            "name" : "W. Luis Mochan"
+            "name" : "W. Luis Mochan",
+            "id" : "W. Luis Mochan"
          },
          {
             "id" : "Jorg Sommrey",
@@ -278,17 +286,15 @@
             "data" : [
                [
                   "Blog",
-                  3
+                  4
                ],
                [
                   "Perl",
-                  448
+                  450
                ]
             ]
          },
          {
-            "id" : "Paulo Custodio",
-            "name" : "Paulo Custodio",
             "data" : [
                [
                   "Brainfuck",
@@ -298,7 +304,9 @@
                   "Perl",
                   438
                ]
-            ]
+            ],
+            "name" : "Paulo Custodio",
+            "id" : "Paulo Custodio"
          },
          {
             "data" : [
@@ -320,6 +328,7 @@
          },
          {
             "id" : "Simon Green",
+            "name" : "Simon Green",
             "data" : [
                [
                   "Blog",
@@ -329,11 +338,9 @@
                   "Perl",
                   276
                ]
-            ],
-            "name" : "Simon Green"
+            ]
          },
          {
-            "name" : "Duncan C. White",
             "data" : [
                [
                   "C",
@@ -348,10 +355,10 @@
                   397
                ]
             ],
-            "id" : "Duncan C. White"
+            "id" : "Duncan C. White",
+            "name" : "Duncan C. White"
          },
          {
-            "id" : "Abigail",
             "data" : [
                [
                   "Bash",
@@ -366,10 +373,10 @@
                   169
                ]
             ],
+            "id" : "Abigail",
             "name" : "Abigail"
          },
          {
-            "name" : "Cheok-Yin Fung",
             "data" : [
                [
                   "Bash",
@@ -381,13 +388,14 @@
                ],
                [
                   "Perl",
-                  320
+                  322
                ],
                [
                   "Raku",
                   9
                ]
             ],
+            "name" : "Cheok-Yin Fung",
             "id" : "Cheok-Yin Fung"
          },
          {
@@ -427,6 +435,7 @@
             ]
          },
          {
+            "name" : "Stuart Little",
             "id" : "Stuart Little",
             "data" : [
                [
@@ -437,8 +446,7 @@
                   "Raku",
                   256
                ]
-            ],
-            "name" : "Stuart Little"
+            ]
          },
          {
             "id" : "Peter Campbell Smith",
@@ -456,13 +464,13 @@
          },
          {
             "id" : "Jan Krnavek",
+            "name" : "Jan Krnavek",
             "data" : [
                [
                   "Raku",
-                  291
+                  293
                ]
-            ],
-            "name" : "Jan Krnavek"
+            ]
          },
          {
             "data" : [
@@ -475,11 +483,10 @@
                   130
                ]
             ],
-            "name" : "Robert DiCicco",
-            "id" : "Robert DiCicco"
+            "id" : "Robert DiCicco",
+            "name" : "Robert DiCicco"
          },
          {
-            "id" : "Feng Chang",
             "data" : [
                [
                   "Perl",
@@ -490,11 +497,10 @@
                   254
                ]
             ],
+            "id" : "Feng Chang",
             "name" : "Feng Chang"
          },
          {
-            "id" : "Simon Proctor",
-            "name" : "Simon Proctor",
             "data" : [
                [
                   "Blog",
@@ -508,17 +514,19 @@
                   "Raku",
                   255
                ]
-            ]
+            ],
+            "name" : "Simon Proctor",
+            "id" : "Simon Proctor"
          },
          {
+            "id" : "Niels van Dijke",
             "name" : "Niels van Dijke",
             "data" : [
                [
                   "Perl",
                   269
                ]
-            ],
-            "id" : "Niels van Dijke"
+            ]
          },
          {
             "data" : [
@@ -532,13 +540,14 @@
                ],
                [
                   "Raku",
-                  170
+                  172
                ]
             ],
             "name" : "Bruce Gray",
             "id" : "Bruce Gray"
          },
          {
+            "id" : "Javier Luque",
             "name" : "Javier Luque",
             "data" : [
                [
@@ -553,11 +562,9 @@
                   "Raku",
                   92
                ]
-            ],
-            "id" : "Javier Luque"
+            ]
          },
          {
-            "id" : "Ruben Westerberg",
             "data" : [
                [
                   "Perl",
@@ -568,23 +575,26 @@
                   113
                ]
             ],
+            "id" : "Ruben Westerberg",
             "name" : "Ruben Westerberg"
          },
          {
-            "name" : "Bob Lied",
             "data" : [
                [
                   "Blog",
-                  20
+                  21
                ],
                [
                   "Perl",
-                  188
+                  190
                ]
             ],
+            "name" : "Bob Lied",
             "id" : "Bob Lied"
          },
          {
+            "id" : "Stephen G. Lynn",
+            "name" : "Stephen G. Lynn",
             "data" : [
                [
                   "Blog",
@@ -602,12 +612,9 @@
                   "Raku",
                   67
                ]
-            ],
-            "name" : "Stephen G. Lynn",
-            "id" : "Stephen G. Lynn"
+            ]
          },
          {
-            "id" : "Ryan Thompson",
             "data" : [
                [
                   "Blog",
@@ -622,10 +629,20 @@
                   59
                ]
             ],
+            "id" : "Ryan Thompson",
             "name" : "Ryan Thompson"
          },
          {
-            "name" : "Thomas Kohler",
+            "id" : "Wanderdoc",
+            "name" : "Wanderdoc",
+            "data" : [
+               [
+                  "Perl",
+                  191
+               ]
+            ]
+         },
+         {
             "data" : [
                [
                   "Blog",
@@ -636,37 +653,29 @@
                   98
                ]
             ],
+            "name" : "Thomas Kohler",
             "id" : "Thomas Kohler"
          },
          {
-            "id" : "Wanderdoc",
-            "name" : "Wanderdoc",
+            "id" : "Ali Moradi",
+            "name" : "Ali Moradi",
             "data" : [
                [
+                  "Blog",
+                  16
+               ],
+               [
                   "Perl",
-                  189
+                  99
+               ],
+               [
+                  "Raku",
+                  73
                ]
             ]
          },
          {
-            "data" : [
-               [
-                  "Blog",
-                  15
-               ],
-               [
-                  "Perl",
-                  97
-               ],
-               [
-                  "Raku",
-                  71
-               ]
-            ],
-            "name" : "Ali Moradi",
-            "id" : "Ali Moradi"
-         },
-         {
+            "name" : "Pete Houston",
             "id" : "Pete Houston",
             "data" : [
                [
@@ -677,8 +686,7 @@
                   "Perl",
                   180
                ]
-            ],
-            "name" : "Pete Houston"
+            ]
          },
          {
             "id" : "Matthew Neleigh",
@@ -691,6 +699,7 @@
             ]
          },
          {
+            "name" : "Joelle Maslak",
             "id" : "Joelle Maslak",
             "data" : [
                [
@@ -705,11 +714,14 @@
                   "Raku",
                   83
                ]
-            ],
-            "name" : "Joelle Maslak"
+            ]
          },
          {
             "data" : [
+               [
+                  "Blog",
+                  2
+               ],
                [
                   "Raku",
                   161
@@ -719,7 +731,6 @@
             "id" : "Robert Ransbottom"
          },
          {
-            "name" : "Robbie Hatley",
             "data" : [
                [
                   "Blog",
@@ -730,11 +741,12 @@
                   110
                ]
             ],
-            "id" : "Robbie Hatley"
+            "id" : "Robbie Hatley",
+            "name" : "Robbie Hatley"
          },
          {
-            "id" : "Andrezgz",
             "name" : "Andrezgz",
+            "id" : "Andrezgz",
             "data" : [
                [
                   "Perl",
@@ -743,8 +755,6 @@
             ]
          },
          {
-            "id" : "Steven Wilson",
-            "name" : "Steven Wilson",
             "data" : [
                [
                   "Blog",
@@ -758,10 +768,13 @@
                   "Raku",
                   1
                ]
-            ]
+            ],
+            "name" : "Steven Wilson",
+            "id" : "Steven Wilson"
          },
          {
             "id" : "Yet Ebreo",
+            "name" : "Yet Ebreo",
             "data" : [
                [
                   "Blog",
@@ -775,10 +788,10 @@
                   "Raku",
                   21
                ]
-            ],
-            "name" : "Yet Ebreo"
+            ]
          },
          {
+            "id" : "Andrew Shitov",
             "name" : "Andrew Shitov",
             "data" : [
                [
@@ -797,11 +810,9 @@
                   "Raku",
                   70
                ]
-            ],
-            "id" : "Andrew Shitov"
+            ]
          },
          {
-            "name" : "David Ferrone",
             "data" : [
                [
                   "Blog",
@@ -816,9 +827,11 @@
                   13
                ]
             ],
+            "name" : "David Ferrone",
             "id" : "David Ferrone"
          },
          {
+            "id" : "Alexander Pankoff",
             "name" : "Alexander Pankoff",
             "data" : [
                [
@@ -833,39 +846,26 @@
                   "Raku",
                   4
                ]
-            ],
-            "id" : "Alexander Pankoff"
+            ]
          }
       ]
-   },
-   "subtitle" : {
-      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2023-11-09 19:58:19 GMT"
-   },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "title" : {
-      "text" : "Team Leaders (TOP 50)"
    },
    "series" : [
       {
          "data" : [
             {
-               "y" : 2376,
                "drilldown" : "Laurent Rosenfeld",
+               "y" : 2376,
                "name" : "#1: Laurent Rosenfeld"
             },
             {
-               "name" : "#2: Roger Bell_West",
-               "y" : 2162,
-               "drilldown" : "Roger Bell_West"
+               "y" : 2164,
+               "drilldown" : "Roger Bell_West",
+               "name" : "#2: Roger Bell_West"
             },
             {
-               "y" : 2080,
                "drilldown" : "Jaldhar H. Vyas",
+               "y" : 2080,
                "name" : "#3: Jaldhar H. Vyas"
             },
             {
@@ -874,59 +874,59 @@
                "drilldown" : "Luca Ferrari"
             },
             {
-               "y" : 1746,
+               "name" : "#5: Arne Sommer",
                "drilldown" : "Arne Sommer",
-               "name" : "#5: Arne Sommer"
+               "y" : 1752
             },
             {
-               "name" : "#6: Flavio Poletti",
                "y" : 1716,
-               "drilldown" : "Flavio Poletti"
+               "drilldown" : "Flavio Poletti",
+               "name" : "#6: Flavio Poletti"
             },
             {
+               "name" : "#7: Athanasius",
                "drilldown" : "Athanasius",
-               "y" : 1504,
-               "name" : "#7: Athanasius"
+               "y" : 1512
             },
             {
-               "y" : 1354,
+               "name" : "#8: Ulrich Rieke",
                "drilldown" : "Ulrich Rieke",
-               "name" : "#8: Ulrich Rieke"
+               "y" : 1354
             },
             {
-               "name" : "#9: Colin Crain",
+               "y" : 1338,
                "drilldown" : "Colin Crain",
-               "y" : 1338
+               "name" : "#9: Colin Crain"
             },
             {
-               "y" : 1136,
                "drilldown" : "Adam Russell",
+               "y" : 1144,
                "name" : "#10: Adam Russell"
             },
             {
-               "name" : "#11: Dave Jacoby",
+               "y" : 1092,
                "drilldown" : "Dave Jacoby",
-               "y" : 1092
+               "name" : "#11: Dave Jacoby"
             },
             {
                "name" : "#12: E. Choroba",
-               "y" : 1058,
-               "drilldown" : "E. Choroba"
+               "drilldown" : "E. Choroba",
+               "y" : 1058
             },
             {
                "name" : "#13: Lubos Kolouch",
-               "y" : 1008,
+               "y" : 1018,
                "drilldown" : "Lubos Kolouch"
             },
             {
-               "name" : "#14: W. Luis Mochan",
                "drilldown" : "W. Luis Mochan",
-               "y" : 910
+               "y" : 910,
+               "name" : "#14: W. Luis Mochan"
             },
             {
-               "y" : 902,
-               "drilldown" : "Jorg Sommrey",
-               "name" : "#15: Jorg Sommrey"
+               "name" : "#15: Jorg Sommrey",
+               "y" : 908,
+               "drilldown" : "Jorg Sommrey"
             },
             {
                "y" : 878,
@@ -944,19 +944,19 @@
                "y" : 820
             },
             {
+               "name" : "#19: Duncan C. White",
                "drilldown" : "Duncan C. White",
-               "y" : 798,
-               "name" : "#19: Duncan C. White"
+               "y" : 798
             },
             {
                "name" : "#20: Abigail",
-               "drilldown" : "Abigail",
-               "y" : 794
+               "y" : 794,
+               "drilldown" : "Abigail"
             },
             {
-               "name" : "#21: Cheok-Yin Fung",
                "drilldown" : "Cheok-Yin Fung",
-               "y" : 772
+               "y" : 776,
+               "name" : "#21: Cheok-Yin Fung"
             },
             {
                "name" : "#22: Mark Anderson",
@@ -964,14 +964,14 @@
                "drilldown" : "Mark Anderson"
             },
             {
-               "name" : "#23: Mohammad S Anwar",
+               "drilldown" : "Mohammad S Anwar",
                "y" : 718,
-               "drilldown" : "Mohammad S Anwar"
+               "name" : "#23: Mohammad S Anwar"
             },
             {
                "name" : "#24: Stuart Little",
-               "y" : 644,
-               "drilldown" : "Stuart Little"
+               "drilldown" : "Stuart Little",
+               "y" : 644
             },
             {
                "drilldown" : "Peter Campbell Smith",
@@ -979,8 +979,8 @@
                "name" : "#25: Peter Campbell Smith"
             },
             {
+               "y" : 586,
                "drilldown" : "Jan Krnavek",
-               "y" : 582,
                "name" : "#26: Jan Krnavek"
             },
             {
@@ -989,9 +989,9 @@
                "name" : "#27: Robert DiCicco"
             },
             {
+               "name" : "#28: Feng Chang",
                "y" : 554,
-               "drilldown" : "Feng Chang",
-               "name" : "#28: Feng Chang"
+               "drilldown" : "Feng Chang"
             },
             {
                "name" : "#29: Simon Proctor",
@@ -999,14 +999,14 @@
                "y" : 544
             },
             {
+               "name" : "#30: Niels van Dijke",
                "drilldown" : "Niels van Dijke",
-               "y" : 538,
-               "name" : "#30: Niels van Dijke"
+               "y" : 538
             },
             {
                "name" : "#31: Bruce Gray",
                "drilldown" : "Bruce Gray",
-               "y" : 500
+               "y" : 504
             },
             {
                "y" : 460,
@@ -1014,39 +1014,39 @@
                "name" : "#32: Javier Luque"
             },
             {
-               "name" : "#33: Ruben Westerberg",
+               "drilldown" : "Ruben Westerberg",
                "y" : 452,
-               "drilldown" : "Ruben Westerberg"
+               "name" : "#33: Ruben Westerberg"
             },
             {
                "name" : "#34: Bob Lied",
-               "y" : 416,
-               "drilldown" : "Bob Lied"
+               "drilldown" : "Bob Lied",
+               "y" : 422
             },
             {
-               "name" : "#35: Stephen G. Lynn",
                "y" : 406,
-               "drilldown" : "Stephen G. Lynn"
+               "drilldown" : "Stephen G. Lynn",
+               "name" : "#35: Stephen G. Lynn"
             },
             {
-               "name" : "#36: Ryan Thompson",
+               "drilldown" : "Ryan Thompson",
                "y" : 390,
-               "drilldown" : "Ryan Thompson"
+               "name" : "#36: Ryan Thompson"
             },
             {
-               "name" : "#37: Thomas Kohler",
-               "drilldown" : "Thomas Kohler",
-               "y" : 378
+               "name" : "#37: Wanderdoc",
+               "drilldown" : "Wanderdoc",
+               "y" : 382
             },
             {
-               "name" : "#38: Wanderdoc",
+               "name" : "#38: Thomas Kohler",
                "y" : 378,
-               "drilldown" : "Wanderdoc"
+               "drilldown" : "Thomas Kohler"
             },
             {
-               "name" : "#39: Ali Moradi",
-               "y" : 366,
-               "drilldown" : "Ali Moradi"
+               "y" : 376,
+               "drilldown" : "Ali Moradi",
+               "name" : "#39: Ali Moradi"
             },
             {
                "name" : "#40: Pete Houston",
@@ -1054,39 +1054,39 @@
                "y" : 362
             },
             {
-               "name" : "#41: Matthew Neleigh",
                "drilldown" : "Matthew Neleigh",
-               "y" : 340
+               "y" : 340,
+               "name" : "#41: Matthew Neleigh"
             },
             {
+               "name" : "#42: Joelle Maslak",
                "y" : 338,
-               "drilldown" : "Joelle Maslak",
-               "name" : "#42: Joelle Maslak"
+               "drilldown" : "Joelle Maslak"
             },
             {
-               "y" : 322,
+               "name" : "#43: Robert Ransbottom",
                "drilldown" : "Robert Ransbottom",
-               "name" : "#43: Robert Ransbottom"
+               "y" : 326
             },
             {
+               "name" : "#44: Robbie Hatley",
                "y" : 306,
-               "drilldown" : "Robbie Hatley",
-               "name" : "#44: Robbie Hatley"
+               "drilldown" : "Robbie Hatley"
             },
             {
-               "drilldown" : "Andrezgz",
+               "name" : "#45: Andrezgz",
                "y" : 260,
-               "name" : "#45: Andrezgz"
+               "drilldown" : "Andrezgz"
             },
             {
                "name" : "#46: Steven Wilson",
-               "y" : 250,
-               "drilldown" : "Steven Wilson"
+               "drilldown" : "Steven Wilson",
+               "y" : 250
             },
             {
-               "name" : "#47: Yet Ebreo",
                "drilldown" : "Yet Ebreo",
-               "y" : 226
+               "y" : 226,
+               "name" : "#47: Yet Ebreo"
             },
             {
                "name" : "#48: Andrew Shitov",
@@ -1094,14 +1094,14 @@
                "y" : 224
             },
             {
-               "name" : "#49: David Ferrone",
                "y" : 224,
-               "drilldown" : "David Ferrone"
+               "drilldown" : "David Ferrone",
+               "name" : "#49: David Ferrone"
             },
             {
-               "name" : "#50: Alexander Pankoff",
+               "drilldown" : "Alexander Pankoff",
                "y" : 220,
-               "drilldown" : "Alexander Pankoff"
+               "name" : "#50: Alexander Pankoff"
             }
          ],
          "name" : "Team Leaders",
@@ -1109,22 +1109,26 @@
       }
    ],
    "tooltip" : {
-      "followPointer" : "true",
       "pointFormat" : "<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y:f}</b><br/>",
-      "headerFormat" : "<span style=\"font-size:11px\"></span>"
+      "headerFormat" : "<span style=\"font-size:11px\"></span>",
+      "followPointer" : "true"
    },
-   "yAxis" : {
-      "title" : {
-         "text" : "Total Score"
-      }
+   "xAxis" : {
+      "type" : "category"
+   },
+   "title" : {
+      "text" : "Team Leaders (TOP 50)"
    },
    "plotOptions" : {
       "series" : {
+         "borderWidth" : 0,
          "dataLabels" : {
-            "format" : "{point.y}",
-            "enabled" : 1
-         },
-         "borderWidth" : 0
+            "enabled" : 1,
+            "format" : "{point.y}"
+         }
       }
+   },
+   "legend" : {
+      "enabled" : "false"
    }
 }
