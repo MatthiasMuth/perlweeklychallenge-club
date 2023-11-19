@@ -39,6 +39,28 @@ sub reverse_pairs_reversed_loops( @nums ) {
     return $count;
 }
 
+sub reverse_pairs_for( @nums ) {
+    my $count = 0;
+    for ( my $i = 0; $i <= $#nums - 1; ++$i ) {
+	for ( my $j = $i + 1; $j <= $#nums; ++$j ) {
+	    ++$count
+	        if $nums[$i] > 2 * $nums[$j];
+	}
+    }
+    return $count;
+}
+
+sub reverse_pairs_reversed_for( @nums ) {
+    my $count = 0;
+    for ( my $j = 1; $j <= $#nums; ++$j ) {
+	for ( my $i = 0; $i <= $j - 1; ++$i ) {
+	    ++$count
+	        if $nums[$i] > 2 * $nums[$j];
+	}
+    }
+    return $count;
+}
+
 sub reverse_pairs_grep( @nums ) {
     my $count = 0;
     for my $i ( 0 .. $#nums - 1 ) {
@@ -58,10 +80,12 @@ sub reverse_pairs_reversed_grep( @nums ) {
 my @subs = qw(
     reverse_pairs
     reverse_pairs_reversed_loops
+    reverse_pairs_for
+    reverse_pairs_reversed_for
 );
 
-run_tests_for_subs( @subs );
-done_testing;
+run_tests( @subs )
+    or exit 0;
 
 use Benchmark qw( :all );
 my %benchmark_runs =

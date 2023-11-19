@@ -72,6 +72,8 @@ sub extract_and_run_tests( $sub_name ) {
     ( $sub_name //= lc $task_title ) =~ s/\W+/_/g;
     my $sub = \&{"::$sub_name"};
 
+    my $n_failures = 0;
+
     do {
         my @input_params =
 	    @{$_->{INPUT}} == 1
@@ -95,29 +97,32 @@ sub extract_and_run_tests( $sub_name ) {
 	my @output = $sub->( @input_params );
 
 	if ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ ) {
-	    ok $1 ? $output[0] : ! $output[0], $name, $diag // ();
+	    ok $1 ? $output[0] : ! $output[0], $name, $diag // ()
+		or ++$n_failures;
 	}
 	else {
-	    is \@output, $expected, $name, $diag // ();
+	    is \@output, $expected, $name, $diag // ()
+		or ++$n_failures;
 	}
 
         # vsay "";
 
     } for @tests;
+
+    return $n_failures;
 }
 
-sub run_tests() {
-    extract_and_run_tests;
-    done_testing;
-}
-
-sub run_tests_for_subs( @sub_names ) {
+sub run_tests( @sub_names ) {
+    my $n_failures = 0;
     my $add_newline = 0;
-    for my $sub ( @sub_names ) {
+    for my $sub ( @sub_names ? @sub_names : ( undef ) ) {
 	$add_newline ? say "" : ( $add_newline = 1 );
-	say "Running tests for '$sub':";
-	extract_and_run_tests( $sub );
+	say "Running tests for '$sub':"
+	    if $sub;
+	$n_failures += extract_and_run_tests( $sub );
     }
+    done_testing;
+    return $n_failures == 0;
 }
 
 sub read_task( $fd_or_filename, $wanted_task = undef ) {
