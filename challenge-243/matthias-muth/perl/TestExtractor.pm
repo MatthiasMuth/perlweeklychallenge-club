@@ -15,7 +15,13 @@ no warnings 'experimental::signatures';
 
 package TestExtractor;
 use Exporter 'import';
-our @EXPORT = qw( run_tests $verbose %options vprint vsay pp np carp croak );
+our @EXPORT = qw(
+    run_tests
+    run_tests_for_subs
+    $verbose %options vprint vsay
+    done_testing
+    pp np carp croak
+);
 
 use Data::Dump qw( pp );
 use Data::Printer;
@@ -32,7 +38,7 @@ our ( $verbose, %options );
 sub vprint { print @_ if $verbose };
 sub vsay   { say   @_ if $verbose };
 
-sub run_tests() {
+sub extract_and_run_tests( $sub_name ) {
 
     $| = 1;
 
@@ -63,7 +69,7 @@ sub run_tests() {
     );
     # vsay pp( @tests );
 
-    ( my $sub_name = lc $task_title ) =~ s/\W+/_/g;
+    ( $sub_name //= lc $task_title ) =~ s/\W+/_/g;
     my $sub = \&{"::$sub_name"};
 
     do {
@@ -98,8 +104,18 @@ sub run_tests() {
         # vsay "";
 
     } for @tests;
+}
 
+sub run_tests() {
+    extract_and_run_tests;
     done_testing;
+}
+
+sub run_tests_for_subs( @sub_names ) {
+    for my $sub ( @sub_names ) {
+	say "Running tests for '$sub':";
+	extract_and_run_tests( $sub );
+    }
 }
 
 sub read_task( $fd_or_filename, $wanted_task = undef ) {
