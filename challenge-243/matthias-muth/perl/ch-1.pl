@@ -17,7 +17,7 @@ no warnings 'experimental::signatures';
 use lib '.';
 use TestExtractor;
 
-sub reverse_pairs_obvious( @nums ) {
+sub reverse_pairs( @nums ) {
     my $count = 0;
     for my $i ( 0 .. $#nums - 1 ) {
 	for my $j ( $i + 1 .. $#nums ) {
@@ -28,18 +28,7 @@ sub reverse_pairs_obvious( @nums ) {
     return $count;
 }
 
-sub reverse_pairs_reversed_for( @nums ) {
-    my $count = 0;
-    for my $j ( 1 .. $#nums ) {
-	for my $i ( 0 .. $j - 1 ) {
-	    ++$count
-	        if $nums[$i] > 2 * $nums[$j];
-	}
-    }
-    return $count;
-}
-
-sub reverse_pairs_reversed_for_if( @nums ) {
+sub reverse_pairs_reversed_loops( @nums ) {
     my $count = 0;
     for my $j ( 1 .. $#nums ) {
 	for my $i ( 0 .. $j - 1 ) {
@@ -66,48 +55,16 @@ sub reverse_pairs_reversed_grep( @nums ) {
     return $count;
 }
 
-sub reverse_pairs_optimized( @nums ) {
-    my $last = $#nums;
-    my $last_minus_1 = $last - 1;
-    my $count = 0;
-    for my $i ( 0 .. $last_minus_1 ) {
-	for my $j ( $i + 1 .. $last ) {
-	    ++$count
-	        if $nums[$i] > 2 * $nums[$j];
-	}
-    }
-    return $count;
-}
-
-sub reverse_pairs_reversed_optimized( @nums ) {
-    my $last = $#nums;
-    my $count = 0;
-    for my $j ( 1 .. $last ) {
-	for my $i ( 0 .. $j - 1 ) {
-	    ++$count
-	        if $nums[$i] > 2 * $nums[$j];
-	}
-    }
-    return $count;
-}
-
 my @subs = qw(
-    reverse_pairs_obvious
-    reverse_pairs_reversed_for
-    reverse_pairs_grep
-    reverse_pairs_reversed_grep
-    reverse_pairs_optimized
-    reverse_pairs_reversed_optimized
-    reverse_pairs_reversed_for_if
-);
-my @x=qw(
+    reverse_pairs
+    reverse_pairs_reversed_loops
 );
 
 run_tests_for_subs( @subs );
 done_testing;
 
 use Benchmark qw( :all );
-my %runs =
+my %benchmark_runs =
     map {
 	my $sub_name = $_;
 	( $sub_name => sub {
@@ -118,8 +75,8 @@ my %runs =
     }
     @subs;
 
-vsay np %runs;
 
-cmpthese -2, \%runs;
+say "\nRunning benchmarks:";
+cmpthese -3, \%benchmark_runs;
 
 exit 0;

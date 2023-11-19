@@ -112,7 +112,9 @@ sub run_tests() {
 }
 
 sub run_tests_for_subs( @sub_names ) {
+    my $add_newline = 0;
     for my $sub ( @sub_names ) {
+	$add_newline ? say "" : ( $add_newline = 1 );
 	say "Running tests for '$sub':";
 	extract_and_run_tests( $sub );
     }
