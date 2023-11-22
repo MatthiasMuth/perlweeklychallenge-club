@@ -1,31 +1,25 @@
 {
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 2] Last updated at 2023-11-12 23:47:41 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 2] Last updated at 2023-11-22 10:52:35 GMT"
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             21,
             8
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -42,6 +36,12 @@
          "name" : "Blog"
       }
    ],
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2023]"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "xAxis" : {
       "categories" : [
          "Yozen Hernandez",
