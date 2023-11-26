@@ -38,13 +38,7 @@ our ( $verbose, %options );
 sub vprint { print @_ if $verbose };
 sub vsay   { say   @_ if $verbose };
 
-sub extract_and_run_tests( $sub_name ) {
-
-    $| = 1;
-
-    GetOptions(
-        "v|verbose!" => \$verbose,
-    ) or do { say "usage!"; exit 2 };
+sub extract_all_tests() {
 
     my $dir = dirname abs_path $0;
     my ( $challenge, $task ) =
@@ -68,12 +62,37 @@ sub extract_and_run_tests( $sub_name ) {
 	$task_description ? extract_tests( $task_description ) : (),
     );
     # vsay pp( @tests );
+    return ( $task_title, @tests );
+}
 
+sub run_tests( @sub_names ) {
+
+    $| = 1;
+
+    GetOptions(
+        "v|verbose!" => \$verbose,
+    ) or do { say "usage!"; exit 2 };
+
+    my ( $task_title, @tests ) = extract_all_tests;
+    my $n_failures = 0;
+    my $add_newline = 0;
+
+    for my $sub_name ( @sub_names ? @sub_names : ( undef ) ) {
+	say ""
+	    if $add_newline++;
+	say "Running tests for '$sub_name':"
+	    if $sub_name;
+	$n_failures += run_tests_for_sub( $sub_name, $task_title, @tests );
+    }
+    done_testing;
+    return $n_failures == 0;
+}
+
+sub run_tests_for_sub( $sub_name, $task_title, @tests ) {
     ( $sub_name //= lc $task_title ) =~ s/\W+/_/g;
-    my $sub = \&{"::$sub_name"};
 
     my $n_failures = 0;
-
+    my $sub = \&{"::$sub_name"};
     do {
         my @input_params =
 	    @{$_->{INPUT}} == 1
@@ -110,19 +129,6 @@ sub extract_and_run_tests( $sub_name ) {
     } for @tests;
 
     return $n_failures;
-}
-
-sub run_tests( @sub_names ) {
-    my $n_failures = 0;
-    my $add_newline = 0;
-    for my $sub ( @sub_names ? @sub_names : ( undef ) ) {
-	$add_newline ? say "" : ( $add_newline = 1 );
-	say "Running tests for '$sub':"
-	    if $sub;
-	$n_failures += extract_and_run_tests( $sub );
-    }
-    done_testing;
-    return $n_failures == 0;
 }
 
 sub read_task( $fd_or_filename, $wanted_task = undef ) {
