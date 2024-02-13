@@ -38,14 +38,29 @@ our ( $verbose, %options );
 sub vprint { print @_ if $verbose };
 sub vsay   { say   @_ if $verbose };
 
+my $local_tests;	# Tests read from main's __DATA__ section.
+			# Sort of 'memoizing' those tests, so we won't need to
+			# read *DATA more than once.
+
 sub extract_and_run_tests( $sub_name ) {
 
     $| = 1;
 
     GetOptions(
         "v|verbose!" => \$verbose,
+        "g|generate!" => \$options{GENERATE},
     ) or do { say "usage!"; exit 2 };
 
+    # 'Local' tests are read from main's __DATA__ section.
+    # We are sort of 'memoizing' those tests, so we won't need to read *DATA
+    # more than once.
+    # Local tests are not linked to any task number (1 or 2).
+    # We also won't get back a task description.
+    ( undef, $local_tests ) = read_task( *::DATA, undef )
+	if ! $local_tests && fileno *::DATA;
+
+    # For extracting the tests from the challenge description, first get the
+    # challenge number and the task number (1 or 2) from the script's path.
     my $dir = dirname abs_path $0;
     my ( $challenge, $task ) =
         abs_path( $0 ) =~ m{challenge-(\d+) .* (\d+)[^[/\\]*$}x;
@@ -54,10 +69,6 @@ sub extract_and_run_tests( $sub_name ) {
             "Cannot determine challenge number or task number. Exiting.";
         exit 1;
     }
-
-    my $local_tests;
-    ( undef, $local_tests ) = read_task( *::DATA )
-	if fileno *::DATA;
 
     my ( $task_title, $task_description ) =
         read_task( "$dir/challenge-${challenge}.txt", $task );
@@ -69,12 +80,15 @@ sub extract_and_run_tests( $sub_name ) {
     );
     # vsay pp( @tests );
 
+    # If the name of the subroutine to call is not given as a parameter, we
+    # generate it from the task title.
     ( $sub_name //= lc $task_title ) =~ s/\W+/_/g;
     my $sub = \&{"::$sub_name"};
 
     my $n_failures = 0;
 
-    do {
+    my @generated_code;
+    for ( @tests ) {
         my @input_params =
 	    @{$_->{INPUT}} == 1
 	    ? ( ref $_->{INPUT}[0] eq 'ARRAY'
@@ -94,22 +108,113 @@ sub extract_and_run_tests( $sub_name ) {
 	    if $_->{TEST} =~ /^(Test|Example)(?:\s+\d+)?$/;
 	$diag = "test: $diag";
 
-	my @output = $sub->( @input_params );
-
 	if ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ ) {
-	    ok $1 ? $output[0] : ! $output[0], $name, $diag // ()
-		or ++$n_failures;
+	    # push @test_calls, join( " ",
+	    if ( $options{GENERATE} ) {
+		push @generated_code, join( "",
+		    "ok", $1 ? "" : " !",
+			" $sub_name( ",
+			    join( ", ", map( pp( $_ ), @input_params ) ),
+			    " ),\n",
+			"    '$name'",
+			defined $diag ? ",\n    '$diag'" : "", ";"
+		    );
+	    }
+	    else {
+		my @output = $sub->( @input_params );
+		ok $1 ? $output[0] : ! $output[0], $name, $diag // ()
+		    or ++$n_failures;
+	    }
 	}
 	else {
-	    is \@output, $expected, $name, $diag // ()
-		or ++$n_failures;
+	    if ( $options{GENERATE} ) {
+		push @generated_code, join( "",
+		    "is [ $sub_name( ",
+			    join( ", ", map( pp( $_ ), @input_params ) ),
+			    " ) ], [ ", map( pp( $_ ), @$expected ), " ],\n",
+			"    '$name'",
+			defined $diag ? ",\n    '$diag'" : "", ";"
+		    );
+	    }
+	    else {
+		my @output = $sub->( @input_params );
+		is \@output, $expected, $name, $diag // ()
+		    or ++$n_failures;
+	    }
 	}
 
         # vsay "";
 
-    } for @tests;
+    }
+    if ( @generated_code ) {
+	say $_
+	    for (
+		"use Test2::V0 qw( -no_srand );",
+		@generated_code,
+		"done_testing;",
+	    );
+    };
 
     return $n_failures;
+}
+
+sub generate_tests( $sub_name, @tests ) {
+    my @generated_code;
+
+    my $result_is_array = 
+	! $tests[0] || any { scalar $_->{OUTPUT}->@* > 1 } @tests;
+
+    for ( @tests ) {
+        my @input_params =
+	    @{$_->{INPUT}} == 1
+	    ? ( ref $_->{INPUT}[0] eq 'ARRAY'
+		&& ! grep( ref $_, @{$_->{INPUT}[0]} ) )
+		? @{$_->{INPUT}[0]}
+		: $_->{INPUT}[0]
+	    : @{$_->{INPUT}};
+	my $expected = $_->{OUTPUT};
+	my $diag =
+	    "$sub_name( "
+		. join( ", ", map( pp( $_ ), @input_params ) )
+		. " ) "
+	    . ( ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ )
+	        ? "is $expected->[0]"
+		: ( "== " . pp( @{$_->{OUTPUT}} ) ) );
+
+	my $name = "$_->{TEST}";
+	$name .= ": $diag"
+	    if $_->{TEST} =~ /^(Test|Example)(?:\s+\d+)?$/;
+	$diag = "test: $diag";
+
+	if ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ ) {
+	    push @generated_code, join "",
+		"ok", $1 ? "" : " !", " $sub_name( ",
+		join( ", ", map( pp( $_ ), @input_params ) ),
+		" ),\n",
+		"    '$name'",
+		# defined $diag ? ",\n    '$diag'" : "",
+		";";
+	}
+	else {
+	    push @generated_code, join "",
+		$result_is_array
+		? ( "is [ $sub_name( ",
+		    join( ", ", map( pp( $_ ), @input_params ) ),
+		    " ) ], [ ",
+		    join( ", ", map( pp( $_ ), @$expected ) ), " ],\n", )
+		: ( "is $sub_name( ",
+		    join( ", ", map( pp( $_ ), @input_params ) ),
+		    " ), ",
+		    join( ", ", map( pp( $_ ), @$expected ) ), ",\n", ),
+		    "    '$name'",
+		# defined $diag ? ",\n    '$diag'" : "",
+		";";
+	}
+    }
+    return join "\n",
+	"use Test2::V0 qw( -no_srand );",
+	@generated_code,
+	"done_testing;";
 }
 
 sub run_tests( @sub_names ) {

@@ -302,8 +302,8 @@ sub process_challenge( $challenge ) {
 		    $task_1_code, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/perl/ch-2.pl",
 		    $task_2_code, 'DO_NOT_OVERWRITE' ],
-		[ $test_extractor_file,
-		    slurp_file( "./TestExtractor.pm" ), 'DO_NOT_OVERWRITE' ],
+		# [ $test_extractor_file,
+		    # slurp_file( "./TestExtractor.pm" ), 'DO_NOT_OVERWRITE' ],
 	    ) : ();
 
 	for ( @file_operations ) {
@@ -420,7 +420,7 @@ sub generate_code( $challenge, $task_text ) {
     my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
 
     my @tests = TestExtractor::extract_tests( $task_text );
-    vsay "extracted tests: ", pp( @tests );
+    # vsay "extracted tests: ", pp( @tests );
 
     my $code = $templates->{code}{'ch-N_pl'};
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
@@ -452,6 +452,7 @@ sub generate_code( $challenge, $task_text ) {
 	    for @input_vars;
     }
     my $input_params = join ", ", @input_vars;
+
     my $result_var = 
 	$tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
 	? '@results'
@@ -463,6 +464,8 @@ sub generate_code( $challenge, $task_text ) {
 	    : '@results'
 	: '$result';
 
+    my $run_tests = TestExtractor::generate_tests( $sub_name, @tests );
+
     my %substitutions = (
 	CHALLENGE    => $challenge,
 	TASK_NUMBER  => $task,
@@ -471,6 +474,7 @@ sub generate_code( $challenge, $task_text ) {
 	INPUT_PARAMS => $input_params,
 	RESULT_VAR   => $result_var,
 	RETURN       => $return,
+	RUN_TESTS    => $run_tests,
     );
     $code =~ s/<$_>/$substitutions{$_}/g
 	for keys %substitutions;
