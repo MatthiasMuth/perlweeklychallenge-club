@@ -8,10 +8,7 @@
 #       Perl solution by Matthias Muth.
 #
 
-use v5.20;
-use warnings;
-use feature 'signatures';
-no warnings 'experimental::signatures';
+use v5.36;
 
 sub maximum_pairs( @words ) {
     my $n = 0;
