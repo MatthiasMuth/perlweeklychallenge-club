@@ -22,9 +22,9 @@ sub maximum_pairs( @words ) {
 
 use Test2::V0 qw( -no_srand );
 is maximum_pairs( "ab", "de", "ed", "bc" ), 1,
-    'Example 1: maximum_pairs( ("ab", "de", "ed", "bc") ) == 1';
+    'Example 1: maximum_pairs( "ab", "de", "ed", "bc" ) == 1';
 is maximum_pairs( "aa", "ba", "cd", "ed" ), 0,
-    'Example 2: maximum_pairs( ("aa", "ba", "cd", "ed") ) == 0';
+    'Example 2: maximum_pairs( "aa", "ba", "cd", "ed" ) == 0';
 is maximum_pairs( "uv", "qp", "st", "vu", "mn", "pq" ), 2,
-    'Example 3: maximum_pairs( ("uv", "qp", "st", "vu", "mn", "pq") ) == 2';
+    'Example 3: maximum_pairs( "uv", "qp", "st", "vu", "mn", "pq" ) == 2';
 done_testing;
