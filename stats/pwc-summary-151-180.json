@@ -1,36 +1,38 @@
 {
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-11-22 10:52:35 GMT"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "series" : [
       {
          "name" : "Perl",
          "data" : [
+            25,
             16,
             22,
-            433,
+            454,
             17,
             2,
             0,
-            462,
+            486,
             0,
             0,
             0,
             4,
             1,
             3,
-            41,
+            48,
             22,
             1,
             0,
@@ -39,33 +41,33 @@
             0,
             0,
             4,
-            174,
+            197,
             0,
             4,
-            76,
+            78,
             2,
             6,
-            13,
-            12
+            13
          ]
       },
       {
          "data" : [
+            0,
             4,
             0,
-            445,
+            467,
             0,
             0,
             10,
-            21,
-            336,
+            45,
+            358,
             14,
             4,
             0,
             1,
             0,
             0,
-            363,
+            387,
             1,
             49,
             91,
@@ -79,28 +81,28 @@
             0,
             0,
             0,
-            1,
-            0
+            1
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            17,
             0,
             0,
-            316,
-            0,
-            0,
-            0,
-            23,
-            667,
+            338,
             0,
             0,
             0,
+            30,
+            759,
             0,
             0,
             0,
-            2,
+            0,
+            0,
+            0,
+            4,
             0,
             29,
             0,
@@ -111,8 +113,7 @@
             0,
             0,
             1,
-            35,
-            0,
+            36,
             0,
             0,
             0
@@ -120,14 +121,9 @@
          "name" : "Blog"
       }
    ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "xAxis" : {
       "categories" : [
+         "Lance Wicks",
          "Lars Balker",
          "Lars Thegler",
          "Laurent Rosenfeld",
@@ -156,12 +152,16 @@
          "Matthias Muth",
          "mauke",
          "Max Kossek",
-         "Maxim Kolodyazhny",
-         "Maxim Nechaev"
+         "Maxim Kolodyazhny"
       ]
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-02-13 12:57:53 GMT"
    }
 }

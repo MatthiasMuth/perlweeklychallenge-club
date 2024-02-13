@@ -1,4 +1,4 @@
-# Challenge 256 tasks: Maximum Pairs - Merge Strings
+# Challenge 256 tasks: Easy Pairs - Easy Merge
 **Challenge 256 solutions in Perl by Matthias Muth**
 
 ## Task 1: Maximum Pairs

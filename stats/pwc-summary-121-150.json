@@ -5,20 +5,20 @@
       }
    },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
-      }
+      },
+      "min" : 0
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2023-11-22 10:52:35 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2023]"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
+            2,
             1,
             2,
             0,
@@ -30,7 +30,7 @@
             7,
             2,
             0,
-            452,
+            476,
             8,
             2,
             23,
@@ -43,18 +43,16 @@
             38,
             0,
             16,
-            54,
+            62,
             4,
             36,
             2,
-            37,
-            25
-         ],
-         "name" : "Perl"
+            37
+         ]
       },
       {
-         "name" : "Raku",
          "data" : [
+            1,
             0,
             0,
             1,
@@ -62,7 +60,7 @@
             58,
             0,
             0,
-            83,
+            85,
             0,
             0,
             3,
@@ -83,13 +81,13 @@
             0,
             2,
             0,
-            0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
+            0,
             0,
             0,
             1,
@@ -101,7 +99,7 @@
             0,
             0,
             0,
-            5,
+            15,
             0,
             0,
             1,
@@ -118,16 +116,14 @@
             0,
             2,
             0,
-            0,
-            17
-         ]
+            0
+         ],
+         "name" : "Blog"
       }
    ],
-   "chart" : {
-      "type" : "column"
-   },
    "xAxis" : {
       "categories" : [
+         "Jeremy Carman",
          "Jim Bacon",
          "Jitu Keshwani",
          "JJ Merelo",
@@ -156,12 +152,16 @@
          "Konstantinos Giannakakis",
          "Kueppo Wesley",
          "lacek96",
-         "Lakpa Tashi Bhutia",
-         "Lance Wicks"
+         "Lakpa Tashi Bhutia"
       ]
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-02-13 12:57:53 GMT"
    }
 }
