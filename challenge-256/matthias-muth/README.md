@@ -3,8 +3,8 @@
 
 ## Task 1: Maximum Pairs
 
-> You are given an array of distinct words, @words.<br/>
-> Write a script to find the maximum pairs in the given array. The words $words[i] and $words[j] can be a pair one is reverse of the other.<br/>
+> You are given an array of distinct words, `@words`.<br/>
+> Write a script to find the maximum pairs in the given array. The words `$words[i]` and `$words[j]` can be a pair one is reverse of the other.<br/>
 > <br/>
 > Example 1<br/>
 > Input: @words = ("ab", "de", "ed", "bc")<br/>
@@ -23,7 +23,7 @@ Ah, an easy one.<br/>
 For each word we check whether we have seen its reverse before, and increment
 our counter if so. Then we remember that we have seen the current word.
 
-Perl supports us with `reverse` to reverse the characters of a string.
+Perl supports us with the `reverse` function to reverse the characters of a string (also to reverse a list, but this is not what we use here).
 
 ```perl
 #!/usr/bin/env perl
@@ -34,7 +34,7 @@ sub maximum_pairs( @words ) {
     my %known;
     for ( @words ) {
         ++$n if $known{ reverse $_ };
-	$known{$_} = 1;
+        $known{$_} = 1;
     }
     return $n;
 }
@@ -51,6 +51,7 @@ done_testing;
 
 If you don't have perl 5.36 (which I highly recommend!), you can use this
 instead: 
+
 ```perl
 use v5.20;
 use warnings;
@@ -63,45 +64,41 @@ If not, and you are not able to update your system's perl for any reason,
 I suggest installing [`perlbrew`](https://perlbrew.pl),
 which is an admin-free perl installation management tool.
 
-
 ## Task 2: Merge Strings
 
-> You are given two strings, $str1 and $str2.<br/>
+> You are given two strings, `$str1` and `$str2`.<br/>
 > Write a script to merge the given strings by adding in alternative order starting with the first string. If a string is longer than the other then append the remaining at the end.<br/>
 > <br/>
 > Example 1<br/>
-> Input: $str1 = "abcd", $str2 = "1234"<br/>
+> Input: \$str1 = "abcd", \$str2 = "1234"<br/>
 > Output: "a1b2c3d4"<br/>
 > <br/>
 > Example 2<br/>
-> Input: $str1 = "abc", $str2 = "12345"<br/>
+> Input: \$str1 = "abc", \$str2 = "12345"<br/>
 > Output: "a1b2c345"<br/>
 > <br/>
 > Example 3<br/>
-> Input: $str1 = "abcde", $str2 = "123"<br/>
+> Input: \$str1 = "abcde", \$str2 = "123"<br/>
 > Output: "a1b2c3de"<br/>
 
 The idea for this challenge is to turn the two string into lists of characters,
 and then merge the two lists.<br/>
 There are a lot of functions for list manipulations in the `List::Util` core
 module, one of which is `mesh`. It does exactly what we need.
-The only downsideis that if the lists are of different lengths, there will be
+The only downside is that if the lists are of different lengths, there will be
 `undef` values inserted in the result. But it is easy to `grep` those out
-before assembling the result into a return string.<br/>
-Easier than splitting up the longer list into two parts, and after
-`mesh`ing the first part with the shorter string append the second part.
+before assembling the result into a return string.
+At least easier than splitting up the longer list into two parts, and after
+`mesh`ing the first part with the shorter string appending the second part.
 
-`mesh` has been part of `List::Util` only since its version 1.56,
-which means has been part of standard Perl since Perl 5.25.<br/>
+`mesh` has been part of `List::Util` since its version 1.56,
+which means has been part of standard Perl since Perl 5.25 (released in 2014).
+
 Its implementation is different from the `mesh` function in the
-`List::MoreUtils` CPAN module, in that the parameters do not have to be
-real array variables (which are used *by reference* using prototypes),
-but array references.
-
+`List::MoreUtils` CPAN module, in that it uses array references as parameters, not array variables that are used *by reference* (using prototypes).<br/>
 I prefer the `List::Util` version here,
-because we can use anonymous arrays containing the split characters
-directly in the parameter list,
-which makes it unnecessary to declare any array variables.
+because we can directly use anonymous arrays containing the split characters as parameters,
+making it unnecessary to declare and use any array variables.
 
 ```perl
 #!/usr/bin/env perl
@@ -112,8 +109,8 @@ use List::Util qw( mesh );
 
 sub merge_strings( $str1, $str2 ) {
     return join "",
-	grep defined,
-	    mesh [ split //, $str1 ], [ split //, $str2 ];
+        grep defined,
+            mesh [ split //, $str1 ], [ split //, $str2 ];
 }
 
 use Test2::V0 qw( -no_srand );
@@ -127,3 +124,4 @@ done_testing;
 ```
 
 #### **Thank you for the challenge!**
+
