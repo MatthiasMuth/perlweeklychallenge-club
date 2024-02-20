@@ -1,7 +1,16 @@
 {
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             45,
             5,
@@ -9,8 +18,8 @@
             21,
             5,
             68,
-            426,
-            124,
+            430,
+            126,
             4,
             0,
             8,
@@ -33,7 +42,8 @@
             0,
             4,
             32
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -71,6 +81,7 @@
          "name" : "Raku"
       },
       {
+         "name" : "Blog",
          "data" : [
             2,
             0,
@@ -78,7 +89,7 @@
             0,
             0,
             2,
-            158,
+            160,
             3,
             0,
             0,
@@ -102,33 +113,19 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-02-20 15:51:01 GMT"
+   },
+   "chart" : {
+      "type" : "column"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-02-13 12:57:53 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
    },
    "xAxis" : {
       "categories" : [
@@ -163,5 +160,8 @@
          "Giuseppe Di Terlizzi",
          "Guillermo Ramos"
       ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    }
 }

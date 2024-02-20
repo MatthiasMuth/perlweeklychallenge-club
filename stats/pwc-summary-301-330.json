@@ -1,37 +1,9 @@
 {
-   "xAxis" : {
-      "categories" : [
-         "William Gilmore",
-         "William West",
-         "Yary Hluchan",
-         "Yet Ebreo",
-         "Yozen Hernandez",
-         "Yves Orton"
-      ]
-   },
    "subtitle" : {
-      "text" : "[Champions: 6] Last updated at 2024-02-13 12:57:53 GMT"
+      "text" : "[Champions: 6] Last updated at 2024-02-20 15:51:01 GMT"
    },
    "chart" : {
       "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
    },
    "series" : [
       {
@@ -46,7 +18,6 @@
          "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -54,7 +25,8 @@
             21,
             0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "name" : "Blog",
@@ -67,5 +39,33 @@
             1
          ]
       }
-   ]
+   ],
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "xAxis" : {
+      "categories" : [
+         "William Gilmore",
+         "William West",
+         "Yary Hluchan",
+         "Yet Ebreo",
+         "Yozen Hernandez",
+         "Yves Orton"
+      ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   }
 }

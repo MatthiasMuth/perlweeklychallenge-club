@@ -7,7 +7,7 @@ use v5.36;
 use List::Util qw(sum0);
 die <<~"FIN" unless @ARGV;
     Usage: $0 S1 [S2...]
-    to pair Si with the reverse SJ and count the resulting pairs
+    to pair Si with the reverse Sj and count the resulting pairs
     assuming at most one pair per string.
     FIN
 my %count;
