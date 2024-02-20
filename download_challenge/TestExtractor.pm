@@ -282,8 +282,8 @@ sub extract_tests( $task_text ) {
     my @tests;
     while ( $task_text =~
 	/^((?:Example|Test).*?)\s*:?\s*$ .*?
-	    ^Input: \s* ( .*? ) \s*
-	    ^Out?put: \s* ( .*? ) \s*? (?=(?: ^$ | ^\S | \Z ))
+	    ^ \s* Input: \s* ( .*? ) \s*
+	    ^ \s* Out?put: \s* ( .*? ) \s*? (?=(?: ^$ | ^\S | \Z ))
 	/xmsg )
     {
 	my ( $test, $input, $output) = ( $1, $2, $3 );
