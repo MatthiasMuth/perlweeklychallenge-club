@@ -1,4 +1,9 @@
 {
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "xAxis" : {
       "categories" : [
          "Jeremy Carman",
@@ -33,33 +38,14 @@
          "Lakpa Tashi Bhutia"
       ]
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "yAxis" : {
+      "min" : 0,
       "title" : {
          "text" : ""
-      },
-      "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-02-20 15:51:01 GMT"
-   },
-   "chart" : {
-      "type" : "column"
+      }
    },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             2,
             1,
@@ -73,7 +59,7 @@
             7,
             2,
             0,
-            478,
+            484,
             8,
             2,
             23,
@@ -91,7 +77,8 @@
             36,
             2,
             37
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -143,7 +130,7 @@
             0,
             0,
             0,
-            16,
+            20,
             0,
             0,
             1,
@@ -163,5 +150,18 @@
             0
          ]
       }
-   ]
+   ],
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-03-02 12:50:22 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   }
 }

@@ -1,130 +1,4 @@
 {
-   "series" : [
-      {
-         "data" : [
-            2,
-            0,
-            0,
-            0,
-            169,
-            3,
-            343,
-            2,
-            0,
-            3,
-            0,
-            2,
-            27,
-            93,
-            121,
-            44,
-            13,
-            22,
-            8,
-            1,
-            3,
-            130,
-            12,
-            0,
-            153,
-            11,
-            423,
-            0,
-            6,
-            45
-         ],
-         "name" : "Perl"
-      },
-      {
-         "name" : "Raku",
-         "data" : [
-            0,
-            0,
-            6,
-            59,
-            0,
-            0,
-            9,
-            0,
-            2,
-            0,
-            4,
-            0,
-            0,
-            4,
-            83,
-            9,
-            21,
-            0,
-            0,
-            0,
-            72,
-            0,
-            0,
-            2,
-            510,
-            0,
-            383,
-            0,
-            0,
-            0
-         ]
-      },
-      {
-         "name" : "Blog",
-         "data" : [
-            0,
-            0,
-            0,
-            28,
-            118,
-            0,
-            241,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            13,
-            27,
-            0,
-            32,
-            2,
-            0,
-            0,
-            35,
-            0,
-            0,
-            0,
-            255,
-            0,
-            4,
-            0,
-            7,
-            43
-         ]
-      }
-   ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-02-20 15:51:01 GMT"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -159,9 +33,135 @@
          "Avery Adams"
       ]
    },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
+   },
+   "series" : [
+      {
+         "name" : "Perl",
+         "data" : [
+            2,
+            0,
+            0,
+            0,
+            169,
+            3,
+            343,
+            2,
+            0,
+            3,
+            0,
+            2,
+            27,
+            93,
+            123,
+            44,
+            13,
+            22,
+            8,
+            1,
+            3,
+            130,
+            12,
+            0,
+            153,
+            11,
+            427,
+            0,
+            6,
+            45
+         ]
+      },
+      {
+         "name" : "Raku",
+         "data" : [
+            0,
+            0,
+            6,
+            59,
+            0,
+            0,
+            9,
+            0,
+            2,
+            0,
+            4,
+            0,
+            0,
+            4,
+            85,
+            9,
+            21,
+            0,
+            0,
+            0,
+            74,
+            0,
+            0,
+            2,
+            514,
+            0,
+            387,
+            0,
+            0,
+            0
+         ]
+      },
+      {
+         "data" : [
+            0,
+            0,
+            0,
+            28,
+            118,
+            0,
+            241,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            13,
+            28,
+            0,
+            32,
+            2,
+            0,
+            0,
+            35,
+            0,
+            0,
+            0,
+            257,
+            0,
+            4,
+            0,
+            7,
+            43
+         ],
+         "name" : "Blog"
+      }
+   ],
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-03-02 12:50:22 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    }
 }
