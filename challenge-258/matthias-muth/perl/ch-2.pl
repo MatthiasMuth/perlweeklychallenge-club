@@ -16,12 +16,8 @@ sub n_bits( $n ) {
     return unpack "%b*", pack "i", $n;
 }
 
-sub sum_of_values_1( $ints, $k ) {
-    return sum map $ints->[$_], grep n_bits( $_ ) == $k, 0..$ints->$#*;
-}
-
 sub sum_of_values( $ints, $k ) {
-    return sum map n_bits( $_ ) == $k ? $ints->[$_] : 0,  0..$ints->$#*;
+    return sum map $ints->[$_], grep n_bits( $_ ) == $k, 0..$ints->$#*;
 }
 
 use Test2::V0 qw( -no_srand );
