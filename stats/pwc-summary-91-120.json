@@ -1,16 +1,56 @@
 {
+   "xAxis" : {
+      "categories" : [
+         "Gurunandan Bhat",
+         "Gustavo Chaves",
+         "habere-et-dispetire",
+         "Hauke Dampfling",
+         "Humberto Massa",
+         "Ian Goodnight",
+         "Ian Rifkin",
+         "Ildar Shaimordanov",
+         "Ioannis Bourlakos",
+         "Israel C. Batista",
+         "Ivan Dimitrov",
+         "izem",
+         "Izifresh",
+         "Jacques Guinnebault",
+         "Jaime Corchado",
+         "Jake",
+         "Jaldhar H. Vyas",
+         "James Marquis",
+         "James Raspass",
+         "James Smith",
+         "Jan Hoogenraad",
+         "Jan Krnavek",
+         "Jan Ole Kraft",
+         "Jared Martin",
+         "Jason Messer",
+         "Javier Luque",
+         "jdos22",
+         "Jeff",
+         "Jeff Armstrong",
+         "Jen Guerra"
+      ]
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-03-02 12:50:22 GMT"
+      "text" : "[Champions: 30] Last updated at 2024-03-04 19:05:07 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
    },
-   "chart" : {
-      "type" : "column"
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             5,
             50,
@@ -42,9 +82,11 @@
             2,
             0,
             8
-         ]
+         ],
+         "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -67,7 +109,7 @@
             3,
             10,
             0,
-            319,
+            321,
             4,
             0,
             14,
@@ -76,8 +118,7 @@
             0,
             2,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "data" : [
@@ -115,53 +156,12 @@
          "name" : "Blog"
       }
    ],
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+   "chart" : {
+      "type" : "column"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
-      }
-   },
-   "xAxis" : {
-      "categories" : [
-         "Gurunandan Bhat",
-         "Gustavo Chaves",
-         "habere-et-dispetire",
-         "Hauke Dampfling",
-         "Humberto Massa",
-         "Ian Goodnight",
-         "Ian Rifkin",
-         "Ildar Shaimordanov",
-         "Ioannis Bourlakos",
-         "Israel C. Batista",
-         "Ivan Dimitrov",
-         "izem",
-         "Izifresh",
-         "Jacques Guinnebault",
-         "Jaime Corchado",
-         "Jake",
-         "Jaldhar H. Vyas",
-         "James Marquis",
-         "James Raspass",
-         "James Smith",
-         "Jan Hoogenraad",
-         "Jan Krnavek",
-         "Jan Ole Kraft",
-         "Jared Martin",
-         "Jason Messer",
-         "Javier Luque",
-         "jdos22",
-         "Jeff",
-         "Jeff Armstrong",
-         "Jen Guerra"
-      ]
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
       }
    }
 }
