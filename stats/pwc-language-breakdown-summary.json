@@ -1,56 +1,4 @@
 {
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2024-03-04 19:05:07 GMT"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
-      }
-   },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "series" : [
-      {
-         "name" : "Contributions",
-         "data" : [
-            [
-               "Blog",
-               4598
-            ],
-            [
-               "Perl",
-               13351
-            ],
-            [
-               "Raku",
-               7766
-            ]
-         ],
-         "dataLabels" : {
-            "rotation" : -90,
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "color" : "#FFFFFF",
-            "y" : 10,
-            "align" : "right",
-            "format" : "{point.y:.0f}",
-            "enabled" : "true"
-         }
-      }
-   ],
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
    "xAxis" : {
       "labels" : {
          "style" : {
@@ -59,5 +7,57 @@
          }
       },
       "type" : "category"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2024-03-10 15:50:01 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
+   "series" : [
+      {
+         "dataLabels" : {
+            "rotation" : -90,
+            "enabled" : "true",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "format" : "{point.y:.0f}",
+            "color" : "#FFFFFF",
+            "align" : "right",
+            "y" : 10
+         },
+         "data" : [
+            [
+               "Blog",
+               4609
+            ],
+            [
+               "Perl",
+               13381
+            ],
+            [
+               "Raku",
+               7775
+            ]
+         ],
+         "name" : "Contributions"
+      }
+   ],
+   "yAxis" : {
+      "title" : {
+         "text" : null
+      },
+      "min" : 0
+   },
+   "legend" : {
+      "enabled" : "false"
    }
 }
