@@ -7,12 +7,13 @@ set -v
 
 git checkout master
 git pull
-
 git fetch upstream
 git merge --ff-only upstream/master
 
 git checkout dev
-git merge --no-ff --no-edit master
+git merge --no-ff --no-commit master
+git checkout dev -- :/.gitignore
+git commit -m "Merge branch 'master' into dev (keeping .gitignore)"
 
 git push --all
 git push --tags
