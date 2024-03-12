@@ -1,4 +1,10 @@
 {
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : null
+      }
+   },
    "xAxis" : {
       "labels" : {
          "style" : {
@@ -8,54 +14,48 @@
       },
       "type" : "category"
    },
-   "subtitle" : {
-      "text" : "Last updated at 2024-03-10 15:50:01 GMT"
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    },
    "chart" : {
       "type" : "column"
    },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
    "series" : [
       {
-         "dataLabels" : {
-            "rotation" : -90,
-            "enabled" : "true",
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "format" : "{point.y:.0f}",
-            "color" : "#FFFFFF",
-            "align" : "right",
-            "y" : 10
-         },
+         "name" : "Contributions",
          "data" : [
             [
                "Blog",
-               4609
+               4624
             ],
             [
                "Perl",
-               13381
+               13404
             ],
             [
                "Raku",
-               7775
+               7788
             ]
          ],
-         "name" : "Contributions"
+         "dataLabels" : {
+            "align" : "right",
+            "enabled" : "true",
+            "y" : 10,
+            "rotation" : -90,
+            "color" : "#FFFFFF",
+            "format" : "{point.y:.0f}",
+            "style" : {
+               "fontSize" : "13px",
+               "fontFamily" : "Verdana, sans-serif"
+            }
+         }
       }
    ],
-   "yAxis" : {
-      "title" : {
-         "text" : null
-      },
-      "min" : 0
+   "subtitle" : {
+      "text" : "Last updated at 2024-03-12 11:48:38 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    },
    "legend" : {
       "enabled" : "false"
