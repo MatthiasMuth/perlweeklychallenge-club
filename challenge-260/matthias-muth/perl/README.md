@@ -55,11 +55,11 @@ sub unique_occurrences( @ints ) {
 
 ## Task 2: Dictionary Rank
 
-> You are given a word, $word.<br/>
+> You are given a word, \$word.<br/>
 > Write a script to compute the dictionary rank of the given word.<br/>
 > <br/>
 > Example 1<br/>
-> Input: $word = 'CAT'<br/>
+> Input: \$word = 'CAT'<br/>
 > Output: 3<br/>
 > All possible combinations of the letters:<br/>
 > CAT, CTA, ATC, TCA, ACT, TAC<br/>
@@ -69,11 +69,11 @@ sub unique_occurrences( @ints ) {
 > Therefore the dictionary rank of CAT is 3.<br/>
 > <br/>
 > Example 2<br/>
-> Input: $word = 'GOOGLE'<br/>
+> Input: \$word = 'GOOGLE'<br/>
 > Output: 88<br/>
 > <br/>
 > Example 3<br/>
-> Input: $word = 'SECRET'<br/>
+> Input: \$​word = 'SECRET'<br/>
 > Output: 255<br/>
 
 I have solved several [Advent of Code](https://adventofcode.com) puzzles 
