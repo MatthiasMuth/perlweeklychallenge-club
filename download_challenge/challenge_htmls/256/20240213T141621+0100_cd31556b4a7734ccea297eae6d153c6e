@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+    <!-- Basic Page Needs -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Weekly Challenge - 256</title>
+    <link rel="icon" href="https://theweeklychallenge.org/images/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+
+    <!-- template main css file -->
+    <link rel="stylesheet" href="https://theweeklychallenge.org/css/style.min.css" integrity="" media="screen">
+</head>
+
+<body>
+<section class="global-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block">
+                    <h2>The Weekly Challenge - 256</h2>
+                    <div class="portfolio-meta">
+                        <span>Monday, Feb 12, 2024</span>|
+                        <span> Tags:
+                            Perl, Raku
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="single-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="text-align: justify" class="post-content">
+<h2 id="TASK1">Task 1: Maximum Pairs</h2>
+<h5 id="submitted-by-mohammad-sajid-anwarhttpsmanwarorg"><strong>Submitted by:</strong> <a href="https://manwar.org">Mohammad Sajid Anwar</a></h5>
+<hr>
+<p>You are given an array of distinct words, <code>@words</code>.</p>
+<p>Write a script to find the maximum pairs in the given array. The words <code>$words[i]</code> and <code>$words[j]</code> can be a pair one is reverse of the other.</p>
+<h4 id="example-1">Example 1</h4>
+<pre><code>Input: @words = (&quot;ab&quot;, &quot;de&quot;, &quot;ed&quot;, &quot;bc&quot;)
+Output: 1
+
+There is one pair in the given array: &quot;de&quot; and &quot;ed&quot;
+</code></pre>
+<h4 id="example-2">Example 2</h4>
+<pre><code>Input: @words = (&quot;aa&quot;, &quot;ba&quot;, &quot;cd&quot;, &quot;ed&quot;)
+Output: 0
+</code></pre>
+<h4 id="example-3">Example 3</h4>
+<pre><code>Input: @words = (&quot;uv&quot;, &quot;qp&quot;, &quot;st&quot;, &quot;vu&quot;, &quot;mn&quot;, &quot;pq&quot;)
+Output: 2
+</code></pre>
+<br>
+<h2 id="TASK2">Task 2: Merge Strings</h2>
+<h5 id="submitted-by-mohammad-sajid-anwarhttpsmanwarorg-1"><strong>Submitted by:</strong> <a href="https://manwar.org">Mohammad Sajid Anwar</a></h5>
+<hr>
+<p>You are given two strings, <code>$str1</code> and <code>$str2</code>.</p>
+<p>Write a script to merge the given strings by adding in alternative order starting with the first string. If a string is longer than the other then append the remaining at the end.</p>
+<h4 id="example-1-1">Example 1</h4>
+<pre><code>Input: $str1 = &quot;abcd&quot;, $str2 = &quot;1234&quot;
+Output: &quot;a1b2c3d4&quot;
+</code></pre>
+<h4 id="example-2-1">Example 2</h4>
+<pre><code>Input: $str1 = &quot;abc&quot;, $str2 = &quot;12345&quot;
+Output: &quot;a1b2c345&quot;
+</code></pre>
+<h4 id="example-3-1">Example 3</h4>
+<pre><code>Input: $str1 = &quot;abcde&quot;, $str2 = &quot;123&quot;
+Output: &quot;a1b2c3de&quot;
+</code></pre>
+<br>
+<hr>
+<p>Last date to submit the solution <strong>23:59 (UK Time) Sunday 18th February 2024</strong>.</p>
+<hr>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

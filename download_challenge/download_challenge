@@ -290,7 +290,7 @@ sub process_challenge( $challenge ) {
 		$options{UPDATE} && $options{ARCHIVE}
 		    ? [ "$archive_dir/$archive_file", $html ]
 		    : (),
-		[ "$target_dir/README-$challenge.md",
+		[ "$target_dir/perl/README.md",
 		    $readme_text, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/README-no-blog.md",
 		    $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
