@@ -1,13 +1,12 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 306] Last updated at 2024-03-17 15:08:16 GMT"
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    },
    "series" : [
       {
@@ -52,7 +51,7 @@
             0,
             0,
             2,
-            113,
+            114,
             3,
             33,
             1,
@@ -119,7 +118,7 @@
             0,
             6,
             5,
-            229,
+            230,
             1,
             1,
             150,
@@ -189,7 +188,7 @@
             111,
             0,
             2,
-            42,
+            43,
             1,
             4,
             8,
@@ -219,7 +218,7 @@
             0,
             0,
             5,
-            33,
+            34,
             9,
             230,
             2,
@@ -353,7 +352,7 @@
             0,
             0,
             0,
-            53,
+            54,
             2,
             0,
             0,
@@ -364,7 +363,7 @@
             0,
             0,
             0,
-            103,
+            104,
             0,
             0,
             4,
@@ -429,12 +428,12 @@
             0,
             0,
             0,
-            229,
+            230,
             0,
             2,
             5,
             0,
-            187,
+            188,
             2,
             0,
             7,
@@ -529,7 +528,7 @@
             0,
             20,
             0,
-            33,
+            34,
             0,
             0,
             0,
@@ -564,7 +563,7 @@
             1,
             2,
             4,
-            10,
+            11,
             0,
             0,
             84,
@@ -633,7 +632,6 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -665,7 +663,7 @@
             0,
             4,
             23,
-            3,
+            4,
             6,
             0,
             0,
@@ -741,7 +739,7 @@
             0,
             0,
             0,
-            217,
+            218,
             0,
             0,
             123,
@@ -811,7 +809,7 @@
             0,
             0,
             1,
-            37,
+            38,
             0,
             0,
             0,
@@ -841,7 +839,7 @@
             0,
             0,
             0,
-            33,
+            34,
             0,
             0,
             1,
@@ -941,9 +939,18 @@
             5,
             10,
             1
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
+   "subtitle" : {
+      "text" : "[Champions: 306] Last updated at 2024-03-18 05:14:57 GMT"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -1254,18 +1261,11 @@
          "Yves Orton"
       ]
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "chart" : {
+      "type" : "column"
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    }
 }

@@ -1,17 +1,50 @@
 {
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "chart" : {
       "type" : "column"
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "xAxis" : {
+      "categories" : [
+         "Daniel Mantovani",
+         "Daniel Mita",
+         "Daniel Pfeiffer",
+         "Dario Mazzeo",
+         "Darren Bottin",
+         "Dave Cross",
+         "Dave Jacoby",
+         "David Ferrone",
+         "David Kayal",
+         "David Santiago",
+         "David Schwartz",
+         "Denis Yurashku",
+         "Dieter Dobbelaere",
+         "Dimitar Dimitrov",
+         "Donald Hunter",
+         "Doug Schrag",
+         "Duane Powell",
+         "Duncan C. White",
+         "E. Choroba",
+         "Eddy HS",
+         "Fabrizio Poggi",
+         "Feng Chang",
+         "Finley",
+         "Flavio Poletti",
+         "Francis Whittle",
+         "Fred Zinn",
+         "Freddie B",
+         "Garrett Goebel",
+         "Giuseppe Di Terlizzi",
+         "Guillermo Ramos"
+      ]
    },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-03-17 15:08:16 GMT"
+      "text" : "[Champions: 30] Last updated at 2024-03-18 05:14:57 GMT"
    },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             45,
             5,
@@ -43,9 +76,11 @@
             0,
             4,
             32
-         ]
+         ],
+         "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             23,
@@ -77,8 +112,7 @@
             2,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "name" : "Blog",
@@ -116,42 +150,10 @@
          ]
       }
    ],
-   "xAxis" : {
-      "categories" : [
-         "Daniel Mantovani",
-         "Daniel Mita",
-         "Daniel Pfeiffer",
-         "Dario Mazzeo",
-         "Darren Bottin",
-         "Dave Cross",
-         "Dave Jacoby",
-         "David Ferrone",
-         "David Kayal",
-         "David Santiago",
-         "David Schwartz",
-         "Denis Yurashku",
-         "Dieter Dobbelaere",
-         "Dimitar Dimitrov",
-         "Donald Hunter",
-         "Doug Schrag",
-         "Duane Powell",
-         "Duncan C. White",
-         "E. Choroba",
-         "Eddy HS",
-         "Fabrizio Poggi",
-         "Feng Chang",
-         "Finley",
-         "Flavio Poletti",
-         "Francis Whittle",
-         "Fred Zinn",
-         "Freddie B",
-         "Garrett Goebel",
-         "Giuseppe Di Terlizzi",
-         "Guillermo Ramos"
-      ]
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "yAxis" : {
       "title" : {
@@ -159,9 +161,7 @@
       },
       "min" : 0
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    }
 }
