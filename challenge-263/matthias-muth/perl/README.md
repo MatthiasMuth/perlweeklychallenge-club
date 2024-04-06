@@ -1,4 +1,4 @@
-# Challenge 263 tasks: Target Index - Merge Items
+# Indexes and Items
 **Challenge 263 solutions in Perl by Matthias Muth**
 
 ## Task 1: Target Index
@@ -56,8 +56,8 @@ sub target_index( $ints, $k ) {
 > Input: $items1 = [ [1,2], [2,3], [1,3], [3,2] ]<br/>
 >        $items2 = [ [3,1], [1,3] ]<br/>
 > Output: [ [1,8], [2,3], [3,3] ]<br/>
-> Example 3<br/>
 > <br/>
+> Example 3<br/>
 > Input: $items1 = [ [1,1], [2,2], [3,3] ]<br/>
 >        $items2 = [ [2,3], [2,4] ]<br/>
 > Output: [ [1,1], [2,9], [3,3] ]<br/>
@@ -78,8 +78,10 @@ The data structure that is expected as a result
 is the same as the input structure:
 a reference to an array of ( key, value ) pairs, each represented by a short,
 two-entries anonymous array.
-So we sort the resulting hash by keys to generate that, as an anonymopus array,
-and return the resulting reference.
+So we sort the resulting hash by keys to generate that,
+and as we put the result into an anonymous array,
+we can just return the resulting reference.
+
 
 ```perl
 use v5.36;
@@ -89,7 +91,6 @@ sub merge_items( $items1, $items2 ) {
     $counts{$_->[0]} += $_->[1]
 	for $items1->@*, $items2->@*;
     return [ map [ $_, $counts{$_} ], sort keys %counts ];
-
 }
 ```
 
