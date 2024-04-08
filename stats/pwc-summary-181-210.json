@@ -16,7 +16,7 @@
             40,
             14,
             7,
-            44,
+            46,
             8,
             1,
             302,
@@ -36,6 +36,7 @@
          "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             1,
             0,
@@ -67,8 +68,7 @@
             74,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "data" : [
@@ -106,29 +106,17 @@
          "name" : "Blog"
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-04-05 10:16:24 GMT"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "xAxis" : {
       "categories" : [
@@ -163,5 +151,17 @@
          "Paul Fajman",
          "Paulo Custodio"
       ]
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-04-08 01:41:52 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }

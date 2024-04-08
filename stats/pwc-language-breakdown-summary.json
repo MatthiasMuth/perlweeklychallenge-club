@@ -1,52 +1,18 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "xAxis" : {
-      "type" : "category",
       "labels" : {
          "style" : {
             "fontFamily" : "Verdana, sans-serif",
             "fontSize" : "13px"
          }
-      }
+      },
+      "type" : "category"
    },
-   "series" : [
-      {
-         "name" : "Contributions",
-         "data" : [
-            [
-               "Blog",
-               4709
-            ],
-            [
-               "Perl",
-               13612
-            ],
-            [
-               "Raku",
-               7907
-            ]
-         ],
-         "dataLabels" : {
-            "enabled" : "true",
-            "format" : "{point.y:.0f}",
-            "color" : "#FFFFFF",
-            "rotation" : -90,
-            "align" : "right",
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "y" : 10
-         }
-      }
-   ],
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
    "subtitle" : {
-      "text" : "Last updated at 2024-04-05 10:16:24 GMT"
+      "text" : "Last updated at 2024-04-08 01:41:52 GMT"
    },
    "yAxis" : {
       "min" : 0,
@@ -54,9 +20,43 @@
          "text" : null
       }
    },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
+   "chart" : {
+      "type" : "column"
    },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   },
+   "series" : [
+      {
+         "data" : [
+            [
+               "Blog",
+               4716
+            ],
+            [
+               "Perl",
+               13638
+            ],
+            [
+               "Raku",
+               7915
+            ]
+         ],
+         "dataLabels" : {
+            "align" : "right",
+            "enabled" : "true",
+            "y" : 10,
+            "format" : "{point.y:.0f}",
+            "style" : {
+               "fontSize" : "13px",
+               "fontFamily" : "Verdana, sans-serif"
+            },
+            "color" : "#FFFFFF",
+            "rotation" : -90
+         },
+         "name" : "Contributions"
+      }
+   ],
    "legend" : {
       "enabled" : "false"
    }
