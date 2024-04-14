@@ -10,13 +10,9 @@
 
 use v5.36;
 
-use Data::Dump qw( pp );
-use List::Util qw( first );
-
 sub greatest_english_letter( $str ) {
     my %have = map { ( $_ => 1 ) } split "", $str;
-    return ( first { $have{ lc $_ } }
-	reverse sort grep $_ eq "\U$_", keys %have ) // "";
+    return ( sort grep /^[A-Z]/ && $have{ lc $_ }, keys %have )[-1] // "";
 }
 
 use Test2::V0 qw( -no_srand );
