@@ -1,6 +1,6 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "chart" : {
+      "type" : "column"
    },
    "yAxis" : {
       "title" : {
@@ -12,6 +12,9 @@
       "column" : {
          "stacking" : "percent"
       }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "xAxis" : {
       "categories" : [
@@ -46,12 +49,6 @@
          "Simon Reinhardt",
          "Sitaram Chamarty"
       ]
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-04-14 13:56:54 GMT"
    },
    "series" : [
       {
@@ -138,7 +135,7 @@
             1,
             2,
             0,
-            242,
+            243,
             0,
             53,
             1,
@@ -163,5 +160,8 @@
    "tooltip" : {
       "shared" : 1,
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-04-15 01:58:24 GMT"
    }
 }
