@@ -1,113 +1,6 @@
 {
-   "series" : [
-      {
-         "name" : "Perl",
-         "data" : [
-            8,
-            2,
-            1,
-            2,
-            0,
-            6,
-            0,
-            1,
-            11,
-            81,
-            7,
-            2,
-            0,
-            496,
-            8,
-            2,
-            23,
-            28,
-            11,
-            6,
-            2,
-            2,
-            4,
-            38,
-            0,
-            16,
-            72,
-            4,
-            36,
-            2
-         ]
-      },
-      {
-         "data" : [
-            0,
-            1,
-            0,
-            0,
-            1,
-            17,
-            58,
-            0,
-            0,
-            85,
-            0,
-            0,
-            3,
-            0,
-            0,
-            0,
-            0,
-            30,
-            0,
-            38,
-            0,
-            84,
-            2,
-            0,
-            0,
-            0,
-            0,
-            0,
-            2,
-            0
-         ],
-         "name" : "Raku"
-      },
-      {
-         "data" : [
-            0,
-            0,
-            0,
-            0,
-            1,
-            7,
-            2,
-            0,
-            0,
-            5,
-            0,
-            0,
-            0,
-            26,
-            0,
-            0,
-            1,
-            0,
-            0,
-            15,
-            1,
-            2,
-            1,
-            43,
-            0,
-            0,
-            0,
-            0,
-            2,
-            0
-         ],
-         "name" : "Blog"
-      }
-   ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-04-21 23:13:26 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -143,6 +36,13 @@
          "lacek96"
       ]
    },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
@@ -154,14 +54,114 @@
          "text" : ""
       }
    },
-   "chart" : {
-      "type" : "column"
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-04-15 01:58:24 GMT"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   }
+   "series" : [
+      {
+         "name" : "Perl",
+         "data" : [
+            8,
+            2,
+            1,
+            2,
+            0,
+            6,
+            0,
+            1,
+            11,
+            81,
+            7,
+            2,
+            0,
+            498,
+            8,
+            2,
+            23,
+            28,
+            11,
+            6,
+            2,
+            2,
+            4,
+            38,
+            0,
+            16,
+            74,
+            4,
+            36,
+            2
+         ]
+      },
+      {
+         "name" : "Raku",
+         "data" : [
+            0,
+            1,
+            0,
+            0,
+            1,
+            17,
+            58,
+            0,
+            0,
+            85,
+            0,
+            0,
+            3,
+            0,
+            0,
+            0,
+            0,
+            30,
+            0,
+            38,
+            0,
+            84,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            0
+         ]
+      },
+      {
+         "name" : "Blog",
+         "data" : [
+            0,
+            0,
+            0,
+            0,
+            1,
+            7,
+            2,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            27,
+            0,
+            0,
+            1,
+            0,
+            0,
+            15,
+            1,
+            2,
+            1,
+            43,
+            0,
+            0,
+            0,
+            0,
+            2,
+            0
+         ]
+      }
+   ]
 }

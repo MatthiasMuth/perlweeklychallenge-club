@@ -1,120 +1,13 @@
 {
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-04-15 01:58:24 GMT"
-   },
    "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
-   "series" : [
-      {
-         "data" : [
-            13,
-            12,
-            4,
-            0,
-            4,
-            0,
-            0,
-            1,
-            171,
-            0,
-            0,
-            40,
-            14,
-            7,
-            48,
-            8,
-            1,
-            308,
-            3,
-            0,
-            52,
-            2,
-            1,
-            20,
-            0,
-            0,
-            8,
-            76,
-            18,
-            458
-         ],
-         "name" : "Perl"
-      },
-      {
-         "name" : "Raku",
-         "data" : [
-            1,
-            0,
-            0,
-            0,
-            0,
-            2,
-            0,
-            0,
-            107,
-            1,
-            10,
-            40,
-            0,
-            0,
-            0,
-            8,
-            0,
-            0,
-            0,
-            93,
-            0,
-            0,
-            0,
-            0,
-            0,
-            28,
-            0,
-            76,
-            0,
-            0
-         ]
-      },
-      {
-         "name" : "Blog",
-         "data" : [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            81,
-            0,
-            0,
-            16,
-            0,
-            4,
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            38,
-            0,
-            0
-         ]
-      }
-   ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-04-21 23:13:26 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -150,18 +43,125 @@
          "Paulo Custodio"
       ]
    },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "series" : [
+      {
+         "data" : [
+            13,
+            12,
+            4,
+            0,
+            4,
+            0,
+            0,
+            1,
+            171,
+            0,
+            0,
+            40,
+            14,
+            7,
+            50,
+            8,
+            1,
+            310,
+            3,
+            0,
+            52,
+            2,
+            1,
+            20,
+            0,
+            0,
+            8,
+            78,
+            18,
+            458
+         ],
+         "name" : "Perl"
       },
-      "min" : 0
-   },
-   "chart" : {
-      "type" : "column"
-   },
+      {
+         "data" : [
+            1,
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            107,
+            1,
+            10,
+            40,
+            0,
+            0,
+            0,
+            8,
+            0,
+            0,
+            0,
+            93,
+            0,
+            0,
+            0,
+            0,
+            0,
+            28,
+            0,
+            78,
+            0,
+            0
+         ],
+         "name" : "Raku"
+      },
+      {
+         "name" : "Blog",
+         "data" : [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            81,
+            0,
+            0,
+            16,
+            0,
+            4,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            39,
+            0,
+            0
+         ]
+      }
+   ],
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
+      }
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
       }
    }
 }
