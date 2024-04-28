@@ -1,29 +1,20 @@
 {
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             3,
             7,
             0,
             180,
             0,
-            258,
+            260,
             1,
-            92,
+            98,
             11,
             7,
             1,
@@ -43,13 +34,13 @@
             9,
             0,
             0,
-            9,
+            11,
             6,
             3
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -81,18 +72,16 @@
             0,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             1,
             0,
             0,
             0,
             0,
-            122,
+            123,
             0,
             0,
             0,
@@ -114,14 +103,20 @@
             0,
             0,
             0,
-            5,
+            6,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-04-21 23:13:26 GMT"
+      "text" : "[Champions: 30] Last updated at 2024-04-28 18:08:59 GMT"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "xAxis" : {
       "categories" : [
@@ -157,11 +152,16 @@
          "Rich Snyder"
       ]
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "chart" : {
       "type" : "column"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    }
 }
