@@ -71,7 +71,7 @@ readme_md = '''
 Lorem ipsum dolor sit amet...
 
 ```perl
-sub task_1() {
+sub <TASK_1_SUB>() {
     ...;
 }
 ```
@@ -83,7 +83,7 @@ sub task_1() {
 Lorem ipsum dolor sit amet...
 
 ```perl
-sub task_2() {
+sub <TASK_2_SUB>() {
     ...;
 }
 ```

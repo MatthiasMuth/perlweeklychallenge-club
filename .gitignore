@@ -10,3 +10,5 @@ y?
 *~
 weekly_check/
 tmp/
+challenge-*/**/README-*.md
+challenge-*/**/challenge-*.txt

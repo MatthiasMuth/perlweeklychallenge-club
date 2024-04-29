@@ -4,9 +4,15 @@
 
 challenge="$1"
 
-set -e
 set -v
 
+git update-index --refresh -q >/dev/null
+if ! git diff-index --quiet HEAD --; then
+    git stash
+    stashed=1
+fi
+
+set -e
 git checkout dev
 git pull
 
@@ -26,3 +32,8 @@ git push --all
 git push --tags
 
 git checkout dev
+
+if [ "$stashed" ]; then
+    git stash pop
+    git status -uno
+fi

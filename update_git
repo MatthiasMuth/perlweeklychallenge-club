@@ -2,9 +2,15 @@
 
 [ $# = 0 ] || { echo "Usage: $0" >&2; exit 2; }
 
-set -e
 set -v
 
+git update-index --refresh -q >/dev/null
+if ! git diff-index --quiet HEAD --; then
+    git stash
+    stashed=1
+fi
+
+set -e
 git checkout master
 git pull
 git fetch upstream
@@ -13,7 +19,13 @@ git merge --ff-only upstream/master
 git checkout dev
 git merge --no-ff --no-commit master
 git checkout dev -- :/.gitignore
-git commit -m "Merge branch 'master' into dev (keeping .gitignore)"
+set +e
+git commit -uno -m "Merge branch 'master' into dev (keeping .gitignore)"
 
 git push --all
 git push --tags
+
+if [ "$stashed" ]; then
+    git stash pop
+    git status -uno
+fi

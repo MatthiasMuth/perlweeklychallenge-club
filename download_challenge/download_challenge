@@ -3,14 +3,20 @@
 #	download_challenge [<options>] [<challenge> ...]
 #		downloads the challenges given as parameters from the
 #		Weekly Challenge website at https://theweeklychallenge.org,
-#		and writes out several files based on the information extracted
-#		from the challenge. All files will be written into the
-#		subdirectory 'challenge-<challenge>/<user>' (where <challenge>
-#		is the challenge number, and <user> is a hardcoded user name).
-#		These files will be written:
-#		  * README.md
+#		and creates several files based on the information extracted
+#		from the challenge. All files will be created in the
+#		subdirectory
+#		    challenge-<challenge>/<user>
+#		(where <challenge> is the challenge number, and <user> is the
+#		user name as specified in the status.toml confguration file).
+#		These files will be created:
 #		  * README-no-blog.md
+#		  	(to be moved or copied to README.md in case no blog is
+#		  	written for this week's challenge)
 #		  * blog.txt
+#		  * perl/README-<challenge>.md
+#		  	(blog skeleton; to be moved up to ../README.md after
+#		  	editing)
 #		  * perl/ch-1.pl
 #		  * perl/ch-1.pl
 #		  * perl/challenge-<challenge>.
@@ -18,6 +24,7 @@
 #		'perl/challenge-<challenge>' file. This is because the
 #		challenge text is not supposed to be changed locally, but it
 #		might receive updates or corrections on the website.
+#		
 #
 #		If no parameters are given, the script checks whether there is
 #		a new challenge, or an update to the current challenge.
@@ -30,7 +37,7 @@
 #		[TBC...]
 #
 #	Usage:
-#	    get_weekly_challenge
+#	    download_challenge
 #		Without parameters, executes these default tasks:
 #		  * retrieve the task descriptions for the most recent weekly
 #		    challenge from the Weekly Challenge website.
@@ -46,7 +53,7 @@
 #		  * generate skeleton files for .../perl/ch-[12].pl based on
 #		    the challenge task descriptions, if they do not yet exist.
 #
-#	    get_weekly_challenge <challenge> ...
+#	    download_challenge <challenge> ...
 #		When challenge numbers are explicitly given as command line
 #		parameters, only these steps are done by default:
 #		  * retrieve the task descriptions for the given challenges,
@@ -248,18 +255,26 @@ sub process_challenge( $challenge ) {
 
 	# Extract the text from the nodes.
 	# Ignore <hr> to avoid empty lines where they are not needed.
-	# Instead add an extra empty line after <h4> ('Example...') and
-	# <h5> ('submitted by'). 
+	# Add an extra empty line before 'Example 1'.
+	# Remove empty lines within <pre> text (example descriptions).
+	# Add an extra empty line after <h5> ('submitted by'). 
 	my $challenge_text = join "",
-	    map { $_->as_text . "\n" . ( $_->{_tag} =~ /^h[45]/ ? "\n" : "" ) }
-	        grep $_->{_tag} ne "hr", @nodes;
+	    map {
+		( $_->as_text =~ /^Example 1/ ? "\n" : "" )
+		. ( $_->{_tag} =~ /^pre/
+		    ?  $_->as_text =~ s/^\s*\n//gmr
+		    : $_->as_text )
+		. "\n"
+		. ( $_->{_tag} =~ /^h5/ ? "\n" : "" )
+	    } grep $_->{_tag} ne "hr", @nodes;
+	# vsay "challenge_text:\n", $challenge_text;
 
 	# Generate the code skeletons.
 	my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
 	my ( $task_1_code, $task_2_code ) =
 	    map generate_code( $challenge, $_ ), ( $task_1, $task_2 );
 
-	# Generate README.md.
+	# Generate the README.md skeleton.
 	my $readme_text = generate_readme_md( $challenge, $challenge_text );
 
 	# Generate README-no-blog.md
@@ -290,12 +305,12 @@ sub process_challenge( $challenge ) {
 		$options{UPDATE} && $options{ARCHIVE}
 		    ? [ "$archive_dir/$archive_file", $html ]
 		    : (),
-		[ "$target_dir/perl/README.md",
-		    $readme_text, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/README-no-blog.md",
 		    $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/blog.txt",
 		    $blog_text, 'DO_NOT_OVERWRITE' ],
+		[ "$target_dir/perl/README-$challenge.md",
+		    $readme_text, 'DO_NOT_OVERWRITE' ],
 		[ "$target_dir/perl/challenge-$challenge.txt",
 		    $challenge_text ],
 		[ "$target_dir/perl/ch-1.pl",
@@ -515,6 +530,8 @@ sub generate_readme_md( $challenge, $text ) {
 	TASK_1_Q_TEXT     => $parts{t1_text} =~ s/^(.*)$/> $1<br\/>/mgr,
 	TASK_2_NAME       => $parts{t2_name},
 	TASK_2_Q_TEXT     => $parts{t2_text} =~ s/^(.*)$/> $1<br\/>/mgr,
+	TASK_1_SUB        => lc $parts{t1_name} =~ s/\W+/_/gr,
+	TASK_2_SUB        => lc $parts{t2_name} =~ s/\W+/_/gr,
     );
     $readme_text =~ s/<$_>/$substitutions{$_}/g
 	for keys %substitutions;
