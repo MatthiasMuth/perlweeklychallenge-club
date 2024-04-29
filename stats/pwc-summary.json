@@ -1,8 +1,4 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "series" : [
       {
          "data" : [
@@ -54,7 +50,7 @@
             15,
             11,
             0,
-            199,
+            200,
             1,
             2,
             0,
@@ -113,7 +109,7 @@
             0,
             6,
             5,
-            235,
+            236,
             1,
             1,
             153,
@@ -183,7 +179,7 @@
             117,
             0,
             2,
-            47,
+            48,
             1,
             4,
             8,
@@ -213,7 +209,7 @@
             0,
             0,
             5,
-            39,
+            40,
             9,
             230,
             2,
@@ -318,6 +314,7 @@
          "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -350,7 +347,7 @@
             0,
             0,
             0,
-            59,
+            60,
             2,
             0,
             0,
@@ -361,7 +358,7 @@
             0,
             0,
             0,
-            109,
+            110,
             0,
             0,
             4,
@@ -370,8 +367,8 @@
             6,
             0,
             0,
-            1,
             8,
+            1,
             0,
             104,
             0,
@@ -426,7 +423,7 @@
             0,
             0,
             0,
-            235,
+            236,
             0,
             2,
             5,
@@ -526,7 +523,7 @@
             0,
             20,
             0,
-            39,
+            40,
             0,
             0,
             0,
@@ -568,7 +565,7 @@
             84,
             3,
             1,
-            106,
+            107,
             0,
             238,
             57,
@@ -627,8 +624,7 @@
             11,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "name" : "Blog",
@@ -740,7 +736,7 @@
             0,
             0,
             0,
-            223,
+            224,
             0,
             0,
             125,
@@ -840,7 +836,7 @@
             0,
             0,
             0,
-            39,
+            40,
             0,
             0,
             1,
@@ -944,8 +940,12 @@
          ]
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 308] Last updated at 2024-04-28 18:08:59 GMT"
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "plotOptions" : {
       "column" : {
@@ -1264,16 +1264,16 @@
          "Yves Orton"
       ]
    },
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 308] Last updated at 2024-04-29 02:19:39 GMT"
    }
 }
