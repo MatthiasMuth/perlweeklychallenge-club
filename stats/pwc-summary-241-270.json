@@ -1,29 +1,30 @@
 {
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-05-05 20:46:46 GMT"
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
    "series" : [
       {
          "name" : "Perl",
          "data" : [
+            3,
             0,
             0,
             0,
             0,
             9,
-            151,
+            153,
             155,
             2,
             0,
             0,
             3,
-            497,
+            499,
             113,
             89,
             56,
@@ -40,12 +41,13 @@
             320,
             7,
             5,
-            4,
-            1
+            4
          ]
       },
       {
+         "name" : "Raku",
          "data" : [
+            0,
             1,
             4,
             4,
@@ -55,9 +57,9 @@
             131,
             6,
             2,
-            210,
+            212,
             0,
-            457,
+            459,
             113,
             61,
             0,
@@ -74,26 +76,24 @@
             0,
             0,
             264,
-            0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
+            0,
             0,
             0,
             13,
             0,
             0,
-            63,
+            64,
             0,
             0,
             1,
             2,
             0,
-            245,
+            246,
             0,
             53,
             1,
@@ -110,28 +110,29 @@
             155,
             0,
             12,
-            0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
    "chart" : {
       "type" : "column"
    },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
       }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-04-29 02:19:39 GMT"
    },
    "xAxis" : {
       "categories" : [
+         "Rich Snyder",
          "Richard Hainsworth",
          "Richard Nuttall",
          "Richard Park",
@@ -160,8 +161,7 @@
          "Simon Green",
          "Simon Miner",
          "Simon Proctor",
-         "Simon Reinhardt",
-         "Sitaram Chamarty"
+         "Simon Reinhardt"
       ]
    }
 }
