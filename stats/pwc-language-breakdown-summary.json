@@ -1,58 +1,58 @@
 {
-   "xAxis" : {
-      "type" : "category",
-      "labels" : {
-         "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
-         }
-      }
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
    "title" : {
       "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   },
+   "legend" : {
+      "enabled" : "false"
    },
    "series" : [
       {
          "dataLabels" : {
-            "rotation" : -90,
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "format" : "{point.y:.0f}",
             "color" : "#FFFFFF",
+            "rotation" : -90,
             "enabled" : "true",
+            "y" : 10,
             "align" : "right",
-            "y" : 10
+            "format" : "{point.y:.0f}",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            }
          },
+         "name" : "Contributions",
          "data" : [
             [
                "Blog",
-               4816
+               4842
             ],
             [
                "Perl",
-               13863
+               13909
             ],
             [
                "Raku",
-               8037
+               8070
             ]
-         ],
-         "name" : "Contributions"
+         ]
       }
    ],
-   "legend" : {
-      "enabled" : "false"
+   "chart" : {
+      "type" : "column"
    },
    "subtitle" : {
-      "text" : "Last updated at 2024-05-05 20:46:46 GMT"
+      "text" : "Last updated at 2024-05-12 23:51:25 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
+   "xAxis" : {
+      "type" : "category",
+      "labels" : {
+         "style" : {
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
+         }
+      }
    },
    "yAxis" : {
       "min" : 0,

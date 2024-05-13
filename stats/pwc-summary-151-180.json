@@ -1,13 +1,13 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
    "chart" : {
       "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-05-12 23:51:25 GMT"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "xAxis" : {
       "categories" : [
@@ -43,28 +43,24 @@
          "Max Kossek"
       ]
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "yAxis" : {
+      "min" : 0,
       "title" : {
          "text" : ""
-      },
-      "min" : 0
+      }
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-05-05 20:46:46 GMT"
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             37,
             29,
             16,
             22,
-            472,
+            474,
             17,
             2,
             0,
@@ -84,41 +80,39 @@
             0,
             0,
             4,
-            218,
+            220,
             0,
             4,
-            98,
+            100,
             2,
             6
-         ],
-         "name" : "Perl"
+         ]
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             0,
             4,
             0,
-            486,
+            488,
             0,
             0,
             10,
             55,
-            382,
+            384,
             14,
             4,
             0,
             1,
             0,
             0,
-            408,
+            410,
             1,
             49,
             91,
             3,
             2,
-            89,
+            91,
             0,
             0,
             0,
@@ -126,7 +120,8 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "name" : "Blog",
@@ -135,12 +130,12 @@
             17,
             0,
             0,
-            357,
+            359,
             0,
             0,
             0,
             30,
-            867,
+            876,
             0,
             0,
             0,
@@ -158,10 +153,15 @@
             0,
             0,
             1,
-            44,
+            45,
             0,
             0
          ]
       }
-   ]
+   ],
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   }
 }

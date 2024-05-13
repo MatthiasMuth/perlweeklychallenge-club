@@ -2,17 +2,12 @@
    "chart" : {
       "type" : "column"
    },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-05-12 23:51:25 GMT"
+   },
    "tooltip" : {
       "shared" : 1,
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
    },
    "xAxis" : {
       "categories" : [
@@ -48,27 +43,26 @@
          "RibTips"
       ]
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-05-05 20:46:46 GMT"
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
    },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             3,
             7,
             0,
             180,
             0,
-            262,
+            264,
             1,
-            106,
+            108,
             11,
             7,
             1,
@@ -89,12 +83,12 @@
             9,
             0,
             0,
-            13,
+            15,
             6
-         ]
+         ],
+         "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -126,16 +120,18 @@
             24,
             0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
+         "name" : "Blog",
          "data" : [
             1,
             0,
             0,
             0,
             0,
-            124,
+            125,
             0,
             0,
             0,
@@ -158,10 +154,14 @@
             0,
             0,
             0,
-            7,
+            8,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
-   ]
+   ],
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   }
 }
