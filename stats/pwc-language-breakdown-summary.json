@@ -1,63 +1,63 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
    "legend" : {
       "enabled" : "false"
    },
-   "series" : [
-      {
-         "dataLabels" : {
-            "color" : "#FFFFFF",
-            "rotation" : -90,
-            "enabled" : "true",
-            "y" : 10,
-            "align" : "right",
-            "format" : "{point.y:.0f}",
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            }
-         },
-         "name" : "Contributions",
-         "data" : [
-            [
-               "Blog",
-               4842
-            ],
-            [
-               "Perl",
-               13909
-            ],
-            [
-               "Raku",
-               8070
-            ]
-         ]
-      }
-   ],
-   "chart" : {
-      "type" : "column"
-   },
    "subtitle" : {
-      "text" : "Last updated at 2024-05-12 23:51:25 GMT"
+      "text" : "Last updated at 2024-05-20 04:06:10 GMT"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : null
+      },
+      "min" : 0
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    },
    "tooltip" : {
       "pointFormat" : "<b>{point.y:.0f}</b>"
    },
+   "series" : [
+      {
+         "name" : "Contributions",
+         "data" : [
+            [
+               "Blog",
+               4866
+            ],
+            [
+               "Perl",
+               13957
+            ],
+            [
+               "Raku",
+               8100
+            ]
+         ],
+         "dataLabels" : {
+            "align" : "right",
+            "color" : "#FFFFFF",
+            "rotation" : -90,
+            "enabled" : "true",
+            "format" : "{point.y:.0f}",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "y" : 10
+         }
+      }
+   ],
    "xAxis" : {
-      "type" : "category",
       "labels" : {
          "style" : {
             "fontSize" : "13px",
             "fontFamily" : "Verdana, sans-serif"
          }
-      }
+      },
+      "type" : "category"
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
-      }
+   "chart" : {
+      "type" : "column"
    }
 }
