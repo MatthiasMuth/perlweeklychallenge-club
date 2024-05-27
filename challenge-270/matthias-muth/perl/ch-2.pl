@@ -38,11 +38,11 @@ sub distribute_elements( $ints, $x, $y ) {
     return $rest * $y + ( $largest - $rest ) * $x
         if $largest > $rest;
 
-    # Here, we know that we have enough points in the other numbers to completely
-    # remove the largest one. I *ASSUME* that in this case, we *ALWAYS* can
-    # repeatedly decrement the largest and second largest of the remaining
-    # number, down to having nothing at all any more, or at most one single
-    # leftover 1.
+    # Here, we know that we have enough points in the other numbers to
+    # completely remove the largest one.
+    # I *ASSUME* that in this case, we *ALWAYS* can repeatedly decrement the
+    # largest and second largest of the remaining number, down to having nothing
+    # at all any more, or at most one single leftover 1.
     # Using this assumption, we can again compute the cost without
     # really looping through the decrements.
     return int( $sum_to_do / 2 ) * $y + ( $sum_to_do % 2 ) * $x;
