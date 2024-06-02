@@ -1,50 +1,19 @@
 {
-   "subtitle" : {
-      "text" : "Last updated at 2024-05-26 22:54:37 GMT"
-   },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : null
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
+      },
+      "min" : 0
    },
    "title" : {
       "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    },
-   "series" : [
-      {
-         "dataLabels" : {
-            "color" : "#FFFFFF",
-            "rotation" : -90,
-            "align" : "right",
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "format" : "{point.y:.0f}",
-            "enabled" : "true",
-            "y" : 10
-         },
-         "data" : [
-            [
-               "Blog",
-               4889
-            ],
-            [
-               "Perl",
-               13990
-            ],
-            [
-               "Raku",
-               8118
-            ]
-         ],
-         "name" : "Contributions"
-      }
-   ],
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
    "xAxis" : {
       "labels" : {
          "style" : {
@@ -57,7 +26,38 @@
    "legend" : {
       "enabled" : "false"
    },
-   "chart" : {
-      "type" : "column"
-   }
+   "subtitle" : {
+      "text" : "Last updated at 2024-06-01 14:07:00 GMT"
+   },
+   "series" : [
+      {
+         "data" : [
+            [
+               "Blog",
+               4913
+            ],
+            [
+               "Perl",
+               14034
+            ],
+            [
+               "Raku",
+               8140
+            ]
+         ],
+         "name" : "Contributions",
+         "dataLabels" : {
+            "align" : "right",
+            "y" : 10,
+            "style" : {
+               "fontSize" : "13px",
+               "fontFamily" : "Verdana, sans-serif"
+            },
+            "color" : "#FFFFFF",
+            "rotation" : -90,
+            "format" : "{point.y:.0f}",
+            "enabled" : "true"
+         }
+      }
+   ]
 }
