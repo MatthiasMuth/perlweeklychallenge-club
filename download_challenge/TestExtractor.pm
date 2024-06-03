@@ -159,19 +159,27 @@ sub extract_and_run_tests( $sub_name ) {
 }
 
 sub generate_tests( $sub_name, @tests ) {
+    # vsay "generate_tests( $sub_name, ", pp @tests;
     my @generated_code;
 
     my $result_is_array = 
 	! $tests[0] || any { scalar $_->{OUTPUT}->@* > 1 } @tests;
 
     for ( @tests ) {
+	$_->{INPUT} or do {
+	    say STDERR "WARNING: ",
+		"Cannot determine input parameters",
+		$_->{TEST} ? " for test '$_->{TEST}'" : "", ".";
+	};
         my @input_params =
-	    @{$_->{INPUT}} == 1
-	    ? ( ref $_->{INPUT}[0] eq 'ARRAY'
-		&& ! grep( ref $_, @{$_->{INPUT}[0]} ) )
-		? @{$_->{INPUT}[0]}
-		: $_->{INPUT}[0]
-	    : @{$_->{INPUT}};
+	    exists $_->{INPUT}
+	    ? @{$_->{INPUT}} == 1
+		? ( ref $_->{INPUT}[0] eq 'ARRAY'
+		    && ! grep( ref $_, @{$_->{INPUT}[0]} ) )
+		    ? @{$_->{INPUT}[0]}
+		    : $_->{INPUT}[0]
+		: @{$_->{INPUT}}
+	    : ();
 	my $expected = $_->{OUTPUT};
 	my $diag =
 	    "$sub_name( "
