@@ -1,119 +1,4 @@
 {
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-06-01 14:07:00 GMT"
-   },
-   "series" : [
-      {
-         "name" : "Perl",
-         "data" : [
-            6,
-            45,
-            46,
-            21,
-            1,
-            2,
-            3,
-            2,
-            0,
-            0,
-            4,
-            246,
-            6,
-            66,
-            2,
-            0,
-            31,
-            22,
-            0,
-            354,
-            2,
-            3,
-            0,
-            0,
-            1,
-            338,
-            3,
-            2,
-            63,
-            2
-         ]
-      },
-      {
-         "data" : [
-            0,
-            0,
-            103,
-            3,
-            0,
-            0,
-            0,
-            0,
-            31,
-            0,
-            0,
-            0,
-            0,
-            228,
-            0,
-            0,
-            8,
-            12,
-            6,
-            9,
-            0,
-            0,
-            2,
-            16,
-            0,
-            194,
-            0,
-            0,
-            0,
-            0
-         ],
-         "name" : "Raku"
-      },
-      {
-         "data" : [
-            7,
-            43,
-            4,
-            6,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            34,
-            0,
-            18,
-            0,
-            0,
-            15,
-            0,
-            0,
-            52,
-            0,
-            2,
-            0,
-            0,
-            0,
-            137,
-            0,
-            0,
-            0,
-            0
-         ],
-         "name" : "Blog"
-      }
-   ],
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "xAxis" : {
       "categories" : [
          "Augie De Blieck Jr.",
@@ -148,20 +33,135 @@
          "Csaba Simandi"
       ]
    },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "series" : [
+      {
+         "name" : "Perl",
+         "data" : [
+            6,
+            45,
+            46,
+            21,
+            1,
+            2,
+            3,
+            2,
+            0,
+            0,
+            4,
+            248,
+            6,
+            66,
+            2,
+            0,
+            31,
+            22,
+            0,
+            356,
+            2,
+            3,
+            0,
+            0,
+            1,
+            338,
+            3,
+            2,
+            63,
+            2
+         ]
+      },
+      {
+         "data" : [
+            0,
+            0,
+            105,
+            3,
+            0,
+            0,
+            0,
+            0,
+            31,
+            0,
+            0,
+            0,
+            0,
+            230,
+            0,
+            0,
+            8,
+            12,
+            6,
+            9,
+            0,
+            0,
+            16,
+            2,
+            0,
+            194,
+            0,
+            0,
+            0,
+            0
+         ],
+         "name" : "Raku"
+      },
+      {
+         "name" : "Blog",
+         "data" : [
+            7,
+            43,
+            4,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            34,
+            0,
+            18,
+            0,
+            0,
+            15,
+            0,
+            0,
+            52,
+            0,
+            2,
+            0,
+            0,
+            0,
+            137,
+            0,
+            0,
+            0,
+            0
+         ]
+      }
+   ],
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-06-08 12:52:21 GMT"
    }
 }
