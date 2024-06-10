@@ -1,51 +1,6 @@
 {
-   "xAxis" : {
-      "categories" : [
-         "Augie De Blieck Jr.",
-         "Avery Adams",
-         "BarrOff",
-         "Bartosz Jarzyna",
-         "Baryshev Sergey",
-         "Bejoy Mathews",
-         "Belmark Caday",
-         "Ben Bullock",
-         "Ben Davies",
-         "Bill Palmer",
-         "Bob Kleemann",
-         "Bob Lied",
-         "Branislav Zahradnik",
-         "Bruce Gray",
-         "Bruce Van Allen",
-         "Bruno Ramos",
-         "Burkhard Nickels",
-         "Carlos Oliveira",
-         "Chenyf",
-         "Cheok-Yin Fung",
-         "Chicagoist",
-         "Christian Jaeger",
-         "Clifton Wood",
-         "Clifton Wood",
-         "Clive Holloway",
-         "Colin Crain",
-         "Craig",
-         "Creewick",
-         "Cristina Heredia",
-         "Csaba Simandi"
-      ]
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "chart" : {
-      "type" : "column"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-06-10 00:43:16 GMT"
    },
    "series" : [
       {
@@ -62,7 +17,7 @@
             0,
             0,
             4,
-            248,
+            250,
             6,
             66,
             2,
@@ -87,7 +42,7 @@
          "data" : [
             0,
             0,
-            105,
+            107,
             3,
             0,
             0,
@@ -98,7 +53,7 @@
             0,
             0,
             0,
-            230,
+            232,
             0,
             0,
             8,
@@ -154,14 +109,59 @@
          ]
       }
    ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "chart" : {
+      "type" : "column"
    },
    "tooltip" : {
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
       "shared" : 1
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-06-08 12:52:21 GMT"
+   "xAxis" : {
+      "categories" : [
+         "Augie De Blieck Jr.",
+         "Avery Adams",
+         "BarrOff",
+         "Bartosz Jarzyna",
+         "Baryshev Sergey",
+         "Bejoy Mathews",
+         "Belmark Caday",
+         "Ben Bullock",
+         "Ben Davies",
+         "Bill Palmer",
+         "Bob Kleemann",
+         "Bob Lied",
+         "Branislav Zahradnik",
+         "Bruce Gray",
+         "Bruce Van Allen",
+         "Bruno Ramos",
+         "Burkhard Nickels",
+         "Carlos Oliveira",
+         "Chenyf",
+         "Cheok-Yin Fung",
+         "Chicagoist",
+         "Christian Jaeger",
+         "Clifton Wood",
+         "Clifton Wood",
+         "Clive Holloway",
+         "Colin Crain",
+         "Craig",
+         "Creewick",
+         "Cristina Heredia",
+         "Csaba Simandi"
+      ]
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }
