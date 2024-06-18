@@ -296,6 +296,7 @@ sub extract_tests( $task_text ) {
     {
 	my ( $test, $input, $output) = ( $1, $2, $3 );
 	# vsay pp $test, $input, $output;
+	# vsay "input:", pp $input;
 
 	push @tests, { TEST => $test };
 
@@ -305,16 +306,27 @@ sub extract_tests( $task_text ) {
 	# This is for specification like
 	# Input: Year = 2024, Month = 4, Weekday of month = 3, day of week = 2
 	unless ( $input =~ /[\$\@]\w+/ ) {
-	    $input =~ s{(\w+?(?: \w+?)*?)(\s*=)}{
-		my ( $var_name, $equals ) = ( $1, $2 );
-		'$' . lc ( $var_name =~ s/ /_/gr ) . $equals;
-	    }eg;
-	    # vsay "changed \$input to '$input'";
+	    if ( $input =~ s{(\w+?(?: \w+?)*?)(\s*=)}{
+		    my ( $var_name, $equals ) = ( $1, $2 );
+		    '$' . lc ( $var_name =~ s/ /_/gr ) . $equals;
+		}eg )
+	    {
+		say STDERR "INFO ",
+		    "No variables found in input specification.",
+		    " Trying alternative input format.";
+		# vsay "changed \$input to '$input'";
+	    }
+	    else {
+		say STDERR "WARNING: ",
+		    "Cannot determine any input variable names.",
+		    " Using '\@input' instead.";
+		$input = "\@input = $input";
+	    }
 	}
 
 	for ( $input, $output ) {
-	    # To avoid misinterpretations of '@' or '$' when the data is
-	    # 'eval'ed, we turn all double quotes into single quotes.
+	    # To avoid misinterpretations of '@' or '$' within strings when the
+	    # data is 'eval'ed, we turn all double quotes into single quotes.
 	    s/\"/'/g;
 
 	    # We convert 'barewords' into quoted strings.
