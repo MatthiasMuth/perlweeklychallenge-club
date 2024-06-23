@@ -9,7 +9,8 @@
 #
 
 use v5.38;
-use experimental 'class';
+use feature 'class';
+no warnings 'experimental::class';
 
 class BusRoute {
     field $frequency :param;
@@ -17,11 +18,11 @@ class BusRoute {
     field $duration  :param;
 
     method waiting_time( $now ) {
-	return ( $offset - $now ) % $frequency;
+        return ( $offset - $now ) % $frequency;
     }
 
     method next_departure( $now ) {
-        return $now + $self->waiting_time( $now )
+        return $now + $self->waiting_time( $now );
     }
 
     method next_arrival( $now ) {
@@ -34,17 +35,16 @@ class BusRoute {
     use overload '""' => \&as_string;
 }
 
-use List::Util qw( mesh min );
-
-my $verbose = 1;
+our $verbose = 1;
 sub vsay { say @_ if $verbose }
+
+use List::Util qw( mesh min );
 
 sub bus_route( $input ) {
     my @bus_routes =
-        map {
-            my %params = mesh( [ qw( frequency offset duration ) ], $_ );
-            BusRoute->new( %params )
-        } $input->@*;
+        map BusRoute->new(
+            mesh( [ qw( frequency offset duration ) ], $_ )
+        ), $input->@*;
 
     my @results = ();
     for my $now ( 0..59 ) {
@@ -55,19 +55,19 @@ sub bus_route( $input ) {
             "next arrival",   $_->next_arrival( $now )
             for @bus_routes;
 
-        # Find the 'best next bus'.
         # Get the next possible departure time.
+        my $next_departure = min( map $_->next_departure( $now ), @bus_routes );
+
         # Of all the busses leaving at that time (there might be several of
         # them), we choose the one with the earliest arrival time.
-        my $next_departure = min( map $_->next_departure( $now ), @bus_routes );
         my $best_next_bus_arrival = min(
             map $_->next_arrival( $now ),
                 grep $_->next_departure( $now ) == $next_departure,
                     @bus_routes );
 
         # Now find the best arrival time of any *later* bus.
-        # Note that there might not be a 'later' bus if all the busses leave at
-        # the same time.
+        # Note that there might not be a 'later' bus if all 'next' busses leave
+        # at the same time.
         my $best_later_bus_arrival = min(
             map $_->next_arrival( $now ),
                 grep $_->next_departure( $now ) > $next_departure,

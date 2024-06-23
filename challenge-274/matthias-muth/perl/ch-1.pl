@@ -22,13 +22,13 @@ sub goat_latin_1( $sentence ) {
 }
 
 sub goat_latin( $sentence ) {
-    my $maa = "ma";
+    my $suffix = "ma";
     return join " ",
-	map {
-	    /^ (?: [aeiou] | (\w) ) (.*) /xi;
-	    $maa .= "a";
-	    ( $1 ? "$2$1" : $_ ) . $maa;
-	} split " ", $sentence;
+        map {
+            /^ (?: ([aeiou]) | (\w) ) (.*) /xi;
+            $suffix .= "a";
+            ( $1 ? $_ : "$3$2" ) . $suffix;
+        } split " ", $sentence;
 }
 
 use Test2::V0 qw( -no_srand );
