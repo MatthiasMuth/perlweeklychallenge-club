@@ -13,29 +13,34 @@
 > 2) If a word begins with consonant i.e. not a vowel, remove first<br/>
 >    letter and append it to the end then add "ma".<br/>
 > 3) Add letter "a" to the end of first word in the sentence, "aa" to<br/>
->    the second word, etc etc.<br/>
->    <br/>
->    <br/>
->    Example 1<br/>
->    Input: \$sentence = "I love Perl"<br/>
->    Output: "Imaa ovelmaaa erlPmaaaa"<br/>
->    <br/>
->    Example 2<br/>
->    Input: \$sentence = "Perl and Raku are friends"<br/>
->    Output: "erlPmaa andmaaa akuRmaaaa aremaaaaa riendsfmaaaaaa"<br/>
->    <br/>
->    Example 3<br/>
->    Input: \$sentence = "The Weekly Challenge"<br/>
->    Output: "heTmaa eeklyWmaaa hallengeCmaaaa"<br/>
+>    the second word, etc etc.
+> 
+> Example 1<br/>
+> Input: \$sentence = "I love Perl"<br/>
+> Output: "Imaa ovelmaaa erlPmaaaa"<br/>
+> <br/>
+> Example 2<br/>
+> Input: \$sentence = "Perl and Raku are friends"<br/>
+> Output: "erlPmaa andmaaa akuRmaaaa aremaaaaa riendsfmaaaaaa"<br/>
+> <br/>
+> Example 3<br/>
+> Input: \$sentence = "The Weekly Challenge"<br/>
+> Output: "heTmaa eeklyWmaaa hallengeCmaaaa"<br/>
 
-Again, Perl regular expressions come to help.
-
-What we do, is to construct the result 'on the fly':
+Again, Perl regular expressions come to help.<br/>
+Let's construct the result 'on the fly':
 
 * We `split` the sentence into words.
-* For each word , we use a regular expression to separate the first letter from the rest, and to distinguish between a vowel as the first letter or a consonant (actually, anything else that a vowel).<br/>We use captures for anything we need later.<br/>I first tried using named captures, but for the simple case that we have here, I found the result more readable with just `$1`, `$2`, `$3`.
-*  For the suffix, we declare a lexical variable `$suffix`  beforehand, initializing it with "ma".<br/>We will add another `"a"` within every iteration.
-- Constructing the resulting word is simple then:<br/>
+* For each word,
+  we use a regular expression to separate the first letter from the rest,
+  and to distinguish between a vowel as the first letter or a consonant
+  (actually, anything else than a vowel).<br/>
+  We use captures for anything we need later.<br/>
+  I first tried using named captures,
+  but for the simple case that we have here,
+  I found the result more readable with just `$1`, `$2`, `$3`.
+* For the suffix, we declare a lexical variable `$suffix`  beforehand, initializing it with "ma".<br/>We will add another `"a"` within every iteration.
+* Constructing the resulting word is simple then:<br/>
   Depending on whether we found a vowel (which means that the `$1` capture is non-empty, we use the original word or a flipped version of it (using the `$2` and `$3` captures).<br/>
   Then we append the suffix, after having appended the additional `"a"` to it.
 
@@ -73,9 +78,15 @@ sub goat_latin( $sentence ) {
 
 #### Object-oriented approach, using Perl `class`
 
-For every minute past the hour (`0..59`), we will need know for any bus route when is its next departure time, and what will be our arrival time if we take that bus. We need this information to decide which bus is the 'next bus', and then check 'later buses' for possibly to arrive earlier.
+For every minute past the hour (`0..59`),
+we will need know for any bus route when is its next departure time,
+and what will be our arrival time if we take that bus.
+We need this information to decide which bus is the 'next bus',
+and then check 'later buses' for possibly to arrive earlier.
 
-So what if we made every bus route an object, with methods like `next_departure( $now )` and `next_arrival( $now )`, where we can put in every minute we want to check?
+So what if we made every bus route an object,
+with methods like `next_departure( $now )` and `next_arrival( $now )`,
+where we can put in every minute we want to check as a parameter?
 
 What a great way to demonstrate Perl's quite recent new `class` feature!<br/>
 (... which has been out for over a year now, happy anniversary! Love to see it growing!)
@@ -93,13 +104,20 @@ For the waiting time until the *next* departure, we simply turn things around:
         return ( $offset - $now ) % $frequency;
     }
 ```
-The term `( $offset - $now )` can become negative (it regularly is after the first departure), but the `%` result is correct even for negative numbers.
+The term `( $offset - $now )` can become negative
+(it regularly is after the first departure),
+but the `%` result is correct even for negative numbers.
 
-Given the `waiting_time` method, the rest of the `BusRoute` class is simple.<br/>The next departure will be `$now` plus the waiting time, and the next arrival time is the next departure time plus the travel duration.
+Given the `waiting_time` method, the rest of the `BusRoute` class is simple.<br/>
+The next departure will be `$now` plus the waiting time,
+and the next arrival time is the next departure time plus the travel duration.
 
 So here is the `BusRoute` class definition.<br/>
-I added a `as_string` method to get a textual self-description for `BusRoute` objects, to make it easy to produce tracing or debugging output.<br/>
-I also used an override for the string conversion of the object.  This way, we can directly use object variables in a double-quoted string to get their self-description on output. 
+I added a `as_string` method to get a textual self-description for `BusRoute` objects,
+to make it easy to produce tracing or debugging output.<br/>
+I also used an override for the string conversion of the object.
+This way, we can directly use object variables in a double-quoted string
+to get their self-description on output. 
 
 ```perl
 use v5.38;
@@ -131,15 +149,13 @@ class BusRoute {
 ```
 
 #### Solving the task
-
-Now let's use our new class for solving the task.
-
 ##### Initializing the `BusRoute` objects
 
 Our  input is a list of array references,
 each one containing  *( frequency, offset, duration )* of one bus route.
-To initialize our `BusRoute` objects, we need to send the parameters as a hash, like `{ frequency => 12, offset => 11, duration => 41 }`.<br/>
-I find it very convenient to use `mesh` from `List;::Util` to create that parameter list:
+To initialize our `BusRoute` objects, we need to send the parameters as a hash,
+like `{ frequency => 12, offset => 11, duration => 41 }`.<br/>
+I find it very convenient to use `mesh` from `List::Util` to create that parameter list:
 
 ```perl
     my @bus_routes =
@@ -181,7 +197,7 @@ For every minute from 0 to 59, we do these four steps:
 
 So here is the whole implementation.<br/>I have removed comments, because I described everything above.
 I hope it's still understandable.<br/>
-Find the files in GitHub, containing comments, and tracing and debugging output. 
+The files in GitHub contain comments, and tracing and debugging output. 
 
 ```perl
 use v5.36;
@@ -214,4 +230,5 @@ sub bus_route( $input ) {
 }
 ```
 
-#### **Thank you for the challenge!**
+#### **Thank you for Perl 'class'!**
+#### **And thank you for the challenge!**
