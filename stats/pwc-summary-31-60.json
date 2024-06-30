@@ -1,7 +1,30 @@
 {
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-06-30 13:00:45 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             6,
             45,
@@ -14,7 +37,7 @@
             0,
             0,
             4,
-            252,
+            256,
             6,
             68,
             2,
@@ -22,7 +45,7 @@
             31,
             22,
             0,
-            358,
+            362,
             2,
             3,
             0,
@@ -33,13 +56,15 @@
             2,
             63,
             2
-         ]
+         ],
+         "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
-            109,
+            110,
             3,
             0,
             0,
@@ -50,7 +75,7 @@
             0,
             0,
             0,
-            234,
+            238,
             0,
             0,
             8,
@@ -67,11 +92,9 @@
             0,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             7,
             43,
@@ -84,7 +107,7 @@
             0,
             0,
             0,
-            34,
+            35,
             0,
             18,
             0,
@@ -103,7 +126,8 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
    "xAxis" : {
@@ -139,29 +163,5 @@
          "Cristina Heredia",
          "Csaba Simandi"
       ]
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-06-18 19:27:27 GMT"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "chart" : {
-      "type" : "column"
    }
 }

@@ -1,63 +1,63 @@
 {
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2024-06-18 19:27:27 GMT"
-   },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
-   "legend" : {
-      "enabled" : "false"
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : null
       }
    },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   "chart" : {
+      "type" : "column"
    },
    "xAxis" : {
+      "type" : "category",
       "labels" : {
          "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
          }
-      },
-      "type" : "category"
+      }
    },
    "series" : [
       {
+         "name" : "Contributions",
          "data" : [
             [
                "Blog",
-               4972
+               5008
             ],
             [
                "Perl",
-               14177
+               14254
             ],
             [
                "Raku",
-               8218
+               8263
             ]
          ],
-         "name" : "Contributions",
          "dataLabels" : {
-            "y" : 10,
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "enabled" : "true",
-            "format" : "{point.y:.0f}",
-            "align" : "right",
             "rotation" : -90,
-            "color" : "#FFFFFF"
+            "y" : 10,
+            "enabled" : "true",
+            "color" : "#FFFFFF",
+            "align" : "right",
+            "format" : "{point.y:.0f}",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            }
          }
       }
-   ]
+   ],
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2024-06-30 13:00:45 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
+   "legend" : {
+      "enabled" : "false"
+   }
 }
