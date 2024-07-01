@@ -1,16 +1,37 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-06-30 13:00:45 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
+   "xAxis" : {
+      "categories" : [
+         "Paulo Custodio",
+         "Pavel Jurca",
+         "Pavel Kuptsov",
+         "Pavel Starikov",
+         "Pete Houston",
+         "Pete Sergeant",
+         "Peter Campbell Smith",
+         "Peter Mayr",
+         "Peter Meszaros",
+         "Peter Scott",
+         "Petr Roubicek",
+         "Philip Hood",
+         "Philippe Bricout",
+         "Philippe Bruhat",
+         "Phillip Harris",
+         "Phillip Hartfield Sr",
+         "Pip Stuart",
+         "PJ Durai",
+         "Plis Acm",
+         "PokGoPun",
+         "Prajith P",
+         "Princy Mangla",
+         "Rage311",
+         "Raghu R",
+         "Rakesh Kumar Shardiwal",
+         "Rakulius",
+         "Randy Lauen",
+         "Rawley Fowler",
+         "rcmlz",
+         "Reinier Maliepaard"
+      ]
    },
    "yAxis" : {
       "title" : {
@@ -18,8 +39,23 @@
       },
       "min" : 0
    },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-06-30 23:39:22 GMT"
+   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             458,
             3,
@@ -51,10 +87,10 @@
             0,
             0,
             25
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -86,8 +122,7 @@
             4,
             24,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "name" : "Blog",
@@ -125,43 +160,8 @@
          ]
       }
    ],
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "xAxis" : {
-      "categories" : [
-         "Paulo Custodio",
-         "Pavel Jurca",
-         "Pavel Kuptsov",
-         "Pavel Starikov",
-         "Pete Houston",
-         "Pete Sergeant",
-         "Peter Campbell Smith",
-         "Peter Mayr",
-         "Peter Meszaros",
-         "Peter Scott",
-         "Petr Roubicek",
-         "Philip Hood",
-         "Philippe Bricout",
-         "Philippe Bruhat",
-         "Phillip Harris",
-         "Phillip Hartfield Sr",
-         "Pip Stuart",
-         "PJ Durai",
-         "Plis Acm",
-         "PokGoPun",
-         "Prajith P",
-         "Princy Mangla",
-         "Rage311",
-         "Raghu R",
-         "Rakesh Kumar Shardiwal",
-         "Rakulius",
-         "Randy Lauen",
-         "Rawley Fowler",
-         "rcmlz",
-         "Reinier Maliepaard"
-      ]
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    }
 }

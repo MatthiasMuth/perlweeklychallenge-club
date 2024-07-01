@@ -1,23 +1,4 @@
 {
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-06-30 13:00:45 GMT"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "xAxis" : {
       "categories" : [
          "lacek96",
@@ -52,8 +33,23 @@
          "mauke"
       ]
    },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             2,
             37,
@@ -83,10 +79,9 @@
             233,
             0,
             4,
-            110,
+            112,
             2
-         ],
-         "name" : "Perl"
+         ]
       },
       {
          "data" : [
@@ -124,7 +119,6 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -154,14 +148,20 @@
             0,
             0,
             1,
-            50,
+            51,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-06-30 23:39:22 GMT"
    }
 }

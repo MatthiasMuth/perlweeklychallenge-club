@@ -1,22 +1,46 @@
 {
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-06-30 13:00:45 GMT"
+   "xAxis" : {
+      "categories" : [
+         "Augie De Blieck Jr.",
+         "Avery Adams",
+         "BarrOff",
+         "Bartosz Jarzyna",
+         "Baryshev Sergey",
+         "Bejoy Mathews",
+         "Belmark Caday",
+         "Ben Bullock",
+         "Ben Davies",
+         "Bill Palmer",
+         "Bob Kleemann",
+         "Bob Lied",
+         "Branislav Zahradnik",
+         "Bruce Gray",
+         "Bruce Van Allen",
+         "Bruno Ramos",
+         "Burkhard Nickels",
+         "Carlos Oliveira",
+         "Chenyf",
+         "Cheok-Yin Fung",
+         "Chicagoist",
+         "Christian Jaeger",
+         "Clifton Wood",
+         "Clifton Wood",
+         "Clive Holloway",
+         "Colin Crain",
+         "Craig",
+         "Creewick",
+         "Cristina Heredia",
+         "Csaba Simandi"
+      ]
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
    },
    "plotOptions" : {
       "column" : {
@@ -64,7 +88,7 @@
          "data" : [
             0,
             0,
-            110,
+            111,
             3,
             0,
             0,
@@ -130,38 +154,14 @@
          "name" : "Blog"
       }
    ],
-   "xAxis" : {
-      "categories" : [
-         "Augie De Blieck Jr.",
-         "Avery Adams",
-         "BarrOff",
-         "Bartosz Jarzyna",
-         "Baryshev Sergey",
-         "Bejoy Mathews",
-         "Belmark Caday",
-         "Ben Bullock",
-         "Ben Davies",
-         "Bill Palmer",
-         "Bob Kleemann",
-         "Bob Lied",
-         "Branislav Zahradnik",
-         "Bruce Gray",
-         "Bruce Van Allen",
-         "Bruno Ramos",
-         "Burkhard Nickels",
-         "Carlos Oliveira",
-         "Chenyf",
-         "Cheok-Yin Fung",
-         "Chicagoist",
-         "Christian Jaeger",
-         "Clifton Wood",
-         "Clifton Wood",
-         "Clive Holloway",
-         "Colin Crain",
-         "Craig",
-         "Creewick",
-         "Cristina Heredia",
-         "Csaba Simandi"
-      ]
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-06-30 23:39:22 GMT"
+   },
+   "chart" : {
+      "type" : "column"
    }
 }

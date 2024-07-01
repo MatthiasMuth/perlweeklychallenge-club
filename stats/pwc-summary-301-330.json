@@ -1,36 +1,20 @@
 {
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Vinod Kumar Pal",
-         "Vyacheslav Volgarev",
-         "W. Luis Mochan",
-         "Walt Mankowski",
-         "Wanderdoc",
-         "William Gilmore",
-         "William West",
-         "Yary Hluchan",
-         "Yet Ebreo",
-         "Yozen Hernandez",
-         "Yves Orton"
-      ]
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
+   "subtitle" : {
+      "text" : "[Champions: 11] Last updated at 2024-06-30 23:39:22 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             0,
             4,
@@ -43,10 +27,10 @@
             86,
             21,
             8
-         ]
+         ],
+         "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -59,7 +43,8 @@
             21,
             0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "name" : "Blog",
@@ -78,14 +63,29 @@
          ]
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 11] Last updated at 2024-06-30 13:00:45 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
    "tooltip" : {
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
       "shared" : 1
+   },
+   "xAxis" : {
+      "categories" : [
+         "Vinod Kumar Pal",
+         "Vyacheslav Volgarev",
+         "W. Luis Mochan",
+         "Walt Mankowski",
+         "Wanderdoc",
+         "William Gilmore",
+         "William West",
+         "Yary Hluchan",
+         "Yet Ebreo",
+         "Yozen Hernandez",
+         "Yves Orton"
+      ]
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    }
 }
