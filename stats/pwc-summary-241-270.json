@@ -1,17 +1,20 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-07-13 18:32:37 GMT"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-06-30 23:39:22 GMT"
    },
    "tooltip" : {
       "shared" : 1,
@@ -20,6 +23,7 @@
    "series" : [
       {
          "data" : [
+            29,
             6,
             3,
             0,
@@ -27,19 +31,19 @@
             0,
             0,
             9,
-            168,
+            172,
             156,
             2,
             0,
             0,
             3,
-            515,
+            519,
             113,
-            89,
+            91,
             56,
             10,
             10,
-            2,
+            4,
             0,
             0,
             6,
@@ -48,14 +52,13 @@
             0,
             22,
             0,
-            334,
-            7
+            336
          ],
          "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
+            0,
             0,
             0,
             1,
@@ -67,9 +70,9 @@
             131,
             6,
             2,
-            226,
+            230,
             0,
-            475,
+            479,
             113,
             61,
             0,
@@ -84,13 +87,14 @@
             0,
             0,
             8,
-            0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "name" : "Blog",
          "data" : [
+            16,
             0,
             0,
             0,
@@ -98,15 +102,15 @@
             13,
             0,
             0,
-            72,
+            74,
             0,
             0,
             1,
             2,
             0,
-            254,
+            255,
             0,
-            53,
+            54,
             1,
             4,
             0,
@@ -119,13 +123,16 @@
             0,
             0,
             3,
-            162,
-            0
+            163
          ]
       }
    ],
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
    "xAxis" : {
       "categories" : [
+         "Reinier Maliepaard",
          "RibTips",
          "Rich Snyder",
          "Richard Hainsworth",
@@ -154,14 +161,7 @@
          "Shaun Pearce",
          "Shawn Wagner",
          "Shimon Bollinger",
-         "Simon Green",
-         "Simon Miner"
+         "Simon Green"
       ]
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
    }
 }
