@@ -11,8 +11,11 @@
 use v5.36;
 
 sub sort_string( $str ) {
-    my @results;
-    return @results;
+    my @ordered;
+    while ( $str =~ /([[:alpha:]]+)(\d+)/g ) {
+	$ordered[$2] = $1;
+    };
+    return join " ", map $_ // (), @ordered;
 }
 
 use Test2::V0 qw( -no_srand );

@@ -11,8 +11,7 @@
 use v5.36;
 
 sub reverse_word( $str, $char ) {
-    my @results;
-    return @results;
+    return $str =~ s{^.*?${char}}{ join "", sort split "", $& }er;
 }
 
 use Test2::V0 qw( -no_srand );
