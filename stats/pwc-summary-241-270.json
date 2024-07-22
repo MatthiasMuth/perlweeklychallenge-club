@@ -1,13 +1,6 @@
 {
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-07-21 23:35:46 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -43,8 +36,9 @@
          "Simon Green"
       ]
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "plotOptions" : {
       "column" : {
@@ -58,7 +52,7 @@
       {
          "name" : "Perl",
          "data" : [
-            29,
+            31,
             6,
             3,
             0,
@@ -66,13 +60,13 @@
             0,
             0,
             9,
-            172,
+            174,
             156,
             2,
             0,
             0,
-            3,
-            519,
+            2,
+            521,
             113,
             91,
             56,
@@ -104,9 +98,9 @@
             131,
             6,
             2,
-            230,
+            232,
             0,
-            479,
+            481,
             113,
             61,
             0,
@@ -126,9 +120,8 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
-            16,
+            17,
             0,
             0,
             0,
@@ -136,13 +129,13 @@
             13,
             0,
             0,
-            74,
+            75,
             0,
             0,
             1,
             2,
             0,
-            256,
+            257,
             0,
             54,
             1,
@@ -158,10 +151,17 @@
             0,
             3,
             164
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-07-14 22:46:17 GMT"
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }

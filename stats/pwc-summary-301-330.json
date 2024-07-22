@@ -1,13 +1,80 @@
 {
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "series" : [
+      {
+         "data" : [
+            18,
+            0,
+            4,
+            374,
+            81,
+            233,
+            1,
+            3,
+            3,
+            85,
+            21,
+            8
+         ],
+         "name" : "Perl"
+      },
+      {
+         "data" : [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            3,
+            20,
+            0,
+            0
+         ],
+         "name" : "Raku"
+      },
+      {
+         "name" : "Blog",
+         "data" : [
+            0,
+            0,
+            0,
+            187,
+            17,
+            0,
+            0,
+            0,
+            1,
+            6,
+            14,
+            1
+         ]
+      }
+   ],
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
    },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+   "subtitle" : {
+      "text" : "[Champions: 12] Last updated at 2024-07-21 23:35:46 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -24,72 +91,5 @@
          "Yozen Hernandez",
          "Yves Orton"
       ]
-   },
-   "subtitle" : {
-      "text" : "[Champions: 12] Last updated at 2024-07-14 22:46:17 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "series" : [
-      {
-         "data" : [
-            18,
-            0,
-            4,
-            372,
-            81,
-            231,
-            1,
-            3,
-            3,
-            86,
-            21,
-            8
-         ],
-         "name" : "Perl"
-      },
-      {
-         "name" : "Raku",
-         "data" : [
-            0,
-            0,
-            0,
-            2,
-            0,
-            0,
-            0,
-            0,
-            3,
-            21,
-            0,
-            0
-         ]
-      },
-      {
-         "name" : "Blog",
-         "data" : [
-            0,
-            0,
-            0,
-            186,
-            17,
-            0,
-            0,
-            0,
-            1,
-            6,
-            14,
-            1
-         ]
-      }
-   ]
+   }
 }

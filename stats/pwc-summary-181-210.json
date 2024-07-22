@@ -1,61 +1,7 @@
 {
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "xAxis" : {
-      "categories" : [
-         "mauke",
-         "Max Kossek",
-         "Maxim Kolodyazhny",
-         "Maxim Nechaev",
-         "Michael Hamlin",
-         "Michael Schaap",
-         "Miguel Prz",
-         "Mihail Iosilevitch",
-         "Mike Accardo",
-         "Mohammad Khalid Anwar",
-         "Mohammad Sajid Anwar",
-         "Moray Jones",
-         "Mustafa Aydin",
-         "Myoungjin Jeon",
-         "Nazareno Delucca",
-         "Neil Bowers",
-         "Nelo Tovar",
-         "Nick Logan",
-         "Nicolas Mendoza",
-         "Niels van Dijke",
-         "Nikhil Prasanna",
-         "Noud Aldenhoven",
-         "Nuno Vieira",
-         "Oleksii Tsvietnov",
-         "Oliver Oviedo",
-         "Olivier Delouya",
-         "Olli-Antti Kivilahti",
-         "Ozzy",
-         "Pablo Saavedra",
-         "Packy Anderson"
-      ]
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-07-14 22:46:17 GMT"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             2,
             6,
@@ -77,7 +23,7 @@
             8,
             1,
             330,
-            3,
+            2,
             0,
             52,
             2,
@@ -86,9 +32,8 @@
             0,
             0,
             8,
-            102
-         ],
-         "name" : "Perl"
+            104
+         ]
       },
       {
          "data" : [
@@ -121,7 +66,7 @@
             0,
             28,
             0,
-            102
+            104
          ],
          "name" : "Raku"
       },
@@ -157,11 +102,66 @@
             0,
             0,
             0,
-            51
+            52
          ]
       }
    ],
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "chart" : {
       "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-07-21 23:35:46 GMT"
+   },
+   "xAxis" : {
+      "categories" : [
+         "mauke",
+         "Max Kossek",
+         "Maxim Kolodyazhny",
+         "Maxim Nechaev",
+         "Michael Hamlin",
+         "Michael Schaap",
+         "Miguel Prz",
+         "Mihail Iosilevitch",
+         "Mike Accardo",
+         "Mohammad Khalid Anwar",
+         "Mohammad Sajid Anwar",
+         "Moray Jones",
+         "Mustafa Aydin",
+         "Myoungjin Jeon",
+         "Nazareno Delucca",
+         "Neil Bowers",
+         "Nelo Tovar",
+         "Nick Logan",
+         "Nicolas Mendoza",
+         "Niels van Dijke",
+         "Nikhil Prasanna",
+         "Noud Aldenhoven",
+         "Nuno Vieira",
+         "Oleksii Tsvietnov",
+         "Oliver Oviedo",
+         "Olivier Delouya",
+         "Olli-Antti Kivilahti",
+         "Ozzy",
+         "Pablo Saavedra",
+         "Packy Anderson"
+      ]
    }
 }

@@ -1,14 +1,4 @@
 {
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
    "xAxis" : {
       "categories" : [
          "Augie De Blieck Jr.",
@@ -44,18 +34,16 @@
       ]
    },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-07-14 22:46:17 GMT"
+      "text" : "[Champions: 30] Last updated at 2024-07-21 23:35:46 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "chart" : {
-      "type" : "column"
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
    "series" : [
       {
@@ -72,21 +60,21 @@
             0,
             0,
             4,
-            260,
+            262,
             6,
             72,
             2,
             0,
-            31,
+            30,
             22,
             0,
-            364,
+            366,
             2,
             3,
             0,
             0,
             1,
-            338,
+            337,
             3,
             2,
             63,
@@ -94,10 +82,11 @@
          ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
-            115,
+            117,
             3,
             0,
             0,
@@ -108,7 +97,7 @@
             0,
             0,
             0,
-            242,
+            244,
             0,
             0,
             8,
@@ -117,16 +106,15 @@
             9,
             0,
             0,
-            16,
             2,
+            16,
             0,
             194,
             0,
             0,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "name" : "Blog",
@@ -163,5 +151,17 @@
             0
          ]
       }
-   ]
+   ],
+   "chart" : {
+      "type" : "column"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   }
 }
