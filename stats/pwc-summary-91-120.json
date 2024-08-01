@@ -1,8 +1,18 @@
 {
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-07-31 20:30:19 GMT"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
    "xAxis" : {
       "categories" : [
@@ -37,25 +47,6 @@
          "jdos22",
          "Jeff"
       ]
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-07-29 17:29:16 GMT"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "series" : [
       {
@@ -94,7 +85,6 @@
          ]
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -119,16 +109,18 @@
             3,
             10,
             0,
-            362,
+            364,
             4,
             0,
             14,
             92,
             0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -160,8 +152,16 @@
             46,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
-   ]
+   ],
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   }
 }
