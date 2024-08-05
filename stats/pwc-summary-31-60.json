@@ -1,16 +1,19 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-08-05 19:01:15 GMT"
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "chart" : {
+      "type" : "column"
    },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             6,
             45,
@@ -23,7 +26,7 @@
             0,
             0,
             4,
-            264,
+            266,
             6,
             72,
             2,
@@ -42,14 +45,15 @@
             2,
             63,
             2
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
          "data" : [
             0,
             0,
-            119,
+            121,
             3,
             0,
             0,
@@ -69,8 +73,8 @@
             9,
             0,
             0,
-            2,
             16,
+            2,
             0,
             194,
             0,
@@ -115,6 +119,11 @@
          ]
       }
    ],
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "xAxis" : {
       "categories" : [
          "Augie De Blieck Jr.",
@@ -150,18 +159,9 @@
       ]
    },
    "yAxis" : {
+      "min" : 0,
       "title" : {
          "text" : ""
-      },
-      "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-07-31 20:30:19 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
+      }
    }
 }
