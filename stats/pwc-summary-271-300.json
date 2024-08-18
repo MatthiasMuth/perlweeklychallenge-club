@@ -1,4 +1,19 @@
 {
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-08-18 21:51:20 GMT"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
@@ -7,6 +22,7 @@
    "series" : [
       {
          "data" : [
+            342,
             7,
             5,
             4,
@@ -24,7 +40,7 @@
             4,
             4,
             2,
-            174,
+            178,
             1,
             14,
             0,
@@ -33,15 +49,15 @@
             8,
             0,
             2,
-            403,
+            407,
             24,
-            18,
-            16
+            18
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            0,
             0,
             263,
             0,
@@ -68,16 +84,15 @@
             0,
             2,
             0,
-            410,
+            414,
             0,
-            0,
-            2
+            0
          ],
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
+            165,
             0,
             12,
             0,
@@ -95,7 +110,7 @@
             0,
             0,
             0,
-            167,
+            171,
             0,
             0,
             0,
@@ -106,19 +121,18 @@
             0,
             0,
             0,
-            0,
-            3
-         ]
+            0
+         ],
+         "name" : "Blog"
       }
    ],
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "xAxis" : {
       "categories" : [
+         "Simon Green",
          "Simon Miner",
          "Simon Proctor",
          "Simon Reinhardt",
@@ -147,21 +161,7 @@
          "Tyler Wardhaugh",
          "Ulrich Rieke",
          "User Person",
-         "Vamsi Meenavilli",
-         "Veesh Goldman"
+         "Vamsi Meenavilli"
       ]
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-08-05 19:01:15 GMT"
-   },
-   "chart" : {
-      "type" : "column"
    }
 }
