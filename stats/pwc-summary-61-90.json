@@ -1,6 +1,10 @@
 {
+   "chart" : {
+      "type" : "column"
+   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             0,
             0,
@@ -22,7 +26,7 @@
             0,
             82,
             396,
-            553,
+            555,
             2,
             8,
             22,
@@ -32,8 +36,7 @@
             2,
             3,
             2
-         ],
-         "name" : "Perl"
+         ]
       },
       {
          "data" : [
@@ -60,7 +63,7 @@
             0,
             0,
             0,
-            353,
+            355,
             4,
             237,
             36,
@@ -107,18 +110,10 @@
       }
    ],
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-08-18 21:51:20 GMT"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+      },
+      "min" : 0
    },
    "xAxis" : {
       "categories" : [
@@ -155,13 +150,18 @@
       ]
    },
    "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
-   "chart" : {
-      "type" : "column"
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-08-19 13:39:48 GMT"
    }
 }

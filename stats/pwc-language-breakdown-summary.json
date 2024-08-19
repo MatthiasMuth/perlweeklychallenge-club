@@ -1,63 +1,63 @@
 {
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   },
    "legend" : {
       "enabled" : "false"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2024-08-19 13:39:48 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    },
    "chart" : {
       "type" : "column"
    },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
-      }
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2024-08-18 21:51:20 GMT"
-   },
    "series" : [
       {
-         "data" : [
-            [
-               "Perl",
-               14656
-            ],
-            [
-               "Raku",
-               8438
-            ],
-            [
-               "Blog",
-               5197
-            ]
-         ],
+         "name" : "Contributions",
          "dataLabels" : {
-            "enabled" : "true",
             "y" : 10,
-            "align" : "right",
             "rotation" : -90,
+            "color" : "#FFFFFF",
+            "enabled" : "true",
+            "align" : "right",
             "format" : "{point.y:.0f}",
             "style" : {
                "fontSize" : "13px",
                "fontFamily" : "Verdana, sans-serif"
-            },
-            "color" : "#FFFFFF"
+            }
          },
-         "name" : "Contributions"
+         "data" : [
+            [
+               "Perl",
+               14678
+            ],
+            [
+               "Raku",
+               8446
+            ],
+            [
+               "Blog",
+               5201
+            ]
+         ]
       }
    ],
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
+   "yAxis" : {
+      "title" : {
+         "text" : null
+      },
+      "min" : 0
    },
    "xAxis" : {
+      "type" : "category",
       "labels" : {
          "style" : {
             "fontFamily" : "Verdana, sans-serif",
             "fontSize" : "13px"
          }
-      },
-      "type" : "category"
+      }
    }
 }

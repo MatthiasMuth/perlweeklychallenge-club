@@ -37,20 +37,6 @@
          "jdos22"
       ]
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-08-18 21:51:20 GMT"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "series" : [
       {
          "name" : "Perl",
@@ -123,7 +109,6 @@
          ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -155,13 +140,28 @@
             0,
             46,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
+   "chart" : {
+      "type" : "column"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-08-19 13:39:48 GMT"
+   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
    },
-   "chart" : {
-      "type" : "column"
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    }
 }
