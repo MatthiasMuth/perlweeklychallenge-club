@@ -2,62 +2,62 @@
    "title" : {
       "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    },
-   "legend" : {
-      "enabled" : "false"
-   },
    "subtitle" : {
-      "text" : "Last updated at 2024-08-19 13:39:48 GMT"
+      "text" : "Last updated at 2024-08-26 02:10:20 GMT"
    },
    "tooltip" : {
       "pointFormat" : "<b>{point.y:.0f}</b>"
    },
-   "chart" : {
-      "type" : "column"
-   },
-   "series" : [
-      {
-         "name" : "Contributions",
-         "dataLabels" : {
-            "y" : 10,
-            "rotation" : -90,
-            "color" : "#FFFFFF",
-            "enabled" : "true",
-            "align" : "right",
-            "format" : "{point.y:.0f}",
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            }
-         },
-         "data" : [
-            [
-               "Perl",
-               14678
-            ],
-            [
-               "Raku",
-               8446
-            ],
-            [
-               "Blog",
-               5201
-            ]
-         ]
-      }
-   ],
    "yAxis" : {
       "title" : {
          "text" : null
       },
       "min" : 0
    },
+   "chart" : {
+      "type" : "column"
+   },
    "xAxis" : {
-      "type" : "category",
       "labels" : {
          "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
          }
+      },
+      "type" : "category"
+   },
+   "series" : [
+      {
+         "data" : [
+            [
+               "Perl",
+               14764
+            ],
+            [
+               "Raku",
+               8463
+            ],
+            [
+               "Blog",
+               5214
+            ]
+         ],
+         "dataLabels" : {
+            "enabled" : "true",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "rotation" : -90,
+            "format" : "{point.y:.0f}",
+            "align" : "right",
+            "y" : 10,
+            "color" : "#FFFFFF"
+         },
+         "name" : "Contributions"
       }
+   ],
+   "legend" : {
+      "enabled" : "false"
    }
 }

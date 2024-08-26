@@ -1,14 +1,6 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-08-19 13:39:48 GMT"
+   "chart" : {
+      "type" : "column"
    },
    "xAxis" : {
       "categories" : [
@@ -44,9 +36,6 @@
          "Konstantinos Giannakakis"
       ]
    },
-   "chart" : {
-      "type" : "column"
-   },
    "series" : [
       {
          "data" : [
@@ -65,7 +54,7 @@
             7,
             2,
             0,
-            532,
+            534,
             8,
             2,
             23,
@@ -119,7 +108,6 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -136,7 +124,7 @@
             0,
             0,
             0,
-            45,
+            46,
             0,
             0,
             1,
@@ -151,17 +139,29 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-08-26 02:10:20 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    }
 }
