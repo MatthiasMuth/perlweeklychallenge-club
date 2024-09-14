@@ -22,10 +22,15 @@ git pull
 git fetch upstream
 git merge --ff-only upstream/master
 
-git checkout muthm-$challenge \
-    || git checkout -b muthm-$challenge
+if git checkout muthm-$challenge; then
+    update=" - Update"
+else
+    git checkout -b muthm-$challenge
+    update=""
+fi
+
 git checkout dev -- challenge-$challenge/matthias-muth
-git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth"
+git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth$update"
 git push --set-upstream origin muthm-$challenge
 
 git push --all
