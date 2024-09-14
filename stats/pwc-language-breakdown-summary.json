@@ -1,46 +1,9 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
    "chart" : {
       "type" : "column"
    },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "series" : [
-      {
-         "name" : "Contributions",
-         "data" : [
-            [
-               "Perl",
-               14872
-            ],
-            [
-               "Raku",
-               8486
-            ],
-            [
-               "Blog",
-               5231
-            ]
-         ],
-         "dataLabels" : {
-            "color" : "#FFFFFF",
-            "align" : "right",
-            "rotation" : -90,
-            "enabled" : "true",
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "format" : "{point.y:.0f}",
-            "y" : 10
-         }
-      }
-   ],
    "subtitle" : {
-      "text" : "Last updated at 2024-09-01 22:43:36 GMT"
+      "text" : "Last updated at 2024-09-14 09:48:39 GMT"
    },
    "yAxis" : {
       "title" : {
@@ -48,16 +11,53 @@
       },
       "min" : 0
    },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
    "xAxis" : {
       "labels" : {
          "style" : {
-            "fontSize" : "13px",
-            "fontFamily" : "Verdana, sans-serif"
+            "fontFamily" : "Verdana, sans-serif",
+            "fontSize" : "13px"
          }
       },
       "type" : "category"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
+   "series" : [
+      {
+         "name" : "Contributions",
+         "data" : [
+            [
+               "Perl",
+               14982
+            ],
+            [
+               "Raku",
+               8522
+            ],
+            [
+               "Blog",
+               5262
+            ]
+         ],
+         "dataLabels" : {
+            "rotation" : -90,
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "color" : "#FFFFFF",
+            "y" : 10,
+            "align" : "right",
+            "enabled" : "true",
+            "format" : "{point.y:.0f}"
+         }
+      }
+   ],
+   "legend" : {
+      "enabled" : "false"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    }
 }
