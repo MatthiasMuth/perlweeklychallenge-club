@@ -1,65 +1,6 @@
 {
-   "xAxis" : {
-      "categories" : [
-         "Shimon Bollinger",
-         "Simon Green",
-         "Simon Miner",
-         "Simon Proctor",
-         "Simon Reinhardt",
-         "Sitaram Chamarty",
-         "Sol DeMuth",
-         "Solathian",
-         "Stephanie Stein",
-         "Stephen G. Lynn",
-         "Steve Bresson",
-         "Steve Rogerson",
-         "Steven Lembark",
-         "Steven Wilson",
-         "Stuart Little",
-         "Svetlana Nesterova",
-         "Ted Leahy",
-         "Tejas",
-         "Tester R59",
-         "Thomas Kohler",
-         "Tiago Stock",
-         "Tim King",
-         "Tim Potapov",
-         "Tim Smith",
-         "Tore Andersson",
-         "Torgny Lyon",
-         "Trenton Langer",
-         "Tyler Bird",
-         "Tyler Limkemann",
-         "Tyler Wardhaugh"
-      ]
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-09-14 09:48:39 GMT"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             0,
             348,
@@ -82,7 +23,7 @@
             2,
             186,
             1,
-            4,
+            6,
             14,
             0,
             2,
@@ -91,7 +32,8 @@
             8,
             0,
             2
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -129,7 +71,6 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             3,
             169,
@@ -152,7 +93,7 @@
             0,
             179,
             0,
-            0,
+            1,
             0,
             0,
             0,
@@ -161,7 +102,66 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
-   ]
+   ],
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-09-15 23:31:56 GMT"
+   },
+   "xAxis" : {
+      "categories" : [
+         "Shimon Bollinger",
+         "Simon Green",
+         "Simon Miner",
+         "Simon Proctor",
+         "Simon Reinhardt",
+         "Sitaram Chamarty",
+         "Sol DeMuth",
+         "Solathian",
+         "Stephanie Stein",
+         "Stephen G. Lynn",
+         "Steve Bresson",
+         "Steve Rogerson",
+         "Steven Lembark",
+         "Steven Wilson",
+         "Stuart Little",
+         "Svetlana Nesterova",
+         "Ted Leahy",
+         "Tejas",
+         "Tester R59",
+         "Thomas Kohler",
+         "Tiago Stock",
+         "Tim King",
+         "Tim Potapov",
+         "Tim Smith",
+         "Tore Andersson",
+         "Torgny Lyon",
+         "Trenton Langer",
+         "Tyler Bird",
+         "Tyler Limkemann",
+         "Tyler Wardhaugh"
+      ]
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   }
 }

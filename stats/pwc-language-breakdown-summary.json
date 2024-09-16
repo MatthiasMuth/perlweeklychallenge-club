@@ -1,63 +1,63 @@
 {
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2024-09-14 09:48:39 GMT"
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    },
    "yAxis" : {
+      "min" : 0,
       "title" : {
          "text" : null
-      },
-      "min" : 0
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   },
+   "legend" : {
+      "enabled" : "false"
    },
    "xAxis" : {
       "labels" : {
          "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
          }
       },
       "type" : "category"
    },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
    "series" : [
       {
-         "name" : "Contributions",
          "data" : [
             [
                "Perl",
-               14982
+               15008
             ],
             [
                "Raku",
-               8522
+               8532
             ],
             [
                "Blog",
-               5262
+               5272
             ]
          ],
+         "name" : "Contributions",
          "dataLabels" : {
-            "rotation" : -90,
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            },
-            "color" : "#FFFFFF",
             "y" : 10,
+            "format" : "{point.y:.0f}",
+            "style" : {
+               "fontSize" : "13px",
+               "fontFamily" : "Verdana, sans-serif"
+            },
+            "rotation" : -90,
             "align" : "right",
             "enabled" : "true",
-            "format" : "{point.y:.0f}"
+            "color" : "#FFFFFF"
          }
       }
    ],
-   "legend" : {
-      "enabled" : "false"
+   "chart" : {
+      "type" : "column"
    },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   "subtitle" : {
+      "text" : "Last updated at 2024-09-15 23:31:56 GMT"
    }
 }
