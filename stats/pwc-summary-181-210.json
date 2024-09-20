@@ -1,9 +1,18 @@
 {
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-09-15 23:31:56 GMT"
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    },
    "chart" : {
       "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-09-19 19:50:49 GMT"
    },
    "series" : [
       {
@@ -112,6 +121,10 @@
          ]
       }
    ],
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
@@ -150,18 +163,5 @@
          "Ozzy",
          "Pablo Saavedra"
       ]
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    }
 }

@@ -1,6 +1,7 @@
 {
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             2,
             0,
@@ -30,12 +31,12 @@
             38,
             0,
             16,
-            102,
+            104,
             4
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             2,
@@ -67,11 +68,9 @@
             0,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -103,15 +102,10 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-09-15 23:31:56 GMT"
-   },
    "xAxis" : {
       "categories" : [
          "Jeff",
@@ -146,13 +140,14 @@
          "Konstantinos Giannakakis"
       ]
    },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "yAxis" : {
       "min" : 0,
@@ -160,8 +155,13 @@
          "text" : ""
       }
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-09-19 19:50:49 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "chart" : {
+      "type" : "column"
    }
 }
