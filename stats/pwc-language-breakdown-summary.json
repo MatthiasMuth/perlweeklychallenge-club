@@ -1,63 +1,63 @@
 {
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2024-09-21 08:34:29 GMT"
+   },
    "series" : [
       {
-         "name" : "Contributions",
+         "dataLabels" : {
+            "align" : "right",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "y" : 10,
+            "format" : "{point.y:.0f}",
+            "color" : "#FFFFFF",
+            "rotation" : -90,
+            "enabled" : "true"
+         },
          "data" : [
             [
                "Perl",
-               15056
+               15058
             ],
             [
                "Raku",
-               8550
+               8552
             ],
             [
                "Blog",
-               5291
+               5290
             ]
          ],
-         "dataLabels" : {
-            "enabled" : "true",
-            "y" : 10,
-            "color" : "#FFFFFF",
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "format" : "{point.y:.0f}",
-            "align" : "right",
-            "rotation" : -90
-         }
+         "name" : "Contributions"
       }
    ],
    "legend" : {
       "enabled" : "false"
    },
-   "subtitle" : {
-      "text" : "Last updated at 2024-09-20 20:56:42 GMT"
-   },
    "xAxis" : {
+      "type" : "category",
       "labels" : {
          "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
          }
+      }
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : null
       },
-      "type" : "category"
+      "min" : 0
    },
    "tooltip" : {
       "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
-      }
    }
 }
