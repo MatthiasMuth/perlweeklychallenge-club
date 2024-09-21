@@ -48,9 +48,8 @@
 # Input: $str = "aaaaa"
 # Output: 2
 
-use Modern::Perl;
-
-say steps_to_strong(shift // "");
+# use Modern::Perl;
+use v5.36;
 
 sub steps_to_strong {
     my($password) = @_;
@@ -97,3 +96,5 @@ sub next_char {
 
     return substr($avail_chars, 0, 1);
 }
+
+1;

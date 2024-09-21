@@ -55,14 +55,4 @@ sub strong_password($str) {
     }
 }
 
-use Test::More tests => 5 + 3;
-
-is strong_password('a'), 5, 'Example 1';
-is strong_password('aB2'), 3, 'Example 2';
-is strong_password('PaaSW0rd'), 0, 'Example 3';
-is strong_password('Paaasw0rd'), 1, 'Example 4';
-is strong_password('aaaaa'), 2, 'Example 5';
-
-is strong_password('aaaZZZ999'), 3, 'Repeated triplets';
-is strong_password('0Zaaab'), 1, 'Creating a triple';
-is strong_password('000aaa000'), 3, 'Combined actions';
+1;

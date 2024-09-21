@@ -69,23 +69,4 @@ sub solution($str) {
   say 'Output: ' . strongPassword($str);
 }
 
-say "Example 1:";
-solution("a");
-
-say "\nExample 2:";
-solution("aB2");
-
-say "\nExample 3:";
-solution("PaaSW0rd");
-
-say "\nExample 4:";
-solution("Paaasw0rd");
-
-say "\nExample 5:";
-solution("aaaaa");
-
-say "\nExample 6:";
-solution("aaaaaabbbb");
-
-say "\nExample 7:";
-solution("voilÀ३");
+1;

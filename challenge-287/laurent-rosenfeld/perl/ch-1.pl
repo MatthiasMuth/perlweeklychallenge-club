@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-use feature 'say'; uppercase chara cter class
 
 sub strong_password {
     my $pwd = shift;
@@ -25,8 +24,4 @@ sub strong_password {
     return $count;
 }
 
-my @tests = qw<a aB2 PaaSW0rd Paaasw0rd aaaaa foob>;
-for my $test (@tests) {
-    printf "%-10s => ", $test;
-    say strong_password $test;
-}
+1;

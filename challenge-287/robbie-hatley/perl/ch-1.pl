@@ -122,20 +122,8 @@ sub make_strong :prototype($) ($p) {
       $p .= $insert;
       ++$c;
    }
-   return ($p,$c);
+   # return ($p,$c);
+   return $c;
 }
 
-# ------------------------------------------------------------------------------------------------------------
-# INPUTS:
-my @passwords = @ARGV ? eval($ARGV[0]) : ('a', 'aB2', 'PaaSW0rd', 'Paaasw0rd', 'aaaaa');
-# Expected outputs:                        5     3         0           1          2
-
-# ------------------------------------------------------------------------------------------------------------
-# MAIN BODY OF PROGRAM:
-for my $p (@passwords) {
-   say '';
-   say "Original password   = $p";
-   my ($s,$c) = make_strong($p);
-   say "Strong   password   = $s";
-   say "Steps to strengthen = $c";
-}
+1;

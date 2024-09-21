@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 5;
 
 =pod
 
@@ -62,10 +61,4 @@ sub strong_password_steps {
     return $total_steps;
 }
 
-# Tests
-is(strong_password_steps("a"), 5, 'Example 1');
-is(strong_password_steps("aB2"), 3, 'Example 2');
-is(strong_password_steps("PaaSW0rd"), 0, 'Example 3');
-is(strong_password_steps("Paaasw0rd"), 1, 'Example 4');
-is(strong_password_steps("aaaaa"), 3, 'Example 5');
-
+1;

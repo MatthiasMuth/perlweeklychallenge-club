@@ -89,10 +89,4 @@ sub stepsToMakeStrongPassword ($password) {
   return $steps;
 }
 
-for (['a',5],['aB2',3],['PaasWS0rd',0],['PaaasWS0rd',1],['aaaaa',2]) {
-  is(stepsToMakeStrongPassword($$_[0]),$$_[1],$$_[0]);
-}
-
-done_testing;
-
-
+1;

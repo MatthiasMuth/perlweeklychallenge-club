@@ -4,14 +4,6 @@ use strict;
 use warnings;
 use experimental 'signatures';
 
-use Test::More tests => 5;
-
-is(strongpassword('a'), 5, 'example 1');
-is(strongpassword('aB2'), 3, 'example 2');
-is(strongpassword('PaaSW0rd'), 0, 'example 3');
-is(strongpassword('Paaasw0rd'), 1, 'example 4');
-is(strongpassword('aaaaa'), 3, 'example 5');
-
 use List::Util qw(sum max);
 
 sub strongpassword($a) {
@@ -55,3 +47,5 @@ sub strongpassword($a) {
   }
   return max(@changes);
 }
+
+1;

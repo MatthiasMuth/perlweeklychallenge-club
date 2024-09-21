@@ -1,4 +1,4 @@
-use strict; use warnings; use Test::More tests=>5;
+use strict; use warnings;
 
 sub strong_pw_steps {
     my @check = ([0,shift]); #work list for BFS https://en.wikipedia.org/wiki/Breadth-first_search
@@ -27,9 +27,4 @@ sub strong_pw_steps {
     }
 }
 
-
-is strong_pw_steps( "a" )         => 5;
-is strong_pw_steps( "aB2" )       => 3;
-is strong_pw_steps( "PaaSW0rd" )  => 0;
-is strong_pw_steps( "Paaasw0rd" ) => 1;
-is strong_pw_steps( "aaaaa" )     => 2;
+1;

@@ -7,13 +7,6 @@ use utf8;     # Week 287 - task 1 - Strong password
 use warnings; # Peter Campbell Smith
 binmode STDOUT, ':utf8';
 
-strong_password('aaabbbcccccc', '4 triplets, no upper or digit');
-strong_password('123abcdef',    'no upper case');
-strong_password('abcdefghijkl', 'no upper or digit');
-strong_password('ABCD5aa6FGHI', 'no change needed');
-strong_password('Mi5',          'too short');
-strong_password('',             'null');
-
 sub strong_password {
 	
 	my ($password, $comment, $steps, @upper, @lower, @digit, $props, $r, $insert, $length);
@@ -49,9 +42,7 @@ sub strong_password {
 	$password .= $lower[rand(26)] while length($password) < 6;
 	$steps += length($password) - $length;
 		
-	say qq[\nInput:  \$password = '$_[0]' ($comment)];
-	say qq[Output:             '$password'] .
-		qq[ after $steps step] . ($steps == 1 ? '' : 's');
+	return $steps;
 }
 
 sub assess {

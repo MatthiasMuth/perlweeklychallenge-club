@@ -1,17 +1,6 @@
 use v5.38;
-my $str = "a";
-proc($str);
-$str = "aB2";
-proc($str);
-$str = "PaaSW0rd";
-proc($str);
-$str = "turbbbbot";
-proc($str);
-$str  = "111";
-proc($str);
 
 sub proc($str) {
-    say "Input: $str";
     my $len = length $str;
     my $len_diff = 0;
     if ($len < 6) {
@@ -59,6 +48,7 @@ sub proc($str) {
 	$out_val += $tally - $out_val;
     }
     # Tally is only needed if tally > len_diff + steps.
-    say "Output: ", $out_val;
+    return $out_val;
 }
 
+1;

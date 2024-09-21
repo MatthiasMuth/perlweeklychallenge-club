@@ -95,9 +95,4 @@ sub strong_password {
     return $cnt;
 }
 
-for (@$cases) {
-    is(strong_password($_->[0]), $_->[1], $_->[2]);
-}
-done_testing();
-
-exit 0;
+1;

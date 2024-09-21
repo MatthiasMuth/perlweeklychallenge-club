@@ -4,32 +4,6 @@ use strict;
 use warnings;
 use English;
 
-################################################################################
-# Begin main execution
-################################################################################
-
-my @passwords = (
-    "a",
-    "aB2",
-    "PaaSW0rd",
-    "Paaasw0rd",
-    "aaaaa"
-);
-
-print("\n");
-foreach my $password (@passwords){
-    printf(
-        "Input: \$str = \"%s\"\nOutput: %d\n\n",
-        $password,
-        steps_to_strong_password($password)
-    );
-}
-
-exit(0);
-################################################################################
-# End main execution; subroutines follow
-################################################################################
-
 
 
 ################################################################################
@@ -118,5 +92,4 @@ sub steps_to_strong_password{
 
 }
 
-
-
+1;

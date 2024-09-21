@@ -2,14 +2,6 @@
 use strict;
 use warnings;
 
-my @passwords = ('a',"aB2","PaaSW0rd","Paaasw0rd","aaaaa","axmlsa");
-
-foreach(@passwords){
-  print "--> checking password $_ | ";
-  my $result = checkPassword($_);
-  print "changes that need to be made: $result\n";
-}
-
 sub checkPassword {
   my $pass = shift;
   my $length = length($pass);
@@ -63,3 +55,5 @@ sub check3Repeated {
   }
   return 0;
 } 
+
+1;

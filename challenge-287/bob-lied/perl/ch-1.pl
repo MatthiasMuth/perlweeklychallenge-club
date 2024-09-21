@@ -140,41 +140,4 @@ sub calcOp($str)
     return $opCount;
 }
 
-
-sub runTest
-{
-    use Test2::V0;
-
-    is( hasClass("aA0"), (C_LC|C_UC|C_DIG), "hasClass ALL");
-    is( hasClass( "A0"), (     C_UC|C_DIG), "hasClass no LC");
-    is( hasClass( "a0"), (C_LC|     C_DIG), "hasClass no UC");
-    is( hasClass( "aA"), (C_LC|C_UC      ), "hasClass no DIG");
-    is( hasClass( "aa"), (C_LC           ), "hasClass LC");
-    is( hasClass( "AA"), (     C_UC      ), "hasClass UC");
-    is( hasClass( "35"), (          C_DIG), "hasClass DIG");
-    
-
-    is( rmvRepeat("",       "B"), "",       "rmvRepeat ''");
-    is( rmvRepeat("A",      "B"), "A",      "rmvRepeat A");
-    is( rmvRepeat("AA",     "B"), "AA",     "rmvRepeat AA");
-    is( rmvRepeat("AAA",    "B"), "AAB",    "rmvRepeat AAA");
-    is( rmvRepeat("AAAA",   "c"), "AAcA",   "rmvRepeat AAAA");
-    is( rmvRepeat("AAAAA",  "1"), "AA1AA",  "rmvRepeat AAAAA");
-    is( rmvRepeat("AAAAAA", "d"), "AAdAAd", "rmvRepeat AAAAAA");
-    is( rmvRepeat(",,,,,,", "d"), ",,d,,d", "rmvRepeat ,,,,,,");
-    like( rmvRepeat("A"x10), qr/AA[^A]AA[^A]AA[^A]A/,  "rmvRepeat Ax10 random");
-
-    is( strongPassword("a"),         5, "Example 1");
-    is( strongPassword("a02"),       3, "Example 2");
-    is( strongPassword("PaaSW0rd"),  0, "Example 3");
-    is( strongPassword("Paaasw0rd"), 1, "Example 4");
-    is( strongPassword("aaaaa"),     2, "Example 5");
-
-    is( calcOp("a"),         5, "Example 1 calcOp");
-    is( calcOp("a02"),       3, "Example 2 calcOp");
-    is( calcOp("PaaSW0rd"),  0, "Example 3 calcOp");
-    is( calcOp("Paaasw0rd"), 1, "Example 4 calcOp");
-    is( calcOp("aaaaa"),     2, "Example 5 calcOp");
-
-    done_testing;
-}
+1;
