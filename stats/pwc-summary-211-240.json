@@ -1,50 +1,7 @@
 {
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "xAxis" : {
-      "categories" : [
-         "Packy Anderson",
-         "Paul Fajman",
-         "Paulo Custodio",
-         "Pavel Jurca",
-         "Pavel Kuptsov",
-         "Pavel Starikov",
-         "Pete Houston",
-         "Pete Sergeant",
-         "Peter Campbell Smith",
-         "Peter Mayr",
-         "Peter Meszaros",
-         "Peter Pentchev",
-         "Peter Scott",
-         "Petr Roubicek",
-         "Philip Hood",
-         "Philippe Bricout",
-         "Philippe Bruhat",
-         "Phillip Harris",
-         "Phillip Hartfield Sr",
-         "Pip Stuart",
-         "PJ Durai",
-         "Plis Acm",
-         "PokGoPun",
-         "Prajith P",
-         "Princy Mangla",
-         "Rage311",
-         "Raghu R",
-         "Rakesh Kumar Shardiwal",
-         "Rakulius",
-         "Randy Lauen"
-      ]
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             122,
             18,
@@ -56,7 +13,7 @@
             0,
             302,
             1,
-            180,
+            182,
             4,
             11,
             7,
@@ -76,8 +33,7 @@
             2,
             0,
             8
-         ],
-         "name" : "Perl"
+         ]
       },
       {
          "name" : "Raku",
@@ -115,6 +71,7 @@
          ]
       },
       {
+         "name" : "Blog",
          "data" : [
             61,
             0,
@@ -146,22 +103,65 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
+   "xAxis" : {
+      "categories" : [
+         "Packy Anderson",
+         "Paul Fajman",
+         "Paulo Custodio",
+         "Pavel Jurca",
+         "Pavel Kuptsov",
+         "Pavel Starikov",
+         "Pete Houston",
+         "Pete Sergeant",
+         "Peter Campbell Smith",
+         "Peter Mayr",
+         "Peter Meszaros",
+         "Peter Pentchev",
+         "Peter Scott",
+         "Petr Roubicek",
+         "Philip Hood",
+         "Philippe Bricout",
+         "Philippe Bruhat",
+         "Phillip Harris",
+         "Phillip Hartfield Sr",
+         "Pip Stuart",
+         "PJ Durai",
+         "Plis Acm",
+         "PokGoPun",
+         "Prajith P",
+         "Princy Mangla",
+         "Rage311",
+         "Raghu R",
+         "Rakesh Kumar Shardiwal",
+         "Rakulius",
+         "Randy Lauen"
+      ]
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-09-21 08:34:29 GMT"
+      "text" : "[Champions: 30] Last updated at 2024-09-22 22:57:30 GMT"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
-   "chart" : {
-      "type" : "column"
-   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    }
 }
