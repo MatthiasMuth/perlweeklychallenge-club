@@ -95,4 +95,30 @@ sub strong_password($str) {
     }
 }
 
-1;
+use Test::More tests => 2 * (5 + 3);
+
+for my $strong_password (\&strong_password_simple, \&strong_password) {
+    is $strong_password->('a'), 5, 'Example 1';
+    is $strong_password->('aB2'), 3, 'Example 2';
+    is $strong_password->('PaaSW0rd'), 0, 'Example 3';
+    is $strong_password->('Paaasw0rd'), 1, 'Example 4';
+    is $strong_password->('aaaaa'), 2, 'Example 5';
+
+    is $strong_password->('aaaZZZ999'), 3, 'Repeated triplets';
+    is $strong_password->('0Zaaab'), 1, 'Creating a triple';
+    is $strong_password->('000aaa000'), 3, 'Combined actions';
+}
+
+my @inputs;
+for (1 .. 1000) {
+    my $s = join "", map +('a' .. 'z', 'A' .. 'Z', 0 .. 9)[rand 62],
+                     1 .. rand 15;
+    strong_password($s) == strong_password_simple($s) or warn "Diff $s";
+    push @inputs, $s;
+}
+
+use Benchmark qw{ cmpthese };
+cmpthese(-3, {
+    original  => sub { strong_password($_)        for @inputs },
+    optimised => sub { strong_password_simple($_) for @inputs }
+});

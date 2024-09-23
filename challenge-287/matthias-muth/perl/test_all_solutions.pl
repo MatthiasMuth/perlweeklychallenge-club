@@ -14,8 +14,13 @@ $| = 1;
 
 my $file = "ch-1-for-tests.pl";
 my @test_list = qw(
+
+    atschneid		password_distance
+
     bob-lied		strongPassword
     e-choroba		strong_password
+    jo-37		strong_password
+    jtimothyking	strong_password
     kjetillll		strong_pw_steps
     laurent-rosenfeld	strong_password
     lubos-kolouch	strong_password_steps
@@ -26,17 +31,23 @@ my @test_list = qw(
     perlboy1967		stepsToMakeStrongPassword
     peter-campbell-smith strong_password
     peter-meszaros	strong_password
+    reinier-maliepaard	strong_password
     robbie-hatley	make_strong
     roger-bell-west	strongpassword
     santiago-leyva	checkPassword
+    sgreen		strong_password
     ulrich-rieke	strong_password
+    wanderdoc		evaluate
     wlmb		strong_password
     zapwai		proc
 );
 
 use Test2::V0 qw( -no_srand );
+use List::Util qw( none );
 
 for my ( $who, $sub ) ( @test_list ) {
+    next
+        if @ARGV && none { $_ eq $who } @ARGV;
     note "";
     note "Solution by $who";
     note "  file test-includes/$who/$file";
