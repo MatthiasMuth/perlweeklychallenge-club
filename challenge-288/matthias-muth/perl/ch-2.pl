@@ -51,25 +51,25 @@ use Data::Dump qw( pp );
 
 my $sub_name = "contiguous_block";
 my @tests = (
-    [ 'Example 1: ', [
+    [ 'Example 1:', [
         ["x", "x", "x", "x", "o"],
         ["x", "o", "o", "o", "o"],
         ["x", "o", "o", "o", "o"],
         ["x", "x", "x", "o", "o"],
     ], 11 ],
-    [ 'Example 2: ', [
+    [ 'Example 2:', [
         ["x", "x", "x", "x", "x"],
         ["x", "o", "o", "o", "o"],
         ["x", "x", "x", "x", "o"],
         ["x", "o", "o", "o", "o"],
     ], 11 ],
-    [ 'Example 3: ', [
+    [ 'Example 3:', [
         ["x", "x", "x", "o", "o"],
         ["o", "o", "o", "x", "x"],
         ["o", "x", "x", "o", "o"],
         ["o", "o", "o", "x", "x"],
     ], 7 ],
-    [ 'Extra 1: ', [
+    [ 'Extra 1:', [
         ["x", "o", "x", "o", "x"],
         ["o", "x", "o", "x", "o"],
         ["x", "o", "x", "o", "x"],
@@ -84,8 +84,8 @@ for my $sub ( sort grep /^${sub_name}/, keys %:: ) {
     note "\n", "Testing $sub:\n", "\n";
     for ( @tests ) {
         my ( $descr, $input, $output ) = $_->@*;
-        $descr .= pp( $input ) . " => $output"
-            if substr( $descr, -1, 1 ) eq " ";
+        $descr .= " " . pp( $input ) . " => $output"
+            if substr( $descr, -1, 1 ) eq ":";
         no strict 'refs';
         is $sub->( $input ), $output, $descr;
     }
