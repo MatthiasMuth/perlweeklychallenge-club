@@ -1,18 +1,10 @@
 {
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-09-22 22:57:30 GMT"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+      "text" : "[Champions: 30] Last updated at 2024-09-29 21:23:21 GMT"
    },
    "xAxis" : {
       "categories" : [
+         "Shawn Wagner",
          "Shimon Bollinger",
          "Simon Green",
          "Simon Miner",
@@ -41,18 +33,37 @@
          "Torgny Lyon",
          "Trenton Langer",
          "Tyler Bird",
-         "Tyler Limkemann",
-         "Tyler Wardhaugh"
+         "Tyler Limkemann"
       ]
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "chart" : {
       "type" : "column"
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
+            22,
             0,
-            350,
+            352,
             7,
             5,
             4,
@@ -76,16 +87,16 @@
             14,
             0,
             2,
-            6,
+            8,
             5,
             8,
-            0,
-            2
-         ],
-         "name" : "Perl"
+            0
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
+            0,
             8,
             0,
             0,
@@ -114,13 +125,12 @@
             0,
             0,
             0,
-            2,
-            0
-         ],
-         "name" : "Raku"
+            2
+         ]
       },
       {
          "data" : [
+            0,
             3,
             170,
             0,
@@ -146,22 +156,12 @@
             0,
             0,
             0,
-            2,
-            0,
+            3,
             0,
             0,
             0
          ],
          "name" : "Blog"
       }
-   ],
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   }
+   ]
 }

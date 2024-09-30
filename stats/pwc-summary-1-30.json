@@ -8,8 +8,21 @@
          "text" : ""
       }
    },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             2,
             0,
@@ -28,6 +41,7 @@
             169,
             44,
             13,
+            4,
             22,
             8,
             1,
@@ -39,10 +53,8 @@
             153,
             11,
             0,
-            478,
-            0
-         ],
-         "name" : "Perl"
+            480
+         ]
       },
       {
          "data" : [
@@ -67,15 +79,15 @@
             0,
             0,
             0,
+            0,
             87,
             0,
             0,
             2,
-            571,
+            573,
             0,
             16,
-            440,
-            0
+            442
          ],
          "name" : "Raku"
       },
@@ -99,6 +111,7 @@
             0,
             32,
             2,
+            2,
             0,
             0,
             12,
@@ -106,15 +119,17 @@
             0,
             0,
             0,
-            286,
+            287,
             0,
             0,
-            4,
-            0
+            4
          ],
          "name" : "Blog"
       }
    ],
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-09-29 21:23:21 GMT"
+   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -134,6 +149,7 @@
          "Ali Moradi",
          "Alicia Bielsa",
          "Andinus",
+         "Andre Ploger",
          "Andreas Voegele",
          "Andrew Grangaard",
          "Andrew Mehta",
@@ -145,23 +161,7 @@
          "Arne Sommer",
          "Arpad Toth",
          "Asher Harvey-Smith",
-         "Athanasius",
-         "Aubrey Quarcoo"
+         "Athanasius"
       ]
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-09-22 22:57:30 GMT"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
    }
 }

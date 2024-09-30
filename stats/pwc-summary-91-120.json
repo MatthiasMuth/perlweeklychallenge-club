@@ -1,8 +1,8 @@
 {
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
+            2,
             0,
             4,
             29,
@@ -31,13 +31,14 @@
             0,
             26,
             0,
-            92,
-            1
-         ]
+            92
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
          "data" : [
+            0,
             2,
             0,
             0,
@@ -62,16 +63,16 @@
             3,
             10,
             0,
-            375,
+            377,
             4,
             0,
             14,
-            92,
-            0
+            92
          ]
       },
       {
          "data" : [
+            0,
             0,
             0,
             0,
@@ -100,14 +101,16 @@
             0,
             12,
             0,
-            46,
-            0
+            46
          ],
          "name" : "Blog"
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-09-22 22:57:30 GMT"
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "tooltip" : {
       "shared" : 1,
@@ -118,8 +121,18 @@
          "stacking" : "percent"
       }
    },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-09-29 21:23:21 GMT"
+   },
    "xAxis" : {
       "categories" : [
+         "GarciaAutomation",
          "Garrett Goebel",
          "Giuseppe Di Terlizzi",
          "Guillermo Ramos",
@@ -148,20 +161,7 @@
          "Jan Ole Kraft",
          "Jared Martin",
          "Jason Messer",
-         "Javier Luque",
-         "jdos22"
+         "Javier Luque"
       ]
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
    }
 }
