@@ -10,9 +10,6 @@
 
 use v5.36;
 
-use utf8;
-binmode(STDOUT, ":utf8");
-
 # Fisher-Yates shuffle (or Knuth shuffle).
 sub jumble_string( $str ) {
     my @chars = split "", $str;
@@ -58,7 +55,9 @@ sub jumbled_letters( $str ) {
 }
 
 use Test2::V0 qw( -no_srand );
-use Data::Dump qw( pp );
+
+use utf8;
+binmode(STDOUT, ":utf8");
 
 my $input_text = <<EOF;
 According to a researchch at Cambridge University, it doesn’t matter in what
