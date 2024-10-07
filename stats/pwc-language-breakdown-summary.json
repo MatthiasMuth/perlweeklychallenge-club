@@ -1,25 +1,35 @@
 {
-   "subtitle" : {
-      "text" : "Last updated at 2024-09-29 21:23:21 GMT"
+   "chart" : {
+      "type" : "column"
    },
-   "xAxis" : {
-      "type" : "category",
-      "labels" : {
-         "style" : {
-            "fontSize" : "13px",
-            "fontFamily" : "Verdana, sans-serif"
-         }
+   "legend" : {
+      "enabled" : "false"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : null
       }
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2024-10-07 22:28:12 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    },
    "series" : [
       {
+         "name" : "Contributions",
          "dataLabels" : {
-            "format" : "{point.y:.0f}",
-            "color" : "#FFFFFF",
+            "rotation" : -90,
             "align" : "right",
             "enabled" : "true",
+            "color" : "#FFFFFF",
             "y" : 10,
-            "rotation" : -90,
+            "format" : "{point.y:.0f}",
             "style" : {
                "fontSize" : "13px",
                "fontFamily" : "Verdana, sans-serif"
@@ -28,36 +38,26 @@
          "data" : [
             [
                "Perl",
-               15111
+               15194
             ],
             [
                "Raku",
-               8572
+               8607
             ],
             [
                "Blog",
-               5313
+               5357
             ]
-         ],
-         "name" : "Contributions"
+         ]
       }
    ],
-   "chart" : {
-      "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : null
+   "xAxis" : {
+      "labels" : {
+         "style" : {
+            "fontFamily" : "Verdana, sans-serif",
+            "fontSize" : "13px"
+         }
       },
-      "min" : 0
-   },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
-   "legend" : {
-      "enabled" : "false"
+      "type" : "category"
    }
 }
