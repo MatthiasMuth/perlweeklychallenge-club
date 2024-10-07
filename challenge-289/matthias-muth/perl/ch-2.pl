@@ -13,9 +13,40 @@ use v5.36;
 use utf8;
 binmode(STDOUT, ":utf8");
 
+# Fisher-Yates shuffle (or Knuth shuffle).
 sub jumble_string( $str ) {
     my @chars = split "", $str;
     return join "", map { splice @chars, rand( @chars ), 1, () } 0..$#chars;
+}
+
+# Modern version (Durstenfeld shuffle).
+sub jumble_string( $str ) {
+    my @chars = split "", $str;
+    for my $i ( reverse 0..$#chars ) {
+        my $j = rand( $i + 1 );
+        ( $chars[$i], $chars[$j] ) = ( $chars[$j], $chars[$i] );
+    }
+    return join "", @chars;
+}
+
+# Modern version (Durstenfeld shuffle).
+sub jumble_string( $str ) {
+    my @chars = split "", $str;
+    for my $i ( reverse 0..$#chars ) {
+        my $j = rand( $i + 1 );
+        ( $chars[$i], $chars[$j] ) = ( $chars[$j], $chars[$i] );
+    }
+    return join "", @chars;
+}
+
+# Durstenfeld shuffle directly on characters.
+sub jumble_string( $str ) {
+    for my $i ( reverse 0 .. length( $str ) - 1 ) {
+        my $j = rand( $i + 1 );
+        ( substr( $str, $i, 1 ), substr( $str, $j, 1 ) ) =
+            ( substr( $str, $j, 1 ), substr( $str, $i, 1 ) );
+    }
+    return $str;
 }
 
 sub jumbled_letters( $str ) {
