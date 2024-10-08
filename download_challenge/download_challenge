@@ -24,7 +24,7 @@
 #		'perl/challenge-<challenge>' file. This is because the
 #		challenge text is not supposed to be changed locally, but it
 #		might receive updates or corrections on the website.
-#		
+#
 #
 #		If no parameters are given, the script checks whether there is
 #		a new challenge, or an update to the current challenge.
@@ -63,6 +63,9 @@
 #		given explicitly.
 #
 #	Options:	[WIP!]
+#	    -input <html file> | -i <html file>
+#	    	Read html from <html file> instead of retrieving it from the
+#	    	Weekly Challenge web site.
 #	    -nofiles | -nof
 #	        Do not write any output files.
 #	    -mail <recipient>
@@ -80,6 +83,13 @@ use warnings;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
+use utf8;
+binmode(STDOUT, ":utf8");
+use open ':encoding(utf-8)';    # Sets the default encoding for handles opened in scope.
+
+use Verbose;
+use Dsay;
+
 use Getopt::Long qw( :config no_ignore_case );
 use TOML;
 use Time::Piece;
@@ -87,22 +97,15 @@ use Time::Piece;
 use LWP::Simple;
 use HTML::TreeBuilder::XPath;
 use URI::Escape;
-use Encode;
 
 use File::Basename;
 use File::Path qw( make_path );
 
 use Digest::MD5 qw( md5_hex );
+use Encode qw( encode_utf8 );
 use Email::Stuffer;
 
 use TestExtractor;
-
-our ( %options, %debug );
-
-sub prot( @args ) {
-    my $timestamp = strftime( "%Y-%m-%d %H:%M:%S", localtime( time ) );
-    say $timestamp, " ", @args;
-}
 
 sub usage {
     say STDERR "Usage!";
@@ -115,6 +118,7 @@ GetOptions(
     "check|n"    => \$options{DRY_RUN},
     "mail:s@"    => \$options{MAIL_TO},
     "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
+    "input|i:s"  => \$options{INPUT},
     "files!"     => \$options{WRITE_FILES},
     "archive!"   => \$options{ARCHIVE},
     "quiet|q!"   => \$options{QUIET},
@@ -148,8 +152,9 @@ unless ( @ARGV ) {
     $options{MAIL_TO} //= $status->{'recipients'};
 }
 
+
 process_challenge( $_ )
-    for @ARGV ? @ARGV : get_challenge_update();
+    for @ARGV ? @ARGV : check_challenge_update();
 
 # Update the status toml file.
 write_toml( $status )
@@ -165,187 +170,187 @@ sub process_challenge( $challenge ) {
     # Extract relevant HTML parts (page header and task descriptions)
     # from the challenge page.
     my ( $main_url, $challenge_path ) =
-	@$status{ qw( main-url current-challenge-path ) };
+        @$status{ qw( main-url current-challenge-path ) };
     $challenge_path =~ s/\d+/$challenge/;
-    my $html = get( $main_url . $challenge_path );
-    my ( $page_header ) = 
-	$html =~ m'(<section class="global-page-header">.*?</section>)'s;
+
+    local $d_area = "html";
+    my $html =
+        $options{INPUT}
+        ? do { local ( @ARGV, $/ ) = $options{INPUT}; <> }
+        : get( $main_url . $challenge_path );
+    my ( $page_header ) =
+        $html =~ m'(<section class="global-page-header">.*?</section>)'s;
     my ( $tasks ) =
-	$html =~ m'(<h2 id="TASK1">.*?</section>)'s;
+        $html =~ m'(<h2 id="TASK1">.*?</section>)'s;
 
     # Create the mail html from the template,
     # copying in the extracted HTML parts.
-    $html = $templates->{'mail'}{'html'};
+    my $mail_html = $templates->{'mail'}{'html'};
     my %substitutions = (
-	CHALLENGE   => $challenge,
-	PAGE_HEADER => $page_header,
-	TASKS       => $tasks,
+        CHALLENGE   => $challenge,
+        PAGE_HEADER => $page_header,
+        TASKS       => $tasks,
     );
-    $html =~ s/<$_>/$substitutions{$_}/g
-	for keys %substitutions;
-    # vsay "html\n", $html;
+    $mail_html =~ s/<$_>/$substitutions{$_}/g
+        for keys %substitutions;
+    dsay ":mail_html", "mail_html:\n", $mail_html;
 
-    unless ( $html ) {
-	say STDERR "ERROR: html is empty. Aborting.";
-	exit 1;
+    unless ( $mail_html ) {
+        say STDERR "ERROR: mail html is empty. Aborting.";
+        exit 1;
     }
 
     # If we are running an update, check whether the challenge html has changed.
-    my $md5 = md5_hex( $html );
+    my $md5 = md5_hex( encode_utf8( $mail_html ) );
     my $html_has_changed = undef;
     if ( $options{UPDATE} ) {
-	$html_has_changed = $md5 ne $status->{'current-challenge-html-md5'};
-	if ( $html_has_changed ) {
-	    vsay "current md5: $status->{'current-challenge-html-md5'}";
-	    prot "Task description html has changed (md5:$md5)"
-		unless ! $status->{'current-challenge-html-md5'};
-	    set_toml( $status, 'current-challenge-html-md5', $md5 );
-	}
-	else {
-	    prot "Task description html is unchanged."
-		unless $options{QUIET};
-	}
+        $html_has_changed = $md5 ne $status->{'current-challenge-html-md5'};
+        if ( $html_has_changed ) {
+            dsay "current md5: $status->{'current-challenge-html-md5'}";
+            prot "Task description html has changed (md5:$md5)"
+                unless ! $status->{'current-challenge-html-md5'};
+            set_toml( $status, 'current-challenge-html-md5', $md5 );
+        }
+        else {
+            prot "Task description html is unchanged."
+                unless $options{QUIET};
+        }
     }
     else {
-	vsay "Task description will be used unconditionally.";
+        vsay "Task description will be used unconditionally.";
     }
 
     # Send mails.
     # For updates, send mails only if the html text has changed.
-    if ( ( ! $options{UPDATE} || $html_has_changed )
-       && $options{MAIL_TO} && @{$options{MAIL_TO}} )
-    {
-	for my $rcpt ( @{$options{MAIL_TO}} ) {
-	    if ( $options{DRY_RUN} ) {
-		say "would send email to $rcpt";
-	    }
-	    else {
-		vsay "sending email to $rcpt";
-		Email::Stuffer
-		    ->from( 'muthm@muthnet.de' )
-		    ->to( $rcpt )
-		    ->subject( $title )
-		    ->html_body( $html )
-		    ->send_or_die;
-		prot "Sent email to $rcpt"
-		    unless $options{QUIET};
-	    }
-	}
+    if ( ( ! $options{UPDATE} || $html_has_changed ) && $options{MAIL_TO} ) {
+        for my $rcpt ( @{$options{MAIL_TO}} ) {
+            if ( $options{DRY_RUN} ) {
+                say "would send email to $rcpt";
+            }
+            else {
+                vsay "sending email to $rcpt";
+                Email::Stuffer
+                    ->from( 'muthm@muthnet.de' )
+                    ->to( $rcpt )
+                    ->subject( $title )
+                    ->html_body( $mail_html )
+                    ->send_or_die;
+                prot "Sent email to $rcpt"
+                    unless $options{QUIET};
+            }
+        }
     }
 
     # Write files.
     if ( $options{WRITE_FILES} ) {
-	my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
+        my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
 
-	$tree->parse_content( $html )
-	    or die "ERROR: could not parse html data.\n";
+        $tree->parse_content( $mail_html )
+            or die "ERROR: could not parse html data.\n";
 
-	# Extract nodes containing the title and the date,
-	# followed by two <br> to create empty lines,
-	# followed by everything inside the <div class="post-content"> block,
-	# individually.
-	my @nodes = map $tree->findnodes( $_ ),
-	    qw(
-		//section[@class="global-page-header"]//h2
-		//div[@class="block"]//span[1]
-		//br[1]
-		//br[1]
-		//div[@class="post-content"]/*
-	    );
+        # Extract nodes containing the title and the date,
+        # followed by two <br> to create empty lines,
+        # followed by everything inside the <div class="post-content"> block,
+        # individually.
+        my @nodes = map $tree->findnodes( $_ ),
+            qw(
+                //section[@class="global-page-header"]//h2
+                //div[@class="block"]//span[1]
+                //br[1]
+                //br[1]
+                //div[@class="post-content"]/*
+            );
 
-	# Extract the text from the nodes.
-	# Ignore <hr> to avoid empty lines where they are not needed.
-	# Add an extra empty line before 'Example 1'.
-	# Remove empty lines within <pre> text (example descriptions).
-	# Add an extra empty line after <h5> ('submitted by'). 
-	my $challenge_text = join "",
-	    map {
-		( $_->as_text =~ /^Example 1/ ? "\n" : "" )
-		. ( $_->{_tag} =~ /^pre/
-		    ?  $_->as_text =~ s/^\s*\n//gmr
-		    : $_->as_text )
-		. "\n"
-		. ( $_->{_tag} =~ /^h5/ ? "\n" : "" )
-	    } grep $_->{_tag} ne "hr", @nodes;
-	# vsay "challenge_text:\n", $challenge_text;
+        # Extract the text from the nodes.
+        # Ignore <hr> to avoid empty lines where they are not needed.
+        # Add an extra empty line before 'Example 1'.
+        # Reduce multiple empty lines to one within <pre> text
+        # (example descriptions).
+        # Add an extra empty line after <h5> ('submitted by').
+        my $challenge_text = join "",
+            map {
+                ( $_->as_text =~ /^Example 1/ ? "\n" : "" )
+                . ( $_->{_tag} =~ /^pre/
+                    ?  $_->as_text =~ s/^\s*$//gmr
+                    : $_->as_text )
+                . "\n"
+                . ( $_->{_tag} =~ /^h5/ ? "\n" : "" )
+            } grep $_->{_tag} ne "hr", @nodes;
+        dsay ":html", "challenge_text:\n", $challenge_text;
 
-	# Generate the code skeletons.
-	my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
-	my ( $task_1_code, $task_2_code ) =
-	    map generate_code( $challenge, $_ ), ( $task_1, $task_2 );
+        # Generate the code skeletons.
+        my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
+        my ( $task_1_code, $task_2_code ) =
+            map generate_code( $challenge, $_ ), ( $task_1, $task_2 );
 
-	# Generate the README.md skeleton.
-	my $readme_text = generate_readme_md( $challenge, $challenge_text );
+        # Generate the README.md skeleton.
+        my $readme_text = generate_readme_md( $challenge, $challenge_text );
 
-	# Generate README-no-blog.md
-	my $readme_no_blog_text = $templates->{readme}{readme_no_blog};
-	$readme_no_blog_text =~ s/<CHALLENGE>/$challenge/g;
+        # Generate README-no-blog.md
+        my $readme_no_blog_text = $templates->{readme}{readme_no_blog};
+        $readme_no_blog_text =~ s/<CHALLENGE>/$challenge/g;
 
-	# Generate blog.txt
-	my $blog_text = $templates->{readme}{blog_txt};
-	$blog_text =~ s/<CHALLENGE>/$challenge/g;
+        # Generate blog.txt
+        my $blog_text = $templates->{readme}{blog_txt};
+        $blog_text =~ s/<CHALLENGE>/$challenge/g;
 
-	# Write out all files.
-	#  - a local archive copy of the html if the html has changed,
-	#  - the task descriptions text file,
-	#  - the code files, not overwriting them if they already exist.
-	#  - a copy of TestExtractor.pm if it doesn't exist yet.
+        # Write out all files.
+        #  - a local archive copy of the html if the html has changed,
+        #  - the task descriptions text file,
+        #  - the code files, not overwriting them if they already exist.
 
-	my $archive_dir = "./challenge_htmls/$challenge";
-	my $archive_file =
-	    $status->{'current-challenge-last-modified'} . "_$md5";
-	$archive_file =~ s/[-:]//g;
+        my $archive_dir = "./challenge_htmls/$challenge";
+        my $archive_file =
+            $status->{'current-challenge-last-modified'} . "_$md5";
+        $archive_file =~ s/[-:]//g;
 
-	my $target_dir = "../challenge-$challenge/$status->{user}";
-	my $test_extractor_file = "$target_dir/perl/TestExtractor.pm";
+        my $target_dir = "../challenge-$challenge/$status->{user}";
 
-	my @file_operations =
-	    ( ! $options{UPDATE} || $html_has_changed || $options{FORCE} )
-	    ? (
-		$options{UPDATE} && $options{ARCHIVE}
-		    ? [ "$archive_dir/$archive_file", $html ]
-		    : (),
-		[ "$target_dir/README-no-blog.md",
-		    $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
-		[ "$target_dir/blog.txt",
-		    $blog_text, 'DO_NOT_OVERWRITE' ],
-		[ "$target_dir/perl/README-$challenge.md",
-		    $readme_text, 'DO_NOT_OVERWRITE' ],
-		[ "$target_dir/perl/challenge-$challenge.txt",
-		    $challenge_text ],
-		[ "$target_dir/perl/ch-1.pl",
-		    $task_1_code, 'DO_NOT_OVERWRITE' ],
-		[ "$target_dir/perl/ch-2.pl",
-		    $task_2_code, 'DO_NOT_OVERWRITE' ],
-		# [ $test_extractor_file,
-		    # slurp_file( "./TestExtractor.pm" ), 'DO_NOT_OVERWRITE' ],
-	    ) : ();
+        my @file_operations =
+            ( ! $options{UPDATE} || $html_has_changed || $options{FORCE} )
+            ? (
+                $options{UPDATE} && $options{ARCHIVE}
+                    ? [ "$archive_dir/$archive_file", $html ]
+                    : (),
+                [ "$target_dir/README-no-blog.md",
+                    $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
+                [ "$target_dir/blog.txt",
+                    $blog_text, 'DO_NOT_OVERWRITE' ],
+                [ "$target_dir/perl/README-$challenge.md",
+                    $readme_text, 'DO_NOT_OVERWRITE' ],
+                [ "$target_dir/perl/challenge-$challenge.txt",
+                    $challenge_text ],
+                [ "$target_dir/perl/ch-1.pl",
+                    $task_1_code, 'DO_NOT_OVERWRITE' ],
+                [ "$target_dir/perl/ch-2.pl",
+                    $task_2_code, 'DO_NOT_OVERWRITE' ],
+            ) : ();
 
-	for ( @file_operations ) {
-	    my ( $file, $contents, $do_not_overwrite ) = @$_;
-	    my %verb_form =
-		$options{DRY_RUN}
-		?  ( write => "write", overwrite => "overwrite" )
-		:  ( write => "writing", overwrite => "overwriting" );
-	    my $msg =
-		( $options{DRY_RUN} ? "would " : "" )
-		. ( ( -f $file && $do_not_overwrite && $options{FORCE} < 2 )
-		    ? "not " : "" )
-		. ( -f $file
-		    ? ( ( ( $do_not_overwrite && $options{FORCE} >= 2 )
-			    ? "forcefully " : "" )
-			. $verb_form{"overwrite"} )
-		    : $verb_form{"write"} )
-		. " '$file'";
-	    vsay $msg;
-	    unless ( $options{DRY_RUN} ) {
-		make_path dirname( $file );
-		spit_file( $file, $contents )
-		    unless -f $file && $do_not_overwrite && $options{FORCE} < 2;
-		chmod 0755, $file
-		    if $file =~ /.pl$/;
-	    }
-	}
+        for ( @file_operations ) {
+            my ( $file, $contents, $do_not_overwrite ) = @$_;
+            my %verb_form =
+                $options{DRY_RUN}
+                ?  ( write => "write", overwrite => "overwrite" )
+                :  ( write => "writing", overwrite => "overwriting" );
+            my $msg =
+                ( $options{DRY_RUN} ? "would " : "" )
+                . ( ( -f $file && $do_not_overwrite && $options{FORCE} < 2 )
+                    ? "not " : "" )
+                . ( -f $file
+                    ? ( ( ( $do_not_overwrite && $options{FORCE} >= 2 )
+                            ? "forcefully " : "" )
+                        . $verb_form{"overwrite"} )
+                    : $verb_form{"write"} )
+                . " '$file'";
+            vsay $msg;
+            unless ( $options{DRY_RUN} ) {
+                make_path dirname( $file );
+                spit_file( $file, $contents )
+                    unless -f $file && $do_not_overwrite && $options{FORCE} < 2;
+                chmod 0755, $file
+                    if $file =~ /.pl$/;
+            }
+        }
     }
 }
 
@@ -353,14 +358,15 @@ exit 0;
 
 sub retrieve_challenge_link( $base_url, $pattern ) {
     my $tree = HTML::TreeBuilder::XPath->new_from_url( $base_url )
-	or die "ERROR: could not retrieve data from $base_url.\n";
+        or die "ERROR: could not retrieve data from $base_url.\n";
     my $xpath  = "//\@href[.=~/$pattern/";
     my $link = $tree->findvalue( $xpath )
-	or die "ERROR: did not find xpath '$xpath' in data.\n";
+        or die "ERROR: did not find xpath '$xpath' in data.\n";
     return $link;
 }
 
-sub get_challenge_update {
+sub check_challenge_update {
+    local $d_area = "check";
 
     # Return the current challenge number if there needs to be an update,
     # or the new challenge number if it has changed.
@@ -370,48 +376,49 @@ sub get_challenge_update {
 
     # Step 1:
     # Determine the current challenge number:
-    # Check whether the main page was modified.
-    # Update to the current challenge number if it has.
-    # If no change was detected, use what we have cached in status.toml.
+    # - Check whether the main page was modified.
+    # - Update to the current challenge number if it has.
+    # - If no change was detected, use what we have cached in status.toml.
 
     my $main_url = $status->{'main-url'};
     my $challenge_path = $status->{'current-challenge-path'};
     if ( check_page_change( $main_url, 'main-last-modified' ) ) {
-	my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
-	$challenge_path = retrieve_challenge_link( $main_url, $xpath_pattern );
-	vsay "current-challenge-path: ", pp( $challenge_path );
-	unless ( $challenge_path ) {
-	    say STDERR "ERROR: Could not extract challenge url. Aborting.";
-	    exit 1;
-	}
+        my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
+        $challenge_path = retrieve_challenge_link( $main_url, $xpath_pattern );
+        dsay "current-challenge-path: ", pp( $challenge_path );
+        unless ( $challenge_path ) {
+            say STDERR "ERROR: Could not extract challenge url. Aborting.";
+            exit 1;
+        }
 
-	if ( $challenge_path ne $status->{'current-challenge-path'} ) {
-	    ( $challenge ) = $challenge_path =~ /(\d+)$/;
-	    prot "New challenge $challenge detected."
-		unless $options{QUIET};
-	    set_toml( $status, "current-challenge-path", $challenge_path );
-	    set_toml( $status, "current-challenge-last-modified", "" );
-	    set_toml( $status, "current-challenge-html-md5", "" );
-	}
-	else {
-	    vsay "challenge url has not changed";
-	}
+        if ( $challenge_path ne $status->{'current-challenge-path'} ) {
+            ( $challenge ) = $challenge_path =~ /(\d+)$/;
+            prot "New challenge $challenge detected."
+                unless $options{QUIET};
+            set_toml( $status, "current-challenge-path", $challenge_path );
+            set_toml( $status, "current-challenge-last-modified", "" );
+            set_toml( $status, "current-challenge-html-md5", "" );
+        }
+        else {
+            vsay "challenge url has not changed";
+        }
     }
     else {
-	vsay "main page was not modified";
+        vsay "main page was not modified";
     }
 
     # Step 2:
     # Check the challenge page for modification.
     if ( check_page_change(
-	$main_url . $challenge_path, 'current-challenge-last-modified' ) )
+        $main_url . $challenge_path, 'current-challenge-last-modified' ) )
     {
-	vsay "challenge page was modified";
-	return $challenge;
+        vsay "challenge page was modified",
+            $options{FORCE} ? " or reading is forced" : ();
+        return $challenge;
     }
     else {
         vsay "challenge page was not modified";
-	return ();
+        return ();
     }
 }
 
@@ -419,23 +426,25 @@ sub check_page_change( $url, $last_modified_field_name ) {
     my @header = head( $url );
     my $modified_time = time_string( $header[2] );
     vsay "modified_time: ", pp( $modified_time );
-    if ( $status->{$last_modified_field_name} 
-	&& $modified_time eq $status->{$last_modified_field_name} )
+    if ( $status->{$last_modified_field_name}
+        && $modified_time eq $status->{$last_modified_field_name} )
     {
-	# vsay "'$url' was not modified";
-	return ()
-	    unless $options{FORCE};
+        # vsay "'$url' was not modified";
+        return ()
+            unless $options{FORCE};
     }
     set_toml( $status, $last_modified_field_name, $modified_time );
     return 1;
 }
 
 sub generate_code( $challenge, $task_text ) {
+    local $d_area = "code";
+    dsay "generate_code( $challenge, '", $task_text =~ /^(.*)?$/m, " [...]' )";
 
     my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
 
     my @tests = TestExtractor::extract_tests( $task_text );
-    # vsay "extracted tests: ", pp( @tests );
+    dsay "extracted tests: ", pp( @tests );
 
     my $code = $templates->{code}{'ch-N_pl'};
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
@@ -453,96 +462,102 @@ sub generate_code( $challenge, $task_text ) {
     }
 
     my @input_vars =
-	$tests[0] && $tests[0]{VARIABLE_NAMES}
-	? @{$tests[0]{VARIABLE_NAMES}}
-	: ();
+        $tests[0] && $tests[0]{VARIABLE_NAMES}
+        ? @{$tests[0]{VARIABLE_NAMES}}
+        : ();
 
     # Turn array parameters into arrayrefs in some cases.
     if ( @input_vars > 1
-	|| $tests[0] && $tests[0]{INPUT}
-	    && ref $tests[0]{INPUT}[0] eq 'ARRAY'
-	    && ref $tests[0]{INPUT}[0][0] eq 'ARRAY' )
+        || $tests[0] && $tests[0]{INPUT}
+            && ref $tests[0]{INPUT}[0] eq 'ARRAY'
+            && ref $tests[0]{INPUT}[0][0] eq 'ARRAY' )
     {
-	substr $_, 0, 1, '$'
-	    for @input_vars;
+        substr $_, 0, 1, '$'
+            for @input_vars;
     }
     my $input_params = join ", ", @input_vars;
 
-    my $result_var = 
-	$tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
-	? '@results'
-	: '$result';
-    my $return = 
-	$tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
-	? $tests[0]{OUTPUT}[0] eq 'ARRAY' 
-	    ? '\@results'
-	    : '@results'
-	: '$result';
+    my $result_var =
+        $tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
+        ? '@results'
+        : '$result';
+
+    my $return =
+        $tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
+        ? $tests[0]{OUTPUT}[0] eq 'ARRAY'
+            ? '\@results'
+            : '@results'
+        : '$result';
 
     my $run_tests = TestExtractor::generate_tests( $sub_name, @tests );
 
     my %substitutions = (
-	CHALLENGE    => $challenge,
-	TASK_NUMBER  => $task,
-	TASK_NAME    => $task_name,
-	SUB_NAME     => $sub_name,
-	INPUT_PARAMS => $input_params,
-	RESULT_VAR   => $result_var,
-	RETURN       => $return,
-	RUN_TESTS    => $run_tests,
+        CHALLENGE    => $challenge,
+        TASK_NUMBER  => $task,
+        TASK_NAME    => $task_name,
+        SUB_NAME     => $sub_name,
+        INPUT_PARAMS => $input_params,
+        RESULT_VAR   => $result_var,
+        RETURN       => $return,
+        RUN_TESTS    => $run_tests,
     );
     $code =~ s/<$_>/$substitutions{$_}/g
-	for keys %substitutions;
+        for keys %substitutions;
 
     # vsay $code;
     return $code;
 }
 
 sub generate_readme_md( $challenge, $text ) {
-
-    $text =~ /^Task\s+1: \s* (?<t1_name>.*?) \s*$ \n
-	      ^Submitted .*? $ \n
-	      \s*? \n
-	      (?<t1_text> ^\S.*?$
-		  (?: \n ^.*?$ )*? \n
-		  (?:^\s* $ \n )*
-		  ^Example .*? $ ) \n
-	      (?:^\s* $ \n )*
-	      ^Task\s+2: \s* (?<t2_name>.*?) \s*$ \n
-	      ^Submitted .*? $ \n
-	      \s*? \n
-	      (?<t2_text> ^\S.*?$
-		  (?: \n ^.*?$ )*? \n
-		  (?:^\s* $ \n )*
-		  ^Example .*? $ ) \n
-	      (?:^\s* $ \n )*
-	      ^Last \s+ date \s+ to \s+ submit
-	/xms;
+    $text # =~ s/\r+//msr
+          =~ /^Task\s+1: \s* (?<t1_name>.*?) \s*$ \n
+              ^Submitted .*? $ \n
+              \s*? \n
+              (?<t1_text> ^\S.*?$
+                  (?: \n ^.*?$ )*? \n
+                  (?:^\s* $ \n )*
+                  .*? $ ) \n
+              (?:^\s* $ \n )*
+              ^Task\s+2: \s* (?<t2_name>.*?) \s*$ \n
+              ^Submitted .*? $ \n
+              \s*? \n
+              (?<t2_text> ^\S.*?$
+                  (?: \n ^.*?$ )*? \n
+                  .*? $ ) \n
+              (?:^\s* $ \n )*
+              ^Last \s+ date \s+ to \s+ submit
+        /xms;
     my %parts = ( %+ );
-    # vsay "$_: ", pp( $parts{$_} )
-        # for qw( t1_name t1_text t1_examples t2_name t2_text t2_examples );
+    dsay ":readme", "$_: ", pp( $parts{$_} )
+        for qw( t1_name t1_text t2_name t2_text );
 
     my $readme_text = $templates->{readme}{'readme_md'};
     # vsay $readme_text;
     my %substitutions = (
-	CHALLENGE         => $challenge,
-	TASK_1_NAME       => $parts{t1_name},
-	TASK_1_Q_TEXT     => $parts{t1_text} =~ s/^(.*)$/> $1<br\/>/mgr,
-	TASK_2_NAME       => $parts{t2_name},
-	TASK_2_Q_TEXT     => $parts{t2_text} =~ s/^(.*)$/> $1<br\/>/mgr,
-	TASK_1_SUB        => lc $parts{t1_name} =~ s/\W+/_/gr,
-	TASK_2_SUB        => lc $parts{t2_name} =~ s/\W+/_/gr,
+        CHALLENGE         => $challenge,
+        TASK_1_NAME       => $parts{t1_name},
+        TASK_1_Q_TEXT     => $parts{t1_text}
+                                =~ s/^\s*?\n(?!^Example )//msgr
+                                =~ s/\$/\\\$/gr
+                                =~ s/^(.*)$/> $1<br\/>/mgr,
+        TASK_2_NAME       => $parts{t2_name},
+        TASK_2_Q_TEXT     => $parts{t2_text}
+                                =~ s/^\s*?\n(?!^Example )//msgr
+                                =~ s/\$/\\\$/gr
+                                =~ s/^(.*)$/> $1<br\/>/mgr,
+        TASK_1_SUB        => lc $parts{t1_name} =~ s/\W+/_/gr,
+        TASK_2_SUB        => lc $parts{t2_name} =~ s/\W+/_/gr,
     );
     $readme_text =~ s/<$_>/$substitutions{$_}/g
-	for keys %substitutions;
+        for keys %substitutions;
 
-    # vsay $readme_text;
+    dsay ":readme", $readme_text;
     return $readme_text;
 }
 
 sub slurp_file( $file ) {
     open my $fh, "<", $file
-	or die "cannot open '$file': $!\n";
+        or die "cannot open '$file': $!\n";
     my $text = do { local $/ = undef; <$fh> };
     close $fh;
     return $text;
@@ -550,7 +565,7 @@ sub slurp_file( $file ) {
 
 sub spit_file( $file, $text ) {
     open my $fh, ">", $file
-	or die "cannot open '$file' for writing: $!\n";
+        or die "cannot open '$file' for writing: $!\n";
     print $fh $text;
     close $fh;
 }
@@ -579,7 +594,7 @@ sub write_toml( $hash_ref ) {
     my ( $filename, $toml_text ) = @$hash_ref{ qw( TOML_FILE TOML_TEXT ) };
     # Update the toml file if needed.
     spit_file( $filename, $toml_text )
-	if $hash_ref->{TOML_CHANGED} && ! $options{DRY_RUN};
+        if $hash_ref->{TOML_CHANGED} && ! $options{DRY_RUN};
     delete $hash_ref->{TOML_CHANGED};
 }
 
