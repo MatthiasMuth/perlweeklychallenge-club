@@ -15,8 +15,8 @@ no warnings 'experimental::signatures';
 use List::Util qw( any );
 
 sub double_exist( @ints ) {
-    my %exist = map { $_ => 1 } @ints;
-    return any { $exist{ $_ * 2 } } @ints;
+    my %existence = map { $_ => 1 } @ints;
+    return any { $existence{ $_ * 2 } } @ints;
 }
 
 use Test2::V0 qw( -no_srand );
