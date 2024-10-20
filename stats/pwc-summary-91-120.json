@@ -1,23 +1,4 @@
 {
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-10-07 22:28:12 GMT"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
    "xAxis" : {
       "categories" : [
          "GarciaAutomation",
@@ -52,6 +33,11 @@
          "Javier Luque"
       ]
    },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "series" : [
       {
          "name" : "Perl",
@@ -76,7 +62,7 @@
             0,
             12,
             6,
-            518,
+            520,
             1,
             2,
             306,
@@ -110,12 +96,12 @@
             0,
             0,
             0,
-            518,
+            520,
             0,
             3,
             10,
             0,
-            380,
+            384,
             4,
             0,
             14,
@@ -145,7 +131,7 @@
             0,
             0,
             0,
-            247,
+            248,
             0,
             0,
             125,
@@ -159,9 +145,23 @@
          "name" : "Blog"
       }
    ],
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-10-20 10:53:09 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    }
 }

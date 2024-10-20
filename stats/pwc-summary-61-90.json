@@ -16,8 +16,8 @@
             21,
             5,
             68,
-            490,
-            222,
+            494,
+            224,
             4,
             0,
             8,
@@ -28,7 +28,7 @@
             0,
             82,
             396,
-            569,
+            571,
             2,
             8,
             22,
@@ -41,6 +41,7 @@
          "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -66,17 +67,15 @@
             0,
             0,
             0,
-            365,
+            371,
             4,
             237,
             36,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -87,7 +86,7 @@
             0,
             0,
             2,
-            174,
+            176,
             5,
             0,
             0,
@@ -108,7 +107,8 @@
             9,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
    "xAxis" : {
@@ -145,23 +145,23 @@
          "Freddie B"
       ]
    },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
-      }
+      },
+      "min" : 0
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-10-20 10:53:09 GMT"
    },
    "chart" : {
       "type" : "column"
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
    "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-10-07 22:28:12 GMT"
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    }
 }
