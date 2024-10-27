@@ -1,4 +1,16 @@
 {
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "series" : [
       {
          "name" : "Perl",
@@ -23,7 +35,7 @@
             30,
             22,
             0,
-            380,
+            381,
             2,
             3,
             0,
@@ -41,7 +53,7 @@
             0,
             0,
             0,
-            132,
+            133,
             3,
             0,
             0,
@@ -106,10 +118,17 @@
          ]
       }
    ],
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
       }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-10-25 22:34:57 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "xAxis" : {
       "categories" : [
@@ -144,24 +163,5 @@
          "Creewick",
          "Cristina Heredia"
       ]
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-10-20 10:53:09 GMT"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "chart" : {
-      "type" : "column"
    }
 }

@@ -1,31 +1,6 @@
 {
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-10-20 10:53:09 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             2,
             0,
@@ -33,7 +8,7 @@
             0,
             169,
             3,
-            366,
+            368,
             2,
             0,
             3,
@@ -57,7 +32,8 @@
             11,
             0,
             486
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
@@ -88,14 +64,13 @@
             0,
             0,
             2,
-            577,
+            579,
             0,
-            18,
+            20,
             448
          ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -123,13 +98,26 @@
             0,
             0,
             0,
-            289,
+            290,
             0,
             0,
             4
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
+   "chart" : {
+      "type" : "column"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -163,5 +151,17 @@
          "Asher Harvey-Smith",
          "Athanasius"
       ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-10-25 22:34:57 GMT"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }

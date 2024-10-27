@@ -2,62 +2,62 @@
    "chart" : {
       "type" : "column"
    },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
+   "series" : [
+      {
+         "dataLabels" : {
+            "enabled" : "true",
+            "rotation" : -90,
+            "format" : "{point.y:.0f}",
+            "align" : "right",
+            "color" : "#FFFFFF",
+            "y" : 10,
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            }
+         },
+         "name" : "Contributions",
+         "data" : [
+            [
+               "Perl",
+               15319
+            ],
+            [
+               "Raku",
+               8659
+            ],
+            [
+               "Blog",
+               5399
+            ]
+         ]
       }
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2024-10-20 10:53:09 GMT"
-   },
+   ],
    "legend" : {
       "enabled" : "false"
+   },
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    },
    "title" : {
       "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    },
    "xAxis" : {
-      "type" : "category",
       "labels" : {
          "style" : {
             "fontSize" : "13px",
             "fontFamily" : "Verdana, sans-serif"
          }
-      }
+      },
+      "type" : "category"
    },
-   "series" : [
-      {
-         "data" : [
-            [
-               "Perl",
-               15288
-            ],
-            [
-               "Raku",
-               8650
-            ],
-            [
-               "Blog",
-               5386
-            ]
-         ],
-         "name" : "Contributions",
-         "dataLabels" : {
-            "enabled" : "true",
-            "format" : "{point.y:.0f}",
-            "color" : "#FFFFFF",
-            "rotation" : -90,
-            "y" : 10,
-            "align" : "right",
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            }
-         }
-      }
-   ]
+   "yAxis" : {
+      "title" : {
+         "text" : null
+      },
+      "min" : 0
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2024-10-25 22:34:57 GMT"
+   }
 }
