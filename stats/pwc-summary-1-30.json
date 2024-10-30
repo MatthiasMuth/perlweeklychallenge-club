@@ -1,123 +1,4 @@
 {
-   "series" : [
-      {
-         "data" : [
-            2,
-            0,
-            0,
-            0,
-            169,
-            3,
-            368,
-            2,
-            0,
-            3,
-            0,
-            2,
-            36,
-            93,
-            173,
-            44,
-            13,
-            8,
-            22,
-            8,
-            1,
-            32,
-            5,
-            132,
-            12,
-            0,
-            153,
-            11,
-            0,
-            486
-         ],
-         "name" : "Perl"
-      },
-      {
-         "name" : "Raku",
-         "data" : [
-            0,
-            0,
-            6,
-            59,
-            0,
-            0,
-            9,
-            0,
-            2,
-            0,
-            4,
-            0,
-            0,
-            4,
-            109,
-            9,
-            21,
-            0,
-            0,
-            0,
-            0,
-            0,
-            87,
-            0,
-            0,
-            2,
-            579,
-            0,
-            20,
-            448
-         ]
-      },
-      {
-         "data" : [
-            0,
-            0,
-            0,
-            28,
-            118,
-            0,
-            253,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            13,
-            51,
-            0,
-            32,
-            4,
-            2,
-            0,
-            0,
-            12,
-            35,
-            0,
-            0,
-            0,
-            290,
-            0,
-            0,
-            4
-         ],
-         "name" : "Blog"
-      }
-   ],
-   "chart" : {
-      "type" : "column"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -152,16 +33,135 @@
          "Athanasius"
       ]
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-10-25 22:34:57 GMT"
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-10-30 17:24:45 GMT"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "series" : [
+      {
+         "data" : [
+            2,
+            0,
+            0,
+            0,
+            169,
+            3,
+            368,
+            2,
+            0,
+            3,
+            0,
+            2,
+            36,
+            93,
+            175,
+            44,
+            13,
+            8,
+            22,
+            8,
+            1,
+            32,
+            5,
+            132,
+            12,
+            0,
+            153,
+            11,
+            0,
+            487
+         ],
+         "name" : "Perl"
+      },
+      {
+         "data" : [
+            0,
+            0,
+            6,
+            59,
+            0,
+            0,
+            9,
+            0,
+            2,
+            0,
+            4,
+            0,
+            0,
+            4,
+            111,
+            9,
+            21,
+            0,
+            0,
+            0,
+            0,
+            0,
+            87,
+            0,
+            0,
+            2,
+            581,
+            0,
+            21,
+            449
+         ],
+         "name" : "Raku"
+      },
+      {
+         "name" : "Blog",
+         "data" : [
+            0,
+            0,
+            0,
+            28,
+            118,
+            0,
+            253,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            13,
+            52,
+            0,
+            32,
+            4,
+            2,
+            0,
+            0,
+            12,
+            35,
+            0,
+            0,
+            0,
+            291,
+            0,
+            0,
+            4
+         ]
+      }
+   ],
+   "chart" : {
+      "type" : "column"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    }
 }
