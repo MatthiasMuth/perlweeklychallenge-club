@@ -1,4 +1,19 @@
 {
+   "chart" : {
+      "type" : "column"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-11-04 02:10:11 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -33,18 +48,10 @@
          "Athanasius"
       ]
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
       }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-10-30 17:24:45 GMT"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "series" : [
       {
@@ -78,7 +85,7 @@
             153,
             11,
             0,
-            487
+            489
          ],
          "name" : "Perl"
       },
@@ -110,10 +117,10 @@
             0,
             0,
             2,
-            581,
+            583,
             0,
             21,
-            449
+            451
          ],
          "name" : "Raku"
       },
@@ -146,22 +153,15 @@
             0,
             0,
             0,
-            291,
+            292,
             0,
             0,
             4
          ]
       }
    ],
-   "chart" : {
-      "type" : "column"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    }
 }
