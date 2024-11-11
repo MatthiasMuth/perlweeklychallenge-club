@@ -1,23 +1,125 @@
 {
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "series" : [
+      {
+         "data" : [
+            2,
+            0,
+            4,
+            29,
+            5,
+            50,
+            0,
+            0,
+            0,
+            14,
+            20,
+            1,
+            2,
+            2,
+            3,
+            6,
+            2,
+            0,
+            12,
+            6,
+            528,
+            1,
+            2,
+            306,
+            2,
+            0,
+            0,
+            26,
+            0,
+            92
+         ],
+         "name" : "Perl"
+      },
+      {
+         "data" : [
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            8,
+            0,
+            64,
+            0,
+            4,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            528,
+            0,
+            3,
+            10,
+            0,
+            389,
+            4,
+            0,
+            14,
+            92
+         ],
+         "name" : "Raku"
+      },
+      {
+         "name" : "Blog",
+         "data" : [
+            0,
+            0,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            7,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            252,
+            0,
+            0,
+            125,
+            0,
+            0,
+            0,
+            12,
+            0,
+            46
+         ]
+      }
+   ],
    "chart" : {
       "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-11-04 02:10:11 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "xAxis" : {
       "categories" : [
@@ -53,115 +155,13 @@
          "Javier Luque"
       ]
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-11-11 00:11:14 GMT"
    },
-   "series" : [
-      {
-         "data" : [
-            2,
-            0,
-            4,
-            29,
-            5,
-            50,
-            0,
-            0,
-            0,
-            14,
-            20,
-            1,
-            2,
-            2,
-            3,
-            6,
-            2,
-            0,
-            12,
-            6,
-            526,
-            1,
-            2,
-            306,
-            2,
-            0,
-            0,
-            26,
-            0,
-            92
-         ],
-         "name" : "Perl"
-      },
-      {
-         "data" : [
-            0,
-            2,
-            0,
-            0,
-            0,
-            0,
-            8,
-            0,
-            64,
-            0,
-            4,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            526,
-            0,
-            3,
-            10,
-            0,
-            387,
-            4,
-            0,
-            14,
-            92
-         ],
-         "name" : "Raku"
-      },
-      {
-         "name" : "Blog",
-         "data" : [
-            0,
-            0,
-            0,
-            0,
-            0,
-            6,
-            0,
-            0,
-            0,
-            7,
-            6,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            251,
-            0,
-            0,
-            125,
-            0,
-            0,
-            0,
-            12,
-            0,
-            46
-         ]
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
       }
-   ]
+   }
 }

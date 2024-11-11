@@ -1,61 +1,6 @@
 {
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-11-04 02:10:11 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "xAxis" : {
-      "categories" : [
-         "Konstantinos Giannakakis",
-         "Kueppo Wesley",
-         "lacek96",
-         "Lakpa Tashi Bhutia",
-         "Lance Wicks",
-         "Lars Balker",
-         "Lars Thegler",
-         "Laurent Rosenfeld",
-         "Leo Manfredi",
-         "Leoltron",
-         "librasteve",
-         "Lubos Kolouch",
-         "Luca Ferrari",
-         "Lucas Ransan",
-         "Luis F. Uceta",
-         "Luiz Felipe",
-         "Magnus Woldrich",
-         "Mano Chandar",
-         "Mariano Ortega",
-         "Mariano Spadaccini",
-         "Mark Anderson",
-         "Mark J. Reed",
-         "Mark Senn",
-         "Markus Holzer",
-         "Martin Barth",
-         "Martin Mugeni",
-         "Marton Polgar",
-         "Matt Latusek",
-         "Matthew Neleigh",
-         "Matthew O. Persico"
-      ]
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             4,
             36,
@@ -68,7 +13,7 @@
             17,
             2,
             0,
-            535,
+            537,
             0,
             0,
             0,
@@ -85,9 +30,10 @@
             0,
             0,
             4,
-            265,
+            267,
             0
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
@@ -112,7 +58,7 @@
             0,
             0,
             0,
-            455,
+            457,
             1,
             49,
             91,
@@ -163,5 +109,59 @@
    "tooltip" : {
       "shared" : 1,
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "xAxis" : {
+      "categories" : [
+         "Konstantinos Giannakakis",
+         "Kueppo Wesley",
+         "lacek96",
+         "Lakpa Tashi Bhutia",
+         "Lance Wicks",
+         "Lars Balker",
+         "Lars Thegler",
+         "Laurent Rosenfeld",
+         "Leo Manfredi",
+         "Leoltron",
+         "librasteve",
+         "Lubos Kolouch",
+         "Luca Ferrari",
+         "Lucas Ransan",
+         "Luis F. Uceta",
+         "Luiz Felipe",
+         "Magnus Woldrich",
+         "Mano Chandar",
+         "Mariano Ortega",
+         "Mariano Spadaccini",
+         "Mark Anderson",
+         "Mark J. Reed",
+         "Mark Senn",
+         "Markus Holzer",
+         "Martin Barth",
+         "Martin Mugeni",
+         "Marton Polgar",
+         "Matt Latusek",
+         "Matthew Neleigh",
+         "Matthew O. Persico"
+      ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-11-11 00:11:14 GMT"
    }
 }

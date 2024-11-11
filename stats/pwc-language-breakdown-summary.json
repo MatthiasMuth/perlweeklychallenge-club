@@ -1,46 +1,18 @@
 {
+   "subtitle" : {
+      "text" : "Last updated at 2024-11-11 00:11:14 GMT"
+   },
    "yAxis" : {
       "title" : {
          "text" : null
       },
       "min" : 0
    },
-   "chart" : {
-      "type" : "column"
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
    },
-   "series" : [
-      {
-         "data" : [
-            [
-               "Perl",
-               15388
-            ],
-            [
-               "Raku",
-               8696
-            ],
-            [
-               "Blog",
-               5419
-            ]
-         ],
-         "name" : "Contributions",
-         "dataLabels" : {
-            "enabled" : "true",
-            "y" : 10,
-            "rotation" : -90,
-            "align" : "right",
-            "color" : "#FFFFFF",
-            "format" : "{point.y:.0f}",
-            "style" : {
-               "fontFamily" : "Verdana, sans-serif",
-               "fontSize" : "13px"
-            }
-         }
-      }
-   ],
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
+   "legend" : {
+      "enabled" : "false"
    },
    "xAxis" : {
       "type" : "category",
@@ -51,13 +23,41 @@
          }
       }
    },
-   "legend" : {
-      "enabled" : "false"
+   "chart" : {
+      "type" : "column"
    },
-   "subtitle" : {
-      "text" : "Last updated at 2024-11-04 02:10:11 GMT"
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
    },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2024]"
-   }
+   "series" : [
+      {
+         "name" : "Contributions",
+         "data" : [
+            [
+               "Perl",
+               15430
+            ],
+            [
+               "Raku",
+               8717
+            ],
+            [
+               "Blog",
+               5433
+            ]
+         ],
+         "dataLabels" : {
+            "style" : {
+               "fontSize" : "13px",
+               "fontFamily" : "Verdana, sans-serif"
+            },
+            "y" : 10,
+            "align" : "right",
+            "enabled" : "true",
+            "format" : "{point.y:.0f}",
+            "rotation" : -90,
+            "color" : "#FFFFFF"
+         }
+      }
+   ]
 }
