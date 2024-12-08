@@ -1,47 +1,15 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   "chart" : {
+      "type" : "column"
    },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-11-25 05:36:20 GMT"
+      "text" : "[Champions: 30] Last updated at 2024-12-08 23:24:58 GMT"
    },
-   "xAxis" : {
-      "categories" : [
-         "Csaba Simandi",
-         "Dan Friedman",
-         "Daniel Bowling",
-         "Daniel Mantovani",
-         "Daniel Mita",
-         "Daniel Pfeiffer",
-         "Dario Mazzeo",
-         "Darren Bottin",
-         "Dave Cross",
-         "Dave Jacoby",
-         "David Ferrone",
-         "David Kayal",
-         "David Santiago",
-         "David Schwartz",
-         "Denis Yurashku",
-         "Dieter Dobbelaere",
-         "Dimitar Dimitrov",
-         "Donald Hunter",
-         "Doug Schrag",
-         "Duane Powell",
-         "Duncan C. White",
-         "E. Choroba",
-         "Eddy HS",
-         "Fabrizio Poggi",
-         "Feng Chang",
-         "Finley",
-         "Flavio Poletti",
-         "Francis Whittle",
-         "Fred Zinn",
-         "Freddie B"
-      ]
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    },
    "series" : [
       {
@@ -56,8 +24,8 @@
             21,
             5,
             68,
-            502,
-            232,
+            506,
+            236,
             4,
             0,
             8,
@@ -68,7 +36,7 @@
             0,
             82,
             396,
-            581,
+            585,
             2,
             8,
             22,
@@ -106,7 +74,7 @@
             0,
             0,
             0,
-            377,
+            387,
             4,
             237,
             36,
@@ -115,6 +83,7 @@
          ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -125,7 +94,7 @@
             0,
             0,
             2,
-            180,
+            181,
             7,
             0,
             0,
@@ -146,8 +115,7 @@
             9,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
    "plotOptions" : {
@@ -155,13 +123,45 @@
          "stacking" : "percent"
       }
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
-   "chart" : {
-      "type" : "column"
+   "xAxis" : {
+      "categories" : [
+         "Csaba Simandi",
+         "Dan Friedman",
+         "Daniel Bowling",
+         "Daniel Mantovani",
+         "Daniel Mita",
+         "Daniel Pfeiffer",
+         "Dario Mazzeo",
+         "Darren Bottin",
+         "Dave Cross",
+         "Dave Jacoby",
+         "David Ferrone",
+         "David Kayal",
+         "David Santiago",
+         "David Schwartz",
+         "Denis Yurashku",
+         "Dieter Dobbelaere",
+         "Dimitar Dimitrov",
+         "Donald Hunter",
+         "Doug Schrag",
+         "Duane Powell",
+         "Duncan C. White",
+         "E. Choroba",
+         "Eddy HS",
+         "Fabrizio Poggi",
+         "Feng Chang",
+         "Finley",
+         "Flavio Poletti",
+         "Francis Whittle",
+         "Fred Zinn",
+         "Freddie B"
+      ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
    }
 }

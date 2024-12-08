@@ -1,9 +1,57 @@
 {
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-12-08 23:24:58 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "xAxis" : {
+      "categories" : [
+         "Matthew Somerville",
+         "Matthias Muth",
+         "mauke",
+         "Max Kossek",
+         "Maxim Kolodyazhny",
+         "Maxim Nechaev",
+         "Michael Hamlin",
+         "Michael Schaap",
+         "Miguel Prz",
+         "Mihail Iosilevitch",
+         "Mike Accardo",
+         "Mohammad Khalid Anwar",
+         "Mohammad Sajid Anwar",
+         "Moray Jones",
+         "Mustafa Aydin",
+         "Myoungjin Jeon",
+         "Nazareno Delucca",
+         "Neil Bowers",
+         "Nelo Tovar",
+         "Nick Logan",
+         "Nicolas Mendoza",
+         "Niels van Dijke",
+         "Nikhil Prasanna",
+         "Noud Aldenhoven",
+         "Nuno Vieira",
+         "Oleksii Tsvietnov",
+         "Oliver Oviedo",
+         "Olivier Delouya",
+         "Olli-Antti Kivilahti",
+         "Ozzy"
+      ]
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             4,
-            152,
+            154,
             2,
             6,
             13,
@@ -32,8 +80,7 @@
             20,
             0,
             0
-         ],
-         "name" : "Perl"
+         ]
       },
       {
          "name" : "Raku",
@@ -74,7 +121,7 @@
          "name" : "Blog",
          "data" : [
             1,
-            71,
+            72,
             0,
             0,
             0,
@@ -106,62 +153,15 @@
          ]
       }
    ],
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-11-25 05:36:20 GMT"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Matthew Somerville",
-         "Matthias Muth",
-         "mauke",
-         "Max Kossek",
-         "Maxim Kolodyazhny",
-         "Maxim Nechaev",
-         "Michael Hamlin",
-         "Michael Schaap",
-         "Miguel Prz",
-         "Mihail Iosilevitch",
-         "Mike Accardo",
-         "Mohammad Khalid Anwar",
-         "Mohammad Sajid Anwar",
-         "Moray Jones",
-         "Mustafa Aydin",
-         "Myoungjin Jeon",
-         "Nazareno Delucca",
-         "Neil Bowers",
-         "Nelo Tovar",
-         "Nick Logan",
-         "Nicolas Mendoza",
-         "Niels van Dijke",
-         "Nikhil Prasanna",
-         "Noud Aldenhoven",
-         "Nuno Vieira",
-         "Oleksii Tsvietnov",
-         "Oliver Oviedo",
-         "Olivier Delouya",
-         "Olli-Antti Kivilahti",
-         "Ozzy"
-      ]
+      },
+      "min" : 0
    }
 }
