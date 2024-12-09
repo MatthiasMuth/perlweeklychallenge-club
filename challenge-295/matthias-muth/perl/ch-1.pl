@@ -16,7 +16,6 @@ sub word_break( $str, $words ) {
 }
 
 use Test2::V0 qw( -no_srand );
-use Data::Dump qw( pp );
 
 ok word_break( "weeklychallenge", ["challenge", "weekly"] ),
     'Example 1: word_break( "weeklychallenge", ["challenge", "weekly"] ) is true';

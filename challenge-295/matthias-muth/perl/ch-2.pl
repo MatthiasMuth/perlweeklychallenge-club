@@ -11,8 +11,8 @@
 use v5.36;
 use builtin qw( true false );
 
+use lib '.';
 use Verbose;
-# $verbose = 1;
 
 use Algorithm::Functional::BFS;
 
@@ -52,7 +52,6 @@ sub jump_game( @ints ) {
 }
 
 use Test2::V0 qw( -no_srand );
-use Data::Dump qw( pp );
 
 is jump_game( 2, 3, 1, 1, 4 ), 2,
     'Example 1: jump_game( 2, 3, 1, 1, 4 ) == 2';

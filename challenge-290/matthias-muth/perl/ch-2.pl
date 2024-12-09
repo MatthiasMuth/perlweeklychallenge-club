@@ -199,7 +199,7 @@ my $sub_name = "luhn_s_algorithm";
 #
 #   Flexible testing.
 #
-=for testing
+# =for testing
 my $extras = 0;
 my @tests = (
     [ 'Example 1:', 17893729974, true ],
@@ -233,9 +233,9 @@ for my $sub ( sort grep /^${sub_name}/, keys %:: ) {
 }
 
 done_testing;
-=cut
+# =cut
 
-# =for benchmark
+=for benchmark
 #
 #   Benchmarks.
 #

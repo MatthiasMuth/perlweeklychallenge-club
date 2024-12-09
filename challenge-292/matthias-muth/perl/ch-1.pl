@@ -38,7 +38,6 @@ sub twice_largest_2( @ints ) {
 
 use Test2::V0; # qw( -no_srand );
 use List::Util qw( shuffle );
-use Data::Dump qw( pp );
 
 is twice_largest_2( 2, 4, 1, 0 ), 1,
     'Example 1: twice_largest( 2, 4, 1, 0 ) == 1';
@@ -47,6 +46,7 @@ is twice_largest_2( 1, 2, 3, 4 ), -1,
 
 done_testing;
 
+=for benchmark
 use Benchmark qw( cmpthese );
 
 for my $n_entries ( 10, 100, 1000, 10000 ) {
@@ -57,5 +57,6 @@ for my $n_entries ( 10, 100, 1000, 10000 ) {
     } );
     say "";
 }
+=cut
 
 exit 0;

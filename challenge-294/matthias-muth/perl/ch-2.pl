@@ -9,8 +9,9 @@
 #
 
 use v5.36;
+
+use lib '.';
 use Verbose;
-$verbose = 1;
 
 sub next_permutation( @ints ) {
     vsay "ints: @ints";
@@ -58,7 +59,6 @@ sub next_permutation( @ints ) {
 }
 
 use Test2::V0 qw( -no_srand );
-use Data::Dump qw( pp );
 
 is [ next_permutation( 1, 2, 3 ) ], [ 1, 3, 2 ],
     'Example 1: next_permutation( 1, 2, 3 ) == (1, 3, 2)';

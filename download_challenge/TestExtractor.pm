@@ -277,6 +277,7 @@ sub run_tests( @sub_names ) {
 }
 
 sub read_task( $fd_or_filename, $wanted_task = undef ) {
+    local $d_area = "task";
 
     my $fd;
     if ( ref \$fd_or_filename eq 'SCALAR' ) {
@@ -301,7 +302,7 @@ sub read_task( $fd_or_filename, $wanted_task = undef ) {
             if $wanted_task && $task != $wanted_task;
 
         $task_text .= $_;
-        vsay "task text added:", pp $task_text;
+        dsay "task text added:", pp $task_text;
     }
 
     return $task_title, $task_text;
@@ -405,7 +406,14 @@ sub extract_tests( $task_text ) {
             # s/\)/\]/g;
 
             # Add missing commas between literals.
-            while ( s/($literal)\s+($literal)/$1, $2/ ) {}
+            while ( /$literal/g ) {
+                my $p = pos;
+                s{\G \s+ ($literal)}{
+                    $p += 2 + length($1);
+                    ", $1"
+                }xeg;
+                pos = $p;
+            }
         }
 
         while ( $input =~ / ($var_name) \s* = \s* ($data_re) /xg ) {
@@ -416,7 +424,7 @@ sub extract_tests( $task_text ) {
 
         while ( $output =~ /^\s* ($data_re) $/xg ) {
             local $_ = $1;
-            # vsay "\$_: <$_>";
+            # dsay "\$_: <$_>";
             # Special case:  (1,2),(3,4),(5,6)
             # should become: [1,2],[3,4],[5,6] ]
             if ( $+{no_paren} && /$parenthesized/ ) {

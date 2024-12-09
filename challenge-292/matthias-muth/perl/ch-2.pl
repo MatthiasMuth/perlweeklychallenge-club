@@ -10,8 +10,8 @@
 
 use v5.36;
 
+use lib '.';
 use Verbose;
-# $verbose = 1;
 
 use List::Util qw( uniq );
 
@@ -68,7 +68,6 @@ sub zuma_game( $board, $hand ) {
 }
 
 use Test2::V0 qw( -no_srand );
-use Data::Dump qw( pp );
 
 is zuma_game( "WRRBBW", "RB" ), -1,
     'Example 1: zuma_game( "WRRBBW", "RB" ) == -1';

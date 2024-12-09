@@ -11,8 +11,8 @@
 use v5.40;
 use experimental 'class';
 
+use lib '.';
 use Verbose;
-# $verbose = 1;
 
 use List::Util qw( uniq );
 
