@@ -36,10 +36,14 @@
          "Javier Luque"
       ]
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-12-15 09:06:38 GMT"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
    "series" : [
       {
@@ -64,7 +68,7 @@
             0,
             12,
             6,
-            534,
+            536,
             1,
             2,
             306,
@@ -78,6 +82,7 @@
          "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             2,
@@ -99,7 +104,7 @@
             0,
             0,
             0,
-            534,
+            536,
             0,
             3,
             10,
@@ -109,11 +114,9 @@
             0,
             14,
             92
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -135,7 +138,7 @@
             0,
             0,
             0,
-            255,
+            256,
             0,
             0,
             125,
@@ -145,23 +148,20 @@
             12,
             0,
             46
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-12-08 23:24:58 GMT"
-   },
    "chart" : {
       "type" : "column"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    }
 }
