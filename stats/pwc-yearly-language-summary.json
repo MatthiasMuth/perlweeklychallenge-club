@@ -1,15 +1,44 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge Language"
-   },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "xAxis" : {
-      "type" : "category"
-   },
+   "series" : [
+      {
+         "name" : "The Weekly Challenge Languages",
+         "colorByPoint" : "true",
+         "data" : [
+            {
+               "drilldown" : "2024",
+               "y" : 5353,
+               "name" : "2024"
+            },
+            {
+               "y" : 5702,
+               "drilldown" : "2023",
+               "name" : "2023"
+            },
+            {
+               "name" : "2022",
+               "y" : 5375,
+               "drilldown" : "2022"
+            },
+            {
+               "drilldown" : "2021",
+               "y" : 4976,
+               "name" : "2021"
+            },
+            {
+               "name" : "2020",
+               "drilldown" : "2020",
+               "y" : 5187
+            },
+            {
+               "y" : 3511,
+               "drilldown" : "2019",
+               "name" : "2019"
+            }
+         ]
+      }
+   ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2024-12-15 09:06:38 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2024-12-28 21:14:07 GMT"
    },
    "plotOptions" : {
       "series" : {
@@ -20,78 +49,45 @@
          "borderWidth" : 0
       }
    },
+   "legend" : {
+      "enabled" : "false"
+   },
    "tooltip" : {
       "pointFormat" : "<span style=\"color:{point.color}\">Challenge {point.name}</span>: <b>{point.y:f}</b><br/>",
       "followPointer" : "true",
       "headerFormat" : "<span style=\"font-size:11px\"></span>"
    },
-   "series" : [
-      {
-         "colorByPoint" : "true",
-         "data" : [
-            {
-               "name" : "2024",
-               "y" : 5200,
-               "drilldown" : "2024"
-            },
-            {
-               "drilldown" : "2023",
-               "y" : 5702,
-               "name" : "2023"
-            },
-            {
-               "y" : 5375,
-               "name" : "2022",
-               "drilldown" : "2022"
-            },
-            {
-               "y" : 4976,
-               "name" : "2021",
-               "drilldown" : "2021"
-            },
-            {
-               "drilldown" : "2020",
-               "y" : 5187,
-               "name" : "2020"
-            },
-            {
-               "drilldown" : "2019",
-               "name" : "2019",
-               "y" : 3511
-            }
-         ],
-         "name" : "The Weekly Challenge Languages"
-      }
-   ],
    "chart" : {
       "type" : "column"
    },
-   "yAxis" : {
-      "title" : {
-         "text" : "Total Solutions"
-      }
+   "xAxis" : {
+      "type" : "category"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Language"
    },
    "drilldown" : {
       "series" : [
          {
+            "name" : "2024",
             "data" : [
                [
                   "Perl",
-                  2682
+                  2764
                ],
                [
                   "Raku",
-                  1355
+                  1398
                ],
                [
                   "Blog",
-                  1163
+                  1191
                ]
             ],
-            "name" : "2024",
             "id" : "2024"
          },
          {
+            "id" : "2023",
             "data" : [
                [
                   "Perl",
@@ -106,11 +102,10 @@
                   1197
                ]
             ],
-            "name" : "2023",
-            "id" : "2023"
+            "name" : "2023"
          },
          {
-            "id" : "2022",
+            "name" : "2022",
             "data" : [
                [
                   "Perl",
@@ -125,10 +120,10 @@
                   1010
                ]
             ],
-            "name" : "2022"
+            "id" : "2022"
          },
          {
-            "id" : "2021",
+            "name" : "2021",
             "data" : [
                [
                   "Perl",
@@ -143,7 +138,7 @@
                   921
                ]
             ],
-            "name" : "2021"
+            "id" : "2021"
          },
          {
             "id" : "2020",
@@ -164,8 +159,8 @@
             "name" : "2020"
          },
          {
-            "id" : "2019",
             "name" : "2019",
+            "id" : "2019",
             "data" : [
                [
                   "Perl",
@@ -182,5 +177,10 @@
             ]
          }
       ]
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : "Total Solutions"
+      }
    }
 }

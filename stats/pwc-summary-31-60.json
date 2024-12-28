@@ -1,6 +1,28 @@
 {
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
    "xAxis" : {
       "categories" : [
+         "Athanasius",
          "Aubrey Quarcoo",
          "Augie De Blieck Jr.",
          "Avery Adams",
@@ -29,20 +51,13 @@
          "Clive Holloway",
          "Colin Crain",
          "Craig",
-         "Creewick",
-         "Cristina Heredia"
+         "Creewick"
       ]
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-12-15 09:06:38 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
    },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
+            502,
             0,
             6,
             45,
@@ -55,11 +70,11 @@
             0,
             0,
             4,
-            304,
+            308,
             6,
             72,
             2,
-            0,
+            2,
             30,
             22,
             0,
@@ -71,17 +86,18 @@
             1,
             337,
             3,
-            2,
-            63
-         ]
+            2
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
          "data" : [
+            463,
             0,
             0,
             0,
-            137,
+            139,
             3,
             0,
             0,
@@ -101,11 +117,10 @@
             9,
             0,
             0,
-            17,
             2,
+            17,
             0,
             194,
-            0,
             0,
             0
          ]
@@ -113,6 +128,7 @@
       {
          "name" : "Blog",
          "data" : [
+            4,
             0,
             7,
             43,
@@ -141,27 +157,11 @@
             0,
             137,
             0,
-            0,
             0
          ]
       }
    ],
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2024-12-28 21:14:07 GMT"
    }
 }

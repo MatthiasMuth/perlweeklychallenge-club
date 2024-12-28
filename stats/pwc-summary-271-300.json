@@ -1,58 +1,15 @@
 {
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-12-15 09:06:38 GMT"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Shaun Pearce",
-         "Shawn Wagner",
-         "Shimon Bollinger",
-         "Simon Green",
-         "Simon Miner",
-         "Simon Proctor",
-         "Simon Reinhardt",
-         "Sitaram Chamarty",
-         "Sol DeMuth",
-         "Solathian",
-         "Stephanie Stein",
-         "Stephen G. Lynn",
-         "Steve Bresson",
-         "Steve Rogerson",
-         "Steven Lembark",
-         "Steven Wilson",
-         "Stuart Little",
-         "Svetlana Nesterova",
-         "Ted Leahy",
-         "Tejas",
-         "Tester R59",
-         "Thomas Kohler",
-         "Tiago Stock",
-         "Tim King",
-         "Tim Potapov",
-         "Tim Smith",
-         "Tomasz Mucha",
-         "Tore Andersson",
-         "Torgny Lyon",
-         "Trenton Langer"
-      ]
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+      "text" : "[Champions: 30] Last updated at 2024-12-28 21:14:07 GMT"
    },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
+            2,
             0,
             22,
             0,
-            365,
+            369,
             7,
             5,
             4,
@@ -70,20 +27,20 @@
             4,
             4,
             2,
-            203,
+            206,
             1,
             10,
             14,
             0,
             6,
             2,
-            10,
-            5
-         ]
+            14
+         ],
+         "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
+            0,
             0,
             0,
             8,
@@ -112,17 +69,18 @@
             4,
             0,
             0,
-            0,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "name" : "Blog",
          "data" : [
             0,
             0,
+            0,
             3,
-            177,
+            179,
             0,
             12,
             0,
@@ -140,15 +98,14 @@
             0,
             0,
             0,
-            196,
+            199,
             0,
             3,
             0,
             0,
             0,
             0,
-            4,
-            0
+            5
          ]
       }
    ],
@@ -163,5 +120,48 @@
       "column" : {
          "stacking" : "percent"
       }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "xAxis" : {
+      "categories" : [
+         "Shasank Shah",
+         "Shaun Pearce",
+         "Shawn Wagner",
+         "Shimon Bollinger",
+         "Simon Green",
+         "Simon Miner",
+         "Simon Proctor",
+         "Simon Reinhardt",
+         "Sitaram Chamarty",
+         "Sol DeMuth",
+         "Solathian",
+         "Stephanie Stein",
+         "Stephen G. Lynn",
+         "Steve Bresson",
+         "Steve Rogerson",
+         "Steven Lembark",
+         "Steven Wilson",
+         "Stuart Little",
+         "Svetlana Nesterova",
+         "Ted Leahy",
+         "Tejas",
+         "Tester R59",
+         "Thomas Kohler",
+         "Tiago Stock",
+         "Tim King",
+         "Tim Potapov",
+         "Tim Smith",
+         "Tomasz Mucha",
+         "Tore Andersson",
+         "Torgny Lyon"
+      ]
    }
 }
