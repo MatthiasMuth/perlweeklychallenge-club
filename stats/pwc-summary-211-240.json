@@ -1,12 +1,15 @@
 {
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2024]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "xAxis" : {
       "categories" : [
@@ -42,21 +45,11 @@
          "Raghu R"
       ]
    },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
    "chart" : {
       "type" : "column"
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             0,
             8,
@@ -69,9 +62,9 @@
             4,
             180,
             0,
-            328,
+            330,
             1,
-            206,
+            208,
             6,
             11,
             7,
@@ -88,7 +81,8 @@
             4,
             21,
             0
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -126,6 +120,7 @@
          "name" : "Raku"
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -138,7 +133,7 @@
             0,
             0,
             0,
-            157,
+            158,
             0,
             0,
             2,
@@ -157,11 +152,16 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2024-12-28 21:14:07 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-01-05 10:49:14 GMT"
    }
 }
