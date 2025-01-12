@@ -1,18 +1,11 @@
 {
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-01-05 10:49:14 GMT"
    },
    "yAxis" : {
       "title" : {
@@ -28,7 +21,7 @@
             0,
             22,
             0,
-            373,
+            375,
             7,
             5,
             4,
@@ -46,7 +39,7 @@
             4,
             4,
             2,
-            208,
+            210,
             1,
             10,
             14,
@@ -92,13 +85,12 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
             0,
             3,
-            181,
+            182,
             0,
             12,
             0,
@@ -116,7 +108,7 @@
             0,
             0,
             0,
-            201,
+            203,
             0,
             3,
             0,
@@ -124,9 +116,20 @@
             0,
             0,
             5
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-01-12 22:19:39 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "xAxis" : {
       "categories" : [
          "Shasank Shah",
@@ -160,8 +163,5 @@
          "Tore Andersson",
          "Torgny Lyon"
       ]
-   },
-   "chart" : {
-      "type" : "column"
    }
 }

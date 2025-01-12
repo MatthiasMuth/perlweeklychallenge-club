@@ -1,19 +1,27 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge Language"
-   },
    "tooltip" : {
       "followPointer" : "true",
       "pointFormat" : "<span style=\"color:{point.color}\">Challenge {point.name}</span>: <b>{point.y:f}</b><br/>",
       "headerFormat" : "<span style=\"font-size:11px\"></span>"
    },
-   "plotOptions" : {
-      "series" : {
-         "dataLabels" : {
-            "enabled" : 1,
-            "format" : "{point.y}"
-         },
-         "borderWidth" : 0
+   "legend" : {
+      "enabled" : "false"
+   },
+   "xAxis" : {
+      "type" : "category"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "subtitle" : {
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-01-12 22:19:39 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Language"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : "Total Solutions"
       }
    },
    "drilldown" : {
@@ -37,6 +45,8 @@
             ]
          },
          {
+            "name" : "092",
+            "id" : "092",
             "data" : [
                [
                   "Perl",
@@ -50,13 +60,9 @@
                   "Blog",
                   16
                ]
-            ],
-            "id" : "092",
-            "name" : "092"
+            ]
          },
          {
-            "id" : "091",
-            "name" : "091",
             "data" : [
                [
                   "Perl",
@@ -70,11 +76,13 @@
                   "Blog",
                   16
                ]
-            ]
+            ],
+            "name" : "091",
+            "id" : "091"
          },
          {
-            "name" : "090",
             "id" : "090",
+            "name" : "090",
             "data" : [
                [
                   "Perl",
@@ -91,8 +99,6 @@
             ]
          },
          {
-            "name" : "089",
-            "id" : "089",
             "data" : [
                [
                   "Perl",
@@ -106,7 +112,9 @@
                   "Blog",
                   20
                ]
-            ]
+            ],
+            "id" : "089",
+            "name" : "089"
          },
          {
             "name" : "088",
@@ -127,8 +135,6 @@
             ]
          },
          {
-            "name" : "087",
-            "id" : "087",
             "data" : [
                [
                   "Perl",
@@ -142,11 +148,11 @@
                   "Blog",
                   14
                ]
-            ]
+            ],
+            "name" : "087",
+            "id" : "087"
          },
          {
-            "id" : "086",
-            "name" : "086",
             "data" : [
                [
                   "Perl",
@@ -160,7 +166,9 @@
                   "Blog",
                   15
                ]
-            ]
+            ],
+            "name" : "086",
+            "id" : "086"
          },
          {
             "data" : [
@@ -177,10 +185,12 @@
                   18
                ]
             ],
-            "id" : "085",
-            "name" : "085"
+            "name" : "085",
+            "id" : "085"
          },
          {
+            "name" : "084",
+            "id" : "084",
             "data" : [
                [
                   "Perl",
@@ -194,13 +204,9 @@
                   "Blog",
                   12
                ]
-            ],
-            "id" : "084",
-            "name" : "084"
+            ]
          },
          {
-            "id" : "083",
-            "name" : "083",
             "data" : [
                [
                   "Perl",
@@ -214,7 +220,9 @@
                   "Blog",
                   16
                ]
-            ]
+            ],
+            "id" : "083",
+            "name" : "083"
          },
          {
             "data" : [
@@ -231,8 +239,8 @@
                   17
                ]
             ],
-            "id" : "082",
-            "name" : "082"
+            "name" : "082",
+            "id" : "082"
          },
          {
             "data" : [
@@ -249,12 +257,10 @@
                   15
                ]
             ],
-            "id" : "081",
-            "name" : "081"
+            "name" : "081",
+            "id" : "081"
          },
          {
-            "name" : "080",
-            "id" : "080",
             "data" : [
                [
                   "Perl",
@@ -268,11 +274,11 @@
                   "Blog",
                   16
                ]
-            ]
+            ],
+            "name" : "080",
+            "id" : "080"
          },
          {
-            "id" : "079",
-            "name" : "079",
             "data" : [
                [
                   "Perl",
@@ -286,11 +292,11 @@
                   "Blog",
                   17
                ]
-            ]
+            ],
+            "name" : "079",
+            "id" : "079"
          },
          {
-            "id" : "078",
-            "name" : "078",
             "data" : [
                [
                   "Perl",
@@ -304,7 +310,9 @@
                   "Blog",
                   18
                ]
-            ]
+            ],
+            "name" : "078",
+            "id" : "078"
          },
          {
             "id" : "077",
@@ -325,6 +333,8 @@
             ]
          },
          {
+            "name" : "076",
+            "id" : "076",
             "data" : [
                [
                   "Perl",
@@ -338,11 +348,11 @@
                   "Blog",
                   16
                ]
-            ],
-            "name" : "076",
-            "id" : "076"
+            ]
          },
          {
+            "id" : "075",
+            "name" : "075",
             "data" : [
                [
                   "Perl",
@@ -356,11 +366,11 @@
                   "Blog",
                   20
                ]
-            ],
-            "id" : "075",
-            "name" : "075"
+            ]
          },
          {
+            "name" : "074",
+            "id" : "074",
             "data" : [
                [
                   "Perl",
@@ -374,13 +384,9 @@
                   "Blog",
                   20
                ]
-            ],
-            "name" : "074",
-            "id" : "074"
+            ]
          },
          {
-            "name" : "073",
-            "id" : "073",
             "data" : [
                [
                   "Perl",
@@ -394,11 +400,11 @@
                   "Blog",
                   17
                ]
-            ]
+            ],
+            "id" : "073",
+            "name" : "073"
          },
          {
-            "id" : "072",
-            "name" : "072",
             "data" : [
                [
                   "Perl",
@@ -412,9 +418,13 @@
                   "Blog",
                   19
                ]
-            ]
+            ],
+            "name" : "072",
+            "id" : "072"
          },
          {
+            "name" : "071",
+            "id" : "071",
             "data" : [
                [
                   "Perl",
@@ -428,11 +438,11 @@
                   "Blog",
                   15
                ]
-            ],
-            "name" : "071",
-            "id" : "071"
+            ]
          },
          {
+            "name" : "070",
+            "id" : "070",
             "data" : [
                [
                   "Perl",
@@ -446,11 +456,11 @@
                   "Blog",
                   17
                ]
-            ],
-            "id" : "070",
-            "name" : "070"
+            ]
          },
          {
+            "id" : "069",
+            "name" : "069",
             "data" : [
                [
                   "Perl",
@@ -464,11 +474,11 @@
                   "Blog",
                   16
                ]
-            ],
-            "id" : "069",
-            "name" : "069"
+            ]
          },
          {
+            "id" : "068",
+            "name" : "068",
             "data" : [
                [
                   "Perl",
@@ -482,11 +492,11 @@
                   "Blog",
                   13
                ]
-            ],
-            "name" : "068",
-            "id" : "068"
+            ]
          },
          {
+            "name" : "067",
+            "id" : "067",
             "data" : [
                [
                   "Perl",
@@ -500,13 +510,9 @@
                   "Blog",
                   18
                ]
-            ],
-            "name" : "067",
-            "id" : "067"
+            ]
          },
          {
-            "id" : "066",
-            "name" : "066",
             "data" : [
                [
                   "Perl",
@@ -520,9 +526,13 @@
                   "Blog",
                   14
                ]
-            ]
+            ],
+            "id" : "066",
+            "name" : "066"
          },
          {
+            "name" : "065",
+            "id" : "065",
             "data" : [
                [
                   "Perl",
@@ -536,9 +546,7 @@
                   "Blog",
                   15
                ]
-            ],
-            "id" : "065",
-            "name" : "065"
+            ]
          },
          {
             "name" : "064",
@@ -595,8 +603,8 @@
             ]
          },
          {
-            "id" : "061",
             "name" : "061",
+            "id" : "061",
             "data" : [
                [
                   "Perl",
@@ -627,8 +635,8 @@
                   16
                ]
             ],
-            "name" : "060",
-            "id" : "060"
+            "id" : "060",
+            "name" : "060"
          },
          {
             "data" : [
@@ -667,8 +675,6 @@
             "name" : "058"
          },
          {
-            "id" : "057",
-            "name" : "057",
             "data" : [
                [
                   "Perl",
@@ -682,7 +688,9 @@
                   "Blog",
                   15
                ]
-            ]
+            ],
+            "id" : "057",
+            "name" : "057"
          },
          {
             "data" : [
@@ -699,12 +707,10 @@
                   17
                ]
             ],
-            "name" : "056",
-            "id" : "056"
+            "id" : "056",
+            "name" : "056"
          },
          {
-            "id" : "055",
-            "name" : "055",
             "data" : [
                [
                   "Perl",
@@ -718,9 +724,13 @@
                   "Blog",
                   14
                ]
-            ]
+            ],
+            "name" : "055",
+            "id" : "055"
          },
          {
+            "name" : "054",
+            "id" : "054",
             "data" : [
                [
                   "Perl",
@@ -734,11 +744,11 @@
                   "Blog",
                   18
                ]
-            ],
-            "id" : "054",
-            "name" : "054"
+            ]
          },
          {
+            "name" : "053",
+            "id" : "053",
             "data" : [
                [
                   "Perl",
@@ -752,13 +762,9 @@
                   "Blog",
                   15
                ]
-            ],
-            "name" : "053",
-            "id" : "053"
+            ]
          },
          {
-            "id" : "052",
-            "name" : "052",
             "data" : [
                [
                   "Perl",
@@ -772,7 +778,9 @@
                   "Blog",
                   14
                ]
-            ]
+            ],
+            "id" : "052",
+            "name" : "052"
          },
          {
             "data" : [
@@ -789,8 +797,8 @@
                   11
                ]
             ],
-            "name" : "051",
-            "id" : "051"
+            "id" : "051",
+            "name" : "051"
          },
          {
             "name" : "050",
@@ -811,8 +819,6 @@
             ]
          },
          {
-            "name" : "049",
-            "id" : "049",
             "data" : [
                [
                   "Perl",
@@ -826,7 +832,9 @@
                   "Blog",
                   12
                ]
-            ]
+            ],
+            "name" : "049",
+            "id" : "049"
          },
          {
             "id" : "048",
@@ -883,6 +891,8 @@
             ]
          },
          {
+            "id" : "045",
+            "name" : "045",
             "data" : [
                [
                   "Perl",
@@ -896,9 +906,7 @@
                   "Blog",
                   11
                ]
-            ],
-            "name" : "045",
-            "id" : "045"
+            ]
          },
          {
             "data" : [
@@ -937,6 +945,8 @@
             ]
          },
          {
+            "id" : "042",
+            "name" : "042",
             "data" : [
                [
                   "Perl",
@@ -950,20 +960,14 @@
                   "Blog",
                   11
                ]
-            ],
-            "name" : "042",
-            "id" : "042"
+            ]
          }
       ]
    },
-   "xAxis" : {
-      "type" : "category"
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "series" : [
       {
+         "name" : "The Weekly Challenge Languages",
+         "colorByPoint" : "true",
          "data" : [
             {
                "name" : "093",
@@ -971,39 +975,39 @@
                "y" : 87
             },
             {
-               "name" : "092",
+               "y" : 98,
                "drilldown" : "092",
-               "y" : 98
+               "name" : "092"
             },
             {
-               "y" : 108,
+               "name" : "091",
                "drilldown" : "091",
-               "name" : "091"
-            },
-            {
-               "drilldown" : "090",
-               "name" : "090",
-               "y" : 113
+               "y" : 108
             },
             {
                "y" : 113,
+               "name" : "090",
+               "drilldown" : "090"
+            },
+            {
+               "drilldown" : "089",
                "name" : "089",
-               "drilldown" : "089"
+               "y" : 113
             },
             {
-               "y" : 121,
+               "drilldown" : "088",
                "name" : "088",
-               "drilldown" : "088"
+               "y" : 121
             },
             {
+               "y" : 101,
                "drilldown" : "087",
-               "name" : "087",
-               "y" : 101
+               "name" : "087"
             },
             {
-               "y" : 104,
                "drilldown" : "086",
-               "name" : "086"
+               "name" : "086",
+               "y" : 104
             },
             {
                "drilldown" : "085",
@@ -1011,29 +1015,29 @@
                "y" : 113
             },
             {
-               "drilldown" : "084",
+               "y" : 119,
                "name" : "084",
-               "y" : 119
+               "drilldown" : "084"
             },
             {
-               "drilldown" : "083",
                "name" : "083",
+               "drilldown" : "083",
                "y" : 127
             },
             {
                "y" : 114,
-               "name" : "082",
-               "drilldown" : "082"
+               "drilldown" : "082",
+               "name" : "082"
             },
             {
-               "drilldown" : "081",
                "name" : "081",
+               "drilldown" : "081",
                "y" : 114
             },
             {
+               "y" : 127,
                "drilldown" : "080",
-               "name" : "080",
-               "y" : 127
+               "name" : "080"
             },
             {
                "name" : "079",
@@ -1041,29 +1045,29 @@
                "y" : 122
             },
             {
-               "name" : "078",
+               "y" : 127,
                "drilldown" : "078",
-               "y" : 127
+               "name" : "078"
             },
             {
+               "y" : 100,
                "drilldown" : "077",
-               "name" : "077",
-               "y" : 100
+               "name" : "077"
             },
             {
+               "y" : 101,
                "name" : "076",
-               "drilldown" : "076",
-               "y" : 101
+               "drilldown" : "076"
             },
             {
-               "y" : 117,
                "name" : "075",
-               "drilldown" : "075"
+               "drilldown" : "075",
+               "y" : 117
             },
             {
-               "y" : 117,
+               "drilldown" : "074",
                "name" : "074",
-               "drilldown" : "074"
+               "y" : 117
             },
             {
                "y" : 112,
@@ -1071,9 +1075,9 @@
                "name" : "073"
             },
             {
+               "y" : 116,
                "drilldown" : "072",
-               "name" : "072",
-               "y" : 116
+               "name" : "072"
             },
             {
                "y" : 82,
@@ -1081,44 +1085,44 @@
                "drilldown" : "071"
             },
             {
-               "y" : 98,
                "name" : "070",
-               "drilldown" : "070"
+               "drilldown" : "070",
+               "y" : 98
             },
             {
-               "name" : "069",
                "drilldown" : "069",
+               "name" : "069",
                "y" : 87
             },
             {
-               "y" : 79,
                "drilldown" : "068",
-               "name" : "068"
+               "name" : "068",
+               "y" : 79
             },
             {
                "y" : 94,
-               "drilldown" : "067",
-               "name" : "067"
+               "name" : "067",
+               "drilldown" : "067"
             },
             {
-               "drilldown" : "066",
                "name" : "066",
+               "drilldown" : "066",
                "y" : 88
             },
             {
+               "y" : 77,
                "name" : "065",
-               "drilldown" : "065",
-               "y" : 77
+               "drilldown" : "065"
             },
             {
                "y" : 84,
-               "drilldown" : "064",
-               "name" : "064"
+               "name" : "064",
+               "drilldown" : "064"
             },
             {
-               "y" : 93,
+               "drilldown" : "063",
                "name" : "063",
-               "drilldown" : "063"
+               "y" : 93
             },
             {
                "name" : "062",
@@ -1126,29 +1130,29 @@
                "y" : 62
             },
             {
-               "drilldown" : "061",
                "name" : "061",
+               "drilldown" : "061",
                "y" : 85
             },
             {
-               "y" : 89,
                "drilldown" : "060",
-               "name" : "060"
+               "name" : "060",
+               "y" : 89
             },
             {
-               "drilldown" : "059",
+               "y" : 93,
                "name" : "059",
-               "y" : 93
+               "drilldown" : "059"
             },
             {
-               "drilldown" : "058",
                "name" : "058",
+               "drilldown" : "058",
                "y" : 71
             },
             {
-               "y" : 86,
+               "name" : "057",
                "drilldown" : "057",
-               "name" : "057"
+               "y" : 86
             },
             {
                "name" : "056",
@@ -1156,23 +1160,23 @@
                "y" : 104
             },
             {
-               "name" : "055",
                "drilldown" : "055",
+               "name" : "055",
                "y" : 92
             },
             {
+               "y" : 107,
                "name" : "054",
-               "drilldown" : "054",
-               "y" : 107
+               "drilldown" : "054"
             },
             {
-               "name" : "053",
                "drilldown" : "053",
+               "name" : "053",
                "y" : 105
             },
             {
-               "name" : "052",
                "drilldown" : "052",
+               "name" : "052",
                "y" : 93
             },
             {
@@ -1181,19 +1185,19 @@
                "name" : "051"
             },
             {
-               "y" : 104,
+               "name" : "050",
                "drilldown" : "050",
-               "name" : "050"
+               "y" : 104
             },
             {
-               "drilldown" : "049",
                "name" : "049",
+               "drilldown" : "049",
                "y" : 93
             },
             {
-               "name" : "048",
+               "y" : 112,
                "drilldown" : "048",
-               "y" : 112
+               "name" : "048"
             },
             {
                "y" : 88,
@@ -1206,9 +1210,9 @@
                "drilldown" : "046"
             },
             {
-               "y" : 102,
                "name" : "045",
-               "drilldown" : "045"
+               "drilldown" : "045",
+               "y" : 102
             },
             {
                "drilldown" : "044",
@@ -1216,29 +1220,25 @@
                "y" : 90
             },
             {
-               "name" : "043",
+               "y" : 72,
                "drilldown" : "043",
-               "y" : 72
+               "name" : "043"
             },
             {
-               "drilldown" : "042",
+               "y" : 98,
                "name" : "042",
-               "y" : 98
+               "drilldown" : "042"
             }
-         ],
-         "colorByPoint" : "true",
-         "name" : "The Weekly Challenge Languages"
+         ]
       }
    ],
-   "yAxis" : {
-      "title" : {
-         "text" : "Total Solutions"
+   "plotOptions" : {
+      "series" : {
+         "dataLabels" : {
+            "format" : "{point.y}",
+            "enabled" : 1
+         },
+         "borderWidth" : 0
       }
-   },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-01-05 10:49:14 GMT"
    }
 }

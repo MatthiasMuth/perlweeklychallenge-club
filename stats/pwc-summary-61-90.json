@@ -33,20 +33,30 @@
          "Fred Zinn"
       ]
    },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-01-12 22:19:39 GMT"
+   },
    "chart" : {
       "type" : "column"
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-01-05 10:49:14 GMT"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
-      }
+      },
+      "min" : 0
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             63,
             2,
@@ -58,8 +68,8 @@
             21,
             5,
             68,
-            514,
-            244,
+            516,
+            246,
             4,
             0,
             8,
@@ -70,7 +80,7 @@
             0,
             82,
             396,
-            593,
+            595,
             2,
             8,
             22,
@@ -78,10 +88,10 @@
             310,
             0,
             2
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -108,16 +118,14 @@
             0,
             0,
             0,
-            395,
+            397,
             4,
             237,
             36,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -129,7 +137,7 @@
             0,
             0,
             2,
-            184,
+            185,
             7,
             0,
             0,
@@ -149,19 +157,11 @@
             311,
             9,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
    "title" : {
-      "text" : "The Weekly Challenge [2019 - 2024]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+      "text" : "The Weekly Challenge [2019 - 2025]"
    }
 }
