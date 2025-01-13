@@ -1,71 +1,71 @@
 {
-   "plotOptions" : {
-      "series" : {
-         "borderWidth" : 0,
-         "dataLabels" : {
-            "format" : "{point.y}",
-            "enabled" : 1
-         }
-      }
-   },
    "drilldown" : {
       "series" : [
          {
+            "name" : "303",
             "data" : [
                [
                   "Perl",
-                  34
+                  38
                ],
                [
                   "Raku",
-                  15
+                  18
                ],
                [
                   "Blog",
-                  11
+                  12
                ]
             ],
-            "name" : "303",
             "id" : "303"
          }
       ]
    },
-   "series" : [
-      {
-         "colorByPoint" : "true",
-         "data" : [
-            {
-               "drilldown" : "303",
-               "name" : "303",
-               "y" : 60
-            }
-         ],
-         "name" : "The Weekly Challenge Languages"
-      }
-   ],
+   "legend" : {
+      "enabled" : "false"
+   },
    "yAxis" : {
       "title" : {
          "text" : "Total Solutions"
       }
    },
-   "title" : {
-      "text" : "The Weekly Challenge Language"
+   "plotOptions" : {
+      "series" : {
+         "dataLabels" : {
+            "format" : "{point.y}",
+            "enabled" : 1
+         },
+         "borderWidth" : 0
+      }
    },
-   "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-01-12 22:19:39 GMT"
-   },
-   "chart" : {
-      "type" : "column"
-   },
+   "series" : [
+      {
+         "data" : [
+            {
+               "y" : 68,
+               "name" : "303",
+               "drilldown" : "303"
+            }
+         ],
+         "colorByPoint" : "true",
+         "name" : "The Weekly Challenge Languages"
+      }
+   ],
    "xAxis" : {
       "type" : "category"
    },
-   "legend" : {
-      "enabled" : "false"
+   "title" : {
+      "text" : "The Weekly Challenge Language"
+   },
+   "chart" : {
+      "type" : "column"
    },
    "tooltip" : {
       "headerFormat" : "<span style=\"font-size:11px\"></span>",
       "followPointer" : "true",
       "pointFormat" : "<span style=\"color:{point.color}\">Challenge {point.name}</span>: <b>{point.y:f}</b><br/>"
+   },
+   "subtitle" : {
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-01-13 10:26:33 GMT"
    }
 }
