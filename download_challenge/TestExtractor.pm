@@ -315,7 +315,7 @@ sub extract_tests( $task_text ) {
     # These regular expressions are used for extracting input or output
     # test data.
     my $var_name      = qr/ [\@\$]\w+ /x;
-    my $literal       = qr/ ".*?" | '.*?' | [+-]?\d+ | undef /x;
+    my $literal       = qr/ ".*?" | '.*?' | [+-]?\d+(?:\.\d+)? | undef /x;
     my $bracketed     = qr/ \[ [^\[]*? \] /xs;
     my $parenthesized = qr/ \( [^\[]*? \) /xs;
     my $entry         = qr/ $literal | $bracketed | $parenthesized /x;

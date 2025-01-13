@@ -7,7 +7,7 @@ use feature 'signatures';
 no warnings 'experimental::signatures';
 
 use Data::Dump qw( pp );
-use Test2::V0;
+use Test2::V0 ( -no_srand => 1 );
 
 use lib qw( . .. );
 use TestExtractor;
@@ -45,10 +45,10 @@ while ( <DATA> ) {
 
 do {
     vsay "output: ", pp $_->{OUTPUT};
-    0 && vsay "passing in <",
-	    "$_->{TEST}\nInput: none\nOutput: $_->{OUTPUT}", ">";
+    0 and vsay "passing in <",
+	    "$_->{TEST}\nInput: \$dummy = 1\nOutput: $_->{OUTPUT}", ">";
     my @extracted = TestExtractor::extract_tests(
-	    "$_->{TEST}\nInput: none\nOutput: $_->{OUTPUT}" );
+	    "$_->{TEST}\nInput: \$dummy = 1\nOutput: $_->{OUTPUT}" );
     vsay "extracted:", pp \@extracted;
 
     0 && vsay "expected: ", pp( $_->{EXPECTED} );
@@ -123,3 +123,5 @@ Expect: [ "abcd" ]
 Output: ('job', 'bjorg')
 Expect: [ "job", "bjorg" ]
 
+Output: 12.75
+Expect: [ 12.75 ]
