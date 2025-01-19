@@ -1,17 +1,15 @@
 {
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-01-19 16:41:23 GMT"
+   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
+   "chart" : {
+      "type" : "column"
    },
    "series" : [
       {
@@ -28,9 +26,9 @@
             4,
             180,
             0,
-            332,
+            334,
             1,
-            208,
+            210,
             6,
             11,
             7,
@@ -50,7 +48,6 @@
          ]
       },
       {
-         "name" : "Raku",
          "data" : [
             28,
             0,
@@ -82,7 +79,8 @@
             0,
             0,
             6
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "name" : "Blog",
@@ -98,7 +96,7 @@
             0,
             0,
             0,
-            159,
+            160,
             0,
             0,
             2,
@@ -154,14 +152,16 @@
          "Raghu R"
       ]
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-01-13 10:26:33 GMT"
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
    }
 }

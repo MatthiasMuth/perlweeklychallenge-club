@@ -1,17 +1,4 @@
 {
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-01-13 10:26:33 GMT"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
    "series" : [
       {
          "name" : "Perl",
@@ -29,13 +16,13 @@
             0,
             0,
             9,
-            224,
+            226,
             156,
             2,
             0,
             0,
             2,
-            569,
+            571,
             113,
             101,
             56,
@@ -49,7 +36,6 @@
          ]
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             1,
@@ -68,9 +54,9 @@
             131,
             6,
             2,
-            276,
+            278,
             0,
-            529,
+            531,
             113,
             61,
             0,
@@ -81,7 +67,8 @@
             3,
             0,
             46
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "data" : [
@@ -98,13 +85,13 @@
             13,
             0,
             0,
-            99,
+            100,
             0,
             0,
             5,
             2,
             0,
-            282,
+            283,
             0,
             59,
             1,
@@ -153,15 +140,28 @@
          "Shahed Nooshmand"
       ]
    },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-01-19 16:41:23 GMT"
    },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
+   },
+   "chart" : {
+      "type" : "column"
    }
 }

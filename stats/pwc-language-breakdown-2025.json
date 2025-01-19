@@ -1,8 +1,39 @@
 {
+   "legend" : {
+      "enabled" : "false"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : "Total Solutions"
+      }
+   },
+   "subtitle" : {
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-01-19 16:41:23 GMT"
+   },
    "drilldown" : {
       "series" : [
          {
-            "name" : "303",
+            "id" : "304",
+            "name" : "304",
+            "data" : [
+               [
+                  "Perl",
+                  30
+               ],
+               [
+                  "Raku",
+                  18
+               ],
+               [
+                  "Blog",
+                  12
+               ]
+            ]
+         },
+         {
             "data" : [
                [
                   "Perl",
@@ -17,55 +48,47 @@
                   12
                ]
             ],
+            "name" : "303",
             "id" : "303"
          }
       ]
    },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : "Total Solutions"
-      }
-   },
    "plotOptions" : {
       "series" : {
+         "borderWidth" : 0,
          "dataLabels" : {
             "format" : "{point.y}",
             "enabled" : 1
-         },
-         "borderWidth" : 0
+         }
       }
-   },
-   "series" : [
-      {
-         "data" : [
-            {
-               "y" : 68,
-               "name" : "303",
-               "drilldown" : "303"
-            }
-         ],
-         "colorByPoint" : "true",
-         "name" : "The Weekly Challenge Languages"
-      }
-   ],
-   "xAxis" : {
-      "type" : "category"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
    },
-   "chart" : {
-      "type" : "column"
-   },
    "tooltip" : {
+      "pointFormat" : "<span style=\"color:{point.color}\">Challenge {point.name}</span>: <b>{point.y:f}</b><br/>",
       "headerFormat" : "<span style=\"font-size:11px\"></span>",
-      "followPointer" : "true",
-      "pointFormat" : "<span style=\"color:{point.color}\">Challenge {point.name}</span>: <b>{point.y:f}</b><br/>"
+      "followPointer" : "true"
    },
-   "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-01-13 10:26:33 GMT"
-   }
+   "xAxis" : {
+      "type" : "category"
+   },
+   "series" : [
+      {
+         "colorByPoint" : "true",
+         "name" : "The Weekly Challenge Languages",
+         "data" : [
+            {
+               "drilldown" : "304",
+               "name" : "304",
+               "y" : 60
+            },
+            {
+               "name" : "303",
+               "y" : 68,
+               "drilldown" : "303"
+            }
+         ]
+      }
+   ]
 }
