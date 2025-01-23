@@ -13,43 +13,39 @@ use Dsay;
 
 use List::Util qw( max );
 
-sub generate_alphabet_compare( $alphabet ) {
-    # Generate a comparison sub for use with `sort`.
+sub compare_ranks( $a, $b, $character_ranks ) {
+    # Compare the two strings character by character, by their
+    # respective ranks.
+    # When all previous characters compared equal, and the shorter of
+    # the two strings runs out of characters, the rank comparison of
+    # the resulting empty string will cause the loop to exit.
+    for ( 0 .. ( max( length( $a ), length( $b ) ) - 1 ) ) {
+	my ( $rank_a, $rank_b ) = (
+	    $character_ranks->{ substr( $a, $_, 1 ) },
+	    $character_ranks->{ substr( $b, $_, 1 ) },
+	);
+
+	# Continue comparing if the character ranks are the same.
+	next if $rank_a == $rank_b;
+
+	# If they are different, we have a decision.
+	return $rank_a <=> $rank_b;
+    }
+
+    # On loop exit, we have compared all characters, and all are equal.
+    return 0;
+}
+
+sub alien_dictionary( $words, $alien ) {
 
     # Create a lookup table for each character's rank.
     # The alphabet's first character has rank 1.
     # Rank 0 is reserved for the empty string, because it should sort
-    # before any non-empty one.
-    my %character_ranks = map { $alphabet->[$_] => $_ + 1} keys $alphabet->@*;
-    $character_ranks{""} = 0;
+    # before any other character.
+    my %alien_ranks = map { $alien->[$_] => $_ + 1 } keys $alien->@*;
+    $alien_ranks{""} = 0;
 
-    return sub( $a, $b ) {
-	# Compare the two strings character by character, by their
-	# respective ranks.
-	# When the shorter of the two strings runs out of characters,
-	# the rank comparison of the resulting empty string will cause
-	# the loop to exit.
-	for ( 0 .. ( max( length( $a ), length( $b ) ) - 1 ) ) {
-	    my ( $rank_a, $rank_b ) = (
-		$character_ranks{ substr( $a, $_, 1 ) },
-		$character_ranks{ substr( $b, $_, 1 ) },
-	    );
-
-	    # Continue comparing if the character ranks are the same.
-	    next if $rank_a == $rank_b;
-
-	    # If they are different, we have a decision.
-	    return $rank_a <=> $rank_b;
-	}
-
-	# On loop exit, we have compared all characters, and all are equal.
-	return 0;
-    }
-}
-
-sub alien_dictionary( $words, $alien ) {
-    my $alien_compare = generate_alphabet_compare( $alien );
-    return sort { $alien_compare->( $a, $b ) } $words->@*;
+    return sort { compare_ranks( $a, $b, \%alien_ranks ) } $words->@*;
 }
 
 use Test2::V0 qw( -no_srand );
