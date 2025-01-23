@@ -1,0 +1,17 @@
+#
+#	perlweeklychallenge-club
+#	sparse
+#
+#	Definitions for 'git sparse-checkout'.
+#	To reduce disk usage, you can use
+# 	    git sparse-checkout set --no-cone --stdin < sparse
+#
+
+/.gitignore
+/challenge-*/matthias-muth/
+/download_challenge/
+/publish
+/pwc.add-bashrc
+/pwc.bashrc
+/sparse
+/update_git
