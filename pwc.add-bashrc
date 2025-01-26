@@ -1,0 +1,33 @@
+### BEGIN PERL_WEEKLY_CHALLENGE
+unset -f pwc
+pwc() {
+    typeset _project="perlweeklychallenge-club"
+
+    [ "$pwc" -a ! -d "$pwc" ] && {
+	# Reset if pwc is set already but the directory isn't found.
+	echo -e "Warning: Directory \n" \
+	     "             '$pwc'\n" \
+	     "         doesn't exist. Trying to reset \$pwc." >&2
+	unset pwc
+    }
+
+    [ ! "$pwc" ] && {
+	typeset _pwc_path="perl_projects/$_project"
+	typeset _home
+	for _home in "$HOME" "$HOME/Documents/Projekte"; do
+	    export pwc="$_home/$_pwc_path"
+	    [ -d "$pwc" ] && break || unset pwc
+	done
+    }
+    [ ! "$pwc" ] && {
+	echo -e "Error: Could not find '${_project}' project directory." >&2
+	return 1
+    }
+    [ ! -f "$pwc/pwc.bashrc" ] && {
+	echo "Error: did not find 'pwc.bashrc' include file" >&2
+	return 1
+    }
+    source "$pwc/pwc.bashrc" \
+	&& pwc "$@"
+}
+### END PERL_WEEKLY_CHALLENGE
