@@ -4,24 +4,8 @@
          "stacking" : "percent"
       }
    },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-01-26 17:20:53 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             0,
             2,
@@ -53,9 +37,11 @@
             0,
             0,
             6
-         ]
+         ],
+         "name" : "Perl"
       },
       {
+         "name" : "Raku",
          "data" : [
             6,
             0,
@@ -87,10 +73,10 @@
             4,
             3,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -122,10 +108,12 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-01-27 03:26:02 GMT"
+   },
    "xAxis" : {
       "categories" : [
          "Raghu R",
@@ -163,5 +151,17 @@
    "tooltip" : {
       "shared" : 1,
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
    }
 }

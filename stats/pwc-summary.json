@@ -1,13 +1,11 @@
 {
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             1,
             0,
@@ -120,7 +118,7 @@
             0,
             6,
             5,
-            274,
+            275,
             1,
             1,
             153,
@@ -192,7 +190,7 @@
             151,
             0,
             2,
-            83,
+            84,
             1,
             4,
             8,
@@ -330,7 +328,8 @@
             44,
             11,
             4
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
@@ -369,7 +368,7 @@
             0,
             0,
             0,
-            93,
+            94,
             2,
             0,
             0,
@@ -389,8 +388,8 @@
             6,
             0,
             0,
-            9,
             1,
+            9,
             0,
             104,
             0,
@@ -446,12 +445,12 @@
             0,
             0,
             0,
-            274,
+            275,
             0,
             2,
             5,
             0,
-            231,
+            232,
             2,
             0,
             7,
@@ -771,7 +770,7 @@
             0,
             0,
             0,
-            262,
+            263,
             0,
             0,
             125,
@@ -985,6 +984,9 @@
          "name" : "Blog"
       }
    ],
+   "subtitle" : {
+      "text" : "[Champions: 321] Last updated at 2025-01-27 03:26:02 GMT"
+   },
    "xAxis" : {
       "categories" : [
          "3ter",
@@ -1314,18 +1316,16 @@
       "shared" : 1,
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "chart" : {
+      "type" : "column"
    },
-   "subtitle" : {
-      "text" : "[Champions: 321] Last updated at 2025-01-26 17:20:53 GMT"
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "chart" : {
-      "type" : "column"
    }
 }
