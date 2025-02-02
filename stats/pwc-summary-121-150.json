@@ -3,11 +3,8 @@
       "text" : "The Weekly Challenge [2019 - 2025]"
    },
    "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "chart" : {
-      "type" : "column"
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "yAxis" : {
       "title" : {
@@ -15,43 +12,8 @@
       },
       "min" : 0
    },
-   "xAxis" : {
-      "categories" : [
-         "Javier Luque",
-         "jdos22",
-         "Jeff",
-         "Jeff Armstrong",
-         "Jeffrey \"japhy\" Pinyan",
-         "Jen Guerra",
-         "Jeremy Carman",
-         "Jim Bacon",
-         "Jitu Keshwani",
-         "JJ Merelo",
-         "Jo Christian Oterhals",
-         "Joan Mimosinnet",
-         "Joe Tym",
-         "Joel Crosswhite",
-         "Joelle Maslak",
-         "John Barrett",
-         "John Horner",
-         "Jonas Berlin",
-         "Jorg Sommrey",
-         "Jose Luis",
-         "Juan Caballero",
-         "Julien Fiegehenn",
-         "Julio de Castro",
-         "Kai Burgdorf",
-         "Kang-min Liu",
-         "Kaushik Tunuguntla",
-         "Kevin Colyer",
-         "Khalid",
-         "Kian-Meng Ang",
-         "Kiran Kumar"
-      ]
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             92,
             1,
@@ -71,7 +33,7 @@
             7,
             2,
             0,
-            577,
+            579,
             8,
             2,
             23,
@@ -83,7 +45,8 @@
             4,
             38,
             0
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -121,7 +84,6 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             46,
             0,
@@ -141,7 +103,7 @@
             0,
             0,
             0,
-            70,
+            71,
             0,
             0,
             1,
@@ -153,15 +115,53 @@
             1,
             43,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
+   "xAxis" : {
+      "categories" : [
+         "Javier Luque",
+         "jdos22",
+         "Jeff",
+         "Jeff Armstrong",
+         "Jeffrey \"japhy\" Pinyan",
+         "Jen Guerra",
+         "Jeremy Carman",
+         "Jim Bacon",
+         "Jitu Keshwani",
+         "JJ Merelo",
+         "Jo Christian Oterhals",
+         "Joan Mimosinnet",
+         "Joe Tym",
+         "Joel Crosswhite",
+         "Joelle Maslak",
+         "John Barrett",
+         "John Horner",
+         "Jonas Berlin",
+         "Jorg Sommrey",
+         "Jose Luis",
+         "Juan Caballero",
+         "Julien Fiegehenn",
+         "Julio de Castro",
+         "Kai Burgdorf",
+         "Kang-min Liu",
+         "Kaushik Tunuguntla",
+         "Kevin Colyer",
+         "Khalid",
+         "Kian-Meng Ang",
+         "Kiran Kumar"
+      ]
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-01-27 03:26:02 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-02-02 20:56:54 GMT"
+   },
+   "chart" : {
+      "type" : "column"
    }
 }
