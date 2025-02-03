@@ -1,61 +1,61 @@
 {
+   "series" : [
+      {
+         "dataLabels" : {
+            "enabled" : "true",
+            "align" : "right",
+            "format" : "{point.y:.0f}",
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "color" : "#FFFFFF",
+            "rotation" : -90,
+            "y" : 10
+         },
+         "data" : [
+            [
+               "Perl",
+               15930
+            ],
+            [
+               "Raku",
+               8944
+            ],
+            [
+               "Blog",
+               5631
+            ]
+         ],
+         "name" : "Contributions"
+      }
+   ],
+   "subtitle" : {
+      "text" : "Last updated at 2025-02-03 13:13:01 GMT"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : null
+      },
+      "min" : 0
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2025]"
+   },
    "chart" : {
       "type" : "column"
    },
-   "subtitle" : {
-      "text" : "Last updated at 2025-02-02 20:56:54 GMT"
-   },
    "xAxis" : {
-      "type" : "category",
       "labels" : {
          "style" : {
             "fontFamily" : "Verdana, sans-serif",
             "fontSize" : "13px"
          }
-      }
+      },
+      "type" : "category"
    },
    "legend" : {
       "enabled" : "false"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : null
-      }
-   },
-   "series" : [
-      {
-         "name" : "Contributions",
-         "dataLabels" : {
-            "align" : "right",
-            "enabled" : "true",
-            "format" : "{point.y:.0f}",
-            "color" : "#FFFFFF",
-            "y" : 10,
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "rotation" : -90
-         },
-         "data" : [
-            [
-               "Perl",
-               15920
-            ],
-            [
-               "Raku",
-               8940
-            ],
-            [
-               "Blog",
-               5628
-            ]
-         ]
-      }
-   ],
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2025]"
    },
    "tooltip" : {
       "pointFormat" : "<b>{point.y:.0f}</b>"
