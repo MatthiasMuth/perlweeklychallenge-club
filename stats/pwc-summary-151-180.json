@@ -1,4 +1,17 @@
 {
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-02-15 18:19:51 GMT"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
    "xAxis" : {
       "categories" : [
          "Kivanc Yazan",
@@ -36,15 +49,6 @@
    "chart" : {
       "type" : "column"
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
    "series" : [
       {
          "data" : [
@@ -61,7 +65,7 @@
             17,
             2,
             0,
-            551,
+            553,
             0,
             0,
             0,
@@ -98,7 +102,7 @@
             0,
             10,
             55,
-            430,
+            432,
             14,
             4,
             0,
@@ -106,7 +110,7 @@
             0,
             0,
             0,
-            479,
+            481,
             1,
             49,
             91,
@@ -132,7 +136,7 @@
             0,
             0,
             30,
-            1075,
+            1077,
             0,
             0,
             0,
@@ -152,16 +156,12 @@
          "name" : "Blog"
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-03 13:13:01 GMT"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
    }
 }

@@ -1,9 +1,63 @@
 {
+   "xAxis" : {
+      "categories" : [
+         "Athanasius",
+         "Aubrey Quarcoo",
+         "Augie De Blieck Jr.",
+         "Avery Adams",
+         "BarrOff",
+         "Bartosz Jarzyna",
+         "Baryshev Sergey",
+         "Bejoy Mathews",
+         "Belmark Caday",
+         "Ben Bullock",
+         "Ben Davies",
+         "Bill Palmer",
+         "Bob Kleemann",
+         "Bob Lied",
+         "Branislav Zahradnik",
+         "Bruce Gray",
+         "Bruce Van Allen",
+         "Bruno Ramos",
+         "Burkhard Nickels",
+         "Carlos Oliveira",
+         "Chenyf",
+         "Cheok-Yin Fung",
+         "Chicagoist",
+         "Christian Jaeger",
+         "Clifton Wood",
+         "Clifton Wood",
+         "Clive Holloway",
+         "Colin Crain",
+         "Craig",
+         "Creewick"
+      ]
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-02-15 18:19:51 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
-            512,
+            516,
             0,
             6,
             45,
@@ -16,7 +70,7 @@
             0,
             0,
             4,
-            318,
+            322,
             6,
             72,
             2,
@@ -33,16 +87,17 @@
             337,
             3,
             2
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "name" : "Raku",
          "data" : [
-            473,
+            477,
             0,
             0,
             0,
-            147,
+            149,
             3,
             0,
             0,
@@ -62,8 +117,8 @@
             9,
             0,
             0,
-            17,
             2,
+            17,
             0,
             194,
             0,
@@ -106,62 +161,7 @@
          "name" : "Blog"
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-03 13:13:01 GMT"
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
    "chart" : {
       "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Athanasius",
-         "Aubrey Quarcoo",
-         "Augie De Blieck Jr.",
-         "Avery Adams",
-         "BarrOff",
-         "Bartosz Jarzyna",
-         "Baryshev Sergey",
-         "Bejoy Mathews",
-         "Belmark Caday",
-         "Ben Bullock",
-         "Ben Davies",
-         "Bill Palmer",
-         "Bob Kleemann",
-         "Bob Lied",
-         "Branislav Zahradnik",
-         "Bruce Gray",
-         "Bruce Van Allen",
-         "Bruno Ramos",
-         "Burkhard Nickels",
-         "Carlos Oliveira",
-         "Chenyf",
-         "Cheok-Yin Fung",
-         "Chicagoist",
-         "Christian Jaeger",
-         "Clifton Wood",
-         "Clifton Wood",
-         "Clive Holloway",
-         "Colin Crain",
-         "Craig",
-         "Creewick"
-      ]
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
    }
 }

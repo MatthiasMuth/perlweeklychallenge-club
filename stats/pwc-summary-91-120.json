@@ -1,18 +1,6 @@
 {
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+   "chart" : {
+      "type" : "column"
    },
    "series" : [
       {
@@ -39,7 +27,7 @@
             0,
             12,
             6,
-            552,
+            554,
             1,
             2,
             306,
@@ -51,6 +39,7 @@
          ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -73,19 +62,19 @@
             0,
             0,
             0,
-            552,
+            554,
             0,
             3,
             10,
             0,
-            406,
+            408,
             4,
             0,
             14
-         ],
-         "name" : "Raku"
+         ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -108,7 +97,7 @@
             0,
             0,
             0,
-            264,
+            265,
             0,
             0,
             125,
@@ -117,12 +106,29 @@
             0,
             12,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-03 13:13:01 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-02-15 18:19:51 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    },
    "xAxis" : {
       "categories" : [
@@ -157,11 +163,5 @@
          "Jared Martin",
          "Jason Messer"
       ]
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "chart" : {
-      "type" : "column"
    }
 }
