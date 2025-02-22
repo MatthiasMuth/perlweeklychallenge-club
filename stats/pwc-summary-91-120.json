@@ -1,6 +1,14 @@
 {
-   "chart" : {
-      "type" : "column"
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-02-22 22:24:57 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
    },
    "series" : [
       {
@@ -27,7 +35,7 @@
             0,
             12,
             6,
-            554,
+            556,
             1,
             2,
             306,
@@ -62,19 +70,18 @@
             0,
             0,
             0,
-            554,
+            556,
             0,
             3,
             10,
             0,
-            408,
+            410,
             4,
             0,
             14
          ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -97,7 +104,7 @@
             0,
             0,
             0,
-            265,
+            266,
             0,
             0,
             125,
@@ -106,30 +113,10 @@
             0,
             12,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-15 18:19:51 GMT"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
-   },
    "xAxis" : {
       "categories" : [
          "Freddie B",
@@ -163,5 +150,18 @@
          "Jared Martin",
          "Jason Messer"
       ]
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }

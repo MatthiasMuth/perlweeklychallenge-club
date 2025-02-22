@@ -1,14 +1,50 @@
 {
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
    "chart" : {
       "type" : "column"
    },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+   "xAxis" : {
+      "categories" : [
+         "3ter",
+         "Aaron Rowe",
+         "Aaron Sherman",
+         "Aaron Smith",
+         "Abigail",
+         "Adam Herzog",
+         "Adam Russell",
+         "Adriaan Dens",
+         "AhmetEmre",
+         "Ailbhe Tweedie",
+         "Alex Daniel",
+         "Alex Mauney",
+         "Alexander Karelas",
+         "Alexander Pankoff",
+         "Ali Moradi",
+         "Alicia Bielsa",
+         "Andinus",
+         "Andre Ploger",
+         "Andreas Mahnke",
+         "Andreas Voegele",
+         "Andrew Grangaard",
+         "Andrew Mehta",
+         "Andrew Schneider",
+         "Andrew Shitov",
+         "Andrezgz",
+         "Anton Fedotov",
+         "Antonio Gamiz",
+         "Arne Sommer",
+         "Arpad Toth",
+         "Asher Harvey-Smith"
+      ]
    },
    "series" : [
       {
@@ -28,11 +64,11 @@
             2,
             36,
             93,
-            197,
+            199,
             44,
             13,
             8,
-            16,
+            18,
             22,
             8,
             1,
@@ -75,7 +111,7 @@
             0,
             0,
             2,
-            611,
+            613,
             0,
             21
          ],
@@ -97,7 +133,7 @@
             0,
             0,
             13,
-            63,
+            64,
             0,
             32,
             4,
@@ -110,58 +146,22 @@
             0,
             0,
             0,
-            306,
+            307,
             0,
             0
          ],
          "name" : "Blog"
       }
    ],
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
    },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-15 18:19:51 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-02-22 22:24:57 GMT"
    },
-   "xAxis" : {
-      "categories" : [
-         "3ter",
-         "Aaron Rowe",
-         "Aaron Sherman",
-         "Aaron Smith",
-         "Abigail",
-         "Adam Herzog",
-         "Adam Russell",
-         "Adriaan Dens",
-         "AhmetEmre",
-         "Ailbhe Tweedie",
-         "Alex Daniel",
-         "Alex Mauney",
-         "Alexander Karelas",
-         "Alexander Pankoff",
-         "Ali Moradi",
-         "Alicia Bielsa",
-         "Andinus",
-         "Andre Ploger",
-         "Andreas Mahnke",
-         "Andreas Voegele",
-         "Andrew Grangaard",
-         "Andrew Mehta",
-         "Andrew Schneider",
-         "Andrew Shitov",
-         "Andrezgz",
-         "Anton Fedotov",
-         "Antonio Gamiz",
-         "Arne Sommer",
-         "Arpad Toth",
-         "Asher Harvey-Smith"
-      ]
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    }
 }
