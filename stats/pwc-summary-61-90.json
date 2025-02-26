@@ -1,30 +1,7 @@
 {
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-22 22:24:57 GMT"
-   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             63,
             2,
@@ -37,7 +14,7 @@
             5,
             68,
             524,
-            258,
+            260,
             4,
             0,
             8,
@@ -48,7 +25,7 @@
             0,
             82,
             396,
-            607,
+            609,
             2,
             8,
             22,
@@ -56,8 +33,7 @@
             310,
             0,
             2
-         ],
-         "name" : "Perl"
+         ]
       },
       {
          "data" : [
@@ -86,7 +62,7 @@
             0,
             0,
             0,
-            407,
+            411,
             4,
             237,
             36,
@@ -130,6 +106,30 @@
          "name" : "Blog"
       }
    ],
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-02-25 18:47:36 GMT"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "xAxis" : {
       "categories" : [
          "Cristina Heredia",

@@ -1,289 +1,11 @@
 {
-   "xAxis" : {
-      "type" : "category"
+   "tooltip" : {
+      "followPointer" : "true",
+      "headerFormat" : "<span style=\"font-size:11px\"></span>",
+      "pointFormat" : "<span style=\"color:{point.color}\">Challenge {point.name}</span>: <b>{point.y:f}</b><br/>"
    },
-   "series" : [
-      {
-         "colorByPoint" : "true",
-         "data" : [
-            {
-               "y" : 107,
-               "drilldown" : "197",
-               "name" : "197"
-            },
-            {
-               "y" : 104,
-               "drilldown" : "196",
-               "name" : "196"
-            },
-            {
-               "name" : "195",
-               "drilldown" : "195",
-               "y" : 110
-            },
-            {
-               "name" : "194",
-               "drilldown" : "194",
-               "y" : 113
-            },
-            {
-               "name" : "193",
-               "y" : 112,
-               "drilldown" : "193"
-            },
-            {
-               "y" : 129,
-               "drilldown" : "192",
-               "name" : "192"
-            },
-            {
-               "name" : "191",
-               "drilldown" : "191",
-               "y" : 119
-            },
-            {
-               "name" : "190",
-               "drilldown" : "190",
-               "y" : 113
-            },
-            {
-               "y" : 119,
-               "drilldown" : "189",
-               "name" : "189"
-            },
-            {
-               "y" : 121,
-               "drilldown" : "188",
-               "name" : "188"
-            },
-            {
-               "drilldown" : "187",
-               "y" : 111,
-               "name" : "187"
-            },
-            {
-               "name" : "186",
-               "y" : 113,
-               "drilldown" : "186"
-            },
-            {
-               "name" : "185",
-               "y" : 117,
-               "drilldown" : "185"
-            },
-            {
-               "drilldown" : "184",
-               "y" : 109,
-               "name" : "184"
-            },
-            {
-               "name" : "183",
-               "drilldown" : "183",
-               "y" : 89
-            },
-            {
-               "name" : "182",
-               "y" : 112,
-               "drilldown" : "182"
-            },
-            {
-               "drilldown" : "181",
-               "y" : 99,
-               "name" : "181"
-            },
-            {
-               "drilldown" : "180",
-               "y" : 117,
-               "name" : "180"
-            },
-            {
-               "y" : 74,
-               "drilldown" : "179",
-               "name" : "179"
-            },
-            {
-               "y" : 67,
-               "drilldown" : "178",
-               "name" : "178"
-            },
-            {
-               "name" : "177",
-               "y" : 107,
-               "drilldown" : "177"
-            },
-            {
-               "y" : 114,
-               "drilldown" : "176",
-               "name" : "176"
-            },
-            {
-               "drilldown" : "175",
-               "y" : 114,
-               "name" : "175"
-            },
-            {
-               "drilldown" : "174",
-               "y" : 101,
-               "name" : "174"
-            },
-            {
-               "name" : "173",
-               "drilldown" : "173",
-               "y" : 113
-            },
-            {
-               "drilldown" : "172",
-               "y" : 96,
-               "name" : "172"
-            },
-            {
-               "y" : 113,
-               "drilldown" : "171",
-               "name" : "171"
-            },
-            {
-               "drilldown" : "170",
-               "y" : 102,
-               "name" : "170"
-            },
-            {
-               "name" : "169",
-               "y" : 107,
-               "drilldown" : "169"
-            },
-            {
-               "name" : "168",
-               "drilldown" : "168",
-               "y" : 98
-            },
-            {
-               "name" : "167",
-               "drilldown" : "167",
-               "y" : 75
-            },
-            {
-               "name" : "166",
-               "drilldown" : "166",
-               "y" : 81
-            },
-            {
-               "y" : 80,
-               "drilldown" : "165",
-               "name" : "165"
-            },
-            {
-               "drilldown" : "164",
-               "y" : 120,
-               "name" : "164"
-            },
-            {
-               "drilldown" : "163",
-               "y" : 118,
-               "name" : "163"
-            },
-            {
-               "drilldown" : "162",
-               "y" : 95,
-               "name" : "162"
-            },
-            {
-               "name" : "161",
-               "y" : 102,
-               "drilldown" : "161"
-            },
-            {
-               "y" : 121,
-               "drilldown" : "160",
-               "name" : "160"
-            },
-            {
-               "y" : 92,
-               "drilldown" : "159",
-               "name" : "159"
-            },
-            {
-               "y" : 107,
-               "drilldown" : "158",
-               "name" : "158"
-            },
-            {
-               "y" : 97,
-               "drilldown" : "157",
-               "name" : "157"
-            },
-            {
-               "y" : 98,
-               "drilldown" : "156",
-               "name" : "156"
-            },
-            {
-               "name" : "155",
-               "drilldown" : "155",
-               "y" : 99
-            },
-            {
-               "drilldown" : "154",
-               "y" : 108,
-               "name" : "154"
-            },
-            {
-               "name" : "153",
-               "y" : 97,
-               "drilldown" : "153"
-            },
-            {
-               "name" : "152",
-               "drilldown" : "152",
-               "y" : 80
-            },
-            {
-               "drilldown" : "151",
-               "y" : 78,
-               "name" : "151"
-            },
-            {
-               "drilldown" : "150",
-               "y" : 108,
-               "name" : "150"
-            },
-            {
-               "name" : "149",
-               "drilldown" : "149",
-               "y" : 90
-            },
-            {
-               "name" : "148",
-               "drilldown" : "148",
-               "y" : 94
-            },
-            {
-               "name" : "147",
-               "y" : 107,
-               "drilldown" : "147"
-            },
-            {
-               "name" : "146",
-               "drilldown" : "146",
-               "y" : 108
-            }
-         ],
-         "name" : "The Weekly Challenge Languages"
-      }
-   ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-02-22 22:24:57 GMT"
-   },
-   "plotOptions" : {
-      "series" : {
-         "borderWidth" : 0,
-         "dataLabels" : {
-            "enabled" : 1,
-            "format" : "{point.y}"
-         }
-      }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge Language"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-02-25 18:47:36 GMT"
    },
    "drilldown" : {
       "series" : [
@@ -306,7 +28,6 @@
             ]
          },
          {
-            "name" : "196",
             "data" : [
                [
                   "Perl",
@@ -321,7 +42,8 @@
                   20
                ]
             ],
-            "id" : "196"
+            "id" : "196",
+            "name" : "196"
          },
          {
             "id" : "195",
@@ -342,7 +64,6 @@
             ]
          },
          {
-            "id" : "194",
             "data" : [
                [
                   "Perl",
@@ -357,10 +78,12 @@
                   19
                ]
             ],
-            "name" : "194"
+            "name" : "194",
+            "id" : "194"
          },
          {
             "id" : "193",
+            "name" : "193",
             "data" : [
                [
                   "Perl",
@@ -374,8 +97,7 @@
                   "Blog",
                   21
                ]
-            ],
-            "name" : "193"
+            ]
          },
          {
             "data" : [
@@ -392,11 +114,10 @@
                   23
                ]
             ],
-            "name" : "192",
-            "id" : "192"
+            "id" : "192",
+            "name" : "192"
          },
          {
-            "name" : "191",
             "data" : [
                [
                   "Perl",
@@ -411,9 +132,12 @@
                   21
                ]
             ],
-            "id" : "191"
+            "id" : "191",
+            "name" : "191"
          },
          {
+            "id" : "190",
+            "name" : "190",
             "data" : [
                [
                   "Perl",
@@ -427,11 +151,10 @@
                   "Blog",
                   22
                ]
-            ],
-            "name" : "190",
-            "id" : "190"
+            ]
          },
          {
+            "id" : "189",
             "name" : "189",
             "data" : [
                [
@@ -446,11 +169,11 @@
                   "Blog",
                   18
                ]
-            ],
-            "id" : "189"
+            ]
          },
          {
             "name" : "188",
+            "id" : "188",
             "data" : [
                [
                   "Perl",
@@ -464,11 +187,11 @@
                   "Blog",
                   16
                ]
-            ],
-            "id" : "188"
+            ]
          },
          {
             "id" : "187",
+            "name" : "187",
             "data" : [
                [
                   "Perl",
@@ -482,12 +205,11 @@
                   "Blog",
                   20
                ]
-            ],
-            "name" : "187"
+            ]
          },
          {
-            "id" : "186",
             "name" : "186",
+            "id" : "186",
             "data" : [
                [
                   "Perl",
@@ -504,7 +226,6 @@
             ]
          },
          {
-            "name" : "185",
             "data" : [
                [
                   "Perl",
@@ -519,9 +240,12 @@
                   19
                ]
             ],
-            "id" : "185"
+            "id" : "185",
+            "name" : "185"
          },
          {
+            "id" : "184",
+            "name" : "184",
             "data" : [
                [
                   "Perl",
@@ -535,12 +259,9 @@
                   "Blog",
                   17
                ]
-            ],
-            "name" : "184",
-            "id" : "184"
+            ]
          },
          {
-            "id" : "183",
             "data" : [
                [
                   "Perl",
@@ -555,10 +276,10 @@
                   17
                ]
             ],
+            "id" : "183",
             "name" : "183"
          },
          {
-            "id" : "182",
             "data" : [
                [
                   "Perl",
@@ -573,7 +294,8 @@
                   18
                ]
             ],
-            "name" : "182"
+            "name" : "182",
+            "id" : "182"
          },
          {
             "data" : [
@@ -590,11 +312,10 @@
                   13
                ]
             ],
-            "name" : "181",
-            "id" : "181"
+            "id" : "181",
+            "name" : "181"
          },
          {
-            "id" : "180",
             "data" : [
                [
                   "Perl",
@@ -609,6 +330,7 @@
                   13
                ]
             ],
+            "id" : "180",
             "name" : "180"
          },
          {
@@ -649,6 +371,7 @@
          },
          {
             "name" : "177",
+            "id" : "177",
             "data" : [
                [
                   "Perl",
@@ -662,10 +385,11 @@
                   "Blog",
                   21
                ]
-            ],
-            "id" : "177"
+            ]
          },
          {
+            "name" : "176",
+            "id" : "176",
             "data" : [
                [
                   "Perl",
@@ -679,11 +403,10 @@
                   "Blog",
                   23
                ]
-            ],
-            "name" : "176",
-            "id" : "176"
+            ]
          },
          {
+            "name" : "175",
             "id" : "175",
             "data" : [
                [
@@ -698,10 +421,10 @@
                   "Blog",
                   23
                ]
-            ],
-            "name" : "175"
+            ]
          },
          {
+            "id" : "174",
             "name" : "174",
             "data" : [
                [
@@ -716,11 +439,9 @@
                   "Blog",
                   20
                ]
-            ],
-            "id" : "174"
+            ]
          },
          {
-            "id" : "173",
             "data" : [
                [
                   "Perl",
@@ -735,10 +456,12 @@
                   19
                ]
             ],
+            "id" : "173",
             "name" : "173"
          },
          {
             "id" : "172",
+            "name" : "172",
             "data" : [
                [
                   "Perl",
@@ -752,11 +475,9 @@
                   "Blog",
                   13
                ]
-            ],
-            "name" : "172"
+            ]
          },
          {
-            "name" : "171",
             "data" : [
                [
                   "Perl",
@@ -771,11 +492,12 @@
                   21
                ]
             ],
-            "id" : "171"
+            "id" : "171",
+            "name" : "171"
          },
          {
-            "id" : "170",
             "name" : "170",
+            "id" : "170",
             "data" : [
                [
                   "Perl",
@@ -792,8 +514,6 @@
             ]
          },
          {
-            "id" : "169",
-            "name" : "169",
             "data" : [
                [
                   "Perl",
@@ -807,10 +527,13 @@
                   "Blog",
                   22
                ]
-            ]
+            ],
+            "name" : "169",
+            "id" : "169"
          },
          {
             "id" : "168",
+            "name" : "168",
             "data" : [
                [
                   "Perl",
@@ -824,12 +547,9 @@
                   "Blog",
                   20
                ]
-            ],
-            "name" : "168"
+            ]
          },
          {
-            "id" : "167",
-            "name" : "167",
             "data" : [
                [
                   "Perl",
@@ -843,11 +563,11 @@
                   "Blog",
                   17
                ]
-            ]
+            ],
+            "id" : "167",
+            "name" : "167"
          },
          {
-            "id" : "166",
-            "name" : "166",
             "data" : [
                [
                   "Perl",
@@ -861,10 +581,13 @@
                   "Blog",
                   19
                ]
-            ]
+            ],
+            "id" : "166",
+            "name" : "166"
          },
          {
             "name" : "165",
+            "id" : "165",
             "data" : [
                [
                   "Perl",
@@ -878,12 +601,11 @@
                   "Blog",
                   20
                ]
-            ],
-            "id" : "165"
+            ]
          },
          {
-            "id" : "164",
             "name" : "164",
+            "id" : "164",
             "data" : [
                [
                   "Perl",
@@ -900,8 +622,8 @@
             ]
          },
          {
-            "id" : "163",
             "name" : "163",
+            "id" : "163",
             "data" : [
                [
                   "Perl",
@@ -918,6 +640,8 @@
             ]
          },
          {
+            "name" : "162",
+            "id" : "162",
             "data" : [
                [
                   "Perl",
@@ -931,11 +655,10 @@
                   "Blog",
                   17
                ]
-            ],
-            "name" : "162",
-            "id" : "162"
+            ]
          },
          {
+            "id" : "161",
             "name" : "161",
             "data" : [
                [
@@ -950,11 +673,11 @@
                   "Blog",
                   21
                ]
-            ],
-            "id" : "161"
+            ]
          },
          {
             "name" : "160",
+            "id" : "160",
             "data" : [
                [
                   "Perl",
@@ -968,8 +691,7 @@
                   "Blog",
                   27
                ]
-            ],
-            "id" : "160"
+            ]
          },
          {
             "data" : [
@@ -990,8 +712,6 @@
             "id" : "159"
          },
          {
-            "id" : "158",
-            "name" : "158",
             "data" : [
                [
                   "Perl",
@@ -1005,11 +725,11 @@
                   "Blog",
                   19
                ]
-            ]
+            ],
+            "name" : "158",
+            "id" : "158"
          },
          {
-            "id" : "157",
-            "name" : "157",
             "data" : [
                [
                   "Perl",
@@ -1023,7 +743,9 @@
                   "Blog",
                   17
                ]
-            ]
+            ],
+            "id" : "157",
+            "name" : "157"
          },
          {
             "data" : [
@@ -1058,12 +780,10 @@
                   21
                ]
             ],
-            "name" : "155",
-            "id" : "155"
+            "id" : "155",
+            "name" : "155"
          },
          {
-            "id" : "154",
-            "name" : "154",
             "data" : [
                [
                   "Perl",
@@ -1077,10 +797,13 @@
                   "Blog",
                   23
                ]
-            ]
+            ],
+            "name" : "154",
+            "id" : "154"
          },
          {
             "id" : "153",
+            "name" : "153",
             "data" : [
                [
                   "Perl",
@@ -1094,8 +817,7 @@
                   "Blog",
                   17
                ]
-            ],
-            "name" : "153"
+            ]
          },
          {
             "data" : [
@@ -1116,7 +838,6 @@
             "id" : "152"
          },
          {
-            "id" : "151",
             "data" : [
                [
                   "Perl",
@@ -1131,9 +852,11 @@
                   13
                ]
             ],
+            "id" : "151",
             "name" : "151"
          },
          {
+            "name" : "150",
             "id" : "150",
             "data" : [
                [
@@ -1148,10 +871,10 @@
                   "Blog",
                   21
                ]
-            ],
-            "name" : "150"
+            ]
          },
          {
+            "name" : "149",
             "id" : "149",
             "data" : [
                [
@@ -1166,10 +889,10 @@
                   "Blog",
                   19
                ]
-            ],
-            "name" : "149"
+            ]
          },
          {
+            "id" : "148",
             "name" : "148",
             "data" : [
                [
@@ -1184,12 +907,9 @@
                   "Blog",
                   21
                ]
-            ],
-            "id" : "148"
+            ]
          },
          {
-            "id" : "147",
-            "name" : "147",
             "data" : [
                [
                   "Perl",
@@ -1203,10 +923,11 @@
                   "Blog",
                   25
                ]
-            ]
+            ],
+            "id" : "147",
+            "name" : "147"
          },
          {
-            "id" : "146",
             "data" : [
                [
                   "Perl",
@@ -1221,10 +942,294 @@
                   21
                ]
             ],
-            "name" : "146"
+            "name" : "146",
+            "id" : "146"
          }
       ]
    },
+   "plotOptions" : {
+      "series" : {
+         "dataLabels" : {
+            "enabled" : 1,
+            "format" : "{point.y}"
+         },
+         "borderWidth" : 0
+      }
+   },
+   "xAxis" : {
+      "type" : "category"
+   },
+   "legend" : {
+      "enabled" : "false"
+   },
+   "series" : [
+      {
+         "colorByPoint" : "true",
+         "data" : [
+            {
+               "name" : "197",
+               "y" : 107,
+               "drilldown" : "197"
+            },
+            {
+               "drilldown" : "196",
+               "y" : 104,
+               "name" : "196"
+            },
+            {
+               "y" : 110,
+               "name" : "195",
+               "drilldown" : "195"
+            },
+            {
+               "drilldown" : "194",
+               "y" : 113,
+               "name" : "194"
+            },
+            {
+               "drilldown" : "193",
+               "name" : "193",
+               "y" : 112
+            },
+            {
+               "drilldown" : "192",
+               "name" : "192",
+               "y" : 129
+            },
+            {
+               "drilldown" : "191",
+               "y" : 119,
+               "name" : "191"
+            },
+            {
+               "y" : 113,
+               "name" : "190",
+               "drilldown" : "190"
+            },
+            {
+               "drilldown" : "189",
+               "y" : 119,
+               "name" : "189"
+            },
+            {
+               "y" : 121,
+               "name" : "188",
+               "drilldown" : "188"
+            },
+            {
+               "drilldown" : "187",
+               "name" : "187",
+               "y" : 111
+            },
+            {
+               "drilldown" : "186",
+               "name" : "186",
+               "y" : 113
+            },
+            {
+               "y" : 117,
+               "name" : "185",
+               "drilldown" : "185"
+            },
+            {
+               "drilldown" : "184",
+               "name" : "184",
+               "y" : 109
+            },
+            {
+               "y" : 89,
+               "name" : "183",
+               "drilldown" : "183"
+            },
+            {
+               "drilldown" : "182",
+               "y" : 112,
+               "name" : "182"
+            },
+            {
+               "name" : "181",
+               "y" : 99,
+               "drilldown" : "181"
+            },
+            {
+               "drilldown" : "180",
+               "y" : 117,
+               "name" : "180"
+            },
+            {
+               "drilldown" : "179",
+               "y" : 74,
+               "name" : "179"
+            },
+            {
+               "drilldown" : "178",
+               "y" : 67,
+               "name" : "178"
+            },
+            {
+               "drilldown" : "177",
+               "name" : "177",
+               "y" : 107
+            },
+            {
+               "drilldown" : "176",
+               "name" : "176",
+               "y" : 114
+            },
+            {
+               "name" : "175",
+               "y" : 114,
+               "drilldown" : "175"
+            },
+            {
+               "y" : 101,
+               "name" : "174",
+               "drilldown" : "174"
+            },
+            {
+               "name" : "173",
+               "y" : 113,
+               "drilldown" : "173"
+            },
+            {
+               "name" : "172",
+               "y" : 96,
+               "drilldown" : "172"
+            },
+            {
+               "drilldown" : "171",
+               "y" : 113,
+               "name" : "171"
+            },
+            {
+               "name" : "170",
+               "y" : 102,
+               "drilldown" : "170"
+            },
+            {
+               "y" : 107,
+               "name" : "169",
+               "drilldown" : "169"
+            },
+            {
+               "drilldown" : "168",
+               "y" : 98,
+               "name" : "168"
+            },
+            {
+               "drilldown" : "167",
+               "y" : 75,
+               "name" : "167"
+            },
+            {
+               "drilldown" : "166",
+               "y" : 81,
+               "name" : "166"
+            },
+            {
+               "y" : 80,
+               "name" : "165",
+               "drilldown" : "165"
+            },
+            {
+               "drilldown" : "164",
+               "y" : 120,
+               "name" : "164"
+            },
+            {
+               "y" : 118,
+               "name" : "163",
+               "drilldown" : "163"
+            },
+            {
+               "drilldown" : "162",
+               "y" : 95,
+               "name" : "162"
+            },
+            {
+               "drilldown" : "161",
+               "y" : 102,
+               "name" : "161"
+            },
+            {
+               "drilldown" : "160",
+               "name" : "160",
+               "y" : 121
+            },
+            {
+               "name" : "159",
+               "y" : 92,
+               "drilldown" : "159"
+            },
+            {
+               "drilldown" : "158",
+               "name" : "158",
+               "y" : 107
+            },
+            {
+               "drilldown" : "157",
+               "y" : 97,
+               "name" : "157"
+            },
+            {
+               "drilldown" : "156",
+               "name" : "156",
+               "y" : 98
+            },
+            {
+               "drilldown" : "155",
+               "name" : "155",
+               "y" : 99
+            },
+            {
+               "drilldown" : "154",
+               "y" : 108,
+               "name" : "154"
+            },
+            {
+               "y" : 97,
+               "name" : "153",
+               "drilldown" : "153"
+            },
+            {
+               "y" : 80,
+               "name" : "152",
+               "drilldown" : "152"
+            },
+            {
+               "name" : "151",
+               "y" : 78,
+               "drilldown" : "151"
+            },
+            {
+               "y" : 108,
+               "name" : "150",
+               "drilldown" : "150"
+            },
+            {
+               "drilldown" : "149",
+               "y" : 90,
+               "name" : "149"
+            },
+            {
+               "drilldown" : "148",
+               "name" : "148",
+               "y" : 94
+            },
+            {
+               "y" : 107,
+               "name" : "147",
+               "drilldown" : "147"
+            },
+            {
+               "y" : 108,
+               "name" : "146",
+               "drilldown" : "146"
+            }
+         ],
+         "name" : "The Weekly Challenge Languages"
+      }
+   ],
    "yAxis" : {
       "title" : {
          "text" : "Total Solutions"
@@ -1233,12 +1238,7 @@
    "chart" : {
       "type" : "column"
    },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "tooltip" : {
-      "headerFormat" : "<span style=\"font-size:11px\"></span>",
-      "followPointer" : "true",
-      "pointFormat" : "<span style=\"color:{point.color}\">Challenge {point.name}</span>: <b>{point.y:f}</b><br/>"
+   "title" : {
+      "text" : "The Weekly Challenge Language"
    }
 }

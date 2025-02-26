@@ -1,31 +1,6 @@
 {
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-22 22:24:57 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             1,
             2,
@@ -44,20 +19,21 @@
             2,
             7,
             0,
-            120,
+            122,
             66,
             2,
             4,
             4,
             2,
-            222,
+            224,
             1,
             10,
             14,
             0,
             6,
             2
-         ]
+         ],
+         "name" : "Perl"
       },
       {
          "data" : [
@@ -95,6 +71,7 @@
          "name" : "Raku"
       },
       {
+         "name" : "Blog",
          "data" : [
             23,
             0,
@@ -119,17 +96,40 @@
             0,
             0,
             0,
-            215,
+            217,
             0,
             3,
             0,
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-02-25 18:47:36 GMT"
+   },
    "xAxis" : {
       "categories" : [
          "Shahed Nooshmand",
