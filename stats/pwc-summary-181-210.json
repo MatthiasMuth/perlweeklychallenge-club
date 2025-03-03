@@ -1,63 +1,11 @@
 {
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-25 18:47:36 GMT"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Matthew Neleigh",
-         "Matthew O. Persico",
-         "Matthew Somerville",
-         "Matthias Muth",
-         "mauke",
-         "Max Kossek",
-         "Maxim Kolodyazhny",
-         "Maxim Nechaev",
-         "Michael Hamlin",
-         "Michael Schaap",
-         "Miguel Prz",
-         "Mihail Iosilevitch",
-         "Mike Accardo",
-         "Mohammad Khalid Anwar",
-         "Mohammad Sajid Anwar",
-         "Moray Jones",
-         "Mustafa Aydin",
-         "Myoungjin Jeon",
-         "Nazareno Delucca",
-         "Neil Bowers",
-         "Nelo Tovar",
-         "Nick Logan",
-         "Nicolas Mendoza",
-         "Niels van Dijke",
-         "Nikhil Prasanna",
-         "Noud Aldenhoven",
-         "Nuno Vieira",
-         "Oleksii Tsvietnov",
-         "Oliver Oviedo",
-         "Olivier Delouya"
-      ]
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
    "series" : [
       {
          "data" : [
             281,
             0,
             4,
-            174,
+            176,
             2,
             6,
             13,
@@ -123,11 +71,12 @@
          ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
             1,
-            77,
+            78,
             0,
             0,
             0,
@@ -154,14 +103,65 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "chart" : {
       "type" : "column"
    },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "xAxis" : {
+      "categories" : [
+         "Matthew Neleigh",
+         "Matthew O. Persico",
+         "Matthew Somerville",
+         "Matthias Muth",
+         "mauke",
+         "Max Kossek",
+         "Maxim Kolodyazhny",
+         "Maxim Nechaev",
+         "Michael Hamlin",
+         "Michael Schaap",
+         "Miguel Prz",
+         "Mihail Iosilevitch",
+         "Mike Accardo",
+         "Mohammad Khalid Anwar",
+         "Mohammad Sajid Anwar",
+         "Moray Jones",
+         "Mustafa Aydin",
+         "Myoungjin Jeon",
+         "Nazareno Delucca",
+         "Neil Bowers",
+         "Nelo Tovar",
+         "Nick Logan",
+         "Nicolas Mendoza",
+         "Niels van Dijke",
+         "Nikhil Prasanna",
+         "Noud Aldenhoven",
+         "Nuno Vieira",
+         "Oleksii Tsvietnov",
+         "Oliver Oviedo",
+         "Olivier Delouya"
+      ]
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-03-03 04:32:35 GMT"
    }
 }

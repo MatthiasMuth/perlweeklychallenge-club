@@ -1,15 +1,61 @@
 {
-   "chart" : {
-      "type" : "column"
+   "xAxis" : {
+      "categories" : [
+         "Freddie B",
+         "GarciaAutomation",
+         "Garrett Goebel",
+         "Giuseppe Di Terlizzi",
+         "Guillermo Ramos",
+         "Gurunandan Bhat",
+         "Gustavo Chaves",
+         "habere-et-dispetire",
+         "Hauke Dampfling",
+         "Humberto Massa",
+         "Ian Goodnight",
+         "Ian Rifkin",
+         "Ildar Shaimordanov",
+         "Ioannis Bourlakos",
+         "Israel C. Batista",
+         "Ivan Dimitrov",
+         "izem",
+         "Izifresh",
+         "Jacques Guinnebault",
+         "Jaime Corchado",
+         "Jake",
+         "Jaldhar H. Vyas",
+         "James Marquis",
+         "James Raspass",
+         "James Smith",
+         "Jan Hoogenraad",
+         "Jan Krnavek",
+         "Jan Ole Kraft",
+         "Jared Martin",
+         "Jason Messer"
+      ]
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
    },
    "yAxis" : {
+      "min" : 0,
       "title" : {
          "text" : ""
-      },
-      "min" : 0
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-03-03 04:32:35 GMT"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
    },
    "series" : [
       {
@@ -35,7 +81,7 @@
             0,
             12,
             6,
-            558,
+            560,
             1,
             2,
             306,
@@ -71,18 +117,19 @@
             0,
             0,
             0,
-            558,
+            560,
             0,
             3,
             10,
             0,
-            412,
+            414,
             4,
             0,
             14
          ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -105,7 +152,7 @@
             0,
             0,
             0,
-            267,
+            268,
             0,
             0,
             125,
@@ -114,54 +161,7 @@
             0,
             12,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
-   ],
-   "xAxis" : {
-      "categories" : [
-         "Freddie B",
-         "GarciaAutomation",
-         "Garrett Goebel",
-         "Giuseppe Di Terlizzi",
-         "Guillermo Ramos",
-         "Gurunandan Bhat",
-         "Gustavo Chaves",
-         "habere-et-dispetire",
-         "Hauke Dampfling",
-         "Humberto Massa",
-         "Ian Goodnight",
-         "Ian Rifkin",
-         "Ildar Shaimordanov",
-         "Ioannis Bourlakos",
-         "Israel C. Batista",
-         "Ivan Dimitrov",
-         "izem",
-         "Izifresh",
-         "Jacques Guinnebault",
-         "Jaime Corchado",
-         "Jake",
-         "Jaldhar H. Vyas",
-         "James Marquis",
-         "James Raspass",
-         "James Smith",
-         "Jan Hoogenraad",
-         "Jan Krnavek",
-         "Jan Ole Kraft",
-         "Jared Martin",
-         "Jason Messer"
-      ]
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-25 18:47:36 GMT"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   }
+   ]
 }

@@ -1,6 +1,15 @@
 {
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             2,
             0,
@@ -8,7 +17,7 @@
             0,
             169,
             3,
-            376,
+            378,
             2,
             0,
             3,
@@ -32,10 +41,10 @@
             153,
             11,
             0
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -64,11 +73,10 @@
             0,
             0,
             2,
-            615,
+            617,
             0,
             21
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "name" : "Blog",
@@ -79,7 +87,7 @@
             28,
             118,
             0,
-            260,
+            262,
             0,
             0,
             0,
@@ -100,31 +108,14 @@
             0,
             0,
             0,
-            308,
+            309,
             0,
             0
          ]
       }
    ],
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-02-25 18:47:36 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-03-03 04:32:35 GMT"
    },
    "tooltip" : {
       "shared" : 1,
@@ -163,5 +154,14 @@
          "Arpad Toth",
          "Asher Harvey-Smith"
       ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
    }
 }
