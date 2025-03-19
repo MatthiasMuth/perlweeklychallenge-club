@@ -1,63 +1,63 @@
 {
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2025]"
-   },
-   "subtitle" : {
-      "text" : "Last updated at 2025-03-16 17:35:54 GMT"
-   },
-   "xAxis" : {
-      "labels" : {
-         "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
-         }
-      },
-      "type" : "category"
-   },
-   "tooltip" : {
-      "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
-   "chart" : {
-      "type" : "column"
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : null
       }
    },
+   "xAxis" : {
+      "labels" : {
+         "style" : {
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
+         }
+      },
+      "type" : "category"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2025]"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "legend" : {
       "enabled" : "false"
    },
+   "subtitle" : {
+      "text" : "Last updated at 2025-03-19 17:50:15 GMT"
+   },
    "series" : [
       {
+         "name" : "Contributions",
+         "dataLabels" : {
+            "align" : "right",
+            "enabled" : "true",
+            "color" : "#FFFFFF",
+            "format" : "{point.y:.0f}",
+            "rotation" : -90,
+            "style" : {
+               "fontFamily" : "Verdana, sans-serif",
+               "fontSize" : "13px"
+            },
+            "y" : 10
+         },
          "data" : [
             [
                "Perl",
-               16192
+               16219
             ],
             [
                "Raku",
-               9061
+               9076
             ],
             [
                "Blog",
-               5729
+               5739
             ]
-         ],
-         "name" : "Contributions",
-         "dataLabels" : {
-            "rotation" : -90,
-            "color" : "#FFFFFF",
-            "align" : "right",
-            "format" : "{point.y:.0f}",
-            "y" : 10,
-            "style" : {
-               "fontSize" : "13px",
-               "fontFamily" : "Verdana, sans-serif"
-            },
-            "enabled" : "true"
-         }
+         ]
       }
-   ]
+   ],
+   "tooltip" : {
+      "pointFormat" : "<b>{point.y:.0f}</b>"
+   }
 }

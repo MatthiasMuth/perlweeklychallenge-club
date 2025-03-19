@@ -1,16 +1,12 @@
 {
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
    "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "series" : [
       {
@@ -29,13 +25,13 @@
             0,
             0,
             9,
-            242,
+            244,
             156,
             2,
             0,
             0,
             2,
-            587,
+            589,
             113,
             101,
             56,
@@ -69,9 +65,9 @@
             131,
             6,
             3,
-            292,
+            294,
             0,
-            547,
+            549,
             113,
             61,
             0,
@@ -84,6 +80,7 @@
          ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -99,13 +96,13 @@
             13,
             0,
             0,
-            108,
+            109,
             0,
             0,
             7,
             2,
             0,
-            290,
+            291,
             0,
             59,
             1,
@@ -115,20 +112,17 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-03-19 17:50:15 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-03-16 17:35:54 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -163,5 +157,11 @@
          "Sean Meininger",
          "Sergio Iglesias"
       ]
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }

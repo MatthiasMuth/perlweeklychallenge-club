@@ -1,6 +1,19 @@
 {
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-03-19 17:50:15 GMT"
+   },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             0,
             0,
@@ -14,7 +27,7 @@
             4,
             180,
             0,
-            350,
+            352,
             1,
             226,
             8,
@@ -32,10 +45,10 @@
             11,
             4,
             21
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             28,
@@ -67,11 +80,9 @@
             0,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
@@ -85,7 +96,7 @@
             0,
             0,
             0,
-            168,
+            169,
             0,
             0,
             2,
@@ -103,7 +114,8 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
    "yAxis" : {
@@ -111,13 +123,6 @@
       "title" : {
          "text" : ""
       }
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "chart" : {
-      "type" : "column"
    },
    "xAxis" : {
       "categories" : [
@@ -153,15 +158,10 @@
          "Rage311"
       ]
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-03-16 17:35:54 GMT"
-   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "chart" : {
+      "type" : "column"
    }
 }

@@ -1,55 +1,6 @@
 {
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-03-16 17:35:54 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "xAxis" : {
-      "categories" : [
-         "Cristina Heredia",
-         "Csaba Simandi",
-         "Dan Friedman",
-         "Daniel Bowling",
-         "Daniel Mantovani",
-         "Daniel Mita",
-         "Daniel Pfeiffer",
-         "Dario Mazzeo",
-         "Darren Bottin",
-         "Dave Cross",
-         "Dave Jacoby",
-         "David Ferrone",
-         "David Kayal",
-         "David Santiago",
-         "David Schwartz",
-         "Denis Yurashku",
-         "Dieter Dobbelaere",
-         "Dimitar Dimitrov",
-         "Donald Hunter",
-         "Doug Schrag",
-         "Duane Powell",
-         "Duncan C. White",
-         "E. Choroba",
-         "Eddy HS",
-         "Fabrizio Poggi",
-         "Feng Chang",
-         "Finley",
-         "Flavio Poletti",
-         "Francis Whittle",
-         "Fred Zinn"
-      ]
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+      "text" : "[Champions: 30] Last updated at 2025-03-19 17:50:15 GMT"
    },
    "series" : [
       {
@@ -65,7 +16,7 @@
             5,
             68,
             524,
-            264,
+            266,
             4,
             0,
             8,
@@ -76,7 +27,7 @@
             0,
             82,
             396,
-            613,
+            615,
             2,
             8,
             22,
@@ -115,7 +66,7 @@
             0,
             0,
             0,
-            415,
+            417,
             4,
             237,
             36,
@@ -158,10 +109,59 @@
          "name" : "Blog"
       }
    ],
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "xAxis" : {
+      "categories" : [
+         "Cristina Heredia",
+         "Csaba Simandi",
+         "Dan Friedman",
+         "Daniel Bowling",
+         "Daniel Mantovani",
+         "Daniel Mita",
+         "Daniel Pfeiffer",
+         "Dario Mazzeo",
+         "Darren Bottin",
+         "Dave Cross",
+         "Dave Jacoby",
+         "David Ferrone",
+         "David Kayal",
+         "David Santiago",
+         "David Schwartz",
+         "Denis Yurashku",
+         "Dieter Dobbelaere",
+         "Dimitar Dimitrov",
+         "Donald Hunter",
+         "Doug Schrag",
+         "Duane Powell",
+         "Duncan C. White",
+         "E. Choroba",
+         "Eddy HS",
+         "Fabrizio Poggi",
+         "Feng Chang",
+         "Finley",
+         "Flavio Poletti",
+         "Francis Whittle",
+         "Fred Zinn"
+      ]
+   },
    "yAxis" : {
       "title" : {
          "text" : ""
       },
       "min" : 0
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "chart" : {
+      "type" : "column"
    }
 }

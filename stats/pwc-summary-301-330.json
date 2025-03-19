@@ -1,4 +1,7 @@
 {
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
    "xAxis" : {
       "categories" : [
          "Torgny Lyon",
@@ -24,16 +27,26 @@
          "Yves Orton"
       ]
    },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
    "subtitle" : {
-      "text" : "[Champions: 21] Last updated at 2025-03-16 17:35:54 GMT"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
+      "text" : "[Champions: 21] Last updated at 2025-03-19 17:50:15 GMT"
    },
    "series" : [
       {
@@ -43,16 +56,16 @@
             8,
             0,
             2,
-            462,
+            464,
             24,
             18,
             16,
             22,
             0,
             4,
-            442,
+            444,
             81,
-            290,
+            292,
             1,
             3,
             3,
@@ -70,7 +83,7 @@
             0,
             2,
             0,
-            470,
+            472,
             0,
             0,
             2,
@@ -89,6 +102,7 @@
          ]
       },
       {
+         "name" : "Blog",
          "data" : [
             5,
             0,
@@ -102,7 +116,7 @@
             0,
             0,
             0,
-            221,
+            222,
             17,
             2,
             0,
@@ -111,21 +125,7 @@
             6,
             14,
             1
-         ],
-         "name" : "Blog"
+         ]
       }
-   ],
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   }
+   ]
 }
