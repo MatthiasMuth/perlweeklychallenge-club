@@ -1,15 +1,24 @@
 {
-   "chart" : {
-      "type" : "column"
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-03-29 18:13:19 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
    },
    "xAxis" : {
       "categories" : [
@@ -45,15 +54,6 @@
          "Asher Harvey-Smith"
       ]
    },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "series" : [
       {
          "name" : "Perl",
@@ -64,7 +64,7 @@
             0,
             169,
             3,
-            382,
+            386,
             2,
             0,
             3,
@@ -72,11 +72,11 @@
             2,
             36,
             93,
-            207,
+            209,
             44,
             13,
             8,
-            22,
+            28,
             22,
             8,
             1,
@@ -91,6 +91,7 @@
          ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -119,11 +120,10 @@
             0,
             0,
             2,
-            621,
+            625,
             0,
             21
-         ],
-         "name" : "Raku"
+         ]
       },
       {
          "name" : "Blog",
@@ -134,7 +134,7 @@
             28,
             118,
             0,
-            266,
+            268,
             0,
             0,
             0,
@@ -142,7 +142,7 @@
             0,
             0,
             13,
-            68,
+            69,
             0,
             32,
             4,
@@ -155,13 +155,13 @@
             0,
             0,
             0,
-            311,
+            313,
             0,
             0
          ]
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-03-19 17:50:15 GMT"
+   "chart" : {
+      "type" : "column"
    }
 }
