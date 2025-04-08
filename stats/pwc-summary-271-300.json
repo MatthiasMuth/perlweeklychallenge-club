@@ -1,4 +1,19 @@
 {
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "chart" : {
+      "type" : "column"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
    "xAxis" : {
       "categories" : [
          "Sergio Iglesias",
@@ -33,26 +48,18 @@
          "Tomasz Mucha"
       ]
    },
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-04-07 01:48:41 GMT"
+   },
    "yAxis" : {
-      "min" : 0,
       "title" : {
          "text" : ""
-      }
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
+      },
+      "min" : 0
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             6,
             1,
@@ -72,20 +79,19 @@
             2,
             7,
             0,
-            130,
+            132,
             66,
             2,
             4,
             4,
             2,
-            232,
+            234,
             1,
             10,
             14,
             0,
             6
-         ],
-         "name" : "Perl"
+         ]
       },
       {
          "name" : "Raku",
@@ -123,7 +129,6 @@
          ]
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             23,
@@ -149,19 +154,14 @@
             0,
             0,
             0,
-            225,
+            227,
             0,
             3,
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
-   ],
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-03-31 03:10:34 GMT"
-   }
+   ]
 }
