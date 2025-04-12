@@ -15,7 +15,6 @@ sub find_words( $list, $char ) {
 }
 
 use Test2::V0 qw( -no_srand );
-use Data::Dump qw( pp );
 
 is [ find_words( ["the", "weekly", "challenge"], "e" ) ], [ 0, 1, 2 ],
     'Example 1: find_words( ["the", "weekly", "challenge"], "e" ) == (0, 1, 2)';
