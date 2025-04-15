@@ -1,24 +1,6 @@
 {
-   "subtitle" : {
-      "text" : "Last updated at 2025-04-07 01:48:41 GMT"
-   },
-   "xAxis" : {
-      "labels" : {
-         "style" : {
-            "fontFamily" : "Verdana, sans-serif",
-            "fontSize" : "13px"
-         }
-      },
-      "type" : "category"
-   },
    "tooltip" : {
       "pointFormat" : "<b>{point.y:.0f}</b>"
-   },
-   "legend" : {
-      "enabled" : "false"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge Contributions [2019 - 2025]"
    },
    "chart" : {
       "type" : "column"
@@ -28,36 +10,54 @@
          "data" : [
             [
                "Perl",
-               16345
+               16423
             ],
             [
                "Raku",
-               9119
+               9152
             ],
             [
                "Blog",
-               5772
+               5800
             ]
          ],
+         "name" : "Contributions",
          "dataLabels" : {
-            "enabled" : "true",
-            "color" : "#FFFFFF",
-            "rotation" : -90,
-            "align" : "right",
             "format" : "{point.y:.0f}",
-            "y" : 10,
+            "enabled" : "true",
+            "rotation" : -90,
             "style" : {
                "fontFamily" : "Verdana, sans-serif",
                "fontSize" : "13px"
-            }
-         },
-         "name" : "Contributions"
+            },
+            "y" : 10,
+            "align" : "right",
+            "color" : "#FFFFFF"
+         }
       }
    ],
+   "title" : {
+      "text" : "The Weekly Challenge Contributions [2019 - 2025]"
+   },
+   "subtitle" : {
+      "text" : "Last updated at 2025-04-15 17:55:13 GMT"
+   },
+   "xAxis" : {
+      "labels" : {
+         "style" : {
+            "fontSize" : "13px",
+            "fontFamily" : "Verdana, sans-serif"
+         }
+      },
+      "type" : "category"
+   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : null
       }
+   },
+   "legend" : {
+      "enabled" : "false"
    }
 }
