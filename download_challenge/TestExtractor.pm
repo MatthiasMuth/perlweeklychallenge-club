@@ -21,11 +21,10 @@ our @EXPORT = qw(
     $verbose %options vprint vsay
     %debug dprint dsay
     done_testing
-    pp np carp croak
+    pp carp croak
 );
 
 use Data::Dump qw( pp );
-use Data::Printer;
 use Getopt::Long;
 use Cwd qw( abs_path );
 use File::Basename;
@@ -229,9 +228,9 @@ sub generate_tests( $sub_name, @tests ) {
 
         if ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ ) {
             push @generated_code, join "",
-                "ok", $1 ? "" : " !", " $sub_name( ",
-                join( ", ", map( pp( $_ ), @input_params ) ),
-                " ),\n",
+                "is $sub_name( ",
+		    join( ", ", map( pp( $_ ), @input_params ) ),
+                " ), ", uc( substr $expected->[0], 0, 1 ), ",\n",
                 "    '$name'",
                 # defined $diag ? ",\n    '$diag'" : "",
                 ";";
@@ -254,7 +253,6 @@ sub generate_tests( $sub_name, @tests ) {
     }
     my $generated_tests = join "\n",
         "use Test2::V0 qw( -no_srand );",
-        "use Data::Dump qw( pp );",
         "",
         @generated_code,
         "",
