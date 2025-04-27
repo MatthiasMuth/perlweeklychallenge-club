@@ -1,4 +1,10 @@
 {
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-04-26 01:15:19 GMT"
+   },
+   "chart" : {
+      "type" : "column"
+   },
    "series" : [
       {
          "name" : "Perl",
@@ -22,7 +28,7 @@
             7,
             2,
             0,
-            599,
+            603,
             8,
             2,
             23,
@@ -91,7 +97,7 @@
             0,
             0,
             0,
-            81,
+            83,
             0,
             0,
             1,
@@ -106,30 +112,6 @@
          "name" : "Blog"
       }
    ],
-   "chart" : {
-      "type" : "column"
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-04-15 17:55:13 GMT"
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
    "xAxis" : {
       "categories" : [
          "Jason Messer",
@@ -163,5 +145,23 @@
          "Khalid",
          "Kian-Meng Ang"
       ]
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
+   },
+   "tooltip" : {
+      "shared" : 1,
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
    }
 }
