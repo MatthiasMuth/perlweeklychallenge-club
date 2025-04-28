@@ -1,15 +1,17 @@
 {
-   "chart" : {
-      "type" : "column"
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "series" : [
       {
+         "name" : "Perl",
          "data" : [
             4,
             281,
             0,
             4,
-            190,
+            192,
             2,
             6,
             13,
@@ -35,10 +37,10 @@
             52,
             2,
             1
-         ],
-         "name" : "Perl"
+         ]
       },
       {
+         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -70,16 +72,16 @@
             0,
             0,
             0
-         ],
-         "name" : "Raku"
+         ]
       },
       {
+         "name" : "Blog",
          "data" : [
             0,
             0,
             0,
             1,
-            84,
+            85,
             0,
             0,
             0,
@@ -105,30 +107,14 @@
             0,
             0,
             0
-         ],
-         "name" : "Blog"
+         ]
       }
    ],
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-04-26 01:15:19 GMT"
-   },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
-   "plotOptions" : {
-      "column" : {
-         "stacking" : "percent"
-      }
-   },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
    },
-   "yAxis" : {
-      "min" : 0,
-      "title" : {
-         "text" : ""
-      }
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-04-28 03:11:01 GMT"
    },
    "xAxis" : {
       "categories" : [
@@ -163,5 +149,19 @@
          "Oleksii Tsvietnov",
          "Oliver Oviedo"
       ]
+   },
+   "plotOptions" : {
+      "column" : {
+         "stacking" : "percent"
+      }
+   },
+   "yAxis" : {
+      "title" : {
+         "text" : ""
+      },
+      "min" : 0
+   },
+   "chart" : {
+      "type" : "column"
    }
 }
