@@ -20,17 +20,17 @@ use Git;
 
 sub git_command( $repo, $command, @args ) {
     local $d_area = "git_command";
-    $debug{$d_area} and dsay "git_command", pp( $command, @args );
+    $debug{GIT_COMMAND} and dsay "git_command", pp( $command, @args );
     my ( $stderr_output, $return_success );
     try {
 	if ( ! defined wantarray ) {
 	    my @output = $repo->command( $command, @args );
-	    $debug{$d_area} and dsay @output;
+	    $debug{GIT_COMMAND} and dsay @output;
 	    return;
 	}
 	elsif ( wantarray ) {
 	    my @output = $repo->command( $command, @args );
-	    $debug{$d_area} and dsay @output;
+	    $debug{GIT_COMMAND} and dsay @output;
 	    return @output;
 	}
 	else {
@@ -39,12 +39,12 @@ sub git_command( $repo, $command, @args ) {
 		    ( $args[-1]{STDERR}, delete $args[-1]{RETURN_SUCCESS} );
 	    }
 	    my $output = $repo->command( $command, @args ) =~ s/\n\z//r;
-	    $debug{$d_area} and dsay $output;
+	    $debug{GIT_COMMAND} and dsay $output;
 	    return $return_success ? ( $output || 1 ) : $output;
 	}
     }
     catch ( $e ) {
-	$debug{$d_area} and dsay pp $e;
+	$debug{GIT_COMMAND} and dsay pp $e;
 	my $msg = $e->{'-text'} // ( "$e" =~ s/ at .*$//r );
 	$msg =~ s/^fatal: *//;
 	if ( defined wantarray ) {
@@ -83,7 +83,7 @@ git_command( $repo,
 
 if ( $use_stash  ) {
     qsay "stashing current changes";
-    git_command( $repo, "stash --quiet" );
+    git_command( $repo, qw( stash push --quiet ) );
     if ( $verbose ) {
 	say git_command( $repo, qw( stash show --name-status ) );
     }
@@ -93,7 +93,7 @@ qsay "updating master";
 git_command( $repo, qw( checkout --quiet master ) );
 git_command( $repo, qw( pull --quiet ) );
 git_command( $repo, qw( fetch --quiet upstream ) );
-git_command( $repo, qw( merge --quiet --ff-only upstream/master ) );
+git_command( $repo, qw( merge --ff-only --quiet upstream/master ) );
 
 qsay "updating dev";
 git_command( $repo, qw( checkout --quiet dev ) );
@@ -102,14 +102,14 @@ git_command( $repo, qw( checkout --quiet dev -- :/.gitignore ) );
 
 my $need_dev_commit = false;
 git_command( $repo,
-    qw( diff-index --quiet --exit-code HEAD -- ),
+    [ qw( diff-index --exit-code HEAD -- ) ],
     { STDERR => 0, RETURN_SUCCESS => 1 } )
     or $need_dev_commit = true;
 qsay "dev is up to date"
     unless $need_dev_commit;
 
 if ( $need_dev_commit ) {
-    git_command( $repo, qw( commit --quiet -uno ), 
+    git_command( $repo, qw( commit -uno --quiet ), 
 	"-m", "Merge branch 'master' into dev (keeping .gitignore)" );
 }
 
