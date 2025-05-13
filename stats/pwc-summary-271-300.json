@@ -9,7 +9,6 @@
    },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             6,
             1,
@@ -17,7 +16,7 @@
             0,
             22,
             0,
-            391,
+            393,
             7,
             5,
             4,
@@ -36,15 +35,15 @@
             6,
             4,
             2,
-            242,
+            244,
             1,
             10,
             14,
             0
-         ]
+         ],
+         "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             46,
@@ -76,7 +75,8 @@
             0,
             0,
             4
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "data" : [
@@ -86,7 +86,7 @@
             0,
             0,
             3,
-            193,
+            194,
             0,
             12,
             0,
@@ -105,7 +105,7 @@
             0,
             0,
             0,
-            235,
+            237,
             0,
             3,
             0,
@@ -115,7 +115,14 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-05-04 14:35:56 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-05-11 21:59:05 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "xAxis" : {
       "categories" : [
@@ -151,17 +158,10 @@
          "Tim Smith"
       ]
    },
-   "tooltip" : {
-      "shared" : 1,
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>"
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
    }
 }

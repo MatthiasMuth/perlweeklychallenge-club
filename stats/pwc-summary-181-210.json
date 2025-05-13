@@ -1,14 +1,11 @@
 {
+   "chart" : {
+      "type" : "column"
+   },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "chart" : {
-      "type" : "column"
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-05-04 14:35:56 GMT"
    },
    "series" : [
       {
@@ -17,7 +14,7 @@
             281,
             0,
             4,
-            194,
+            196,
             2,
             6,
             13,
@@ -82,13 +79,12 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             0,
             0,
             1,
-            86,
+            87,
             0,
             0,
             0,
@@ -114,9 +110,20 @@
             0,
             0,
             0
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-05-11 21:59:05 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "xAxis" : {
       "categories" : [
          "Matt Latusek",
@@ -151,17 +158,10 @@
          "Oliver Oviedo"
       ]
    },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
    "yAxis" : {
       "min" : 0,
       "title" : {
          "text" : ""
       }
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
    }
 }

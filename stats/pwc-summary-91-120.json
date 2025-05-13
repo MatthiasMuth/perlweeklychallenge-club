@@ -1,28 +1,14 @@
 {
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
+   "chart" : {
+      "type" : "column"
    },
    "plotOptions" : {
       "column" : {
          "stacking" : "percent"
       }
    },
-   "chart" : {
-      "type" : "column"
-   },
    "series" : [
       {
-         "name" : "Perl",
          "data" : [
             2,
             3,
@@ -46,7 +32,7 @@
             0,
             12,
             6,
-            574,
+            580,
             1,
             2,
             306,
@@ -54,10 +40,10 @@
             0,
             0,
             26
-         ]
+         ],
+         "name" : "Perl"
       },
       {
-         "name" : "Raku",
          "data" : [
             0,
             0,
@@ -81,15 +67,16 @@
             0,
             0,
             0,
-            574,
+            580,
             0,
             3,
             10,
             0,
-            432,
+            434,
             4,
             0
-         ]
+         ],
+         "name" : "Raku"
       },
       {
          "data" : [
@@ -115,7 +102,7 @@
             0,
             0,
             0,
-            275,
+            278,
             0,
             0,
             125,
@@ -128,7 +115,14 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-05-04 14:35:56 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-05-11 21:59:05 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
    },
    "xAxis" : {
       "categories" : [
@@ -163,5 +157,11 @@
          "Jan Ole Kraft",
          "Jared Martin"
       ]
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }

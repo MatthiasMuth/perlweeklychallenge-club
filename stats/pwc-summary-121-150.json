@@ -1,17 +1,4 @@
 {
-   "tooltip" : {
-      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
-      "shared" : 1
-   },
-   "yAxis" : {
-      "title" : {
-         "text" : ""
-      },
-      "min" : 0
-   },
-   "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
-   },
    "chart" : {
       "type" : "column"
    },
@@ -19,9 +6,6 @@
       "column" : {
          "stacking" : "percent"
       }
-   },
-   "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-05-04 14:35:56 GMT"
    },
    "series" : [
       {
@@ -45,7 +29,7 @@
             7,
             2,
             0,
-            605,
+            607,
             8,
             2,
             23,
@@ -95,7 +79,6 @@
          "name" : "Raku"
       },
       {
-         "name" : "Blog",
          "data" : [
             0,
             46,
@@ -116,7 +99,7 @@
             0,
             0,
             0,
-            84,
+            85,
             0,
             0,
             1,
@@ -127,9 +110,20 @@
             2,
             1,
             43
-         ]
+         ],
+         "name" : "Blog"
       }
    ],
+   "subtitle" : {
+      "text" : "[Champions: 30] Last updated at 2025-05-11 21:59:05 GMT"
+   },
+   "title" : {
+      "text" : "The Weekly Challenge [2019 - 2025]"
+   },
+   "tooltip" : {
+      "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",
+      "shared" : 1
+   },
    "xAxis" : {
       "categories" : [
          "Jason Messer",
@@ -163,5 +157,11 @@
          "Khalid",
          "Kian-Meng Ang"
       ]
+   },
+   "yAxis" : {
+      "min" : 0,
+      "title" : {
+         "text" : ""
+      }
    }
 }
