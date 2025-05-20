@@ -12,6 +12,20 @@
                ],
                [
                   "Blog",
+                  2
+               ]
+            ],
+            "id" : "Adam Russell",
+            "name" : "Adam Russell"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
                   1
                ]
             ],
@@ -37,6 +51,58 @@
             ],
             "id" : "Andrew Shitov",
             "name" : "Andrew Shitov"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Arne Sommer",
+            "name" : "Arne Sommer"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Athanasius",
+            "name" : "Athanasius"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "BarrOff",
+            "name" : "BarrOff"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Bob Lied",
+            "name" : "Bob Lied"
          },
          {
             "data" : [
@@ -85,6 +151,38 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Jaldhar H. Vyas",
+            "name" : "Jaldhar H. Vyas"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Jorg Sommrey",
+            "name" : "Jorg Sommrey"
+         },
+         {
+            "data" : [
+               [
                   "Raku",
                   2
                ],
@@ -105,6 +203,20 @@
             ],
             "id" : "Mark Anderson",
             "name" : "Mark Anderson"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Matthias Muth",
+            "name" : "Matthias Muth"
          },
          {
             "data" : [
@@ -191,10 +303,28 @@
                [
                   "Raku",
                   2
+               ],
+               [
+                  "Blog",
+                  1
                ]
             ],
             "id" : "Roger Bell_West",
             "name" : "Roger Bell_West"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Simon Green",
+            "name" : "Simon Green"
          },
          {
             "data" : [
@@ -267,6 +397,11 @@
          "colorByPoint" : 1,
          "data" : [
             {
+               "drilldown" : "Adam Russell",
+               "name" : "Adam Russell",
+               "y" : 4
+            },
+            {
                "drilldown" : "Ali Moradi",
                "name" : "Ali Moradi",
                "y" : 3
@@ -280,6 +415,26 @@
                "drilldown" : "Andrew Shitov",
                "name" : "Andrew Shitov",
                "y" : 2
+            },
+            {
+               "drilldown" : "Arne Sommer",
+               "name" : "Arne Sommer",
+               "y" : 3
+            },
+            {
+               "drilldown" : "Athanasius",
+               "name" : "Athanasius",
+               "y" : 4
+            },
+            {
+               "drilldown" : "BarrOff",
+               "name" : "BarrOff",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Bob Lied",
+               "name" : "Bob Lied",
+               "y" : 3
             },
             {
                "drilldown" : "Dave Jacoby",
@@ -302,6 +457,16 @@
                "y" : 2
             },
             {
+               "drilldown" : "Jaldhar H. Vyas",
+               "name" : "Jaldhar H. Vyas",
+               "y" : 5
+            },
+            {
+               "drilldown" : "Jorg Sommrey",
+               "name" : "Jorg Sommrey",
+               "y" : 3
+            },
+            {
                "drilldown" : "Luca Ferrari",
                "name" : "Luca Ferrari",
                "y" : 12
@@ -310,6 +475,11 @@
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
                "y" : 2
+            },
+            {
+               "drilldown" : "Matthias Muth",
+               "name" : "Matthias Muth",
+               "y" : 3
             },
             {
                "drilldown" : "Niels van Dijke",
@@ -344,7 +514,12 @@
             {
                "drilldown" : "Roger Bell_West",
                "name" : "Roger Bell_West",
-               "y" : 4
+               "y" : 5
+            },
+            {
+               "drilldown" : "Simon Green",
+               "name" : "Simon Green",
+               "y" : 3
             },
             {
                "drilldown" : "Thomas Kohler",
@@ -371,7 +546,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 20] Last updated at 2025-05-16 23:39:44 GMT"
+      "text" : "[Champions: 29] Last updated at 2025-05-18 23:10:24 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 321"
