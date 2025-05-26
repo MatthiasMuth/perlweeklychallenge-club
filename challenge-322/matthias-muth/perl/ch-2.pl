@@ -14,7 +14,7 @@ use builtin qw( indexed );
 use List::Util qw( uniq pairs );
 use Verbose;
 
-sub rank_array( @ints ) {
+sub rank_array_1( @ints ) {
     my @uniq = uniq @ints;
     my @sorted = sort { $a <=> $b } @uniq;
     my %ranks = map { ( $sorted[$_] => $_ + 1 ) } keys @sorted; 
@@ -27,9 +27,23 @@ sub rank_array( @ints ) {
     return @mappings;
 }
 
-sub rank_array( @ints ) {
+sub rank_array_map( @ints ) {
     my @uniq_sorted = sort { $a <=> $b } uniq @ints;
     my %ranks = map { ( $uniq_sorted[$_] => $_ + 1 ) } 0..$#uniq_sorted; 
+    return map $ranks{$_}, @ints;
+}
+
+sub rank_array_indexed( @ints ) {
+    my %ranks = reverse indexed( "", sort { $a <=> $b } uniq @ints ); 
+    return map $ranks{$_}, @ints;
+}
+
+sub rank_array( @ints ) {
+    my ( %ranks, $rank );
+    for ( sort { $a <=> $b } @ints ) {
+	$ranks{$_} = ++$rank
+	    unless exists $ranks{$_};
+    }
     return map $ranks{$_}, @ints;
 }
 
@@ -45,3 +59,13 @@ is [ rank_array( 55, 11, 11, 44, 11, 33 ) ], [ 4, 1, 1, 3, 1, 2 ],
     'Extra 1: rank_array( 55, 11, 11, 44, 11, 33 ) == (4, 1, 1, 3, 1, 2 )';
 
 done_testing;
+
+use Benchmark qw( :all );
+
+my @data = ( 55, 11, 11, 44, 11, 33 );
+cmpthese( -3, {
+    rank_array_map => sub { rank_array_map( @data ) },
+    rank_array_indexed => sub { rank_array_indexed( @data ) },
+    rank_array => sub { rank_array( @data ) },
+} );
+
