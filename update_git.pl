@@ -97,21 +97,9 @@ git_command( $repo, qw( merge --ff-only --quiet upstream/master ) );
 
 qsay "updating dev";
 git_command( $repo, qw( checkout --quiet dev ) );
-git_command( $repo, qw( merge --quiet --no-ff --no-commit master ) );
-git_command( $repo, qw( checkout --quiet dev -- :/.gitignore ) );
-
-my $need_dev_commit = false;
-git_command( $repo,
-    [ qw( diff-index --exit-code HEAD -- ) ],
-    { STDERR => 0, RETURN_SUCCESS => 1 } )
-    or $need_dev_commit = true;
-qsay "dev is up to date"
-    unless $need_dev_commit;
-
-if ( $need_dev_commit ) {
-    git_command( $repo, qw( commit -uno --quiet ), 
-	"-m", "Merge branch 'master' into dev (keeping .gitignore)" );
-}
+git_command( $repo, qw( merge --quiet --strategy ort -X ours ),
+    "-m", "Merge branch 'master' into dev (keeping our changes)",
+    "master" );
 
 qsay "pushing changes";
 git_command( $repo, qw( push --quiet --all ) );

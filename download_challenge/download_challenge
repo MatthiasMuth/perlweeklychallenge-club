@@ -118,7 +118,7 @@ GetOptions(
     "check|n"    => \$options{DRY_RUN},
     "mail:s@"    => \$options{MAIL_TO},
     "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
-    "input|i:s"  => \$options{INPUT},
+    "input|i:s"  => \$options{INPUT_FILE},
     "files!"     => \$options{WRITE_FILES},
     "archive!"   => \$options{ARCHIVE},
     "quiet|q!"   => \$options{QUIET},
@@ -154,7 +154,7 @@ unless ( @ARGV ) {
 
 
 process_challenge( $_ )
-    for @ARGV ? @ARGV : check_challenge_update();
+    for @ARGV ? @ARGV : get_challenge_to_update();
 
 # Update the status toml file.
 write_toml( $status )
@@ -174,34 +174,37 @@ sub process_challenge( $challenge ) {
     $challenge_path =~ s/\d+/$challenge/;
 
     local $d_area = "html";
-    my $html =
-        $options{INPUT}
-        ? do { local ( @ARGV, $/ ) = $options{INPUT}; <> }
+    my $page_html =
+        $options{INPUT_FILE}
+        ? do { local ( @ARGV, $/ ) = $options{INPUT_FILE}; <> }
         : get( $main_url . $challenge_path );
     my ( $page_header ) =
-        $html =~ m'(<section class="global-page-header">.*?</section>)'s;
+        $page_html =~ m'(<section class="global-page-header">.*?</section>)'s;
     my ( $tasks ) =
-        $html =~ m'(<h2 id="TASK1">.*?</section>)'s;
+        $page_html =~ m'(<h2 id="TASK1">.*?</section>)'s;
 
-    # Create the mail html from the template,
+    # The tasks html will be used for checking whether the task descriptions
+    # have changed, and then also for sending mails (or not).
+
+    # Create the tasks html from the template,
     # copying in the extracted HTML parts.
-    my $mail_html = $templates->{'mail'}{'html'};
+    my $tasks_html = $templates->{'mail'}{'html'};
     my %substitutions = (
         CHALLENGE   => $challenge,
         PAGE_HEADER => $page_header,
         TASKS       => $tasks,
     );
-    $mail_html =~ s/<$_>/$substitutions{$_}/g
+    $tasks_html =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
-    dsay ":mail_html", "mail_html:\n", $mail_html;
+    dsay ":tasks_html", "tasks_html:\n", $tasks_html;
 
-    unless ( $mail_html ) {
-        say STDERR "ERROR: mail html is empty. Aborting.";
+    unless ( $tasks_html ) {
+        say STDERR "ERROR: tasks html is empty. Aborting.";
         exit 1;
     }
 
     # If we are running an update, check whether the challenge html has changed.
-    my $md5 = md5_hex( encode_utf8( $mail_html ) );
+    my $md5 = md5_hex( encode_utf8( $tasks_html ) );
     my $html_has_changed = undef;
     if ( $options{UPDATE} ) {
         $html_has_changed = $md5 ne $status->{'current-challenge-html-md5'};
@@ -212,8 +215,7 @@ sub process_challenge( $challenge ) {
             set_toml( $status, 'current-challenge-html-md5', $md5 );
         }
         else {
-            prot "Task description html is unchanged."
-                unless $options{QUIET};
+            vsay "Task description html is unchanged.";
         }
     }
     else {
@@ -225,7 +227,8 @@ sub process_challenge( $challenge ) {
     if ( ( ! $options{UPDATE} || $html_has_changed ) && $options{MAIL_TO} ) {
         for my $rcpt ( @{$options{MAIL_TO}} ) {
             if ( $options{DRY_RUN} ) {
-                say "would send email to $rcpt";
+                say "would send email to $rcpt"
+		    unless $options{QUIET};
             }
             else {
                 vsay "sending email to $rcpt";
@@ -233,7 +236,7 @@ sub process_challenge( $challenge ) {
                     ->from( 'muthm@muthnet.de' )
                     ->to( $rcpt )
                     ->subject( $title )
-                    ->html_body( $mail_html )
+                    ->html_body( $tasks_html )
                     ->send_or_die;
                 prot "Sent email to $rcpt"
                     unless $options{QUIET};
@@ -243,9 +246,41 @@ sub process_challenge( $challenge ) {
 
     # Write files.
     if ( $options{WRITE_FILES} ) {
+	# The README.md file is created by the maintainer of the 'master'
+	# branch when the new challenge directories are created.
+	# It is copied from the previous week's challenge.
+	# In order to update it to the current week's skeleton, we need
+	# to make sure that the repository was updated and the file checked out
+	# first.
+
+        my $target_dir = "../challenge-$challenge/$status->{user}";
+	my $readme_file = "$target_dir/README.md";
+
+	my $dry_run_readme_msg = "";
+	if ( ! -f $readme_file ) {
+	    unless ( $options{DRY_RUN} ) {
+		system "../update_git.pl" . ( $verbose ? " -v" : " -q" );
+	    }
+	    else {
+		$dry_run_readme_msg = " or '.../README.md'";
+	    }
+
+	    # If the file exists now, it is the previous week's version.
+	    # We remove it to make space for this week's skeleton.
+	    if ( -f $readme_file ) {
+		unlink $readme_file;
+	    }
+	    else {
+		# If it doesn't exist, it may need to be checked out from Git
+		# manually. We keep that space clear and use another name.
+		$readme_file = "$target_dir/README-$challenge.md";
+	    }
+	}
+
+	# Extract a pure text version of the challenge description.
         my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
 
-        $tree->parse_content( $mail_html )
+        $tree->parse_content( $tasks_html )
             or die "ERROR: could not parse html data.\n";
 
         # Extract nodes containing the title and the date,
@@ -304,20 +339,18 @@ sub process_challenge( $challenge ) {
             $status->{'current-challenge-last-modified'} . "_$md5";
         $archive_file =~ s/[-:]//g;
 
-        my $target_dir = "../challenge-$challenge/$status->{user}";
-
         my @file_operations =
             ( ! $options{UPDATE} || $html_has_changed || $options{FORCE} )
             ? (
                 $options{UPDATE} && $options{ARCHIVE}
-                    ? [ "$archive_dir/$archive_file", $html ]
+                    ? [ "$archive_dir/$archive_file", $page_html ]
                     : (),
                 [ "$target_dir/README-no-blog.md",
                     $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
                 [ "$target_dir/blog.txt",
                     $blog_text, 'DO_NOT_OVERWRITE' ],
-                [ "$target_dir/perl/README-$challenge.md",
-                    $readme_text, 'DO_NOT_OVERWRITE' ],
+                [ $readme_file,
+                    $readme_text, 'DO_NOT_OVERWRITE', $dry_run_readme_msg ],
                 [ "$target_dir/perl/challenge-$challenge.txt",
                     $challenge_text ],
                 [ "$target_dir/perl/ch-1.pl",
@@ -327,8 +360,9 @@ sub process_challenge( $challenge ) {
             ) : ();
 
         for ( @file_operations ) {
-            my ( $file, $contents, $do_not_overwrite ) = @$_;
-            my %verb_form =
+            my ( $file, $contents, $do_not_overwrite, $add_msg ) =
+		@$_;
+            my %verb_forms =
                 $options{DRY_RUN}
                 ?  ( write => "write", overwrite => "overwrite" )
                 :  ( write => "writing", overwrite => "overwriting" );
@@ -339,9 +373,10 @@ sub process_challenge( $challenge ) {
                 . ( -f $file
                     ? ( ( ( $do_not_overwrite && $options{FORCE} >= 2 )
                             ? "forcefully " : "" )
-                        . $verb_form{"overwrite"} )
-                    : $verb_form{"write"} )
-                . " '$file'";
+                        . $verb_forms{"overwrite"} )
+                    : $verb_forms{"write"} )
+                . " '$file'"
+		. ( $add_msg || "" );
             vsay $msg;
             unless ( $options{DRY_RUN} ) {
                 make_path dirname( $file );
@@ -365,7 +400,7 @@ sub retrieve_challenge_link( $base_url, $pattern ) {
     return $link;
 }
 
-sub check_challenge_update {
+sub get_challenge_to_update {
     local $d_area = "check";
 
     # Return the current challenge number if there needs to be an update,
@@ -382,7 +417,7 @@ sub check_challenge_update {
 
     my $main_url = $status->{'main-url'};
     my $challenge_path = $status->{'current-challenge-path'};
-    if ( check_page_change( $main_url, 'main-last-modified' ) ) {
+    if ( page_was_modified( $main_url, 'main-last-modified' ) ) {
         my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
         $challenge_path = retrieve_challenge_link( $main_url, $xpath_pattern );
         dsay "current-challenge-path: ", pp( $challenge_path );
@@ -408,8 +443,8 @@ sub check_challenge_update {
     }
 
     # Step 2:
-    # Check the challenge page for modification.
-    if ( check_page_change(
+    # Check the challenge page modification time.
+    if ( page_was_modified(
         $main_url . $challenge_path, 'current-challenge-last-modified' ) )
     {
         vsay "challenge page was modified",
@@ -422,7 +457,7 @@ sub check_challenge_update {
     }
 }
 
-sub check_page_change( $url, $last_modified_field_name ) {
+sub page_was_modified( $url, $last_modified_field_name ) {
     my @header = head( $url );
     my $modified_time = time_string( $header[2] );
     vsay "modified_time: ", pp( $modified_time );
