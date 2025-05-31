@@ -8,11 +8,11 @@
             "data" : [
                [
                   "Raku",
-                  448
+                  452
                ],
                [
                   "Blog",
-                  1113
+                  1133
                ]
             ],
             "id" : "Luca Ferrari",
@@ -22,15 +22,15 @@
             "data" : [
                [
                   "Perl",
-                  605
+                  609
                ],
                [
                   "Raku",
-                  565
+                  569
                ],
                [
                   "Blog",
-                  300
+                  301
                ]
             ],
             "id" : "Roger Bell_West",
@@ -58,15 +58,15 @@
             "data" : [
                [
                   "Perl",
-                  582
+                  584
                ],
                [
                   "Raku",
-                  582
+                  584
                ],
                [
                   "Blog",
-                  279
+                  280
                ]
             ],
             "id" : "Jaldhar H. Vyas",
@@ -80,11 +80,11 @@
                ],
                [
                   "Raku",
-                  639
+                  641
                ],
                [
                   "Blog",
-                  320
+                  321
                ]
             ],
             "id" : "Arne Sommer",
@@ -94,11 +94,11 @@
             "data" : [
                [
                   "Perl",
-                  542
+                  544
                ],
                [
                   "Raku",
-                  503
+                  505
                ],
                [
                   "Blog",
@@ -112,11 +112,11 @@
             "data" : [
                [
                   "Perl",
-                  480
+                  484
                ],
                [
                   "Raku",
-                  488
+                  492
                ]
             ],
             "id" : "Ulrich Rieke",
@@ -144,7 +144,7 @@
             "data" : [
                [
                   "Perl",
-                  538
+                  542
                ],
                [
                   "Raku",
@@ -152,7 +152,7 @@
                ],
                [
                   "Blog",
-                  193
+                  195
                ]
             ],
             "id" : "Dave Jacoby",
@@ -162,11 +162,11 @@
             "data" : [
                [
                   "Perl",
-                  609
+                  611
                ],
                [
                   "Blog",
-                  86
+                  87
                ]
             ],
             "id" : "Jorg Sommrey",
@@ -176,25 +176,7 @@
             "data" : [
                [
                   "Perl",
-                  400
-               ],
-               [
-                  "Raku",
-                  9
-               ],
-               [
-                  "Blog",
-                  283
-               ]
-            ],
-            "id" : "Adam Russell",
-            "name" : "Adam Russell"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  460
+                  464
                ],
                [
                   "Raku",
@@ -202,7 +184,7 @@
                ],
                [
                   "Blog",
-                  230
+                  232
                ]
             ],
             "id" : "W. Luis Mochan",
@@ -212,7 +194,25 @@
             "data" : [
                [
                   "Perl",
-                  631
+                  402
+               ],
+               [
+                  "Raku",
+                  9
+               ],
+               [
+                  "Blog",
+                  285
+               ]
+            ],
+            "id" : "Adam Russell",
+            "name" : "Adam Russell"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  635
                ],
                [
                   "Blog",
@@ -272,11 +272,11 @@
             "data" : [
                [
                   "Perl",
-                  395
+                  397
                ],
                [
                   "Blog",
-                  195
+                  196
                ]
             ],
             "id" : "Simon Green",
@@ -286,11 +286,11 @@
             "data" : [
                [
                   "Perl",
-                  368
+                  372
                ],
                [
                   "Blog",
-                  177
+                  179
                ]
             ],
             "id" : "Peter Campbell Smith",
@@ -304,7 +304,7 @@
                ],
                [
                   "Raku",
-                  505
+                  507
                ],
                [
                   "Blog",
@@ -318,11 +318,11 @@
             "data" : [
                [
                   "Perl",
-                  246
+                  248
                ],
                [
                   "Blog",
-                  239
+                  241
                ]
             ],
             "id" : "Thomas Kohler",
@@ -336,7 +336,7 @@
                ],
                [
                   "Raku",
-                  433
+                  437
                ]
             ],
             "id" : "Feng Chang",
@@ -382,7 +382,7 @@
             "data" : [
                [
                   "Raku",
-                  434
+                  438
                ]
             ],
             "id" : "Jan Krnavek",
@@ -392,7 +392,7 @@
             "data" : [
                [
                   "Perl",
-                  223
+                  227
                ],
                [
                   "Raku",
@@ -400,7 +400,7 @@
                ],
                [
                   "Blog",
-                  76
+                  78
                ]
             ],
             "id" : "Ali Moradi",
@@ -424,11 +424,11 @@
             "data" : [
                [
                   "Perl",
-                  346
+                  350
                ],
                [
                   "Blog",
-                  41
+                  42
                ]
             ],
             "id" : "Bob Lied",
@@ -438,7 +438,7 @@
             "data" : [
                [
                   "Perl",
-                  382
+                  386
                ]
             ],
             "id" : "Niels van Dijke",
@@ -448,11 +448,11 @@
             "data" : [
                [
                   "Perl",
-                  260
+                  264
                ],
                [
                   "Blog",
-                  117
+                  119
                ]
             ],
             "id" : "Robbie Hatley",
@@ -462,15 +462,15 @@
             "data" : [
                [
                   "Perl",
-                  146
+                  150
                ],
                [
                   "Raku",
-                  146
+                  150
                ],
                [
                   "Blog",
-                  74
+                  76
                ]
             ],
             "id" : "Packy Anderson",
@@ -530,7 +530,7 @@
             "data" : [
                [
                   "Raku",
-                  312
+                  314
                ],
                [
                   "Blog",
@@ -544,7 +544,7 @@
             "data" : [
                [
                   "Perl",
-                  308
+                  312
                ],
                [
                   "Blog",
@@ -558,7 +558,7 @@
             "data" : [
                [
                   "Perl",
-                  282
+                  286
                ],
                [
                   "Raku",
@@ -571,6 +571,20 @@
             ],
             "id" : "David Ferrone",
             "name" : "David Ferrone"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  200
+               ],
+               [
+                  "Blog",
+                  89
+               ]
+            ],
+            "id" : "Matthias Muth",
+            "name" : "Matthias Muth"
          },
          {
             "data" : [
@@ -604,20 +618,6 @@
             "data" : [
                [
                   "Perl",
-                  198
-               ],
-               [
-                  "Blog",
-                  88
-               ]
-            ],
-            "id" : "Matthias Muth",
-            "name" : "Matthias Muth"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
                   281
                ]
             ],
@@ -646,7 +646,7 @@
             "data" : [
                [
                   "Perl",
-                  244
+                  248
                ]
             ],
             "id" : "Peter Meszaros",
@@ -770,7 +770,7 @@
             "data" : [
                [
                   "Perl",
-                  150
+                  152
                ]
             ],
             "id" : "Kjetil Skotheim",
@@ -797,12 +797,12 @@
             {
                "drilldown" : "Luca Ferrari",
                "name" : "1: Luca Ferrari",
-               "y" : 3122
+               "y" : 3170
             },
             {
                "drilldown" : "Roger Bell_West",
                "name" : "2: Roger Bell_West",
-               "y" : 2940
+               "y" : 2958
             },
             {
                "drilldown" : "Laurent Rosenfeld",
@@ -812,22 +812,22 @@
             {
                "drilldown" : "Jaldhar H. Vyas",
                "name" : "4: Jaldhar H. Vyas",
-               "y" : 2886
+               "y" : 2896
             },
             {
                "drilldown" : "Arne Sommer",
                "name" : "5: Arne Sommer",
-               "y" : 2224
+               "y" : 2230
             },
             {
                "drilldown" : "Athanasius",
                "name" : "6: Athanasius",
-               "y" : 2098
+               "y" : 2106
             },
             {
                "drilldown" : "Ulrich Rieke",
                "name" : "7: Ulrich Rieke",
-               "y" : 1936
+               "y" : 1952
             },
             {
                "drilldown" : "Flavio Poletti",
@@ -837,27 +837,27 @@
             {
                "drilldown" : "Dave Jacoby",
                "name" : "9: Dave Jacoby",
-               "y" : 1464
+               "y" : 1476
             },
             {
                "drilldown" : "Jorg Sommrey",
                "name" : "10: Jorg Sommrey",
-               "y" : 1390
-            },
-            {
-               "drilldown" : "Adam Russell",
-               "name" : "11: Adam Russell",
-               "y" : 1384
+               "y" : 1396
             },
             {
                "drilldown" : "W. Luis Mochan",
-               "name" : "12: W. Luis Mochan",
-               "y" : 1384
+               "name" : "11: W. Luis Mochan",
+               "y" : 1396
+            },
+            {
+               "drilldown" : "Adam Russell",
+               "name" : "12: Adam Russell",
+               "y" : 1392
             },
             {
                "drilldown" : "E. Choroba",
                "name" : "13: E. Choroba",
-               "y" : 1376
+               "y" : 1384
             },
             {
                "drilldown" : "Colin Crain",
@@ -877,27 +877,27 @@
             {
                "drilldown" : "Simon Green",
                "name" : "17: Simon Green",
-               "y" : 1180
+               "y" : 1186
             },
             {
                "drilldown" : "Peter Campbell Smith",
                "name" : "18: Peter Campbell Smith",
-               "y" : 1090
+               "y" : 1102
             },
             {
                "drilldown" : "Mark Anderson",
                "name" : "19: Mark Anderson",
-               "y" : 1062
+               "y" : 1066
             },
             {
                "drilldown" : "Thomas Kohler",
                "name" : "20: Thomas Kohler",
-               "y" : 970
+               "y" : 978
             },
             {
                "drilldown" : "Feng Chang",
                "name" : "21: Feng Chang",
-               "y" : 910
+               "y" : 918
             },
             {
                "drilldown" : "Cheok-Yin Fung",
@@ -912,12 +912,12 @@
             {
                "drilldown" : "Jan Krnavek",
                "name" : "24: Jan Krnavek",
-               "y" : 868
+               "y" : 876
             },
             {
                "drilldown" : "Ali Moradi",
                "name" : "25: Ali Moradi",
-               "y" : 824
+               "y" : 836
             },
             {
                "drilldown" : "Duncan C. White",
@@ -927,22 +927,22 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "27: Bob Lied",
-               "y" : 774
+               "y" : 784
             },
             {
                "drilldown" : "Niels van Dijke",
                "name" : "28: Niels van Dijke",
-               "y" : 764
+               "y" : 772
             },
             {
                "drilldown" : "Robbie Hatley",
                "name" : "29: Robbie Hatley",
-               "y" : 754
+               "y" : 766
             },
             {
                "drilldown" : "Packy Anderson",
                "name" : "30: Packy Anderson",
-               "y" : 732
+               "y" : 752
             },
             {
                "drilldown" : "Mohammad Sajid Anwar",
@@ -962,32 +962,32 @@
             {
                "drilldown" : "Robert Ransbottom",
                "name" : "34: Robert Ransbottom",
-               "y" : 628
+               "y" : 632
             },
             {
                "drilldown" : "Wanderdoc",
                "name" : "35: Wanderdoc",
-               "y" : 620
+               "y" : 628
             },
             {
                "drilldown" : "David Ferrone",
                "name" : "36: David Ferrone",
-               "y" : 604
+               "y" : 612
+            },
+            {
+               "drilldown" : "Matthias Muth",
+               "name" : "37: Matthias Muth",
+               "y" : 578
             },
             {
                "drilldown" : "Abigail",
-               "name" : "37: Abigail",
+               "name" : "38: Abigail",
                "y" : 574
             },
             {
                "drilldown" : "Robert DiCicco",
-               "name" : "38: Robert DiCicco",
+               "name" : "39: Robert DiCicco",
                "y" : 574
-            },
-            {
-               "drilldown" : "Matthias Muth",
-               "name" : "39: Matthias Muth",
-               "y" : 572
             },
             {
                "drilldown" : "Matthew Neleigh",
@@ -1002,7 +1002,7 @@
             {
                "drilldown" : "Peter Meszaros",
                "name" : "42: Peter Meszaros",
-               "y" : 488
+               "y" : 496
             },
             {
                "drilldown" : "Stephen G. Lynn",
@@ -1042,14 +1042,14 @@
             {
                "drilldown" : "Kjetil Skotheim",
                "name" : "50: Kjetil Skotheim",
-               "y" : 300
+               "y" : 304
             }
          ],
          "name" : "Team Leaders"
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2025-05-18 23:10:24 GMT"
+      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2025-05-30 02:32:17 GMT"
    },
    "title" : {
       "text" : "Team Leaders (TOP 50)"
