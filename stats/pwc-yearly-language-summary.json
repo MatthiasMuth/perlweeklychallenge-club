@@ -8,15 +8,15 @@
             "data" : [
                [
                   "Perl",
-                  945
+                  995
                ],
                [
                   "Raku",
-                  442
+                  469
                ],
                [
                   "Blog",
-                  365
+                  384
                ]
             ],
             "id" : "2025",
@@ -124,7 +124,7 @@
                ],
                [
                   "Blog",
-                  452
+                  456
                ]
             ],
             "id" : "2019",
@@ -151,7 +151,7 @@
             {
                "drilldown" : "2025",
                "name" : "2025",
-               "y" : 1752
+               "y" : 1848
             },
             {
                "drilldown" : "2024",
@@ -181,14 +181,14 @@
             {
                "drilldown" : "2019",
                "name" : "2019",
-               "y" : 3511
+               "y" : 3515
             }
          ],
          "name" : "The Weekly Challenge Languages"
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-06-01 21:58:31 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-06-09 01:01:46 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
