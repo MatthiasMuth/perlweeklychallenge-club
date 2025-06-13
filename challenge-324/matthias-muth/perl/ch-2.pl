@@ -40,13 +40,25 @@ sub subset_iterator( $ints ) {
     };
 }
 
-sub total_xor( @ints ) {
+sub total_xor_own( @ints ) {
     my $sum = 0;
     my $iterator = subset_iterator( \@ints );
     while ( my $subset = $iterator->() ) {
         $sum += reduce { $a ^ $b } 0, $subset->@*;
     }
     return $sum;
+}
+
+use Dsay;
+use List::Util qw( sum );
+
+# Partial XOR sums.
+sub total_xor( @ints ) {
+    my @xor_sums = ( 0 );
+    for my $i ( @ints ) {
+	push @xor_sums, map $_ ^ $i, @xor_sums;
+    }
+    return sum( @xor_sums );
 }
 
 use Test2::V0 qw( -no_srand );
@@ -59,3 +71,20 @@ is total_xor( 3, 4, 5, 6, 7, 8 ), 480,
     'Example 3: total_xor( 3, 4, 5, 6, 7, 8 ) == 480';
 
 done_testing;
+
+use Benchmark qw( :all :hireswallclock );
+
+my @benchmark_data = (
+    [ 3, 4, 5, 6, 7, 8 ],
+);
+
+for my $args ( @benchmark_data ) {
+    # say "array size: $args->[1] x $args->[2]";
+    cmpthese( -5, {
+        "AC" => sub { total_xor_AC( $args->@* ) },
+        "own" => sub { total_xor_own( $args->@* ) },
+        "partial" => sub { total_xor( $args->@* ) },
+    } );
+}
+
+exit 0;
