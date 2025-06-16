@@ -199,6 +199,16 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Kjetil Skotheim",
+            "name" : "Kjetil Skotheim"
+         },
+         {
+            "data" : [
+               [
                   "Raku",
                   2
                ]
@@ -375,6 +385,16 @@
                [
                   "Perl",
                   2
+               ]
+            ],
+            "id" : "Wanderdoc",
+            "name" : "Wanderdoc"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
                ],
                [
                   "Blog",
@@ -483,6 +503,11 @@
                "y" : 3
             },
             {
+               "drilldown" : "Kjetil Skotheim",
+               "name" : "Kjetil Skotheim",
+               "y" : 2
+            },
+            {
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
                "y" : 2
@@ -548,6 +573,11 @@
                "y" : 3
             },
             {
+               "drilldown" : "Wanderdoc",
+               "name" : "Wanderdoc",
+               "y" : 2
+            },
+            {
                "drilldown" : "Yitzchak Scott-Thoennes",
                "name" : "Yitzchak Scott-Thoennes",
                "y" : 3
@@ -557,7 +587,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-06-10 23:15:11 GMT"
+      "text" : "[Champions: 32] Last updated at 2025-06-15 20:23:01 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 324"
