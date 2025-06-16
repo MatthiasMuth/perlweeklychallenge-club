@@ -178,6 +178,12 @@ sub process_challenge( $challenge ) {
         $options{INPUT_FILE}
         ? do { local ( @ARGV, $/ ) = $options{INPUT_FILE}; <> }
         : get( $main_url . $challenge_path );
+
+    unless ( $page_html ) {
+        say STDERR "ERROR: page html is empty. Aborting.";
+        exit 1;
+    }
+
     my ( $page_header ) =
         $page_html =~ m'(<section class="global-page-header">.*?</section>)'s;
     my ( $tasks ) =
