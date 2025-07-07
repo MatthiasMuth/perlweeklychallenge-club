@@ -29,16 +29,20 @@ done
 mkdir -p "$target_dir"
 for f in $files; do
     if ! cmp --quiet "$f" "$target_dir/$f"; then
-	echo "copying $f to $target_dir"
-	[ ! "$DRY_RUN" ] &&
+	if [ ! "$DRY_RUN" ]; then
+	    echo "copying $f to $target_dir"
 	    cp -p "$f" "$target_dir/$f"
-	copied_files=1
+	else
+	    echo "would copy $f to $target_dir"
+	fi
+	copied_some_files=1
     fi
 done
-[ "$copied_files" ] || echo "no files to copy"
+[ "$copied_some_files" ] || echo "no files to copy"
 
 # Install the crontab entries.
-crontab -l | perl -wgE '
+if [ ! "$DRY_RUN" ]; then
+    crontab -l | perl -wgE '
 	$crontab = do { local @ARGV = "-"; <> };
 	$entries = do { local @ARGV = shift @ARGV; <> }; 
 	my $sig = "PERLWEEKLYCHALLENGE";
@@ -65,6 +69,7 @@ crontab -l | perl -wgE '
 	else {
 	    say "no change to crontab";
 	}
-' weekly_check.crontab
+    ' weekly_check.crontab
+fi
 
 exit 0

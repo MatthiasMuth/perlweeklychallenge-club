@@ -115,6 +115,7 @@ sub usage {
 GetOptions(
     "force|f!"   => sub { $options{FORCE} = $_[1] ? ++$options{FORCE} : 0 },
     "FORCE"      => sub { $options{FORCE} = 2 },
+    "new"        => sub { $options{FORCE} = 3 },
     "check|n"    => \$options{DRY_RUN},
     "mail:s@"    => \$options{MAIL_TO},
     "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
@@ -432,7 +433,9 @@ sub get_challenge_to_update {
             exit 1;
         }
 
-        if ( $challenge_path ne $status->{'current-challenge-path'} ) {
+        if ( $challenge_path ne $status->{'current-challenge-path'}
+	    || $options{FORCE} >= 3 )
+	{
             ( $challenge ) = $challenge_path =~ /(\d+)$/;
             prot "New challenge $challenge detected."
                 unless $options{QUIET};
