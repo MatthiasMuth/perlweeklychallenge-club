@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            0,
             2,
             3,
             2,
@@ -19,6 +20,7 @@
             5,
             50,
             0,
+            1,
             0,
             0,
             14,
@@ -32,19 +34,18 @@
             0,
             12,
             6,
-            596,
+            602,
             1,
             2,
             306,
             2,
-            0,
-            0,
-            26
+            0
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            36,
             0,
             0,
             0,
@@ -55,7 +56,8 @@
             0,
             8,
             0,
-            64,
+            0,
+            68,
             0,
             4,
             0,
@@ -67,19 +69,18 @@
             0,
             0,
             0,
-            596,
+            602,
             0,
             3,
             10,
             0,
-            452,
-            4,
-            0
+            454
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            9,
             0,
             0,
             0,
@@ -88,6 +89,7 @@
             0,
             0,
             6,
+            0,
             0,
             0,
             0,
@@ -102,20 +104,18 @@
             0,
             0,
             0,
-            290,
+            293,
             0,
             0,
             125,
             0,
-            0,
-            0,
-            12
+            0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-07-14 03:52:04 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-07-21 02:05:36 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Francis Whittle",
          "Fred Zinn",
          "Freddie B",
          "GarciaAutomation",
@@ -135,6 +136,7 @@
          "Gurunandan Bhat",
          "Gustavo Chaves",
          "habere-et-dispetire",
+         "Harry Wozniak",
          "Hauke Dampfling",
          "Humberto Massa",
          "Ian Goodnight",
@@ -153,9 +155,7 @@
          "James Raspass",
          "James Smith",
          "Jan Hoogenraad",
-         "Jan Krnavek",
-         "Jan Ole Kraft",
-         "Jared Martin"
+         "Jan Krnavek"
       ]
    },
    "yAxis" : {

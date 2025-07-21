@@ -151,6 +151,34 @@
                   2
                ]
             ],
+            "id" : "Humberto Massa",
+            "name" : "Humberto Massa"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Jaldhar H. Vyas",
+            "name" : "Jaldhar H. Vyas"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
+               ]
+            ],
             "id" : "Jan Krnavek",
             "name" : "Jan Krnavek"
          },
@@ -461,6 +489,16 @@
                "y" : 2
             },
             {
+               "drilldown" : "Humberto Massa",
+               "name" : "Humberto Massa",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Jaldhar H. Vyas",
+               "name" : "Jaldhar H. Vyas",
+               "y" : 5
+            },
+            {
                "drilldown" : "Jan Krnavek",
                "name" : "Jan Krnavek",
                "y" : 2
@@ -560,7 +598,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 31] Last updated at 2025-07-13 23:28:18 GMT"
+      "text" : "[Champions: 33] Last updated at 2025-07-20 23:59:50 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 328"

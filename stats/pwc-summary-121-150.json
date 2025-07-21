@@ -11,6 +11,8 @@
       {
          "data" : [
             0,
+            26,
+            0,
             92,
             1,
             2,
@@ -29,7 +31,7 @@
             7,
             2,
             0,
-            625,
+            627,
             8,
             2,
             23,
@@ -37,14 +39,14 @@
             13,
             6,
             6,
-            2,
-            4,
-            38
+            2
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            4,
+            0,
             14,
             92,
             0,
@@ -72,14 +74,14 @@
             0,
             38,
             0,
-            84,
-            2,
-            0
+            84
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
+            12,
             0,
             46,
             0,
@@ -99,7 +101,7 @@
             0,
             0,
             0,
-            94,
+            95,
             0,
             0,
             1,
@@ -107,15 +109,13 @@
             0,
             15,
             3,
-            2,
-            1,
-            43
+            2
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-07-14 03:52:04 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-07-21 02:05:36 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,8 @@
    },
    "xAxis" : {
       "categories" : [
+         "Jan Ole Kraft",
+         "Jared Martin",
          "Jason Messer",
          "Javier Luque",
          "jdos22",
@@ -153,9 +155,7 @@
          "Kai Burgdorf",
          "Kang-min Liu",
          "Kaushik Tunuguntla",
-         "Kevin Colyer",
-         "Khalid",
-         "Kian-Meng Ang"
+         "Kevin Colyer"
       ]
    },
    "yAxis" : {

@@ -22,7 +22,7 @@
             2,
             68,
             546,
-            296,
+            298,
             4,
             0,
             8,
@@ -33,13 +33,13 @@
             0,
             82,
             396,
-            647,
+            649,
             2,
+            3,
             8,
             22,
             0,
-            310,
-            0
+            310
          ],
          "name" : "Perl"
       },
@@ -71,10 +71,10 @@
             0,
             0,
             0,
-            449,
+            0,
+            451,
             4,
-            237,
-            36
+            237
          ],
          "name" : "Raku"
       },
@@ -108,14 +108,14 @@
             0,
             0,
             0,
-            311,
-            9
+            0,
+            311
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-07-14 03:52:04 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-07-21 02:05:36 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -151,11 +151,11 @@
          "Duncan C. White",
          "E. Choroba",
          "Eddy HS",
+         "Fabio Valeri",
          "Fabrizio Poggi",
          "Feng Chang",
          "Finley",
-         "Flavio Poletti",
-         "Francis Whittle"
+         "Flavio Poletti"
       ]
    },
    "yAxis" : {

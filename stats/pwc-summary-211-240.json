@@ -10,11 +10,13 @@
    "series" : [
       {
          "data" : [
+            2,
+            1,
             20,
             0,
             0,
             8,
-            162,
+            164,
             18,
             594,
             3,
@@ -23,9 +25,9 @@
             4,
             180,
             0,
-            384,
+            386,
             1,
-            260,
+            262,
             10,
             11,
             7,
@@ -37,9 +39,7 @@
             38,
             0,
             2,
-            46,
-            11,
-            4
+            46
          ],
          "name" : "Perl"
       },
@@ -47,9 +47,11 @@
          "data" : [
             0,
             0,
+            0,
+            0,
             28,
             0,
-            162,
+            164,
             0,
             0,
             0,
@@ -72,8 +74,6 @@
             28,
             11,
             0,
-            0,
-            0,
             0
          ],
          "name" : "Raku"
@@ -84,7 +84,9 @@
             0,
             0,
             0,
-            82,
+            0,
+            0,
+            83,
             0,
             0,
             1,
@@ -93,7 +95,7 @@
             0,
             0,
             0,
-            185,
+            186,
             0,
             0,
             2,
@@ -102,8 +104,6 @@
             0,
             0,
             2,
-            0,
-            0,
             0,
             0,
             0,
@@ -115,7 +115,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-07-14 03:52:04 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-07-21 02:05:36 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,8 @@
    },
    "xAxis" : {
       "categories" : [
+         "Oleksii Tsvietnov",
+         "Oliver Oviedo",
          "Olivier Delouya",
          "Olli-Antti Kivilahti",
          "Ozzy",
@@ -153,9 +155,7 @@
          "Pip Stuart",
          "PJ Durai",
          "Plis Acm",
-         "PokGoPun",
-         "Prajith P",
-         "Princy Mangla"
+         "PokGoPun"
       ]
    },
    "yAxis" : {

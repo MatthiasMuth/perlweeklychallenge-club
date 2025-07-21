@@ -10,13 +10,15 @@
    "series" : [
       {
          "data" : [
+            0,
+            0,
             6,
             1,
             2,
             0,
             22,
             0,
-            409,
+            411,
             7,
             5,
             4,
@@ -35,16 +37,16 @@
             6,
             4,
             2,
-            260,
+            262,
             1,
-            10,
-            14,
-            0
+            10
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            4,
+            3,
             0,
             46,
             0,
@@ -53,7 +55,7 @@
             8,
             0,
             0,
-            271,
+            273,
             0,
             0,
             0,
@@ -72,23 +74,23 @@
             0,
             0,
             0,
-            0,
-            0,
-            4
+            0
          ],
          "name" : "Raku"
       },
       {
          "data" : [
             0,
+            0,
+            0,
             23,
             0,
             0,
             0,
             3,
-            201,
+            202,
             0,
-            15,
+            16,
             0,
             0,
             0,
@@ -105,17 +107,15 @@
             0,
             0,
             0,
-            253,
+            255,
             0,
-            3,
-            0,
-            0
+            3
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-07-14 03:52:04 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-07-21 02:05:36 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,8 @@
    },
    "xAxis" : {
       "categories" : [
+         "Scott Sotka",
+         "Sean Meininger",
          "Sergio Iglesias",
          "Shahed Nooshmand",
          "Shasank Shah",
@@ -153,9 +155,7 @@
          "Tester R59",
          "Thomas Kohler",
          "Tiago Stock",
-         "Tim King",
-         "Tim Potapov",
-         "Tim Smith"
+         "Tim King"
       ]
    },
    "yAxis" : {
