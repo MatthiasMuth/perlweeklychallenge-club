@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            59,
             0,
             0,
             6,
@@ -18,13 +19,13 @@
             0,
             22,
             0,
-            415,
+            417,
             7,
             5,
             4,
             1,
             3,
-            98,
+            99,
             1,
             114,
             2,
@@ -37,14 +38,14 @@
             6,
             4,
             2,
-            266,
-            1,
-            10
+            268,
+            1
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            0,
             4,
             3,
             0,
@@ -55,7 +56,7 @@
             8,
             0,
             0,
-            277,
+            279,
             0,
             0,
             0,
@@ -73,7 +74,6 @@
             0,
             0,
             0,
-            0,
             0
          ],
          "name" : "Raku"
@@ -83,12 +83,13 @@
             0,
             0,
             0,
+            0,
             23,
             0,
             0,
             0,
             3,
-            204,
+            205,
             0,
             17,
             0,
@@ -107,15 +108,14 @@
             0,
             0,
             0,
-            259,
-            0,
-            3
+            261,
+            0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-08-04 03:41:09 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-08-10 23:39:23 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Santiago Leyva",
          "Scott Sotka",
          "Sean Meininger",
          "Sergio Iglesias",
@@ -154,8 +155,7 @@
          "Tejas",
          "Tester R59",
          "Thomas Kohler",
-         "Tiago Stock",
-         "Tim King"
+         "Tiago Stock"
       ]
    },
    "yAxis" : {

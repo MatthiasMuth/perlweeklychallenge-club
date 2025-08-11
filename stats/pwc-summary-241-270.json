@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            46,
             11,
             4,
             21,
@@ -27,24 +28,24 @@
             0,
             0,
             9,
-            278,
+            280,
             156,
             2,
             0,
             0,
             2,
-            623,
+            625,
             113,
             101,
             56,
             10,
-            10,
-            59
+            10
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            0,
             0,
             0,
             0,
@@ -68,18 +69,18 @@
             3,
             334,
             0,
-            581,
+            583,
             113,
             61,
             0,
             0,
-            10,
-            0
+            10
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
             0,
             0,
             0,
@@ -97,25 +98,24 @@
             13,
             0,
             0,
-            126,
+            127,
             0,
             0,
             7,
             2,
             0,
-            311,
+            312,
             0,
             59,
             1,
             4,
-            0,
             0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-08-04 03:41:09 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-08-10 23:39:23 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "PokGoPun",
          "Prajith P",
          "Princy Mangla",
          "Rage311",
@@ -154,8 +155,7 @@
          "Ryan Thompson",
          "Saif Ahmed",
          "Samir Parikh",
-         "Sangeet Kar",
-         "Santiago Leyva"
+         "Sangeet Kar"
       ]
    },
    "yAxis" : {
