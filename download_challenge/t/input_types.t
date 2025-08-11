@@ -7,7 +7,7 @@ use feature 'signatures';
 no warnings 'experimental::signatures';
 
 use Data::Dump qw( pp );
-use Test2::V0;
+use Test2::V0 qw( -no_srand );
 
 use lib qw( . ..);
 use TestExtractor;
@@ -27,10 +27,11 @@ while ( <DATA> ) {
 	next;
     };
     /^(Input:.*)$/ and do {
-	my $test = "Test " . ++$test_no . " (DATA line $.)";
+	my $test = "Test " . ++$test_no;
         push @tests, {
 	    TEST => $test,
-	    INPUT => $_
+	    INPUT => $_,
+            SOURCE => "DATA line $.",
 	};
 	next;
     };
@@ -54,9 +55,11 @@ do {
     0 && vsay "expected: ", pp( $_->{EXPECTED} );
     my $expected = eval $_->{EXPECTED};
     vsay "expected: ", pp $expected;
+    my $source = delete $_->{SOURCE};
     is [ $extracted[0]{VARIABLE_NAMES}, $extracted[0]{INPUT} ],
         $expected,
 	$_->{TEST},
+	$source ? "Test defined in $source:\n" : (),
 	pp( $_ );
     vsay "";
 } for @tests;
@@ -111,4 +114,7 @@ Expect: [ [ '@numbers', '$count' ], [ [ 1,0,0,0,1 ], 1 ] ]
 
 Input: @stickers = ('perl','raku','python'), $word = 'peon'
 Expect: [ [ '@stickers', '$word' ], [ [ 'perl','raku','python' ], 'peon' ] ]
+
+Input: $x = 3, $y = 4, @points ([1, 2], [3, 1], [2, 4], [2, 3])
+Expect: [ [ '$x', '$y', '@points' ], [ 3, 4, [[1, 2], [3, 1], [2, 4], [2, 3]] ] ]
 

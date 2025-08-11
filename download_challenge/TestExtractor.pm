@@ -392,6 +392,7 @@ sub extract_tests( $task_text ) {
                     | ( $bareword ) /xg )
             {
                 if ( $1 ) {
+                    dsay "    $1 is '$1'";
                     my $p = pos();
                     substr $_, $p - length( $1 ), length( $1 ), "'$1'";
                     pos = $p + 2;
@@ -414,7 +415,7 @@ sub extract_tests( $task_text ) {
             }
         }
 
-        while ( $input =~ / ($var_name) \s* = \s* ($data_re) /xg ) {
+        while ( $input =~ / ($var_name) \s* =? \s* ($data_re) /xg ) {
             push @{$tests[-1]{VARIABLE_NAMES}}, $1;
             push @{$tests[-1]{INPUT}},
                 eval( ( $+{no_paren} || $+{par_list} ) ? "[ $2 ]" : $2 );
