@@ -69,30 +69,6 @@
          {
             "data" : [
                [
-                  "Raku",
-                  1
-               ]
-            ],
-            "id" : "BarrOff",
-            "name" : "BarrOff"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Bob Lied",
-            "name" : "Bob Lied"
-         },
-         {
-            "data" : [
-               [
                   "Perl",
                   2
                ]
@@ -124,29 +100,11 @@
             "data" : [
                [
                   "Raku",
-                  2
-               ]
-            ],
-            "id" : "Humberto Massa",
-            "name" : "Humberto Massa"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Raku",
-                  2
-               ],
-               [
-                  "Blog",
                   1
                ]
             ],
-            "id" : "Jaldhar H. Vyas",
-            "name" : "Jaldhar H. Vyas"
+            "id" : "Jan Krnavek",
+            "name" : "Jan Krnavek"
          },
          {
             "data" : [
@@ -161,16 +119,6 @@
             ],
             "id" : "Jorg Sommrey",
             "name" : "Jorg Sommrey"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ]
-            ],
-            "id" : "Kjetil Skotheim",
-            "name" : "Kjetil Skotheim"
          },
          {
             "data" : [
@@ -205,6 +153,16 @@
             ],
             "id" : "Matthias Muth",
             "name" : "Matthias Muth"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Niels van Dijke",
+            "name" : "Niels van Dijke"
          },
          {
             "data" : [
@@ -365,20 +323,6 @@
             ],
             "id" : "Wanderdoc",
             "name" : "Wanderdoc"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Yitzchak Scott-Thoennes",
-            "name" : "Yitzchak Scott-Thoennes"
          }
       ]
    },
@@ -424,16 +368,6 @@
                "y" : 4
             },
             {
-               "drilldown" : "BarrOff",
-               "name" : "BarrOff",
-               "y" : 1
-            },
-            {
-               "drilldown" : "Bob Lied",
-               "name" : "Bob Lied",
-               "y" : 3
-            },
-            {
                "drilldown" : "David Ferrone",
                "name" : "David Ferrone",
                "y" : 2
@@ -449,24 +383,14 @@
                "y" : 2
             },
             {
-               "drilldown" : "Humberto Massa",
-               "name" : "Humberto Massa",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Jaldhar H. Vyas",
-               "name" : "Jaldhar H. Vyas",
-               "y" : 5
+               "drilldown" : "Jan Krnavek",
+               "name" : "Jan Krnavek",
+               "y" : 1
             },
             {
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
                "y" : 3
-            },
-            {
-               "drilldown" : "Kjetil Skotheim",
-               "name" : "Kjetil Skotheim",
-               "y" : 2
             },
             {
                "drilldown" : "Mark Anderson",
@@ -482,6 +406,11 @@
                "drilldown" : "Matthias Muth",
                "name" : "Matthias Muth",
                "y" : 3
+            },
+            {
+               "drilldown" : "Niels van Dijke",
+               "name" : "Niels van Dijke",
+               "y" : 2
             },
             {
                "drilldown" : "Packy Anderson",
@@ -542,21 +471,16 @@
                "drilldown" : "Wanderdoc",
                "name" : "Wanderdoc",
                "y" : 2
-            },
-            {
-               "drilldown" : "Yitzchak Scott-Thoennes",
-               "name" : "Yitzchak Scott-Thoennes",
-               "y" : 3
             }
          ],
-         "name" : "The Weekly Challenge - 334"
+         "name" : "The Weekly Challenge - 335"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-08-18 00:27:53 GMT"
+      "text" : "[Champions: 26] Last updated at 2025-08-25 00:50:09 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 334"
+      "text" : "The Weekly Challenge - 335"
    },
    "tooltip" : {
       "followPointer" : 1,
