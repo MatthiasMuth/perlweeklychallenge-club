@@ -37,6 +37,16 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Lubos Kolouch",
+            "name" : "Lubos Kolouch"
+         },
+         {
+            "data" : [
+               [
                   "Raku",
                   2
                ]
@@ -77,6 +87,20 @@
             ],
             "id" : "Peter Meszaros",
             "name" : "Peter Meszaros"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Roger Bell_West",
+            "name" : "Roger Bell_West"
          },
          {
             "data" : [
@@ -164,6 +188,11 @@
                "y" : 2
             },
             {
+               "drilldown" : "Lubos Kolouch",
+               "name" : "Lubos Kolouch",
+               "y" : 2
+            },
+            {
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
                "y" : 2
@@ -182,6 +211,11 @@
                "drilldown" : "Peter Meszaros",
                "name" : "Peter Meszaros",
                "y" : 2
+            },
+            {
+               "drilldown" : "Roger Bell_West",
+               "name" : "Roger Bell_West",
+               "y" : 4
             },
             {
                "drilldown" : "Simon Proctor",
@@ -208,7 +242,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 11] Last updated at 2025-09-01 19:25:35 GMT"
+      "text" : "[Champions: 13] Last updated at 2025-09-02 12:32:17 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 337"
