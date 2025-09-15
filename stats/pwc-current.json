@@ -33,6 +33,16 @@
                [
                   "Raku",
                   2
+               ]
+            ],
+            "id" : "Andrew Shitov",
+            "name" : "Andrew Shitov"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
                ],
                [
                   "Blog",
@@ -46,11 +56,11 @@
             "data" : [
                [
                   "Perl",
-                  2
+                  1
                ],
                [
                   "Raku",
-                  2
+                  1
                ]
             ],
             "id" : "Athanasius",
@@ -59,12 +69,12 @@
          {
             "data" : [
                [
-                  "Perl",
+                  "Raku",
                   2
                ]
             ],
-            "id" : "Bob Lied",
-            "name" : "Bob Lied"
+            "id" : "BarrOff",
+            "name" : "BarrOff"
          },
          {
             "data" : [
@@ -77,8 +87,8 @@
                   1
                ]
             ],
-            "id" : "Dave Jacoby",
-            "name" : "Dave Jacoby"
+            "id" : "Bob Lied",
+            "name" : "Bob Lied"
          },
          {
             "data" : [
@@ -93,12 +103,30 @@
          {
             "data" : [
                [
-                  "Raku",
+                  "Perl",
                   2
                ]
             ],
-            "id" : "Feng Chang",
-            "name" : "Feng Chang"
+            "id" : "E. Choroba",
+            "name" : "E. Choroba"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Jaldhar H. Vyas",
+            "name" : "Jaldhar H. Vyas"
          },
          {
             "data" : [
@@ -113,6 +141,16 @@
             ],
             "id" : "Jorg Sommrey",
             "name" : "Jorg Sommrey"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Kjetil Skotheim",
+            "name" : "Kjetil Skotheim"
          },
          {
             "data" : [
@@ -260,7 +298,7 @@
             "data" : [
                [
                   "Raku",
-                  1
+                  2
                ]
             ],
             "id" : "Simon Proctor",
@@ -347,6 +385,11 @@
                "y" : 2
             },
             {
+               "drilldown" : "Andrew Shitov",
+               "name" : "Andrew Shitov",
+               "y" : 2
+            },
+            {
                "drilldown" : "Arne Sommer",
                "name" : "Arne Sommer",
                "y" : 3
@@ -354,16 +397,16 @@
             {
                "drilldown" : "Athanasius",
                "name" : "Athanasius",
-               "y" : 4
+               "y" : 2
+            },
+            {
+               "drilldown" : "BarrOff",
+               "name" : "BarrOff",
+               "y" : 2
             },
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Dave Jacoby",
-               "name" : "Dave Jacoby",
                "y" : 3
             },
             {
@@ -372,14 +415,24 @@
                "y" : 2
             },
             {
-               "drilldown" : "Feng Chang",
-               "name" : "Feng Chang",
+               "drilldown" : "E. Choroba",
+               "name" : "E. Choroba",
                "y" : 2
+            },
+            {
+               "drilldown" : "Jaldhar H. Vyas",
+               "name" : "Jaldhar H. Vyas",
+               "y" : 5
             },
             {
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
                "y" : 3
+            },
+            {
+               "drilldown" : "Kjetil Skotheim",
+               "name" : "Kjetil Skotheim",
+               "y" : 2
             },
             {
                "drilldown" : "Lubos Kolouch",
@@ -439,7 +492,7 @@
             {
                "drilldown" : "Simon Proctor",
                "name" : "Simon Proctor",
-               "y" : 1
+               "y" : 2
             },
             {
                "drilldown" : "Thomas Kohler",
@@ -462,14 +515,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 337"
+         "name" : "The Weekly Challenge - 338"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 25] Last updated at 2025-09-07 21:53:21 GMT"
+      "text" : "[Champions: 28] Last updated at 2025-09-14 22:45:18 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 337"
+      "text" : "The Weekly Challenge - 338"
    },
    "tooltip" : {
       "followPointer" : 1,
