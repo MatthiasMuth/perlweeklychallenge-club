@@ -1,5 +1,7 @@
 # Max Complication for Min Brute Force
 
+# --- DRAFT Work in Progress ---
+
 **Challenge 339 solutions in Perl by Matthias Muth**
 
 ## Task 1: Max Diff
@@ -104,14 +106,6 @@ To be sure, my strategy is to try both:
 
 * The two possible candidates for the best first product, as described above,<br/>combined with the second product chosen from what is left, for each of the candidates separately,
 * the best *second* product chosen from all numbers,<br/>combined with the two possible candidates for the best *first* product from what is left.<br/>Actually we need to consider a third candidate for the first product in this case: If we used a positive and a negative number for the second product, it could be that all we have left is only a 'mixed pair' to use for the first product, something that we didn't need to consider in the cases described above for the first product.
-
-
-
-
-
-
-
-
 
 
 
