@@ -9,10 +9,80 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Ali Moradi",
+            "name" : "Ali Moradi"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
                ]
             ],
             "id" : "Andreas Mahnke",
             "name" : "Andreas Mahnke"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Arne Sommer",
+            "name" : "Arne Sommer"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  1
+               ],
+               [
+                  "Raku",
+                  1
+               ]
+            ],
+            "id" : "Athanasius",
+            "name" : "Athanasius"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Bob Lied",
+            "name" : "Bob Lied"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "David Ferrone",
+            "name" : "David Ferrone"
          },
          {
             "data" : [
@@ -38,11 +108,65 @@
             "data" : [
                [
                   "Raku",
+                  1
+               ]
+            ],
+            "id" : "Jan Krnavek",
+            "name" : "Jan Krnavek"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Lubos Kolouch",
+            "name" : "Lubos Kolouch"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  1
+               ]
+            ],
+            "id" : "Mariano Spadaccini",
+            "name" : "Mariano Spadaccini"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
                   2
                ]
             ],
             "id" : "Mark Anderson",
             "name" : "Mark Anderson"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Matthew Neleigh",
+            "name" : "Matthew Neleigh"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Matthias Muth",
+            "name" : "Matthias Muth"
          },
          {
             "data" : [
@@ -71,6 +195,24 @@
                   2
                ],
                [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Packy Anderson",
+            "name" : "Packy Anderson"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
                   "Blog",
                   1
                ]
@@ -87,6 +229,52 @@
             ],
             "id" : "Peter Meszaros",
             "name" : "Peter Meszaros"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Robbie Hatley",
+            "name" : "Robbie Hatley"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Roger Bell_West",
+            "name" : "Roger Bell_West"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Simon Green",
+            "name" : "Simon Green"
          },
          {
             "data" : [
@@ -119,6 +307,20 @@
                   2
                ],
                [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Torgny Lyon",
+            "name" : "Torgny Lyon"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
                   "Raku",
                   2
                ]
@@ -139,6 +341,16 @@
             ],
             "id" : "W. Luis Mochan",
             "name" : "W. Luis Mochan"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Wanderdoc",
+            "name" : "Wanderdoc"
          }
       ]
    },
@@ -159,8 +371,33 @@
          "colorByPoint" : 1,
          "data" : [
             {
+               "drilldown" : "Ali Moradi",
+               "name" : "Ali Moradi",
+               "y" : 5
+            },
+            {
                "drilldown" : "Andreas Mahnke",
                "name" : "Andreas Mahnke",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Arne Sommer",
+               "name" : "Arne Sommer",
+               "y" : 3
+            },
+            {
+               "drilldown" : "Athanasius",
+               "name" : "Athanasius",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Bob Lied",
+               "name" : "Bob Lied",
+               "y" : 3
+            },
+            {
+               "drilldown" : "David Ferrone",
+               "name" : "David Ferrone",
                "y" : 2
             },
             {
@@ -174,9 +411,34 @@
                "y" : 2
             },
             {
+               "drilldown" : "Jan Krnavek",
+               "name" : "Jan Krnavek",
+               "y" : 1
+            },
+            {
+               "drilldown" : "Lubos Kolouch",
+               "name" : "Lubos Kolouch",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Mariano Spadaccini",
+               "name" : "Mariano Spadaccini",
+               "y" : 1
+            },
+            {
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
                "y" : 2
+            },
+            {
+               "drilldown" : "Matthew Neleigh",
+               "name" : "Matthew Neleigh",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Matthias Muth",
+               "name" : "Matthias Muth",
+               "y" : 3
             },
             {
                "drilldown" : "Mohammad Sajid Anwar",
@@ -189,6 +451,11 @@
                "y" : 2
             },
             {
+               "drilldown" : "Packy Anderson",
+               "name" : "Packy Anderson",
+               "y" : 5
+            },
+            {
                "drilldown" : "Peter Campbell Smith",
                "name" : "Peter Campbell Smith",
                "y" : 3
@@ -197,6 +464,21 @@
                "drilldown" : "Peter Meszaros",
                "name" : "Peter Meszaros",
                "y" : 2
+            },
+            {
+               "drilldown" : "Robbie Hatley",
+               "name" : "Robbie Hatley",
+               "y" : 3
+            },
+            {
+               "drilldown" : "Roger Bell_West",
+               "name" : "Roger Bell_West",
+               "y" : 5
+            },
+            {
+               "drilldown" : "Simon Green",
+               "name" : "Simon Green",
+               "y" : 3
             },
             {
                "drilldown" : "Simon Proctor",
@@ -209,6 +491,11 @@
                "y" : 4
             },
             {
+               "drilldown" : "Torgny Lyon",
+               "name" : "Torgny Lyon",
+               "y" : 3
+            },
+            {
                "drilldown" : "Ulrich Rieke",
                "name" : "Ulrich Rieke",
                "y" : 4
@@ -217,13 +504,18 @@
                "drilldown" : "W. Luis Mochan",
                "name" : "W. Luis Mochan",
                "y" : 3
+            },
+            {
+               "drilldown" : "Wanderdoc",
+               "name" : "Wanderdoc",
+               "y" : 2
             }
          ],
          "name" : "The Weekly Challenge - 339"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 12] Last updated at 2025-09-15 22:37:14 GMT"
+      "text" : "[Champions: 28] Last updated at 2025-09-22 01:10:13 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 339"

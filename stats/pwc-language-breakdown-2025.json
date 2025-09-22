@@ -8,15 +8,15 @@
             "data" : [
                [
                   "Perl",
-                  17
+                  43
                ],
                [
                   "Raku",
-                  8
+                  18
                ],
                [
                   "Blog",
-                  4
+                  13
                ]
             ],
             "id" : "339",
@@ -30,7 +30,7 @@
                ],
                [
                   "Raku",
-                  19
+                  23
                ],
                [
                   "Blog",
@@ -48,7 +48,7 @@
                ],
                [
                   "Raku",
-                  19
+                  20
                ],
                [
                   "Blog",
@@ -62,7 +62,7 @@
             "data" : [
                [
                   "Perl",
-                  44
+                  46
                ],
                [
                   "Raku",
@@ -80,7 +80,7 @@
             "data" : [
                [
                   "Perl",
-                  42
+                  44
                ],
                [
                   "Raku",
@@ -116,7 +116,7 @@
             "data" : [
                [
                   "Perl",
-                  52
+                  54
                ],
                [
                   "Raku",
@@ -691,27 +691,27 @@
             {
                "drilldown" : "339",
                "name" : "339",
-               "y" : 29
+               "y" : 74
             },
             {
                "drilldown" : "338",
                "name" : "338",
-               "y" : 78
+               "y" : 82
             },
             {
                "drilldown" : "337",
                "name" : "337",
-               "y" : 79
+               "y" : 80
             },
             {
                "drilldown" : "336",
                "name" : "336",
-               "y" : 81
+               "y" : 83
             },
             {
                "drilldown" : "335",
                "name" : "335",
-               "y" : 80
+               "y" : 82
             },
             {
                "drilldown" : "334",
@@ -721,7 +721,7 @@
             {
                "drilldown" : "333",
                "name" : "333",
-               "y" : 104
+               "y" : 106
             },
             {
                "drilldown" : "332",
@@ -878,7 +878,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-09-15 22:37:14 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-09-22 01:10:13 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
