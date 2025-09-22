@@ -36,6 +36,7 @@ my @tests = (
     [ "Test 16 (201 numbers)", [ -100..+100 ], 19702 ],
 
     [ "Test 17 (Egon Choroba)", [ qw( 16 12 4 -25 -23 9 10 ) ], 539 ],
+    [ "Test 18 (Packy Anderson counterexample)", [ qw( 11 5 3 -7 -5 -2 ) ], 92 ],
 
     [ "Example 1", [ 5, 9, 3, 4, 6 ], 42 ],
     [ "Example 2", [ 1, -2, 3, -4 ], 10 ],

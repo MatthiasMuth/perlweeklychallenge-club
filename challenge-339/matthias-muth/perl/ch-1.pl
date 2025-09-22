@@ -85,6 +85,23 @@ sub max_diff( @ints ) {
         : $maximum;
 }
 
+sub max_diff_packy_anderson( @ints ) {
+  my ($A, $B, $C, $D) =
+    +(sort { abs($a) <=> abs($b) } @ints)[0, 1, -2, -1];
+  my $maximum = abs(($A * $B) - ($C * $D));
+
+    return
+        wantarray
+        ? do {
+            # Additional output for tests, debugging and documenting
+            # (only if called in list context):
+            # The first two pairs of numbers from @cases that result in
+            # the maximum.
+            ( $maximum, [ $A, $B ], [ $C, $D ] )
+        }
+        : $maximum;
+}
+
 # Allow for including this script for the function definition
 # (using 'require' or 'use'), but without executing the tests:
 unless ( caller ) {

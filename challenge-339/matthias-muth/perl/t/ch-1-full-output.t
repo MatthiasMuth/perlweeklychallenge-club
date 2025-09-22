@@ -36,6 +36,7 @@ my @tests = (
     [ "Test 16 (201 numbers)", [ -100..+100 ], 19702 ],
 
     [ "Test 17 (Egon Choroba)", [ qw( 16 12 4 -25 -23 9 10 ) ], 539 ],
+    [ "Test 18 (Packy Anderson counterexample)", [ qw( 11 5 3 -7 -5 -2 ) ], 92 ],
 
     [ "Example 1", [ 5, 9, 3, 4, 6 ], 42 ],
     [ "Example 2", [ 1, -2, 3, -4 ], 10 ],
@@ -49,22 +50,22 @@ for ( @tests ) {
     my $descr = "$test_name:"
         . " max_diff( " . join( ", ", $input->@* ) . " ) == $expected";
     my ( $maximum, $pair_1, $pair_2 ) = max_diff( $input->@* );
-    is $maximum, $expected, $descr
-        and $pair_1 && $pair_2 && do {
-            # Explain the correct solution.
-            my $product_1 = $pair_1->[0] * $pair_1->[1];
-            my $product_2 = $pair_2->[0] * $pair_2->[1];
-            my $result = $product_1 - $product_2;
-            note "            Pair 1: ( $pair_1->[0], $pair_1->[1] )";
-            note "            Pair 2: ( $pair_2->[0], $pair_2->[1] )";
-            note "            Product Diff: ",
-                "( $pair_1->[0] * $pair_1->[1] )",
-                    " - ( $pair_2->[0] * $pair_2->[1] )",
-                " => ( ", $product_1 >= 0 ? $product_1 : "($product_1)",
-                    " - ", $product_2 >= 0 ? $product_2 : "($product_2)", " )",
-                " => $result";
-            note "";
-        }
+    is $maximum, $expected, $descr;
+    $pair_1 && $pair_2 && do {
+        # Explain the correct solution.
+        my $product_1 = $pair_1->[0] * $pair_1->[1];
+        my $product_2 = $pair_2->[0] * $pair_2->[1];
+        my $result = $product_1 - $product_2;
+        note "            Pair 1: ( $pair_1->[0], $pair_1->[1] )";
+        note "            Pair 2: ( $pair_2->[0], $pair_2->[1] )";
+        note "            Product Diff: ",
+            "( $pair_1->[0] * $pair_1->[1] )",
+                " - ( $pair_2->[0] * $pair_2->[1] )",
+            " => ( ", $product_1 >= 0 ? $product_1 : "($product_1)",
+                " - ", $product_2 >= 0 ? $product_2 : "($product_2)", " )",
+            " => $result";
+        note "";
+    }
 }
 
 done_testing;
