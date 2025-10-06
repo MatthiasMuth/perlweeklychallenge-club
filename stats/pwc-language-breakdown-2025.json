@@ -8,15 +8,33 @@
             "data" : [
                [
                   "Perl",
-                  47
+                  55
                ],
                [
                   "Raku",
-                  23
+                  25
                ],
                [
                   "Blog",
-                  11
+                  24
+               ]
+            ],
+            "id" : "341",
+            "name" : "341"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  49
+               ],
+               [
+                  "Raku",
+                  25
+               ],
+               [
+                  "Blog",
+                  12
                ]
             ],
             "id" : "340",
@@ -26,15 +44,15 @@
             "data" : [
                [
                   "Perl",
-                  43
+                  45
                ],
                [
                   "Raku",
-                  21
+                  23
                ],
                [
                   "Blog",
-                  13
+                  14
                ]
             ],
             "id" : "339",
@@ -707,14 +725,19 @@
          "colorByPoint" : "true",
          "data" : [
             {
+               "drilldown" : "341",
+               "name" : "341",
+               "y" : 104
+            },
+            {
                "drilldown" : "340",
                "name" : "340",
-               "y" : 81
+               "y" : 86
             },
             {
                "drilldown" : "339",
                "name" : "339",
-               "y" : 77
+               "y" : 82
             },
             {
                "drilldown" : "338",
@@ -901,7 +924,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-09-29 00:27:48 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-10-05 23:47:58 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
