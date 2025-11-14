@@ -8,152 +8,106 @@
 #       Perl solution by Matthias Muth.
 #
 
-use v5.42;
-use Dsay;
+use v5.36;
 
-our $i = Indent->new;
-
-sub chain( $str, $target, $product_chaining ) {
-    # Build all possible concatenations of the digits, starting on the left.
+sub chain( $str, $target, $last_product_term = undef ) {
+    # Build all possible concatenations of the digits, starting from the left.
     # The rest of the digits are then used to be chained by recursive calls.
-    # We try 
+    # We try
     # * *multiplying* the current number,
     # * *adding* the current number,
     # * *subtracting* the current number.
     # For the multiplication, we need the value of the last term of the
-    # existing chain, which is passed in as the $product_chaining parameter.
-    local $d_area = "chain";
-    %debug and dsay $i++,
-        "chain( '$str', $target, $product_chaining )";
-
+    # existing chain that can be multiplied by another number, which is
+    # passed in as the $last_product_term parameter.
+    # If that parameter is undef, we don't have any previous term,
+    # which means that this call is for starting the whole chain with the
+    # first number, without a leading operator. In that case we do not do
+    # multiplying or subtracting, and we indicate that we don't want an
+    # operator character for the first number.
+    my $number = "";
     my @returns;
+    while ( $str ne "" ) {
+        # Remove the first digit from $str, concatenating it to $number.
+        $number .= substr( $str, 0, 1, "" );
 
-    # Extract the first digit from $str, also removing it from there.
-    my $number = substr( $str, 0, 1, "" );
-    %debug and dsay $i, "number $number str '$str'";
+        # Chain combinations of the rest of digits.
+        push @returns,
+            defined $last_product_term
+            ? ( chain_mult( $number, $str, $target, $last_product_term ),
+                chain_add( '+', $number, $str, $target ),
+                chain_add( '-', $number, $str, $target ) )
+            : ( chain_add( '', $number, $str, $target ) );
 
-    if ( $number ne "0" ) {
-        %debug and dsay $i, "number ne 0";
-        while ( $str ne "" ) {
-            push @returns,
-                map( "*${number}$_",
-                    chain( $str, $target - ( $number - 1 ) * $product_chaining,
-                        $number ) ),
-                map( "+${number}$_",
-                    chain( $str, $target - $number, $number ) ),
-                map( "-${number}$_",
-                    chain( $str, $target + $number, -$number ) );
-            # Move the next digit from $str to $number.
-            $number .= substr( $str, 0, 1, "" );
-            %debug and dsay $i, "number $number str '$str'";
-        }
+        # Don't allow concatenating numbers with a leading zero.
+        last if $number eq "0";
     }
-    elsif ( $str ne "" ) {
-        %debug and dsay $i, "number eq 0 and str '$str'";
-        # We know that $number is zero, but we have the rest of the digits
-        # in $str.
-        # Zero as a multiplying factor 0 invalidates the previous term
-        # that was already added (product_chaining), so we need to *raise*
-        # the target.
-        @returns = (
-            map( "*0$_", chain( $str, $target + $product_chaining, 0 ) ),
-            map( "+0$_", chain( $str, $target, 0 ) ),
-            map( "-0$_", chain( $str, $target, 0 ) ),
-        );
-        %debug and dsay $i--, "returns ", pp( @returns );
-        return @returns;
-    }
-
-    # Deal with the final number without a rest in $str.
-    # With the above conditionals, that final number may be the complete
-    # original $str parameter, or a single zero.
-    # For the multiplication, as $product_chaining was already added to the
-    # total result, multiplying by <n> means adding another <n>-1 times
-    # that amount.
-    push @returns,
-        $product_chaining * ( $number - 1 ) == $target ? "*$number" : (),
-        $number == $target                             ? "+$number" : (),
-        -$number == $target                            ? "-$number" : ();
-
-    %debug and dsay $i--, "returns ", pp( @returns );
     return @returns;
 }
 
 sub magic_expression( $str, $target ) {
-    dsay $i++, "magic_expression( '$str', $target )";
-
-    # Extract the first digit, also removing it from there.
-    my $number = substr( $str, 0, 1, "" );
-    %debug and dsay $i, "number $number str '$str'";
-
-    my @results;
-    if ( $number ne "0" ) {
-        while ( $str ne "" ) {
-            # Add all matching combinations starting with the current substring.
-            push @results,
-                map "${number}$_", chain( $str, $target - $number, $number );
-            # Move the next digit from $str to $number.
-            $number .= substr( $str, 0, 1, "" );
-            %debug and dsay $i, "number $number str '$str'";
-        }
-    }
-    elsif ( $str ne "" ) {
-        # Simple case if the first digit is '0'.
-        @results = map "0" . chain( $str, $target, 0 );
-        dsay $i--, "results: ", pp( @results );
-        return @results;
-    }
-
-    # Deal with the final number without a rest in $str.
-    # With the above conditionals, that final number may be the complete
-    # original $str parameter, or a single zero.
-    push @results, $number == $target ? $number : ();
-    %debug and dsay $i--, "results: ", pp( @results );
-    return @results;
+    return chain( $str, $target, undef );
 }
 
-use Test2::V0 qw( -no_srand bag );
-
-sub create_bag( @args ) {
-    return bag { item $_ for @args; end };
+sub chain_mult( $number, $str, $target, $last_product_term ) {
+    my $value = $last_product_term * ( $number - 1 );
+    return
+        $str eq ""
+        ? $value == $target ? "*${number}" : ()
+        : map "*${number}$_",
+            chain( $str, $target - $value, $last_product_term * $number );
 }
 
-is [ magic_expression( "123", 6 ) ],
-    create_bag( qw( 1*2*3 1+2+3 ) ),
-    'Example 1: ( "123", 6 ) => ( "1*2*3", "1+2+3" )';
-is [ magic_expression( "105", 5 ) ],
-    create_bag( qw( 1*0+5 10-5 ) ),
-    'Example 2: ( "105", 5 ) => ( "1*0+5", "10-5" )';
-is [ magic_expression( "232", 8 ) ],
-    create_bag( qw( 2*3+2 2+3*2 ) ),
-    'Example 3: ( "232", 8 ) => ( "2*3+2", "2+3*2" )';
-is [ magic_expression( "1234", 10 ) ],
-    create_bag( qw( 1*2*3+4 1+2+3+4 ) ),
-    'Example 4: ( "1234", 10 ) => ( "1*2*3+4", "1+2+3+4" )';
-is [ magic_expression( "1001", 2 ) ],
-    create_bag( qw( 1+0*0+1 1+0+0+1 1+0-0+1 1-0*0+1 1-0+0+1 1-0-0+1 ) ),
-    'Example 5: ( "1001", 2 ) => ( "1+0*0+1", "1+0+0+1", "1+0-0+1", "1-0*0+1", "1-0+0+1", "1-0-0+1" )';
+sub chain_add( $operator, $number, $str, $target ) {
+    my $value = $operator eq '-' ? -$number : +$number;
+    return
+        $str eq ""
+        ? $value == $target ? "${operator}${number}" : ()
+        : map "${operator}${number}$_",
+            chain( $str, $target - $value, $value );
+}
 
-is [ magic_expression( "43", 7 ) ],
-    create_bag( qw( 4+3 ) ),
-    'Own Test 1: ( "43", 7 ) => ( "4+3" )';
-is [ magic_expression( "43", 1 ) ],
-    create_bag( qw( 4-3 ) ),
-    'Own Test 2: ( "43", 1 ) => ( "4-3" )';
-is [ magic_expression( "43", 12 ) ],
-    create_bag( qw( 4*3 ) ),
-    'Own Test 3: ( "43", 12 ) => ( "4*3" )';
-is [ magic_expression( "43", 43 ) ],
-    create_bag( qw( 43 ) ),
-    'Own Test 4: ( "43", 43 ) => ( "43" )';
-is [ magic_expression( "50", 5 ) ],
-    create_bag( qw( 5+0 5-0 ) ),
-    'Own Test 5: ( "50", 5 ) => ( "5+0", "5-0" )';
-is [ magic_expression( "560", 5 ) ],
-    create_bag( qw( 5+6*0 5-6*0 ) ),
-    'Own Test 6: ( "560", 5 ) => ( "5+6*0", "5-6*0" )';
-is [ magic_expression( "0", 0 ) ],
-    create_bag( qw( 0 ) ),
-    'Own Test 7: ( "0", 5 ) => ( "5+6*0", "5-6*0" )';
+use Test2::V0 qw( -no_srand );
+
+my @tests =
+    @ARGV >= 2
+    ? ( [ "", [ @ARGV[0,1] ], [ @ARGV[2..$#ARGV] ] ] )
+    : (
+        [ 'Example 1', [ "123", 6 ] => [ qw( 1*2*3 1+2+3 ) ] ],
+        [ 'Example 2', [ "105", 5 ] => [ qw( 1*0+5 10-5 ) ] ],
+        [ 'Example 3', [ "232", 8 ] => [ qw( 2*3+2 2+3*2 ) ] ],
+        [ 'Example 4', [ "1234", 10 ] => [ qw( 1*2*3+4 1+2+3+4 ) ] ],
+        [ 'Example 5', [ "1001", 2 ]
+            => [ qw( 1+0*0+1 1+0+0+1 1+0-0+1 1-0*0+1 1-0+0+1 1-0-0+1 ) ] ],
+        [ 'Own Test 1', [ "43", 7 ] => [ qw( 4+3 ) ] ],
+        [ 'Own Test 2', [ "43", 1 ] => [ qw( 4-3 ) ] ],
+        [ 'Own Test 3', [ "43", 12 ] => [ qw( 4*3 ) ] ],
+        [ 'Own Test 4', [ "43", 43 ] => [ qw( 43 ) ] ],
+        [ 'Own Test 5', [ "50", 5 ] => [ qw( 5+0 5-0 ) ] ],
+        [ 'Own Test 6', [ "560", 5 ] => [ qw( 5+6*0 5-6*0 ) ] ],
+        [ 'Own Test 7', [ "05", 5 ] => [ qw( 0+5 ) ] ],
+        [ 'Own Test 8', [ "0", 0 ] => [ qw( 0 ) ] ],
+        [ 'Own Test 9', [ "00", 0 ] => [ qw( 0*0 0+0 0-0 ) ] ],
+        [ 'Own Test 10', [ "000", 0 ]
+            => [ qw( 0*0*0 0*0+0 0*0-0 0+0*0 0+0+0 0+0-0
+                    0-0*0 0-0+0 0-0-0 ) ] ],
+        [ 'Own Test 11', [ "12345", 0 ] => [ qw( 1*2-3-4+5 12-3-4-5 ) ] ],
+        [ 'Own Test 12', [ "123456789", 362880 ]
+            => [ qw(  1*2*3*4*5*6*7*8*9 ) ] ],
+        [ 'Own Test 13', [ "1111111111111", 9999999999 ] => [ qw( ) ] ],
+    );
+
+for ( @tests ) {
+    my ( $test, $input, $expected ) = $_->@*;
+    my ( $str, $target ) = $input->@*;
+    my $output = [ magic_expression( $input->@* ) ];
+    is $output, $expected,
+        "$test: ( \"$str\", $target ) => ( $expected->@* )";
+    for ( $output->@* ) {
+        my $actual_result = eval $_;
+        is $actual_result, $target, "verify '$_' == $target"
+            if $actual_result != $target;
+    }
+}
 
 done_testing;
