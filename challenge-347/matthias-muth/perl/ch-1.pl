@@ -64,9 +64,12 @@ my @tests = (
     [ 'Strict test 4 (out of range)', '1st Jan 2101', '<invalid date>' ],
     [ 'Strict test 5 (leap day)', '29th Feb 2000', '2000-02-29' ],
     [ 'Strict test 6 (leap day)', '29th Feb 2004', '2004-02-29' ],
-    [ 'Strict test 7 (non-existing leap day)', '29th Feb 1900', '<invalid date>' ],
-    [ 'Strict test 8 (non-existing leap day)', '29th Feb 2001', '<invalid date>' ],
-    [ 'Strict test 9 (non-existing leap day)', '29th Feb 2100', '<invalid date>' ],
+    [ 'Strict test 7 (non-existing leap day)',
+        '29th Feb 1900', '<invalid date>' ],
+    [ 'Strict test 8 (non-existing leap day)',
+        '29th Feb 2001', '<invalid date>' ],
+    [ 'Strict test 9 (non-existing leap day)',
+        '29th Feb 2100', '<invalid date>' ],
     [ 'Strict test 10 (empty string)', '', '<invalid date>' ],
     [ 'Strict test 11 (random non-date string', 'xxx', '<invalid date>' ],
     [ 'Strict test 12 (invalid suffix)', '5st Dec 2025', '<invalid date>' ],
@@ -79,7 +82,8 @@ my @tests = (
 
 # Check quick and dirty version.
 my @implementations = (
-    [ \&format_date_q_a_d,  "the strptime quick-and-dirty solution", qr/strict/i ],
+    [ \&format_date_q_a_d,  "the strptime quick-and-dirty solution",
+        qr/strict/i ],
     [ \&format_date_strict, "the strptime strict solution" ],
     [ \&format_date_own,    "the own solution" ],
 );
@@ -89,10 +93,7 @@ for ( @implementations ) {
     note "Testing $description";
     for ( @tests ) {
         my ( $test, $str, $expected ) = $_->@*;
-        my $todo =
-            $skip
-            && $test =~ $skip
-            && todo "strict checks";
+        my $todo = $skip && $test =~ $skip && todo "strict checks";
         try {
             is $sub->( $str ), $expected,
                 "$test: '$str' => '$expected'";
