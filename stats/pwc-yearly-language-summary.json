@@ -8,15 +8,15 @@
             "data" : [
                [
                   "Perl",
-                  2066
+                  2117
                ],
                [
                   "Raku",
-                  1006
+                  1029
                ],
                [
                   "Blog",
-                  799
+                  825
                ]
             ],
             "id" : "2025",
@@ -151,7 +151,7 @@
             {
                "drilldown" : "2025",
                "name" : "2025",
-               "y" : 3871
+               "y" : 3971
             },
             {
                "drilldown" : "2024",
@@ -188,7 +188,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-11-10 00:42:38 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-11-17 03:20:10 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
