@@ -10,15 +10,15 @@
          "data" : [
             [
                "Perl",
-               17894
+               17943
             ],
             [
                "Raku",
-               9905
+               9924
             ],
             [
                "Blog",
-               6415
+               6439
             ]
          ],
          "dataLabels" : {
@@ -37,7 +37,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Last updated at 2025-11-17 03:20:10 GMT"
+      "text" : "Last updated at 2025-11-24 05:24:11 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Contributions [2019 - 2025]"
