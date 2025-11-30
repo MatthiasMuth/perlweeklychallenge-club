@@ -11,9 +11,9 @@
 use v5.36;
 use builtin qw( true false );
 
-sub meeting_point_eq_if_then_else( $path ) {
+sub meeting_point_if_then_else( $path ) {
     my ( $x, $y ) = ( 0, 0 );
-    for ( split "", $path ) {
+    for ( ref $path ? $path->@* : split "", $path ) {
         $_ eq "U" ? ++$y :
         $_ eq "D" ? --$y :
         $_ eq "L" ? --$x :
@@ -28,7 +28,7 @@ sub meeting_point_incr( $path ) {
     my ( $x, $y ) = ( 0, 0 );
     my %incr_x = ( U => 0,  D => 0,  L => -1, R => +1 );
     my %incr_y = ( U => +1, D => -1, L => 0,  R => 0  );
-    for ( split "", $path ) {
+    for ( ref $path ? $path->@* : split "", $path ) {
         $x += $incr_x{$_};
         $y += $incr_y{$_};
         return true
@@ -37,15 +37,31 @@ sub meeting_point_incr( $path ) {
     return false;
 }
 
-sub meeting_point_my_subs( $path ) {
+sub meeting_point_incr_2( $path ) {
     my ( $x, $y ) = ( 0, 0 );
-    state %move_subs = (
+    my %incr = (
+        U => [ 0, +1 ],
+        D => [ 0, -1 ],
+        L => [ -1, 0 ],
+        R => [ +1, 0 ] );
+    for ( ref $path ? $path->@* : split "", $path ) {
+        $x += $incr{$_}->[0];
+        $y += $incr{$_}->[1];
+        return true
+            if $x == 0 && $y == 0;
+    }
+    return false;
+}
+
+sub meeting_point_using_subs( $path ) {
+    my ( $x, $y ) = ( 0, 0 );
+    my %move_subs = (
         U => sub { ++$y },
         D => sub { --$y },
         L => sub { --$x },
         R => sub { ++$x },
     );
-    for ( split "", $path ) {
+    for ( ref $path ? $path->@* : split "", $path ) {
         $move_subs{$_}->();
         return true
             if $x == 0 && $y == 0;
@@ -53,25 +69,8 @@ sub meeting_point_my_subs( $path ) {
     return false;
 }
 
-sub meeting_point_state_subs( $path ) {
-    my ( $x, $y ) = ( 0, 0 );
-    state %move_subs = (
-        U => sub { ++$_[1] },
-        D => sub { --$_[1] },
-        L => sub { --$_[0] },
-        R => sub { ++$_[0] },
-    );
-
-    for ( split "", $path ) {
-        $move_subs{$_}->( $x, $y );
-        return true
-            if $x == 0 && $y == 0;
-    }
-    return false;
-}
-
-*meeting_point = \&meeting_point_eq_if_then_else;
-*meeting_point = \&meeting_point_state_subs;
+# *meeting_point = \&meeting_point_eq_if_then_else;
+*meeting_point = \&meeting_point_using_subs;
 
 use Test2::V0 qw( -no_srand );
 
@@ -88,14 +87,20 @@ is meeting_point( "RRUULLDDRRUU" ), T,
 
 done_testing;
 
+
+=for benchmark
+
 use Benchmark qw( :all );
 
-my @dirs = split "", "UDLR";
-my $test_data = join "", map $dirs[ rand( @dirs ) ], 1..10000;
+my @dirs = qw( U D L R );
+srand( 2 );
+my $test_data = [ map $dirs[ rand( @dirs ) ], 1..10000 ];
 
-cmpthese( -3, {
-    eq_if_then_else => sub { meeting_point_eq_if_then_else( $test_data ) },
-    incr            => sub { meeting_point_incr( $test_data ) },
-    my_subs         => sub { meeting_point_my_subs( $test_data ) },
-    state_subs      => sub { meeting_point_state_subs( $test_data ) },
+cmpthese( -1, {
+    "if_then_else" => sub { meeting_point_if_then_else( $test_data ) },
+    "incr"         => sub { meeting_point_incr( $test_data ) },
+    "incr_2"       => sub { meeting_point_incr_2( $test_data ) },
+    "using_subs"   => sub { meeting_point_using_subs( $test_data ) },
 } );
+
+=cut 
