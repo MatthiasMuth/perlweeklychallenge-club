@@ -8,15 +8,33 @@
             "data" : [
                [
                   "Perl",
+                  49
+               ],
+               [
+                  "Raku",
+                  23
+               ],
+               [
+                  "Blog",
+                  26
+               ]
+            ],
+            "id" : "349",
+            "name" : "349"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
                   47
                ],
                [
                   "Raku",
-                  19
+                  23
                ],
                [
                   "Blog",
-                  24
+                  26
                ]
             ],
             "id" : "348",
@@ -332,7 +350,7 @@
             "data" : [
                [
                   "Perl",
-                  50
+                  52
                ],
                [
                   "Raku",
@@ -350,7 +368,7 @@
             "data" : [
                [
                   "Perl",
-                  46
+                  48
                ],
                [
                   "Raku",
@@ -368,7 +386,7 @@
             "data" : [
                [
                   "Perl",
-                  44
+                  46
                ],
                [
                   "Raku",
@@ -386,7 +404,7 @@
             "data" : [
                [
                   "Perl",
-                  48
+                  50
                ],
                [
                   "Raku",
@@ -404,7 +422,7 @@
             "data" : [
                [
                   "Perl",
-                  48
+                  50
                ],
                [
                   "Raku",
@@ -422,7 +440,7 @@
             "data" : [
                [
                   "Perl",
-                  46
+                  48
                ],
                [
                   "Raku",
@@ -440,7 +458,7 @@
             "data" : [
                [
                   "Perl",
-                  50
+                  52
                ],
                [
                   "Raku",
@@ -458,7 +476,7 @@
             "data" : [
                [
                   "Perl",
-                  46
+                  48
                ],
                [
                   "Raku",
@@ -851,9 +869,14 @@
          "colorByPoint" : "true",
          "data" : [
             {
+               "drilldown" : "349",
+               "name" : "349",
+               "y" : 98
+            },
+            {
                "drilldown" : "348",
                "name" : "348",
-               "y" : 90
+               "y" : 96
             },
             {
                "drilldown" : "347",
@@ -943,42 +966,42 @@
             {
                "drilldown" : "330",
                "name" : "330",
-               "y" : 104
+               "y" : 106
             },
             {
                "drilldown" : "329",
                "name" : "329",
-               "y" : 95
+               "y" : 97
             },
             {
                "drilldown" : "328",
                "name" : "328",
-               "y" : 93
+               "y" : 95
             },
             {
                "drilldown" : "327",
                "name" : "327",
-               "y" : 87
+               "y" : 89
             },
             {
                "drilldown" : "326",
                "name" : "326",
-               "y" : 103
+               "y" : 105
             },
             {
                "drilldown" : "325",
                "name" : "325",
-               "y" : 100
+               "y" : 102
             },
             {
                "drilldown" : "324",
                "name" : "324",
-               "y" : 91
+               "y" : 93
             },
             {
                "drilldown" : "323",
                "name" : "323",
-               "y" : 95
+               "y" : 97
             },
             {
                "drilldown" : "322",
@@ -1085,7 +1108,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-11-24 05:24:11 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-12-01 01:45:23 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
