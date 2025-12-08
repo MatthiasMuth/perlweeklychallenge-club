@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            6,
             2,
             4,
             38,
@@ -38,13 +39,13 @@
             78,
             21,
             1,
-            0,
-            8
+            0
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            0,
             84,
             2,
             0,
@@ -63,7 +64,7 @@
             0,
             10,
             55,
-            479,
+            481,
             14,
             4,
             0,
@@ -71,15 +72,15 @@
             0,
             0,
             0,
-            561,
+            563,
             1,
-            49,
-            91
+            49
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            3,
             2,
             1,
             43,
@@ -98,7 +99,7 @@
             0,
             0,
             30,
-            1250,
+            1254,
             0,
             0,
             0,
@@ -108,14 +109,13 @@
             0,
             5,
             0,
-            29,
-            0
+            29
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-12-01 01:45:23 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-12-08 00:45:41 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Kaushik Tunuguntla",
          "Kevin Colyer",
          "Khalid",
          "Kian-Meng Ang",
@@ -154,8 +155,7 @@
          "Mariano Spadaccini",
          "Mark Anderson",
          "Mark J. Reed",
-         "Mark Senn",
-         "Markus Holzer"
+         "Mark Senn"
       ]
    },
    "yAxis" : {

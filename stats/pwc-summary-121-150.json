@@ -11,6 +11,7 @@
       {
          "data" : [
             0,
+            0,
             26,
             1,
             0,
@@ -32,19 +33,19 @@
             7,
             2,
             0,
-            665,
+            667,
             8,
             2,
             23,
             28,
             13,
-            6,
             6
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            478,
             4,
             0,
             0,
@@ -73,13 +74,13 @@
             0,
             30,
             0,
-            38,
-            0
+            38
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
             0,
             12,
             0,
@@ -102,20 +103,19 @@
             0,
             0,
             0,
-            114,
+            115,
             0,
             0,
             1,
             0,
             0,
-            15,
-            3
+            15
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2025-12-01 01:45:23 GMT"
+      "text" : "[Champions: 30] Last updated at 2025-12-08 00:45:41 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Jan Krnavek",
          "Jan Ole Kraft",
          "Jared Martin",
          "Jared Still",
@@ -154,8 +155,7 @@
          "Julien Fiegehenn",
          "Julio de Castro",
          "Kai Burgdorf",
-         "Kang-min Liu",
-         "Kaushik Tunuguntla"
+         "Kang-min Liu"
       ]
    },
    "yAxis" : {
