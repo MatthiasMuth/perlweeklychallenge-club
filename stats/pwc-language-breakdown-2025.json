@@ -8,15 +8,51 @@
             "data" : [
                [
                   "Perl",
-                  49
+                  39
                ],
                [
                   "Raku",
-                  20
+                  17
                ],
                [
                   "Blog",
-                  13
+                  18
+               ]
+            ],
+            "id" : "353",
+            "name" : "353"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  52
+               ],
+               [
+                  "Raku",
+                  21
+               ],
+               [
+                  "Blog",
+                  26
+               ]
+            ],
+            "id" : "352",
+            "name" : "352"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  52
+               ],
+               [
+                  "Raku",
+                  22
+               ],
+               [
+                  "Blog",
+                  15
                ]
             ],
             "id" : "351",
@@ -30,11 +66,11 @@
                ],
                [
                   "Raku",
-                  19
+                  21
                ],
                [
                   "Blog",
-                  17
+                  19
                ]
             ],
             "id" : "350",
@@ -98,7 +134,7 @@
             "data" : [
                [
                   "Perl",
-                  50
+                  51
                ],
                [
                   "Raku",
@@ -905,14 +941,24 @@
          "colorByPoint" : "true",
          "data" : [
             {
+               "drilldown" : "353",
+               "name" : "353",
+               "y" : 74
+            },
+            {
+               "drilldown" : "352",
+               "name" : "352",
+               "y" : 99
+            },
+            {
                "drilldown" : "351",
                "name" : "351",
-               "y" : 82
+               "y" : 89
             },
             {
                "drilldown" : "350",
                "name" : "350",
-               "y" : 82
+               "y" : 86
             },
             {
                "drilldown" : "349",
@@ -932,7 +978,7 @@
             {
                "drilldown" : "346",
                "name" : "346",
-               "y" : 83
+               "y" : 84
             },
             {
                "drilldown" : "345",
@@ -1154,7 +1200,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-12-14 23:08:45 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2025-12-25 11:10:30 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
