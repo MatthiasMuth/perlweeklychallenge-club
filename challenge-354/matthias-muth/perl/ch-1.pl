@@ -186,6 +186,79 @@ sub X_min_abs_diff_jcs_2( $ints ) {
     );
 }
 
+sub min_abs_diff_packy( $ints ) {
+  # sort so minimum difference items are next to each other
+  # ensure numeric sorting
+  my @sorted = sort { $a <=> $b } $ints->@*;
+  # start with the largest possible difference
+  my $min = abs($sorted[-1] - $sorted[0]);
+
+  my @pairs;
+  my $last = shift @sorted;
+
+  foreach my $current (@sorted) {
+    my $diff = abs($current - $last);
+    my $pair = [$last, $current];
+    if ($diff == $min) { # same diff, add to list
+      push @pairs, $pair;
+    }
+    elsif ($diff < $min) { # start new list with this pair
+      @pairs = ($pair);
+      $min = $diff;
+    }
+    $last = $current;
+  }
+  return @pairs;
+}
+
+# Packy Anderson 2: No abs(), no $pair variable.
+sub min_abs_diff_packy_2( $ints ) {
+  $ints->@* > 1 or return ();
+  # sort so minimum difference items are next to each other
+  # ensure numeric sorting
+  my @sorted = sort { $a <=> $b } $ints->@*;
+  # start with the largest possible difference
+  my $min = $sorted[-1] - $sorted[0];
+
+  my @pairs;
+  my $last = shift @sorted;
+
+  foreach my $current (@sorted) {
+    my $diff = $current - $last;
+    if ($diff == $min) { # same diff, add to list
+      push @pairs, [$last, $current];
+    }
+    elsif ($diff < $min) { # start new list with this pair
+      @pairs = ( [$last, $current] );
+      $min = $diff;
+    }
+    $last = $current;
+  }
+  return @pairs;
+}
+
+# Packy Anderson 3: No shift, no $diff.
+sub min_abs_diff_packy_3( $ints ) {
+  $ints->@* > 1 or return ();
+  # sort so minimum difference items are next to each other
+  # ensure numeric sorting
+  my ( $last, @sorted ) = sort { $a <=> $b } $ints->@*;
+  # start with the largest possible difference
+  my $min = $sorted[-1] - $last;
+
+  my @pairs;
+  foreach my $current (@sorted) {
+    if ($current - $last == $min) { # same diff, add to list
+      push @pairs, [$last, $current];
+    }
+    elsif ($current - $last < $min) { # start new list with this pair
+      @pairs = ( [$last, $current] );
+      $min = $current - $last;
+    }
+    $last = $current;
+  }
+  return @pairs;
+}
 
 my $sub_base_name = "min_abs_diff";
 my @sub_names = sort grep /^${sub_base_name}/, keys %::;
