@@ -26,7 +26,7 @@
             "data" : [
                [
                   "Perl",
-                  55
+                  57
                ],
                [
                   "Raku",
@@ -44,7 +44,7 @@
             "data" : [
                [
                   "Perl",
-                  62
+                  64
                ],
                [
                   "Raku",
@@ -62,7 +62,7 @@
             "data" : [
                [
                   "Perl",
-                  62
+                  64
                ],
                [
                   "Raku",
@@ -80,7 +80,7 @@
             "data" : [
                [
                   "Perl",
-                  62
+                  64
                ],
                [
                   "Raku",
@@ -98,7 +98,7 @@
             "data" : [
                [
                   "Perl",
-                  65
+                  67
                ],
                [
                   "Raku",
@@ -638,7 +638,7 @@
             "data" : [
                [
                   "Perl",
-                  51
+                  52
                ],
                [
                   "Raku",
@@ -872,7 +872,7 @@
             "data" : [
                [
                   "Perl",
-                  49
+                  50
                ],
                [
                   "Raku",
@@ -908,7 +908,7 @@
             "data" : [
                [
                   "Perl",
-                  52
+                  54
                ],
                [
                   "Raku",
@@ -966,27 +966,27 @@
             {
                "drilldown" : "196",
                "name" : "196",
-               "y" : 104
+               "y" : 106
             },
             {
                "drilldown" : "195",
                "name" : "195",
-               "y" : 110
+               "y" : 112
             },
             {
                "drilldown" : "194",
                "name" : "194",
-               "y" : 113
+               "y" : 115
             },
             {
                "drilldown" : "193",
                "name" : "193",
-               "y" : 114
+               "y" : 116
             },
             {
                "drilldown" : "192",
                "name" : "192",
-               "y" : 129
+               "y" : 131
             },
             {
                "drilldown" : "191",
@@ -1136,7 +1136,7 @@
             {
                "drilldown" : "162",
                "name" : "162",
-               "y" : 95
+               "y" : 96
             },
             {
                "drilldown" : "161",
@@ -1201,7 +1201,7 @@
             {
                "drilldown" : "149",
                "name" : "149",
-               "y" : 95
+               "y" : 96
             },
             {
                "drilldown" : "148",
@@ -1211,7 +1211,7 @@
             {
                "drilldown" : "147",
                "name" : "147",
-               "y" : 107
+               "y" : 109
             },
             {
                "drilldown" : "146",
@@ -1223,7 +1223,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-01-12 01:10:30 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-01-19 00:09:23 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
