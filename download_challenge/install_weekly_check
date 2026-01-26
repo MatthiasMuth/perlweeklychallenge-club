@@ -15,6 +15,7 @@ files="
     TestExtractor.pm
     download_challenge
     templates.toml
+    update_git.pl
     $maybe_status_toml
 "
 

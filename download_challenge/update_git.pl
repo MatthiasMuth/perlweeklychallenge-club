@@ -25,12 +25,12 @@ sub git_command( $repo, $command, @args ) {
     try {
 	if ( ! defined wantarray ) {
 	    my @output = $repo->command( $command, @args );
-	    $debug{GIT_COMMAND} and dsay @output;
+	    $debug{GIT_COMMAND} and dsay map "$_\n", @output;
 	    return;
 	}
 	elsif ( wantarray ) {
 	    my @output = $repo->command( $command, @args );
-	    $debug{GIT_COMMAND} and dsay @output;
+	    $debug{GIT_COMMAND} and dsay map "$_\n", @output;
 	    return @output;
 	}
 	else {

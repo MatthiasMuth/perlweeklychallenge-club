@@ -266,7 +266,7 @@ sub process_challenge( $challenge ) {
 	my $dry_run_readme_msg = "";
 	if ( ! -f $readme_file ) {
 	    unless ( $options{DRY_RUN} ) {
-		system "../update_git.pl" . ( $verbose ? " -v" : " -q" );
+		system "./update_git.pl" . ( $verbose ? " -v" : " -q" );
 	    }
 	    else {
 		$dry_run_readme_msg = " or '.../README.md'";
@@ -579,7 +579,7 @@ sub generate_readme_md( $challenge, $text ) {
 	my ( $task_text, $examples ) = /\A(.*?)\n*(^Example 1.*)/ms;
 	$task_text =~ s/\n/<br\/>\n/mg;
 	$task_text .= "\n\n";
-	$examples =~ s/\n(Example \d+)/```\n\n$1/mg;
+	$examples =~ s/\n\n(Example \d+)/```\n\n$1/mg;
 	$examples .= "\n```\n";
 	$examples =~ s/^(Example \d+)\n/**$1**\n\n```text\n/mg;
 	$_ = ( $task_text . $examples )
