@@ -8,15 +8,15 @@
             "data" : [
                [
                   "Perl",
-                  95
+                  147
                ],
                [
                   "Raku",
-                  41
+                  62
                ],
                [
                   "Blog",
-                  37
+                  60
                ]
             ],
             "id" : "2026",
@@ -26,7 +26,7 @@
             "data" : [
                [
                   "Perl",
-                  2552
+                  2554
                ],
                [
                   "Raku",
@@ -44,7 +44,7 @@
             "data" : [
                [
                   "Perl",
-                  2870
+                  2876
                ],
                [
                   "Raku",
@@ -98,7 +98,7 @@
             "data" : [
                [
                   "Perl",
-                  2667
+                  2669
                ],
                [
                   "Raku",
@@ -169,17 +169,17 @@
             {
                "drilldown" : "2026",
                "name" : "2026",
-               "y" : 173
+               "y" : 269
             },
             {
                "drilldown" : "2025",
                "name" : "2025",
-               "y" : 4711
+               "y" : 4713
             },
             {
                "drilldown" : "2024",
                "name" : "2024",
-               "y" : 5510
+               "y" : 5516
             },
             {
                "drilldown" : "2023",
@@ -194,7 +194,7 @@
             {
                "drilldown" : "2021",
                "name" : "2021",
-               "y" : 4986
+               "y" : 4988
             },
             {
                "drilldown" : "2020",
@@ -211,7 +211,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-01-19 00:09:23 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-01-26 05:25:58 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
