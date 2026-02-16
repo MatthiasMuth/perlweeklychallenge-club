@@ -43,6 +43,12 @@ sub text_justifier_in_one( $str, $width ) {
     return "*" x $n . $str . "*" x ( $width - length( $str ) - $n );
 }
 
+# Don't Repeat Yourself approach.
+sub text_justifier_dry( $str, $width ) {
+    my $n_2 = ( my $n = $width - length( $str ) ) >> 1;
+    return "*" x $n_2 . $str . "*" x ( $n - $n_2 );
+}
+
 my $sub_base_name = "text_justifier";
 
 my @tests = (
