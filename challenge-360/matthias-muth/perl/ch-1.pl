@@ -17,7 +17,7 @@ sub text_justifier_LR( $str, $width ) {
 }
 
 # Iterative approach.
-sub text_justifier_iter( $str, $width ) {
+sub X_text_justifier_iter( $str, $width ) {
     $str = length( $str ) % 2 == 0 ? "${str}*" : "*${str}"
         while length( $str ) < $width;
     return $str;
@@ -30,8 +30,15 @@ sub text_justifier_insert( $str, $width ) {
     return $combined;
 }
 
+# Replacement approach.
+sub text_justifier_replace( $str, $width ) {
+    my $padded = "*" x $width;
+    substr $padded, ( $width - length( $str ) ) /2, length( $str ), $str;
+    return $padded;
+}
+
 # Distribution approach.
-sub text_justifier_distrib( $str, $width ) {
+sub X_text_justifier_distrib( $str, $width ) {
     my $padding = "*" x ( $width - length( $str ) );
     $str = substr( $padding, 0, length( $padding ) / 2, "" ) . $str;
     return $str . $padding;

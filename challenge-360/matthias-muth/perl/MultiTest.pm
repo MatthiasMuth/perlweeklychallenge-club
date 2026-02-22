@@ -21,20 +21,24 @@ our @EXPORT_OK = qw( run_benchmarks );
 # want to run tests. In that case, the tests will be run first, and the
 # benchmark will only be run if the tests succeed.
 # TODO: Write some pod for usage.
-my ( $do_tests, $do_benchmark );
+my ( $do_tests, $do_benchmark, $do_continuous_benchmark );
 use Getopt::Long qw( :config pass_through auto_abbrev );
 GetOptions(
     "benchmark!", \$do_benchmark,
+    "continuous!", \$do_continuous_benchmark,
     "tests!",     \$do_tests,
 ) or die "Usage!\n!";
-$do_tests //= ! $do_benchmark;
+$do_tests //= ! $do_benchmark && ! $do_continuous_benchmark;
 Getopt::Long::Configure( "default" );
 
 sub run( $sub_base_name, $tests, $benchmark_params = undef ) {
     # Run the tests and/or the benchmark, depending on the command line options.
     # If tests are run, run the benchmark only if the tests succeed.
     ! $do_tests || run_tests( $sub_base_name, $tests->@* )
-        and $do_benchmark && run_benchmark( $sub_base_name, $benchmark_params );
+        and ! $do_benchmark
+            || run_benchmark( $sub_base_name, $benchmark_params )
+        and ! $do_continuous_benchmark
+            || run_continuous_benchmark( $sub_base_name, $benchmark_params );
 }
 
 sub run_tests( $sub_base_name, @tests ) {
@@ -98,7 +102,7 @@ sub run_tests( $sub_base_name, @tests ) {
 }
 
 sub run_benchmark( $sub_base_name, $benchmark_params ) {
-    use Benchmark qw( cmpthese );
+    use Benchmark qw( cmpthese :hireswallclock );
     my @sub_names = sort grep /^${sub_base_name}/, keys %::;
     my %subs = map {
         my $id = s/^${sub_base_name}_*(.+)/$1/r;
@@ -107,6 +111,22 @@ sub run_benchmark( $sub_base_name, $benchmark_params ) {
         ( $id => sub { "::$sub_name"->( $benchmark_params->@* ) } )
     } @sub_names;
     cmpthese( -1, \%subs );
+}
+
+sub run_continuous_benchmark( $sub_base_name, $benchmark_params ) {
+    use Benchmark qw( timethese :hireswallclock );
+    my @sub_names = sort grep /^${sub_base_name}/, keys %::;
+    my %subs = map {
+        my $id = s/^${sub_base_name}_*(.+)/$1/r;
+        my $sub_name = $_;      # to get a closure.
+        no strict 'refs';
+        ( $id => sub { "::$sub_name"->( $benchmark_params->@* ) } )
+    } @sub_names;
+    use Dsay;
+    while ( 1 ) {
+        my $results = timethese( -1, \%subs, 'none' );
+        
+    }
 }
 
 1;
