@@ -10,17 +10,18 @@
    "series" : [
       {
          "data" : [
+            1,
             0,
             8,
             0,
             0,
             0,
             4,
-            20,
-            341,
+            22,
+            343,
             0,
             4,
-            274,
+            276,
             12,
             6,
             13,
@@ -31,20 +32,20 @@
             0,
             0,
             1,
-            193,
+            194,
             0,
             0,
             40,
             14,
             7,
             88,
-            8,
-            3
+            8
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            1,
             49,
             91,
             3,
@@ -66,20 +67,20 @@
             2,
             0,
             0,
-            126,
+            127,
             1,
             10,
             40,
             0,
             0,
             0,
-            8,
-            0
+            8
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
             29,
             0,
             0,
@@ -108,14 +109,13 @@
             0,
             4,
             0,
-            0,
             0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-02-15 22:37:22 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-02-23 02:41:46 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2025]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Mark J. Reed",
          "Mark Senn",
          "Markus Holzer",
          "Martin Barth",
@@ -154,8 +155,7 @@
          "Nazareno Delucca",
          "Neil Bowers",
          "Nelo Tovar",
-         "Nick Logan",
-         "Nicolas Mendoza"
+         "Nick Logan"
       ]
    },
    "yAxis" : {
