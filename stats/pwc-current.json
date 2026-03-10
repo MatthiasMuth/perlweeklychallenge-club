@@ -48,6 +48,26 @@
             "data" : [
                [
                   "Perl",
+                  2
+               ]
+            ],
+            "id" : "Matt Martini",
+            "name" : "Matt Martini"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Matthew Neleigh",
+            "name" : "Matthew Neleigh"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
                   1
                ],
                [
@@ -63,6 +83,16 @@
                [
                   "Perl",
                   2
+               ]
+            ],
+            "id" : "Paulo Custodio",
+            "name" : "Paulo Custodio"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
                ],
                [
                   "Blog",
@@ -71,6 +101,16 @@
             ],
             "id" : "Peter Campbell Smith",
             "name" : "Peter Campbell Smith"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Peter Meszaros",
+            "name" : "Peter Meszaros"
          },
          {
             "data" : [
@@ -139,14 +179,34 @@
                "y" : 2
             },
             {
+               "drilldown" : "Matt Martini",
+               "name" : "Matt Martini",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Matthew Neleigh",
+               "name" : "Matthew Neleigh",
+               "y" : 2
+            },
+            {
                "drilldown" : "Mohammad Sajid Anwar",
                "name" : "Mohammad Sajid Anwar",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Paulo Custodio",
+               "name" : "Paulo Custodio",
                "y" : 2
             },
             {
                "drilldown" : "Peter Campbell Smith",
                "name" : "Peter Campbell Smith",
                "y" : 3
+            },
+            {
+               "drilldown" : "Peter Meszaros",
+               "name" : "Peter Meszaros",
+               "y" : 2
             },
             {
                "drilldown" : "Thomas Kohler",
@@ -163,7 +223,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 8] Last updated at 2026-03-09 19:43:53 GMT"
+      "text" : "[Champions: 12] Last updated at 2026-03-10 04:56:35 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 364"
