@@ -28,7 +28,7 @@
             0,
             2,
             4,
-            564,
+            566,
             24,
             18,
             16,
@@ -63,7 +63,7 @@
             2,
             0,
             0,
-            570,
+            572,
             0,
             0,
             2,
@@ -115,10 +115,10 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-03-10 04:56:35 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-03-11 02:54:49 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge [2019 - 2025]"
+      "text" : "The Weekly Challenge [2019 - 2026]"
    },
    "tooltip" : {
       "pointFormat" : "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b><br/>",

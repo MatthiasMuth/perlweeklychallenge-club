@@ -112,11 +112,11 @@
             "data" : [
                [
                   "Perl",
-                  564
+                  566
                ],
                [
                   "Raku",
-                  570
+                  572
                ]
             ],
             "id" : "Ulrich Rieke",
@@ -386,11 +386,11 @@
             "data" : [
                [
                   "Perl",
-                  338
+                  340
                ],
                [
                   "Blog",
-                  155
+                  156
                ]
             ],
             "id" : "Robbie Hatley",
@@ -831,7 +831,7 @@
             {
                "drilldown" : "Ulrich Rieke",
                "name" : "7: Ulrich Rieke",
-               "y" : 2268
+               "y" : 2276
             },
             {
                "drilldown" : "Flavio Poletti",
@@ -916,7 +916,7 @@
             {
                "drilldown" : "Robbie Hatley",
                "name" : "24: Robbie Hatley",
-               "y" : 986
+               "y" : 992
             },
             {
                "drilldown" : "Bob Lied",
@@ -1053,7 +1053,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2026-03-10 04:56:35 GMT"
+      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2026-03-11 02:54:49 GMT"
    },
    "title" : {
       "text" : "Team Leaders (TOP 50)"

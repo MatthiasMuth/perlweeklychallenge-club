@@ -17,6 +17,16 @@
          {
             "data" : [
                [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "David Smith",
+            "name" : "David Smith"
+         },
+         {
+            "data" : [
+               [
                   "Perl",
                   2
                ]
@@ -123,8 +133,50 @@
                   2
                ]
             ],
+            "id" : "Reinier Maliepaard",
+            "name" : "Reinier Maliepaard"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Robbie Hatley",
+            "name" : "Robbie Hatley"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  2
+               ]
+            ],
             "id" : "Thomas Kohler",
             "name" : "Thomas Kohler"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Ulrich Rieke",
+            "name" : "Ulrich Rieke"
          },
          {
             "data" : [
@@ -161,6 +213,11 @@
             {
                "drilldown" : "David Ferrone",
                "name" : "David Ferrone",
+               "y" : 2
+            },
+            {
+               "drilldown" : "David Smith",
+               "name" : "David Smith",
                "y" : 2
             },
             {
@@ -209,8 +266,23 @@
                "y" : 2
             },
             {
+               "drilldown" : "Reinier Maliepaard",
+               "name" : "Reinier Maliepaard",
+               "y" : 4
+            },
+            {
+               "drilldown" : "Robbie Hatley",
+               "name" : "Robbie Hatley",
+               "y" : 3
+            },
+            {
                "drilldown" : "Thomas Kohler",
                "name" : "Thomas Kohler",
+               "y" : 4
+            },
+            {
+               "drilldown" : "Ulrich Rieke",
+               "name" : "Ulrich Rieke",
                "y" : 4
             },
             {
@@ -223,7 +295,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 12] Last updated at 2026-03-10 04:56:35 GMT"
+      "text" : "[Champions: 16] Last updated at 2026-03-11 02:54:49 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 364"
