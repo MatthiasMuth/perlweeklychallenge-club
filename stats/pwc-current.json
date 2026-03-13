@@ -47,12 +47,50 @@
          {
             "data" : [
                [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Feng Chang",
+            "name" : "Feng Chang"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Jorg Sommrey",
+            "name" : "Jorg Sommrey"
+         },
+         {
+            "data" : [
+               [
                   "Perl",
                   2
                ]
             ],
             "id" : "Lubos Kolouch",
             "name" : "Lubos Kolouch"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
+               ],
+               [
+                  "Blog",
+                  2
+               ]
+            ],
+            "id" : "Luca Ferrari",
+            "name" : "Luca Ferrari"
          },
          {
             "data" : [
@@ -279,9 +317,24 @@
                "y" : 2
             },
             {
+               "drilldown" : "Feng Chang",
+               "name" : "Feng Chang",
+               "y" : 2
+            },
+            {
+               "drilldown" : "Jorg Sommrey",
+               "name" : "Jorg Sommrey",
+               "y" : 3
+            },
+            {
                "drilldown" : "Lubos Kolouch",
                "name" : "Lubos Kolouch",
                "y" : 2
+            },
+            {
+               "drilldown" : "Luca Ferrari",
+               "name" : "Luca Ferrari",
+               "y" : 4
             },
             {
                "drilldown" : "Mark Anderson",
@@ -363,7 +416,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 20] Last updated at 2026-03-12 13:17:34 GMT"
+      "text" : "[Champions: 23] Last updated at 2026-03-13 11:43:56 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 364"

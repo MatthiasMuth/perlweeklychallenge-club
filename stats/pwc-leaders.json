@@ -8,11 +8,11 @@
             "data" : [
                [
                   "Raku",
-                  499
+                  501
                ],
                [
                   "Blog",
-                  1316
+                  1318
                ]
             ],
             "id" : "Luca Ferrari",
@@ -144,6 +144,20 @@
             "data" : [
                [
                   "Perl",
+                  693
+               ],
+               [
+                  "Blog",
+                  128
+               ]
+            ],
+            "id" : "Jorg Sommrey",
+            "name" : "Jorg Sommrey"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
                   546
                ],
                [
@@ -157,20 +171,6 @@
             ],
             "id" : "W. Luis Mochan",
             "name" : "W. Luis Mochan"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  687
-               ],
-               [
-                  "Blog",
-                  125
-               ]
-            ],
-            "id" : "Jorg Sommrey",
-            "name" : "Jorg Sommrey"
          },
          {
             "data" : [
@@ -354,7 +354,7 @@
                ],
                [
                   "Raku",
-                  511
+                  517
                ],
                [
                   "Blog",
@@ -801,7 +801,7 @@
             {
                "drilldown" : "Luca Ferrari",
                "name" : "1: Luca Ferrari",
-               "y" : 3630
+               "y" : 3638
             },
             {
                "drilldown" : "Jaldhar H. Vyas",
@@ -839,14 +839,14 @@
                "y" : 1716
             },
             {
-               "drilldown" : "W. Luis Mochan",
-               "name" : "9: W. Luis Mochan",
+               "drilldown" : "Jorg Sommrey",
+               "name" : "9: Jorg Sommrey",
                "y" : 1642
             },
             {
-               "drilldown" : "Jorg Sommrey",
-               "name" : "10: Jorg Sommrey",
-               "y" : 1624
+               "drilldown" : "W. Luis Mochan",
+               "name" : "10: W. Luis Mochan",
+               "y" : 1642
             },
             {
                "drilldown" : "Lubos Kolouch",
@@ -906,7 +906,7 @@
             {
                "drilldown" : "Feng Chang",
                "name" : "22: Feng Chang",
-               "y" : 1100
+               "y" : 1112
             },
             {
                "drilldown" : "Ali Moradi",
@@ -1053,7 +1053,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2026-03-12 13:17:34 GMT"
+      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2026-03-13 11:43:56 GMT"
    },
    "title" : {
       "text" : "Team Leaders (TOP 50)"
