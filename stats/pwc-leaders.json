@@ -80,11 +80,11 @@
                ],
                [
                   "Raku",
-                  723
+                  725
                ],
                [
                   "Blog",
-                  362
+                  363
                ]
             ],
             "id" : "Arne Sommer",
@@ -94,11 +94,11 @@
             "data" : [
                [
                   "Perl",
-                  616
+                  618
                ],
                [
                   "Raku",
-                  578
+                  580
                ],
                [
                   "Blog",
@@ -332,15 +332,15 @@
             "data" : [
                [
                   "Perl",
-                  230
+                  232
                ],
                [
                   "Raku",
-                  230
+                  232
                ],
                [
                   "Blog",
-                  116
+                  117
                ]
             ],
             "id" : "Packy Anderson",
@@ -400,7 +400,7 @@
             "data" : [
                [
                   "Perl",
-                  430
+                  432
                ],
                [
                   "Blog",
@@ -530,7 +530,7 @@
             "data" : [
                [
                   "Perl",
-                  386
+                  388
                ],
                [
                   "Blog",
@@ -821,12 +821,12 @@
             {
                "drilldown" : "Arne Sommer",
                "name" : "5: Arne Sommer",
-               "y" : 2476
+               "y" : 2482
             },
             {
                "drilldown" : "Athanasius",
                "name" : "6: Athanasius",
-               "y" : 2396
+               "y" : 2404
             },
             {
                "drilldown" : "Ulrich Rieke",
@@ -901,7 +901,7 @@
             {
                "drilldown" : "Packy Anderson",
                "name" : "21: Packy Anderson",
-               "y" : 1152
+               "y" : 1162
             },
             {
                "drilldown" : "Feng Chang",
@@ -921,7 +921,7 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "25: Bob Lied",
-               "y" : 978
+               "y" : 982
             },
             {
                "drilldown" : "Jan Krnavek",
@@ -966,7 +966,7 @@
             {
                "drilldown" : "Wanderdoc",
                "name" : "34: Wanderdoc",
-               "y" : 776
+               "y" : 780
             },
             {
                "drilldown" : "David Ferrone",
@@ -1053,7 +1053,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2026-03-15 09:43:55 GMT"
+      "text" : "Click the columns to drilldown the score breakdown. Last updated at 2026-03-15 17:47:00 GMT"
    },
    "title" : {
       "text" : "Team Leaders (TOP 50)"
