@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 333 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-333/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 typedef struct {
     int x, y;

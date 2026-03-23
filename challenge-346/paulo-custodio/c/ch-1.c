@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 346 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-346/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int get_sequence(const char* str) {
     int nest = 0;

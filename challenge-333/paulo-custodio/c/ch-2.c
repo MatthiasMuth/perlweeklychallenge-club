@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 333 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-333/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 void dup_zeros(const int* from, int* to, int size) {
     int j = 0;

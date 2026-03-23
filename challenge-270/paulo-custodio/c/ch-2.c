@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 270 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-270/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int equalize(IntArray* nums, int x, int y) {
     if (nums->size <= 1)

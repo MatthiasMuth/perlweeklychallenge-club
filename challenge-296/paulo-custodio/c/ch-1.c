@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 296 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-296/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 Str* rle_encode(const char* str) {
     Str* encoded = str_new();

@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 262 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-262/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int count_max_pos_neg(IntArray* nums) {
     int count_pos = 0;

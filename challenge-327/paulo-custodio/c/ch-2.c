@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 327 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-327/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int calc_mad(int* nums, int count) {
     if (count < 2)

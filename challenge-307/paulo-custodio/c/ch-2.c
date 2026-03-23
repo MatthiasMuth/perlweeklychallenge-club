@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 307 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-307/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int compare (const void* a, const void* b) {
     return *(char*)a - *(char*)b;

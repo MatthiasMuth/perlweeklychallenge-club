@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 320 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-320/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int sum_diff(IntArray* nums) {
     int sum = 0, digit_sum = 0;

@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 294 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-294/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int get_max_seq_len(IntArray* nums) {
     int max_len = -1;

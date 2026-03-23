@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 313 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-313/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 bool is_typed(const char* name, const char* typed) {
     int kbd = 0;

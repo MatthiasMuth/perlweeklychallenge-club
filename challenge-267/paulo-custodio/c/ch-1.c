@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 267 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-267/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int product_sign(IntArray* nums) {
     int sign = 1;

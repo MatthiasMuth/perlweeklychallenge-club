@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 295 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-295/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 void find_jump(int prev_jumps, int pos, IntArray* nums, int* min_jumps) {
     if (pos >= nums->size-1) {  // reached the targe

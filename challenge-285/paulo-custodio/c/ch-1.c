@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 285 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-285/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 typedef struct {
     char from;

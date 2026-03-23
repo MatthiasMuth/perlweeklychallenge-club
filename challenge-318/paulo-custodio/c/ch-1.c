@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 318 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-318/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int count_group(const char* str) {
     int i = 0;

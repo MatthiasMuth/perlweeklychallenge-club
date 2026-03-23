@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 283 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-283/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int compute_freq(int n, IntArray* nums) {
     int count = 0;

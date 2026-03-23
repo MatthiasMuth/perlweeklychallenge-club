@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 281 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-281/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 #define LAST_POS(path) ((path) + strlen(path) - 2)
 

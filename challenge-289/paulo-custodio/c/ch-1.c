@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 289 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-289/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int third_max(IntArray* nums) {
     intarray_uniq(nums);

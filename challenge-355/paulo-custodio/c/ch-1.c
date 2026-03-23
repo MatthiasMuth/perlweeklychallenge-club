@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 355 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-355/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 const char* format_number(int n, char* buffer, size_t size) {
     // 1. Handle the end of the string

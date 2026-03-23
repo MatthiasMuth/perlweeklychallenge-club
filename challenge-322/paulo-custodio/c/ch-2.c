@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 322 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-322/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 IntArray* compute_rank(IntArray* scores) {
     // make copy of scores, sort and remove duplicates

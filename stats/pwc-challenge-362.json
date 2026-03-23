@@ -143,6 +143,20 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Jorg Sommrey",
+            "name" : "Jorg Sommrey"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
                ]
             ],
             "id" : "Kjetil Skotheim",
@@ -153,6 +167,10 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Blog",
+                  1
                ]
             ],
             "id" : "Lubos Kolouch",
@@ -518,6 +536,11 @@
                "y" : 2
             },
             {
+               "drilldown" : "Jorg Sommrey",
+               "name" : "Jorg Sommrey",
+               "y" : 3
+            },
+            {
                "drilldown" : "Kjetil Skotheim",
                "name" : "Kjetil Skotheim",
                "y" : 2
@@ -525,7 +548,7 @@
             {
                "drilldown" : "Lubos Kolouch",
                "name" : "Lubos Kolouch",
-               "y" : 2
+               "y" : 3
             },
             {
                "drilldown" : "Luca Ferrari",
@@ -647,7 +670,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 36] Last updated at 2026-03-16 03:33:35 GMT"
+      "text" : "[Champions: 37] Last updated at 2026-03-20 14:24:53 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 362"

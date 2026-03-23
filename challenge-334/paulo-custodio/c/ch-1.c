@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 334 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-334/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 IntArray* read_nums() {
     IntArray* nums = intarray_new();

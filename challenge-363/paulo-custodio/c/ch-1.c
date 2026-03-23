@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 363 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-363/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int translate_number(const char* long_form) {
     if (strcmp(long_form, "zero" ) == 0) return 0;

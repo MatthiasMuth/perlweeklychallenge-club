@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 328 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-328/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 #include <ctype.h>
 
 void remove_dups(char* str) {

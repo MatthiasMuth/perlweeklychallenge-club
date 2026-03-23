@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 295 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-295/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int find_prefix(char* word, int count, char* words[]) {
     for (int i = 0; i < count; i++) {

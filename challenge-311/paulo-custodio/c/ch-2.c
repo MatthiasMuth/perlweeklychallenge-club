@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 311 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-311/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 Str* group_digit_sum(const char* input, int n) {
     Str* s1 = str_new();

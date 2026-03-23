@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 280 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-280/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 char count_stars(const char* str) {
     int count = 0;

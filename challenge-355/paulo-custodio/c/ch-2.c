@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 355 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-355/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 bool check_mountain(IntArray* nums) {
     if (nums->size < 3)

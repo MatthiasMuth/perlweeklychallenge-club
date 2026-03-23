@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 292 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-292/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 // check if we have /A[^A]+A/
 bool is_ball_needed_later(char ball, Str* board) {

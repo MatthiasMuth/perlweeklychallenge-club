@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 322 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-322/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 Str* format_string(const char* input, int group_size) {
     // remove all dashes

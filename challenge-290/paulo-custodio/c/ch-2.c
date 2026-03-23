@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 290 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-290/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 void remove_non_digits(char* text) {
     int write = 0;

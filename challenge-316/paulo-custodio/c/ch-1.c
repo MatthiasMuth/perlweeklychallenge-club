@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 316 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-316/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 bool is_circular(int argc, char* argv[]) {
     for (int i = 1; i < argc; i++) {

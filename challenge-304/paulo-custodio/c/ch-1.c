@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 304 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-304/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 bool can_arrange(char* bin, int n) {
     for (int i = 0; i < n; i++) {

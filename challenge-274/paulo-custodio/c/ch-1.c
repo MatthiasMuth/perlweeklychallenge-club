@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 274 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-274/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 bool isvowel(char a) {
     a = tolower(a);

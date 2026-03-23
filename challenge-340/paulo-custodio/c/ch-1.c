@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 340 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-340/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 char* remove_duplicates(const char* input) {
     char* result = xstrdup(input);

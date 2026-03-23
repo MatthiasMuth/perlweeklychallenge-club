@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 288 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-288/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 bool is_palindrome(int n) {
     char num[32];

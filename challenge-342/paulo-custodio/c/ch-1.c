@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 342 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-342/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 #include <ctype.h>
 
 int compare (const void* a, const void* b) {

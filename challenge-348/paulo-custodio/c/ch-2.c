@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 348 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-348/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int get_minutes(const char* str) {
     const char* colon = strchr(str, ':');

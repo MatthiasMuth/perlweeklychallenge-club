@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 343 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-343/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 #include <stdio.h>
 #include <stdlib.h>
 

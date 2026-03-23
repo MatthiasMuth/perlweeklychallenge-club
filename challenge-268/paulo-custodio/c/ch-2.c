@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 268 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-268/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 IntArray* number_game(IntArray* nums) {
     IntArray* output = intarray_new();

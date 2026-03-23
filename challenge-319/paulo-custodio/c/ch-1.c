@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 319 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-319/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 #include <ctype.h>
 
 bool is_vowel(char c) {

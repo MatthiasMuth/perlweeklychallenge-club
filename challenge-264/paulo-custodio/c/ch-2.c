@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 264 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-264/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 StrArray* split(const char* str_, const char* separators) {
     char* str = xstrdup(str_);

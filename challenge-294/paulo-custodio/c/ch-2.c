@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 294 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-294/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 void find_next_permutation(IntArray* nums) {
     // Find the longest not increasing suffix

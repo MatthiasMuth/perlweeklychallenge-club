@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 261 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-261/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int find_double(int n, IntArray* nums) {
     while (intarray_find_index(nums, n) >= 0)

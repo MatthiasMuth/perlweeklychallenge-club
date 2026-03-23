@@ -1,7 +1,7 @@
-#include "alloc.h"
-#include <math.h>
+// Perl Weekly Challenge 357 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-357/
 
-#define Epsilon 1e-9
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 typedef struct {
     int numer;

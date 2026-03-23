@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 317 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-317/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 bool are_friendly(const char* s1, const char* s2) {
     int len = strlen(s1);

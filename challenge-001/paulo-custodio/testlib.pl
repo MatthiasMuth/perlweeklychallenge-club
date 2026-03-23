@@ -20,9 +20,19 @@ sub test_line {
             next unless -f "$dir/ch-$nr.py";
             capture("python $dir/ch-$nr.py $in", $expected);
         }
+        elsif ($dir eq 'forth') {
+            next unless -f "$dir/ch-$nr.fs";
+            capture("forth $dir/ch-$nr.fs $in", $expected);
+        }
         elsif ($dir eq 'c') {
             next unless -f "$dir/ch-$nr.c";
             build_c("$dir/ch-$nr.c");
+            next unless -f "$dir/ch-$nr$_exe";
+            capture(normalize_path("$dir/ch-$nr$_exe")." $in", $expected);
+        }
+        elsif ($dir eq 'cpp') {
+            next unless -f "$dir/ch-$nr.cpp";
+            build_cpp("$dir/ch-$nr.cpp");
             next unless -f "$dir/ch-$nr$_exe";
             capture(normalize_path("$dir/ch-$nr$_exe")." $in", $expected);
         }
@@ -67,9 +77,19 @@ sub test_block {
             next unless -f "$dir/ch-$nr.py";
             run("python $dir/ch-$nr.py $args < test.in > test.out");
         }
+        elsif ($dir eq 'forth') {
+            next unless -f "$dir/ch-$nr.fs";
+            run("forth $dir/ch-$nr.fs $args < test.in > test.out");
+        }
         elsif ($dir eq 'c') {
             next unless -f "$dir/ch-$nr.c";
             build_c("$dir/ch-$nr.c");
+            next unless -f "$dir/ch-$nr$_exe";
+            run(normalize_path("$dir/ch-$nr$_exe")." $args < test.in > test.out");
+        }
+        elsif ($dir eq 'cpp') {
+            next unless -f "$dir/ch-$nr.cpp";
+            build_cpp("$dir/ch-$nr.cpp");
             next unless -f "$dir/ch-$nr$_exe";
             run(normalize_path("$dir/ch-$nr$_exe")." $args < test.in > test.out");
         }
@@ -102,6 +122,14 @@ sub build_c {
 
     (my $exe = $src) =~ s/\.c$/$_exe/;
     build("gcc -o $exe $src", $src, $exe);
+}
+
+sub build_cpp {
+    my($src) = @_;
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+
+    (my $exe = $src) =~ s/\.cpp$/$_exe/;
+    build("g++ -o $exe $src", $src, $exe);
 }
 
 sub build_bf {
@@ -138,10 +166,16 @@ sub capture {
     open(my $fh, "<", "test.out") or die "test.out: $!";
     local $/;
     my $got = <$fh>;
-    $got =~ s/\r\n?/\n/g;
-    $got =~ s/\s+$//s;
     close $fh;
     unlink "test.out";
+
+    for ($got, $expected) {
+        s/^[ \t]+//mg;
+        s/[ \t]+$//mg;
+        s/\r\n?/\n/gm;
+        s/\s+$//s;
+    }
+
     is $got, $expected, "got $expected";
 }
 
@@ -173,7 +207,7 @@ sub compare_files {
 
 sub quote {
     my($str) = @_;
-    if ($_exe && $^O ne 'msys') {
+    if ($_exe && $^O !~ /msys|cygwin/) {
         return '"'.$str.'"';
     }
     else {

@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 339 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-339/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int check_pairs(int a, int b, int c, int d) {
     int diff1 = a*b-c*d;

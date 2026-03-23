@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 303 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-303/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 void find_nums_1(IntArray* out, int prefix, const char* digits) {
     if (prefix >= 100 && prefix < 1000 && prefix % 2 == 0) {

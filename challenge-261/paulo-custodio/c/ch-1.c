@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 261 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-261/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int digit_sum(int n) {
     int sum = 0;

@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 301 - Task 1 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-301/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int largest_number(const char* prefix, IntArray* nums) {
     int cur_num = atoi(prefix);

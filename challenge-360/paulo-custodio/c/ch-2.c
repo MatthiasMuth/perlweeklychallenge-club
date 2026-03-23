@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 360 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-360/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int compare(const void* a, const void* b) {
     return stricmp(*(const char**)a, *(const char**)b);

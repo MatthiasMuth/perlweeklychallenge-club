@@ -1,4 +1,7 @@
-#include "alloc.h"
+// Perl Weekly Challenge 300 - Task 2 - solution by Paulo Custodio
+// https://theweeklychallenge.org/blog/perl-weekly-challenge-300/
+
+#include "../../../challenge-001/paulo-custodio/c/alloc.h"
 
 int max_len_nested(IntArray* nums) {
     int max_len = 0;
