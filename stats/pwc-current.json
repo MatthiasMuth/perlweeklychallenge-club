@@ -9,20 +9,14 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Blog",
+                  2
                ]
             ],
             "id" : "Abigail",
             "name" : "Abigail"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ]
-            ],
-            "id" : "Andreas Mahnke",
-            "name" : "Andreas Mahnke"
          },
          {
             "data" : [
@@ -42,11 +36,11 @@
             "data" : [
                [
                   "Perl",
-                  1
+                  2
                ],
                [
                   "Raku",
-                  1
+                  2
                ]
             ],
             "id" : "Athanasius",
@@ -57,10 +51,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -157,34 +147,10 @@
                [
                   "Raku",
                   2
-               ],
-               [
-                  "Blog",
-                  4
-               ]
-            ],
-            "id" : "Luca Ferrari",
-            "name" : "Luca Ferrari"
-         },
-         {
-            "data" : [
-               [
-                  "Raku",
-                  2
                ]
             ],
             "id" : "Mark Anderson",
             "name" : "Mark Anderson"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ]
-            ],
-            "id" : "Matt Martini",
-            "name" : "Matt Martini"
          },
          {
             "data" : [
@@ -275,16 +241,6 @@
             ],
             "id" : "Peter Meszaros",
             "name" : "Peter Meszaros"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  1
-               ]
-            ],
-            "id" : "Philip Sharman",
-            "name" : "Philip Sharman"
          },
          {
             "data" : [
@@ -429,12 +385,7 @@
             {
                "drilldown" : "Abigail",
                "name" : "Abigail",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Andreas Mahnke",
-               "name" : "Andreas Mahnke",
-               "y" : 2
+               "y" : 4
             },
             {
                "drilldown" : "Arne Sommer",
@@ -444,12 +395,12 @@
             {
                "drilldown" : "Athanasius",
                "name" : "Athanasius",
-               "y" : 2
+               "y" : 4
             },
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "David Ferrone",
@@ -487,18 +438,8 @@
                "y" : 3
             },
             {
-               "drilldown" : "Luca Ferrari",
-               "name" : "Luca Ferrari",
-               "y" : 6
-            },
-            {
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Matt Martini",
-               "name" : "Matt Martini",
                "y" : 2
             },
             {
@@ -535,11 +476,6 @@
                "drilldown" : "Peter Meszaros",
                "name" : "Peter Meszaros",
                "y" : 2
-            },
-            {
-               "drilldown" : "Philip Sharman",
-               "name" : "Philip Sharman",
-               "y" : 1
             },
             {
                "drilldown" : "Reinier Maliepaard",
@@ -587,14 +523,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 367"
+         "name" : "The Weekly Challenge - 368"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 32] Last updated at 2026-04-06 03:33:23 GMT"
+      "text" : "[Champions: 28] Last updated at 2026-04-13 01:57:51 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 367"
+      "text" : "The Weekly Challenge - 368"
    },
    "tooltip" : {
       "followPointer" : 1,

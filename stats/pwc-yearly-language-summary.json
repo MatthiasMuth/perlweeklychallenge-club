@@ -8,15 +8,15 @@
             "data" : [
                [
                   "Perl",
-                  696
+                  743
                ],
                [
                   "Raku",
-                  283
+                  302
                ],
                [
                   "Blog",
-                  271
+                  288
                ]
             ],
             "id" : "2026",
@@ -26,7 +26,7 @@
             "data" : [
                [
                   "Perl",
-                  2610
+                  2612
                ],
                [
                   "Raku",
@@ -34,7 +34,7 @@
                ],
                [
                   "Blog",
-                  981
+                  987
                ]
             ],
             "id" : "2025",
@@ -80,7 +80,7 @@
             "data" : [
                [
                   "Perl",
-                  2816
+                  2829
                ],
                [
                   "Raku",
@@ -88,7 +88,7 @@
                ],
                [
                   "Blog",
-                  1019
+                  1024
                ]
             ],
             "id" : "2022",
@@ -98,7 +98,7 @@
             "data" : [
                [
                   "Perl",
-                  2672
+                  2678
                ],
                [
                   "Raku",
@@ -106,7 +106,7 @@
                ],
                [
                   "Blog",
-                  923
+                  929
                ]
             ],
             "id" : "2021",
@@ -116,7 +116,7 @@
             "data" : [
                [
                   "Perl",
-                  2695
+                  2697
                ],
                [
                   "Raku",
@@ -124,7 +124,7 @@
                ],
                [
                   "Blog",
-                  782
+                  784
                ]
             ],
             "id" : "2020",
@@ -134,7 +134,7 @@
             "data" : [
                [
                   "Perl",
-                  1967
+                  1968
                ],
                [
                   "Raku",
@@ -142,7 +142,7 @@
                ],
                [
                   "Blog",
-                  471
+                  472
                ]
             ],
             "id" : "2019",
@@ -169,12 +169,12 @@
             {
                "drilldown" : "2026",
                "name" : "2026",
-               "y" : 1250
+               "y" : 1333
             },
             {
                "drilldown" : "2025",
                "name" : "2025",
-               "y" : 4773
+               "y" : 4781
             },
             {
                "drilldown" : "2024",
@@ -189,29 +189,29 @@
             {
                "drilldown" : "2022",
                "name" : "2022",
-               "y" : 5449
+               "y" : 5467
             },
             {
                "drilldown" : "2021",
                "name" : "2021",
-               "y" : 4991
+               "y" : 5003
             },
             {
                "drilldown" : "2020",
                "name" : "2020",
-               "y" : 5199
+               "y" : 5203
             },
             {
                "drilldown" : "2019",
                "name" : "2019",
-               "y" : 3540
+               "y" : 3542
             }
          ],
          "name" : "The Weekly Challenge Languages"
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-04-06 03:33:23 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-04-13 01:57:51 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
