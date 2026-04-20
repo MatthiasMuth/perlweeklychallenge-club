@@ -8,15 +8,15 @@
             "data" : [
                [
                   "Perl",
-                  743
+                  794
                ],
                [
                   "Raku",
-                  302
+                  323
                ],
                [
                   "Blog",
-                  288
+                  316
                ]
             ],
             "id" : "2026",
@@ -34,7 +34,7 @@
                ],
                [
                   "Blog",
-                  987
+                  1001
                ]
             ],
             "id" : "2025",
@@ -62,7 +62,7 @@
             "data" : [
                [
                   "Perl",
-                  2885
+                  2890
                ],
                [
                   "Raku",
@@ -70,7 +70,7 @@
                ],
                [
                   "Blog",
-                  1203
+                  1208
                ]
             ],
             "id" : "2023",
@@ -116,7 +116,7 @@
             "data" : [
                [
                   "Perl",
-                  2697
+                  2698
                ],
                [
                   "Raku",
@@ -124,7 +124,7 @@
                ],
                [
                   "Blog",
-                  784
+                  785
                ]
             ],
             "id" : "2020",
@@ -134,7 +134,7 @@
             "data" : [
                [
                   "Perl",
-                  1968
+                  1972
                ],
                [
                   "Raku",
@@ -142,7 +142,7 @@
                ],
                [
                   "Blog",
-                  472
+                  476
                ]
             ],
             "id" : "2019",
@@ -169,12 +169,12 @@
             {
                "drilldown" : "2026",
                "name" : "2026",
-               "y" : 1333
+               "y" : 1433
             },
             {
                "drilldown" : "2025",
                "name" : "2025",
-               "y" : 4781
+               "y" : 4795
             },
             {
                "drilldown" : "2024",
@@ -184,7 +184,7 @@
             {
                "drilldown" : "2023",
                "name" : "2023",
-               "y" : 5722
+               "y" : 5732
             },
             {
                "drilldown" : "2022",
@@ -199,19 +199,19 @@
             {
                "drilldown" : "2020",
                "name" : "2020",
-               "y" : 5203
+               "y" : 5205
             },
             {
                "drilldown" : "2019",
                "name" : "2019",
-               "y" : 3542
+               "y" : 3550
             }
          ],
          "name" : "The Weekly Challenge Languages"
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-04-13 01:57:51 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-04-20 00:19:27 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
