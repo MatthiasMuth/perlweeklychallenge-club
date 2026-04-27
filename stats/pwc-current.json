@@ -51,6 +51,10 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Blog",
+                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -61,6 +65,10 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Blog",
+                  1
                ]
             ],
             "id" : "David Ferrone",
@@ -109,6 +117,16 @@
                [
                   "Perl",
                   2
+               ]
+            ],
+            "id" : "John Chambers",
+            "name" : "John Chambers"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
                ],
                [
                   "Blog",
@@ -131,40 +149,22 @@
          {
             "data" : [
                [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
+                  "Raku",
                   1
-               ]
-            ],
-            "id" : "Lubos Kolouch",
-            "name" : "Lubos Kolouch"
-         },
-         {
-            "data" : [
-               [
-                  "Raku",
-                  2
-               ],
-               [
-                  "Blog",
-                  10
-               ]
-            ],
-            "id" : "Luca Ferrari",
-            "name" : "Luca Ferrari"
-         },
-         {
-            "data" : [
-               [
-                  "Raku",
-                  2
                ]
             ],
             "id" : "Mark Anderson",
             "name" : "Mark Anderson"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  1
+               ]
+            ],
+            "id" : "Matt Martini",
+            "name" : "Matt Martini"
          },
          {
             "data" : [
@@ -297,21 +297,7 @@
          {
             "data" : [
                [
-                  "Raku",
-                  2
-               ]
-            ],
-            "id" : "Robert Ransbottom",
-            "name" : "Robert Ransbottom"
-         },
-         {
-            "data" : [
-               [
                   "Perl",
-                  2
-               ],
-               [
-                  "Raku",
                   2
                ],
                [
@@ -424,12 +410,12 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 2
+               "y" : 3
             },
             {
                "drilldown" : "David Ferrone",
                "name" : "David Ferrone",
-               "y" : 2
+               "y" : 3
             },
             {
                "drilldown" : "David Smith",
@@ -447,6 +433,11 @@
                "y" : 5
             },
             {
+               "drilldown" : "John Chambers",
+               "name" : "John Chambers",
+               "y" : 2
+            },
+            {
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
                "y" : 3
@@ -457,19 +448,14 @@
                "y" : 2
             },
             {
-               "drilldown" : "Lubos Kolouch",
-               "name" : "Lubos Kolouch",
-               "y" : 3
-            },
-            {
-               "drilldown" : "Luca Ferrari",
-               "name" : "Luca Ferrari",
-               "y" : 12
-            },
-            {
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
-               "y" : 2
+               "y" : 1
+            },
+            {
+               "drilldown" : "Matt Martini",
+               "name" : "Matt Martini",
+               "y" : 1
             },
             {
                "drilldown" : "Matthew Neleigh",
@@ -522,14 +508,9 @@
                "y" : 3
             },
             {
-               "drilldown" : "Robert Ransbottom",
-               "name" : "Robert Ransbottom",
-               "y" : 2
-            },
-            {
                "drilldown" : "Roger Bell_West",
                "name" : "Roger Bell_West",
-               "y" : 5
+               "y" : 3
             },
             {
                "drilldown" : "Simon Green",
@@ -557,14 +538,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 369"
+         "name" : "The Weekly Challenge - 370"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-04-20 00:19:27 GMT"
+      "text" : "[Champions: 29] Last updated at 2026-04-27 01:15:03 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 369"
+      "text" : "The Weekly Challenge - 370"
    },
    "tooltip" : {
       "followPointer" : 1,
