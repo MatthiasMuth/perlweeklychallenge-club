@@ -28,6 +28,7 @@ use Data::Dump qw( pp );
 use Getopt::Long;
 use Cwd qw( abs_path );
 use File::Basename;
+use Scalar::Util qw( looks_like_number );
 use List::Util qw( any );
 use Carp;
 use Test2::V0 qw( -no_srand );
@@ -210,16 +211,24 @@ sub generate_tests( $sub_name, @tests ) {
             "[ "
                 . " [ " . join( ", ", map( pp( $_ ), @input_params ) )
                 . " ] "
-            . ( ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ )
-                ? "is $expected->[0]"
-                : ( "== " . pp( @{$_->{OUTPUT}} ) ) );
+            . ( @$expected == 1
+                ? ( looks_like_number( $expected->[0] )
+                        ? "== $expected->[0]" :
+                    $expected->[0] =~ /^(?:(true)|false)/
+                        ? "is $expected->[0]"
+                        : ( "eq " . pp( $expected->[0] ) ) )
+                : ( "=> " . pp( @{$_->{OUTPUT}} ) ) );
         my $diag =
             "$sub_name( "
                 . join( ", ", map( pp( $_ ), @input_params ) )
                 . " ) "
-            . ( ( @$expected == 1 && $expected->[0] =~ /^(?:(true)|false)/ )
-                ? "is $expected->[0]"
-                : ( "== " . pp( @{$_->{OUTPUT}} ) ) );
+            . ( @$expected == 1
+                ? ( looks_like_number( $expected->[0] )
+                        ? "== $expected->[0]" :
+                    $expected->[0] =~ /^(?:(true)|false)/
+                        ? "is $expected->[0]"
+                        : ( "eq " . pp( $expected->[0] ) ) )
+                : ( " => " . pp( @{$_->{OUTPUT}} ) ) );
 
         my $name = "$_->{TEST}";
         $name .= ": $diag"
