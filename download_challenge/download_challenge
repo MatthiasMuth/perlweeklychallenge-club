@@ -94,8 +94,8 @@ use Getopt::Long qw( :config no_ignore_case );
 use TOML;
 use Time::Piece;
 
-use LWP::Simple;
 use HTML::TreeBuilder::XPath;
+use LWP::Simple;
 use URI::Escape;
 
 use File::Basename;
@@ -119,6 +119,7 @@ GetOptions(
     "check|n"    => \$options{DRY_RUN},
     "mail:s@"    => \$options{MAIL_TO},
     "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
+    "nogit"      => \$options{NO_GIT},
     "input|i:s"  => \$options{INPUT_FILE},
     "files!"     => \$options{WRITE_FILES},
     "archive!"   => \$options{ARCHIVE},
@@ -153,7 +154,6 @@ unless ( @ARGV ) {
     $options{MAIL_TO} //= $status->{'recipients'};
 }
 
-
 process_challenge( $_ )
     for @ARGV ? @ARGV : get_challenge_to_update();
 
@@ -164,9 +164,6 @@ write_toml( $status )
 exit 0;
 
 sub process_challenge( $challenge ) {
-
-    # Extract the interesting portion from the challenge page.
-    my $title = "Perl Weekly Challenge $challenge";
 
     # Extract relevant HTML parts (page header and task descriptions)
     # from the challenge page.
@@ -185,10 +182,23 @@ sub process_challenge( $challenge ) {
         exit 1;
     }
 
-    my ( $page_header ) =
-        $page_html =~ m'(<section class="global-page-header">.*?</section>)'s;
-    my ( $tasks ) =
-        $page_html =~ m'(<h2 id="TASK1">.*?</section>)'s;
+    my ( $title, $page_title, $published_date, $tasks, $deadline ) =
+        map {
+            m'<title\b.*?>(.*?\d+)',
+            m'<h1\b.*?>(.*?)</h1>'m,
+            m'^\s*(Published .*)$'m,
+            m'(<h2 id="TASK1">.*)\n+<p>.*?(Last date to submit.*?)</p>'s,
+        } $page_html;
+
+    %debug and do {
+        local $d_area = "extract";
+        dsay "title: ", pp $title;
+        dsay "page_title: ", pp $page_title;
+        dsay "published_date: ", pp $published_date;
+        dsay "tasks: ",
+            pp substr( $tasks, 0, 30 ) . " ... " . substr( $tasks, -20 );
+        dsay "deadline ", pp $deadline;
+    };
 
     # The tasks html will be used for checking whether the task descriptions
     # have changed, and then also for sending mails (or not).
@@ -196,14 +206,25 @@ sub process_challenge( $challenge ) {
     # Create the tasks html from the template,
     # copying in the extracted HTML parts.
     my $tasks_html = $templates->{'mail'}{'html'};
+    my $css = do {
+        my $file = "twc-muthm.css";
+        open my $fh, "-|", "translate_css.pl $file"
+            or die "cannot translate '$file': $!\n";
+        my $text = do { local $/ = undef; <$fh> };
+        close $fh;
+        "<style>\n" . $text . "</style>";
+    };
     my %substitutions = (
         CHALLENGE   => $challenge,
-        PAGE_HEADER => $page_header,
+        CSS         => $css,
+        PUBLISHED   => $published_date,
         TASKS       => $tasks,
+        DEADLINE    => $deadline,
     );
     $tasks_html =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
-    dsay ":tasks_html", "tasks_html:\n", $tasks_html;
+    %debug and dsay ":tasks_html", "tasks_html:\n", pp $tasks_html;
+    spit_file( "mail.html", $tasks_html );
 
     unless ( $tasks_html ) {
         say STDERR "ERROR: tasks html is empty. Aborting.";
@@ -265,7 +286,7 @@ sub process_challenge( $challenge ) {
 
 	my $dry_run_readme_msg = "";
 	if ( ! -f $readme_file ) {
-	    unless ( $options{DRY_RUN} ) {
+	    unless ( $options{DRY_RUN} || $options{NO_GIT} ) {
 		system "./update_git.pl" . ( $verbose ? " -v" : " -q" );
 	    }
 	    else {
@@ -286,7 +307,6 @@ sub process_challenge( $challenge ) {
 
 	# Extract a pure text version of the challenge description.
         my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
-
         $tree->parse_content( $tasks_html )
             or die "ERROR: could not parse html data.\n";
 
@@ -294,14 +314,9 @@ sub process_challenge( $challenge ) {
         # followed by two <br> to create empty lines,
         # followed by everything inside the <div class="post-content"> block,
         # individually.
-        my @nodes = map $tree->findnodes( $_ ),
-            qw(
-                //section[@class="global-page-header"]//h2
-                //div[@class="block"]//span[1]
-                //br[1]
-                //br[1]
-                //div[@class="post-content"]/*
-            );
+        my @nodes = $tree->findnodes( '//article/*' );
+        die "ERROR: could not extract tasks text from tasks html.\n"
+            unless @nodes;
 
         # Extract the text from the nodes.
         # Ignore <hr> to avoid empty lines where they are not needed.
@@ -310,6 +325,9 @@ sub process_challenge( $challenge ) {
         # (example descriptions).
         # Add an extra empty line after <h5> ('submitted by').
         my $challenge_text = join "",
+            "$page_title\n",
+            "$published_date\n",
+            "\n",
             map {
                 ( $_->as_text =~ /^Example 1/ ? "\n" : "" )
                 . ( $_->{_tag} =~ /^pre/
@@ -318,7 +336,7 @@ sub process_challenge( $challenge ) {
                 . "\n"
                 . ( $_->{_tag} =~ /^h5/ ? "\n" : "" )
             } grep $_->{_tag} ne "hr", @nodes;
-        dsay ":html", "challenge_text:\n", $challenge_text;
+        %debug and dsay ":html", "challenge_text:\n", $challenge_text;
 
         # Generate the code skeletons.
         my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
@@ -427,7 +445,7 @@ sub get_challenge_to_update {
     if ( page_was_modified( $main_url, 'main-last-modified' ) ) {
         my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
         $challenge_path = retrieve_challenge_link( $main_url, $xpath_pattern );
-        dsay "current-challenge-path: ", pp( $challenge_path );
+        %debug and dsay "current-challenge-path: ", pp( $challenge_path );
         unless ( $challenge_path ) {
             say STDERR "ERROR: Could not extract challenge url. Aborting.";
             exit 1;
@@ -483,12 +501,13 @@ sub page_was_modified( $url, $last_modified_field_name ) {
 
 sub generate_code( $challenge, $task_text ) {
     local $d_area = "code";
-    dsay "generate_code( $challenge, '", $task_text =~ /^(.*)?$/m, " [...]' )";
+    %debug and dsay
+        "generate_code( $challenge, '", $task_text =~ /^(.*)?$/m, " [...]' )";
 
     my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
 
     my @tests = TestExtractor::extract_tests( $task_text );
-    dsay "extracted tests: ", pp( @tests );
+    %debug and dsay "extracted tests: ", pp( @tests );
 
     my $code = $templates->{code}{'ch-N_pl'};
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
@@ -553,33 +572,45 @@ sub generate_code( $challenge, $task_text ) {
 }
 
 sub generate_readme_md( $challenge, $text ) {
+    dsay ":readme", "text: ", pp $text;
+    # Note that $text is pure text, no html.
     $text # =~ s/\r+//msr
-          =~ /^Task\s+1: \s* (?<t1_name>.*?) \s*$ \n
-              ^Submitted .*? $ \n
+          =~ /^ Task\s+1: \s* (?<t1_name>.*?) \s* $ \n
+              ^ .*? Submitted .*? $ \n          # Skip 'Submitted' line.
+              \s*? \n                           # Skip one empty line.
+              (?<t1_text> ^\S.*? $              # Gather text from first
+                                                # non-whitespace to eol,
+                                                # not including \n.
+                  (?: \n ^.*? $ )*?             # Gather continuation lines,
+                                                # separated by \n.
+              ) \n                              # Skip final \n.
+
+              # Skip possible empty lines before 'Task 2'
+              (?: ^\s*$ \n )*
+
+              ^ Task\s+2: \s* (?<t2_name>.*?) \s* $ \n
+              ^ .*? Submitted .*? $ \n
               \s*? \n
-              (?<t1_text> ^\S.*?$
-                  (?: \n ^.*?$ )*? \n
-                  (?:^\s* $ \n )*
-                  .*? $ ) \n
-              (?:^\s* $ \n )*
-              ^Task\s+2: \s* (?<t2_name>.*?) \s*$ \n
-              ^Submitted .*? $ \n
-              \s*? \n
-              (?<t2_text> ^\S.*?$
-                  (?: \n ^.*?$ )*? \n
-                  .*? $ ) \n
-              (?:^\s* $ \n )*
-              ^Last \s+ date \s+ to \s+ submit
-        /xms;
+              (?<t2_text> ^\S.*? $
+                  (?: \n ^.*? $ )*?
+              ) \n
+
+              # Skip possible empty lines before 'Last date ...' line
+              (?: ^\s*$ \n )*
+
+              ^ [^\n]* Last \s+ date [^\n]* \n
+        /xmsi;
     my %parts = ( %+ );
-    dsay ":readme", "$_: ", pp( $parts{$_} )
-        for qw( t1_name t1_text t2_name t2_text );
+    %debug and do {
+        dsay ":readme", "$_: ", pp( $parts{$_} )
+            for qw( t1_name t1_text t2_name t2_text );
+    };
 
     for ( @parts{ qw( t1_text t2_text ) } ) {
 	my ( $task_text, $examples ) = /\A(.*?)\n*(^Example 1.*)/ms;
 	$task_text =~ s/\n/<br\/>\n/mg;
 	$task_text .= "\n\n";
-	$examples =~ s/\n\n(Example \d+)/```\n\n$1/mg;
+	$examples =~ s/\n+(Example \d+)/\n```\n\n$1/mg;
 	$examples .= "\n```\n";
 	$examples =~ s/^(Example \d+)\n/**$1**\n\n```text\n/mg;
 	$_ = ( $task_text . $examples )
@@ -602,7 +633,7 @@ sub generate_readme_md( $challenge, $text ) {
     $readme_text =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
 
-    dsay ":readme", $readme_text;
+    %debug && dsay ":readme", $readme_text;
     return $readme_text;
 }
 

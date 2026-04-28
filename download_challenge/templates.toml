@@ -6,31 +6,39 @@
 
 html = '''
 <!DOCTYPE html>
-<html class="no-js" lang="en-us">
+<html lang="en">
 <head>
-    <!-- Basic Page Needs -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-    <!-- Mobile Specific Metas -->
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Weekly Challenge - <CHALLENGE></title>
-    <link rel="icon" href="https://theweeklychallenge.org/images/favicon.ico">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
-
-    <!-- template main css file -->
-    <link rel="stylesheet" href="https://theweeklychallenge.org/css/style.min.css" integrity="" media="screen">
+<CSS>
 </head>
 
-<body>
-<PAGE_HEADER>
-<section class="single-post">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div style="text-align: justify" class="post-content">
+<body class="light-mode">
+
+<style>
+    pre {
+        background-color: #333; border-radius: 8px;
+        padding: 21px; padding-left: 50pxs
+    }
+</style>
+<style> .prose pre { padding: 10px; padding-left: 50px } </style>
+
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <h1 class="page-title">The Weekly Challenge: <CHALLENGE></h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <PUBLISHED>
+    </div>
+</div>
+
+<div class="content-wrap">
+    <article class="prose">
 <TASKS>
+        <p><DEADLINE></p>
+    </article>
+</div>
+
 </body>
 </html>
 '''
