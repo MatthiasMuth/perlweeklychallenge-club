@@ -13,24 +13,13 @@ use v5.36;
 use Algorithm::Combinatorics qw( subsets );
 use List::Util qw( sum );
 
-sub subset_equilibrium_direct_iter( @nums ) {
-    my @results;
-    for my $subset_size ( 2 .. @nums - 1) {
-        my $iter = subsets( [ keys @nums ], $subset_size );
-        while ( my $indices = $iter->next ) {
-            push @results, [ map $nums[$_], $indices->@* ]
-                if sum( map $nums[$_] - ( $_ + 1 ), $indices->@* ) == 0;
-        }
-    }
-    return @results;
-}
-
-sub subset_equilibrium_diff_iter_diff( @nums ) {
+sub subset_equilibrium( @nums ) {
     # Pre-compute the difference between each element and its position
     # (using 1-based position numbers).
-    # If the sum of elements is to equal the sum of their positions,
+    # If the sum of elements is equal to the sum of their positions,
     # the sum of these differences must be zero.
-    # This will save us half of the additions.
+    # We then need only one array for summing up, and only half the
+    # number of additions.
     my @diffs = map $nums[$_] - ( $_ + 1 ), keys @nums;
     my @results;
     for my $subset_size ( 2 .. @nums - 1 ) {
@@ -42,99 +31,25 @@ sub subset_equilibrium_diff_iter_diff( @nums ) {
     }
     return @results;
 }
-
-sub subset_equilibrium_diff_list( @nums ) {
-    # Pre-compute the difference between each element and its position
-    # (using 1-based position numbers).
-    # If the sum of elements is to equal the sum of their positions,
-    # the sum of these differences must be zero.
-    # This will save us half of the additions.
-    my @diffs = map $nums[$_] - ( $_ + 1 ), keys @nums;
-    my @results;
-    for my $subset_size ( 2 .. @nums - 1) {
-        for my $indices ( subsets( [ keys @nums ], $subset_size ) ) {
-            push @results, [ map $nums[$_], $indices->@* ]
-                if sum( map $diffs[$_], $indices->@* ) == 0;
-        }
-    }
-    return @results;
-}
-
-sub subset_equilibrium_diff_pack( @nums ) {
-    # Pre-compute the difference between each element and its position
-    # (using 1-based position numbers).
-    # If the sum of elements is to equal the sum of their positions,
-    # the sum of these differences must be zero.
-    # This will save us half of the additions.
-    my @diffs = map $nums[$_] - ( $_ + 1 ), keys @nums;
-    my $n = scalar @nums;
-    my @results;
-    for my $mask ( 3 .. ( 1 << @nums ) - 2 ) {
-        my @indices = grep { $mask & ( 1 << $_ ) } keys @nums;
-        push @results, [ map $nums[$_], @indices ]
-            if @indices >= 2 && sum( map $diffs[$_], @indices ) == 0;
-    }
-    return @results;
-}
-
-use Math::Combinatorics;
-
-sub subset_equilibrium_diff_math( @nums ) {
-    # Pre-compute the difference between each element and its position
-    # (using 1-based position numbers).
-    # If the sum of elements is to equal the sum of their positions,
-    # the sum of these differences must be zero.
-    # This will save us half of the additions.
-    my @diffs = map $nums[$_] - ( $_ + 1 ), keys @nums;
-    my @results;
-    for my $subset_size ( 2 .. @nums - 1 ) {
-        for my $indices ( combine( $subset_size, keys @nums ) ) {
-            push @results, [ map $nums[$_], sort { $a <=> $b } $indices->@* ]
-                if sum( map $diffs[$_], $indices->@* ) == 0;
-        }
-    }
-    return @results;
-}
-
-use MultiTest;
-
-my @tests = (
-    [ 'Example 1', [ 2, 1, 4, 3 ],
-        bag { item $_ for [2, 1], [1, 4], [4, 3], [2, 3]; end },
-    ],
-    [ 'Example 2', [ 3, 0, 3, 0 ],
-        bag { item $_ for [3, 0], [3, 0, 3]; end },
-    ],
-    [ 'Example 3', [ 5, 1, 1, 1 ],
-        [ [5, 1, 1] ],
-    ],
-    [ 'Example 4', [ 3, -1, 4, 2 ],
-        bag { item $_ for [3, 2], [3, -1, 4]; end },
-    ],
-    [ 'Example 5', [ 10, 20, 30, 40 ],
-        [],
-    ],
-);
-my @benchmark_data = ( 3, -1, 4, 2, 5, 6, 7 );
-
-unless ( caller ) {
-    run( "subset_equilibrium", \@tests, \@benchmark_data );
-}
-
-__END__
-
 
 use Test2::V0 qw( -no_srand );
 
-is [ subset_equilibrium( 2, 1, 4, 3 ) ], [ [2, 1], [1, 4], [4, 3], [2, 3] ],
-    'Example 1: subset_equilibrium( 2, 1, 4, 3 )  => ([2, 1], [1, 4], [4, 3], [2, 3])';
-is [ subset_equilibrium( 3, 0, 3, 0 ) ], [ [3, 0], [3, 0, 3] ],
-    'Example 2: subset_equilibrium( 3, 0, 3, 0 )  => ([3, 0], [3, 0, 3])';
-is [ subset_equilibrium( 5, 1, 1, 1 ) ], [ [5, 1, 1] ],
-    'Example 3: subset_equilibrium( 5, 1, 1, 1 ) eq [5, 1, 1]';
-is [ subset_equilibrium( 3, -1, 4, 2 ) ], [ [3, 2], [3, -1, 4] ],
+is [ subset_equilibrium( 2, 1, 4, 3 ) ],
+    bag { item $_ for [2, 1], [1, 4], [4, 3], [2, 3]; end },
+    'Example 1: subset_equilibrium( 2, 1, 4, 3 )'
+        . ' => ([2, 1], [1, 4], [4, 3], [2, 3])';
+is [ subset_equilibrium( 3, 0, 3, 0 ) ],
+    bag { item $_ for [3, 0], [3, 0, 3]; end },
+    'Example 2: subset_equilibrium( 3, 0, 3, 0 )'
+        . ' => ([3, 0], [3, 0, 3])';
+is [ subset_equilibrium( 5, 1, 1, 1 ) ],
+    [ [5, 1, 1] ],
+    'Example 3: subset_equilibrium( 5, 1, 1, 1 ) => ([5, 1, 1])';
+is [ subset_equilibrium( 3, -1, 4, 2 ) ],
+    bag { item $_ for [3, 2], [3, -1, 4]; end },
     'Example 4: subset_equilibrium( 3, -1, 4, 2 )  => ([3, 2], [3, -1, 4])';
-is [ subset_equilibrium( 10, 20, 30, 40 ) ], [ [] ],
-    'Example 5: subset_equilibrium( 10, 20, 30, 40 ) eq []';
+is [ subset_equilibrium( 10, 20, 30, 40 ) ],
+    [],
+    'Example 5: subset_equilibrium( 10, 20, 30, 40 ) => ()';
 
 done_testing;
