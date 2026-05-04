@@ -89,6 +89,16 @@
          {
             "data" : [
                [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Feng Chang",
+            "name" : "Feng Chang"
+         },
+         {
+            "data" : [
+               [
                   "Perl",
                   2
                ],
@@ -151,6 +161,16 @@
             ],
             "id" : "Mark Anderson",
             "name" : "Mark Anderson"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  1
+               ]
+            ],
+            "id" : "Matt Martini",
+            "name" : "Matt Martini"
          },
          {
             "data" : [
@@ -418,6 +438,11 @@
                "y" : 2
             },
             {
+               "drilldown" : "Feng Chang",
+               "name" : "Feng Chang",
+               "y" : 2
+            },
+            {
                "drilldown" : "Jaldhar H. Vyas",
                "name" : "Jaldhar H. Vyas",
                "y" : 5
@@ -441,6 +466,11 @@
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
                "y" : 2
+            },
+            {
+               "drilldown" : "Matt Martini",
+               "name" : "Matt Martini",
+               "y" : 1
             },
             {
                "drilldown" : "Matthew Neleigh",
@@ -527,7 +557,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 28] Last updated at 2026-04-14 17:17:57 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-04-29 09:45:29 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 368"

@@ -276,6 +276,7 @@ sub subset_equilibrium( @nums ) {
     return @results;
 }
 ```
+This works even for sequences that are longer than five characters or as short as only four characters.
 
 
 **Thank you for the challenge!**
