@@ -682,7 +682,7 @@
                ],
                [
                   "Blog",
-                  17
+                  18
                ]
             ],
             "id" : "317",
@@ -700,7 +700,7 @@
                ],
                [
                   "Blog",
-                  18
+                  19
                ]
             ],
             "id" : "316",
@@ -1146,12 +1146,12 @@
             {
                "drilldown" : "317",
                "name" : "317",
-               "y" : 89
+               "y" : 90
             },
             {
                "drilldown" : "316",
                "name" : "316",
-               "y" : 96
+               "y" : 97
             },
             {
                "drilldown" : "315",
@@ -1223,7 +1223,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-05-04 04:09:47 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-05-10 22:42:17 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
