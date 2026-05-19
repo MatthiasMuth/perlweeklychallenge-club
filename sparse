@@ -10,6 +10,7 @@
 /.gitignore
 /challenge-*/matthias-muth/
 /download_challenge/
+/lib
 /publish
 /pwc.add-bashrc
 /pwc.bashrc

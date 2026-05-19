@@ -2,6 +2,9 @@
 #   template.toml
 #
 
+###
+### MAIL
+###
 [ mail ]
 
 html = '''
@@ -43,6 +46,9 @@ html = '''
 </html>
 '''
 
+###
+### CODE
+###
 [code]
 
 ch-N_pl = '''
@@ -63,9 +69,26 @@ sub <SUB_NAME>( <INPUT_PARAMS> ) {
     return <RETURN>;
 }
 
-<RUN_TESTS>
+use lib qw( . ../../../lib );
+use MultiTest;
+
+<TESTS>
+
+run( "<SUB_NAME>", \@tests );
+
+__END__
+
+# Version for publishing:
+
+use Test2::V0 qw( -no_srand );
+is <CALL>, $_->[2], $_->[0]
+    for @tests;
+done_testing;
 '''
 
+###
+### README
+###
 [readme]
 
 readme_md = '''
@@ -99,6 +122,9 @@ sub <TASK_2_SUB>() {
 #### **Thank you for the challenge!**
 '''
 
+###
+### README_NO_BLOG
+###
 readme_no_blog = '''
 **Challenge <CHALLENGE> solutions in Perl by Matthias Muth**
 <br/>
@@ -111,6 +137,9 @@ blog_txt = '''
 https://github.com/MatthiasMuth/perlweeklychallenge-club/tree/muthm-<CHALLENGE>/challenge-<CHALLENGE>/matthias-muth#readme
 '''
 
+###
+### TEST_ALL
+###
 test_all = '''
 #!/usr/bin/env perl
 

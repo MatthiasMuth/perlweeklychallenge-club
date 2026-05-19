@@ -105,6 +105,7 @@ use Digest::MD5 qw( md5_hex );
 use Encode qw( encode_utf8 );
 use Email::Stuffer;
 
+use lib qw( . );
 use TestExtractor;
 
 sub usage {
@@ -414,8 +415,6 @@ sub process_challenge( $challenge ) {
     }
 }
 
-exit 0;
-
 sub retrieve_challenge_link( $base_url, $pattern ) {
     my $tree = HTML::TreeBuilder::XPath->new_from_url( $base_url )
         or die "ERROR: could not retrieve data from $base_url.\n";
@@ -499,6 +498,8 @@ sub page_was_modified( $url, $last_modified_field_name ) {
     return 1;
 }
 
+use List::Util qw( all );
+
 sub generate_code( $challenge, $task_text ) {
     local $d_area = "code";
     %debug and dsay
@@ -547,12 +548,45 @@ sub generate_code( $challenge, $task_text ) {
 
     my $return =
         $tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
-        ? $tests[0]{OUTPUT}[0] eq 'ARRAY'
+        ? ref $tests[0]{OUTPUT}[0] eq 'ARRAY'
             ? '\@results'
             : '@results'
         : '$result';
 
     my $run_tests = TestExtractor::generate_tests( $sub_name, @tests );
+
+    my ( $single_input, $single_output ) =
+        map {
+            dsay "Checking single:";
+            all { dsay "    ", pp $_; $_->@* == 1 && ! ref $_->[0] } $_->@*;
+        }
+        [ map $_->{INPUT}, @tests ],
+        [ map $_->{OUTPUT}, @tests ];
+    dsay "single input: ", $single_input ? "yes" : "no";
+    dsay "single output: ", $single_output ? "yes" : "no";
+
+    my $test_data = join "\n", 
+        "my \@tests = (",
+        ( map {
+            my ( $name, $input, $expected ) = (
+                pp( $_->{TEST} ),
+                pp( $single_input ? $_->{INPUT}->[0] : $_->{INPUT} ),
+                $single_output
+                ? $_->{OUTPUT}[0] =~ /^(?:(t)rue|(f)alse)$/i
+                    ? uc( $1 || $2 )
+                    : pp( $_->{OUTPUT}->[0] )
+                : pp( $_->{OUTPUT} )
+            );
+            my $line = "    [ $name, $input, $expected ],";
+            $line = "    [ $name,\n        $input,\n        $expected ],"
+                unless length( $line ) <= 80;
+            $line;
+        } @tests ),
+        ");";
+    %debug and dsay $test_data;
+    my $call = "$sub_name( \$_->[1]->\@* )";
+    $call = "[ $call ]"
+        unless $single_output;
 
     my %substitutions = (
         CHALLENGE    => $challenge,
@@ -563,6 +597,8 @@ sub generate_code( $challenge, $task_text ) {
         RESULT_VAR   => $result_var,
         RETURN       => $return,
         RUN_TESTS    => $run_tests,
+        TESTS        => $test_data,
+        CALL         => $call,
     );
     $code =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
@@ -687,8 +723,7 @@ sub set_toml( $hash_ref, $name, $value ) {
 }
 
 sub timestamp {
-    use POSIX qw(strftime);
-    return strftime "%y%m%d_%H%M%S", localtime;
+    return localtime->strftime( "%y%m%d_%H%M%S" );
 }
 
 1;
