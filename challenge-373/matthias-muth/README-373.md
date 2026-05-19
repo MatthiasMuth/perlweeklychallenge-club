@@ -128,9 +128,9 @@ sub equal_list( $arr1, $arr2 ) {
 
 This one is a bit more tricky.
 
-The easy part is the input check. We need to return `-1` if `$n` is larger than the size of the list, because we will not be able to return `$n` parts when we have less than `$n` elements. I extend the check to `$n` being greater than zero, because dividing a list into zero parts does not make sense, neither. We have to do that check explicitly.
+The easy part is the input check. We need to return `-1` if `$n` is larger than the size of the list, because we will not be able to return `$n` parts when we have less than `$n` elements. I extend the check to `$n` being greater than zero, because dividing a list into zero parts does not make sense, either. We have to do that check explicitly, because a return code of `-1` (a simple scalar) has a different data type from that of regular results (a list of anonymous arrays), so we will never be able to return that error code within the rest of the processing. 
 
-The output parts can only have two sizes: Either the integer part of the input list size divided by `$n`,    
+The anonymous arrays in the result set can only have two sizes: Either it is the integer part of the input list size divided by `$n`, or there is one additional element .
 
 
 
