@@ -8,17 +8,20 @@
 #
 
 use v5.36;
+use builtin qw( true false );
 
 package MultiTest;
 use parent 'Exporter';
 
 use Test2::V0 qw( -no_srand );
-use List::Util qw( all );
 
 our @EXPORT    = (
     @Test2::V0::EXPORT,
     qw( run run_tests run_benchmarks ),
 );
+
+use List::Util qw( all );
+use Dsay;
 
 # Accept --tests and --benchmark command line options
 # (which can be abbreviated to -t and -b, respectively).
@@ -27,16 +30,42 @@ our @EXPORT    = (
 # want to run tests. In that case, the tests will be run first, and the
 # benchmark will only be run if the tests succeed.
 # TODO: Write some pod for usage.
-my ( $do_tests, $do_benchmark );
-use Getopt::Long qw( :config pass_through auto_abbrev );
-GetOptions(
-    "benchmark!", \$do_benchmark,
-    "tests!",     \$do_tests,
-) or die "Usage!\n!";
-$do_tests //= ! $do_benchmark;
-Getopt::Long::Configure( "default" );
+use Getopt::Long qw( :config auto_abbrev );
+use Carp;
+
+my ( $do_tests, $do_benchmark, @tests_to_run_patterns );
+
+sub get_options() {
+    state $done = false;
+    return if $done;
+
+    GetOptions(
+        "benchmark!" => \$do_benchmark,
+        "tests!"     => \$do_tests,
+        "example=s" =>
+            sub {
+                push @tests_to_run_patterns, qr/^Example $_\b/
+                    for split /,|\s+/, $_[1];
+            },
+        "own-tests|ot=s" =>
+            sub {
+                push @tests_to_run_patterns, qr/Test.*\b$_\b/i
+                    for split /,|\s+/, $_[1];
+            },
+    ) or die "Usage!\n";
+
+    $do_tests //= ! $do_benchmark;
+    Getopt::Long::Configure( "default" );
+
+    dsay "tests_to_run_patterns: ", pp @tests_to_run_patterns
+        if @tests_to_run_patterns;
+
+    $done = true;
+}
 
 sub run( $sub_base_name, $tests, $benchmark_params = undef ) {
+    get_options;
+
     # Run the tests and/or the benchmark, depending on the command line options.
     # If tests are run, run the benchmark only if the tests succeed.
     ! $do_tests || run_tests( $sub_base_name, $tests->@* )
@@ -44,6 +73,8 @@ sub run( $sub_base_name, $tests, $benchmark_params = undef ) {
 }
 
 sub run_tests( $sub_base_name, @tests ) {
+    get_options;
+
     # This runs the tests not only for the sub named "$sub_base_name",
     # but also for all variants with any suffix ("$sub_base_name<suffix>").
 
@@ -59,10 +90,20 @@ sub run_tests( $sub_base_name, @tests ) {
         //= Term::Table::Util::term_size() // 80;
 
     my @sub_names = sort grep /^${sub_base_name}/, keys %::;
-    my $single_output =
-        all { ref $_->[2] ne "ARRAY" } @tests;
+    my $single_input = all { ref $_->[1] ne "ARRAY" } @tests;
+    my $single_output = all { ref $_->[2] ne "ARRAY" } @tests;
+    # note "single_input: ", qw( no yes )[$single_input];
+    # note "single_output: ", qw( no yes )[$single_output];
+
+    # Reduce the list of tests if -example or -own were given.
+    if ( @tests_to_run_patterns ) {
+        my $pattern = join "|", @tests_to_run_patterns;
+        @tests = grep { $_->[0] =~ /$pattern/ } @tests;
+    }
+
     for my $sub ( @sub_names ) {
-        note "\n", "Testing $sub:\n", "\n";
+        note "\n", "Testing $sub:\n", "\n"
+            if @sub_names > 1;
         for ( @tests ) {
             my ( $test, $input, $expected ) = $_->@*;
             my $descr = $test;
@@ -79,6 +120,8 @@ sub run_tests( $sub_base_name, @tests ) {
                 $descr =~ s/:$//;
             }
             no strict 'refs';
+            $input = [ $input ]
+                if $single_input;
             my $output =
                 $single_output
                 ? "::$sub"->( $input->@* )
