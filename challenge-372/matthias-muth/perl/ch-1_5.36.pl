@@ -30,8 +30,8 @@ my $json_data = -f $json_file && read_json( $json_file )
     or die "ERROR: could not read test data from '$json_file\n";
 
 # Run the tests, calling the subroutine whose name is generated.
-my $sub_name = lc( $json_data->{challenge}{name} ) =~ s/[^a-z]+/_/gr;
+my $sub = lc( $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/gr;
 no strict 'refs';
-is [ $sub_name->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+is [ $sub->( $_->{in}->@* ) ], $_->{out}, $_->{name}
+    for $json_data->{examples}->@*;
 done_testing;

@@ -1,15 +1,19 @@
 #!/usr/bin/env perl
 
+use v5.22;
 use strict;
 use warnings;
 use feature 'say';
 use feature 'signatures';
 no warnings 'experimental::signatures';
+use feature 'postderef_qq';
+no warnings 'experimental::postderef';
 
 use Data::Dump qw( pp );
 use Test2::V0 qw( -no_srand );
+$ENV{TABLE_TERM_SIZE} //= Term::Table::Util::term_size() // 80;
 
-use lib qw( . ..);
+use lib qw( . .. );
 use TestExtractor;
 
 use Getopt::Long;
@@ -60,7 +64,9 @@ do {
         $expected,
 	$_->{TEST},
 	$source ? "Test defined in $source:\n" : (),
-	pp( $_ );
+        pp( $_ ), "\n",
+        "got variables: $extracted[0]{VARIABLE_NAMES}->@*\n",
+        "got data:\n", pp( $extracted[0]{INPUT} );
     vsay "";
 } for @tests;
 
@@ -118,3 +124,5 @@ Expect: [ [ '@stickers', '$word' ], [ [ 'perl','raku','python' ], 'peon' ] ]
 Input: $x = 3, $y = 4, @points ([1, 2], [3, 1], [2, 4], [2, 3])
 Expect: [ [ '$x', '$y', '@points' ], [ 3, 4, [[1, 2], [3, 1], [2, 4], [2, 3]] ] ]
 
+Input: @seq = qw(a c ? g i)
+Expect: [ [ '@seq' ], [ [ "a", "c", "?", "g", "i" ] ] ]

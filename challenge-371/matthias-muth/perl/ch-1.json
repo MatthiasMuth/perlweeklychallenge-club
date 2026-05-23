@@ -1,0 +1,36 @@
+{
+  "challenge": {
+    "week": 371,
+    "task": 1,
+    "name": "Missing Letter"
+  },
+  "input_vars": [ "@seq" ],
+  "examples":
+  [
+    {
+      "in": ["qw"],
+      "out": ["e"],
+      "name": "Example 1"
+    },
+    {
+      "in": ["qw"],
+      "out": ["g"],
+      "name": "Example 2"
+    },
+    {
+      "in": ["qw"],
+      "out": ["i"],
+      "name": "Example 3"
+    },
+    {
+      "in": ["qw"],
+      "out": ["h"],
+      "name": "Example 4"
+    },
+    {
+      "in": ["qw"],
+      "out": ["j"],
+      "name": "Example 5"
+    }
+  ]
+}

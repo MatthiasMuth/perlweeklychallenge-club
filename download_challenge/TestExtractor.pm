@@ -29,7 +29,7 @@ use Getopt::Long;
 use Cwd qw( abs_path );
 use File::Basename;
 use Scalar::Util qw( looks_like_number );
-use List::Util qw( any );
+use List::Util qw( any all );
 use Carp;
 use Test2::V0 qw( -no_srand );
 use Carp;
@@ -162,7 +162,7 @@ sub extract_and_run_tests( $sub_name ) {
 
 sub generate_tests( $sub_name, @tests ) {
     local $d_area = "tests";
-    dsay "generate_tests( '$sub_name', ", pp( @tests ), " )";
+    vsay "generate_tests( '$sub_name', ", pp( @tests ), " )";
     my ( @generated_code, @generated_test_cases );
 
     my $result_is_array =
@@ -383,9 +383,18 @@ sub extract_tests( $task_text ) {
         }
 
         for ( $input, $output ) {
+            dsay "processing '$_'";
             # To avoid misinterpretations of '@' or '$' within strings when the
             # data is 'eval'ed, we turn all double quotes into single quotes.
             s/\"/'/g;
+
+            # Replace qw(...) by a sequence of values, with parentheses.
+            dsay "checking $_";
+            dsay m<\bqw\(\s*(.*?)\s*\)> ? "found qw" : "no qw";
+            s<\bqw\(\s*(.*?)\s*\)>{
+                dsay "found qw( $1 )";
+                "( " . join( ", ", map "'$_'", split " ", $1 ) . " )"
+            }e;
 
             # We convert 'barewords' into quoted strings.
             # We search for these patterns, but we just skip them without
@@ -413,6 +422,7 @@ sub extract_tests( $task_text ) {
             # s/\(/\[/g;
             # s/\)/\]/g;
 
+            dsay "before adding commas: $_";
             # Add missing commas between literals.
             while ( /$literal/g ) {
                 my $p = pos;
@@ -425,10 +435,12 @@ sub extract_tests( $task_text ) {
         }
 
         while ( $input =~ / ($var_name) \s* =? \s* ($data_re) /xg ) {
+            dsay "data_re found ", pp_hash %{^CAPTURE};
             push @{$tests[-1]{VARIABLE_NAMES}}, $1;
             push @{$tests[-1]{INPUT}},
                 eval( ( $+{no_paren} || $+{par_list} ) ? "[ $2 ]" : $2 );
         };
+        dsay "\@tests after push: ", pp @tests; 
 
         while ( $output =~ /^\s* ($data_re) $/xg ) {
             local $_ = $1;
@@ -444,6 +456,7 @@ sub extract_tests( $task_text ) {
                 eval( $+{no_paren} ? "( $_ )" : $_ );
         };
     }
+    dsay "\@tests after analysis: ", pp @tests; 
 
     unless ( @tests ) {
         # Try an alternative description format:
@@ -460,7 +473,8 @@ sub extract_tests( $task_text ) {
         }
     }
 
-    # Use array refs for all OUTPUT lists if at least one of tests does.
+    dsay "\@tests after analysis: ", pp @tests; 
+    # Use array refs for all OUTPUT lists if at least one of the tests does.
     if ( any { ref $_->{OUTPUT}[0] } @tests ) {
         dsay "using array_refs for output";
         $_->{OUTPUT} = [ $_->{OUTPUT} ]

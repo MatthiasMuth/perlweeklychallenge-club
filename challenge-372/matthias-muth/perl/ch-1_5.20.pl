@@ -8,7 +8,12 @@
 #       Perl solution by Matthias Muth.
 #
 
-use v5.36;
+use v5.20;
+use warnings;
+use experimental 'signatures';
+no warnings 'experimental::signatures';
+use experimental 'postderef';
+no warnings 'experimental::postderef';
 
 sub rearrange_spaces( $str ) {
     my @words = split " ", $str;
