@@ -108,17 +108,15 @@ use Email::Stuffer;
 use lib qw( . );
 use TestExtractor;
 
-sub usage {
-    say STDERR "Usage!";
-    exit 2;
-};
+sub error_exit { say STDERR $0 =~ s'^.*/''r, ": ", @_; exit 1 }
+sub usage      { say STDERR "Usage!"; exit 2 }
 
 GetOptions(
     "force|f!"   => sub { $options{FORCE} = $_[1] ? ++$options{FORCE} : 0 },
     "FORCE"      => sub { $options{FORCE} = 2 },
     "new"        => sub { $options{FORCE} = 3 },
     "check|n"    => \$options{DRY_RUN},
-    "mail:s@"    => \$options{MAIL_TO},
+    "mail:s"     => sub { push $options{MAIL_TO}->@*, split /[,\s]\s*/, $_[1] },
     "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
     "nogit"      => \$options{NO_GIT},
     "input|i:s"  => \$options{INPUT_FILE},
@@ -128,8 +126,7 @@ GetOptions(
     "verbose|v!" => \$verbose,
     "help|?"     => \&usage,
 ) or do {
-    say STDERR
-        "    Use '$0 -help' for usage information.";
+    say STDERR "    Use '$0 -help' for usage information.";
     exit 2;
 };
 
@@ -140,6 +137,21 @@ our $templates = read_toml( "templates.toml" );
 # Defaults:
 $options{FORCE} //= 0;
 $options{WRITE_FILES} //= 1;
+
+# We have two modes:
+# - Update mode:
+#   Marked by not having command line arguments, and no -input option.
+#   dealing with the latest challenge only,
+#   The challenge will be read from the challenge page,
+#   the challenge html will be saved in the 'challenge-htmls' subdirectory,
+#   and the checksum and page times written to status.toml.
+#   Sending emails unless -nomail is given.
+# - Re-extraction mode:
+#   Marked by a challenge number as a command line argument, or a -input
+#   option.
+#   No checksum checking, no status.toml updates.
+#   Not sending emails, unless -mail <recipient> options are given.
+
 unless ( @ARGV ) {
     # We use the following option to decide whether to always send mails
     # or only when there was a change.
@@ -152,11 +164,25 @@ unless ( @ARGV ) {
     $options{ARCHIVE} //= 1;
 
     # Send mail to default recipients if no challenge arguments are given.
-    $options{MAIL_TO} //= $status->{'recipients'};
+    $options{MAIL_TO} //= $status->{'mail-recipients'};
 }
 
-process_challenge( $_ )
-    for @ARGV ? @ARGV : get_challenge_to_update();
+error_exit "cannot use both '-i <file>' and a challenge number argument"
+    if @ARGV && $options{INPUT_FILE};
+
+$debug{'OPTIONS'} and do {
+    dsay ":options", pp_hash %options;
+    exit 0;
+};
+
+# If input is from a file, the challenge number will be taken from that file.
+my $challenge =
+    $options{INPUT_FILE} ? undef
+        : @ARGV ? shift
+        : get_challenge_to_update();
+
+process_challenge( $challenge )
+    if $challenge || $options{INPUT_FILE};
 
 # Update the status toml file.
 write_toml( $status )
@@ -164,24 +190,30 @@ write_toml( $status )
 
 exit 0;
 
+#
+# Subroutine definitions:
+#
+
 sub process_challenge( $challenge ) {
 
     # Extract relevant HTML parts (page header and task descriptions)
     # from the challenge page.
-    my ( $main_url, $challenge_path ) =
-        @$status{ qw( main-url current-challenge-path ) };
-    $challenge_path =~ s/\d+/$challenge/;
 
     local $d_area = "html";
     my $page_html =
         $options{INPUT_FILE}
-        ? do { local ( @ARGV, $/ ) = $options{INPUT_FILE}; <> }
-        : get( $main_url . $challenge_path );
-
-    unless ( $page_html ) {
-        say STDERR "ERROR: page html is empty. Aborting.";
-        exit 1;
-    }
+        ? do {
+            vsay "using input file '$options{INPUT_FILE}'";
+            do { local ( @ARGV, $/ ) = $options{INPUT_FILE}; <> };
+        }
+        : do {
+            my ( $main_url, $challenge_path ) =
+                @$status{ qw( main-url current-challenge-path ) };
+            $challenge_path =~ s/\d+/$challenge/;
+            vsay "downloading $main_url$challenge_path";
+            get( $main_url . $challenge_path )
+        }
+        or error_exit "page html is empty, cannot continue";
 
     my ( $title, $page_title, $published_date, $tasks, $deadline ) =
         map {
@@ -190,6 +222,11 @@ sub process_challenge( $challenge ) {
             m'^\s*(Published .*)$'m,
             m'(<h2 id="TASK1">.*)\n+<p>.*?(Last date to submit.*?)</p>'s,
         } $page_html;
+
+    unless ( $challenge ) {
+        ( $challenge ) = $title =~ /(\d+)/;
+        vsay "extracted challenge number '$challenge'";
+    }
 
     %debug and do {
         local $d_area = "extract";
@@ -206,18 +243,11 @@ sub process_challenge( $challenge ) {
 
     # Create the tasks html from the template,
     # copying in the extracted HTML parts.
-    my $tasks_html = $templates->{'mail'}{'html'};
-    my $css = do {
-        my $file = "twc-muthm.css";
-        open my $fh, "-|", "translate_css.pl $file"
-            or die "cannot translate '$file': $!\n";
-        my $text = do { local $/ = undef; <$fh> };
-        close $fh;
-        "<style>\n" . $text . "</style>";
-    };
+    my $tasks_html = $templates->{'mail'}{'mail_html'};
     my %substitutions = (
         CHALLENGE   => $challenge,
-        CSS         => $css,
+        CSS         => "<style>\n" . $templates->{'mail'}{'mail_css'}
+                        . "</style>",
         PUBLISHED   => $published_date,
         TASKS       => $tasks,
         DEADLINE    => $deadline,
@@ -227,10 +257,8 @@ sub process_challenge( $challenge ) {
     %debug and dsay ":tasks_html", "tasks_html:\n", pp $tasks_html;
     spit_file( "mail.html", $tasks_html );
 
-    unless ( $tasks_html ) {
-        say STDERR "ERROR: tasks html is empty. Aborting.";
-        exit 1;
-    }
+    error_exit "tasks html is empty, cannot continue"
+        unless $tasks_html;
 
     # If we are running an update, check whether the challenge html has changed.
     my $md5 = md5_hex( encode_utf8( $tasks_html ) );
@@ -245,6 +273,7 @@ sub process_challenge( $challenge ) {
         }
         else {
             vsay "Task description html is unchanged.";
+            $options{ARCHIVE} = 0;
         }
     }
     else {
@@ -309,14 +338,14 @@ sub process_challenge( $challenge ) {
 	# Extract a pure text version of the challenge description.
         my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
         $tree->parse_content( $tasks_html )
-            or die "ERROR: could not parse html data.\n";
+            or error_exit "could not parse html data";
 
         # Extract nodes containing the title and the date,
         # followed by two <br> to create empty lines,
         # followed by everything inside the <div class="post-content"> block,
         # individually.
         my @nodes = $tree->findnodes( '//article/*' );
-        die "ERROR: could not extract tasks text from tasks html.\n"
+        error_exit "could not extract tasks text from tasks html"
             unless @nodes;
 
         # Extract the text from the nodes.
@@ -339,10 +368,22 @@ sub process_challenge( $challenge ) {
             } grep $_->{_tag} ne "hr", @nodes;
         %debug and dsay ":html", "challenge_text:\n", $challenge_text;
 
-        # Generate the code skeletons.
-        my ( $task_1, $task_2 ) = $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms;
-        my ( $task_1_code, $task_2_code ) =
-            map generate_code( $challenge, $_ ), ( $task_1, $task_2 );
+        # Generate the code skeletons and json data.
+        my @tasks = ( undef );  # Task numbers are 1-based.
+        for my $task_text (  $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms ) {
+            my $tests = [ TestExtractor::extract_tests( $task_text ) ];
+            %debug and dsay "extracted tests: ", pp( $tests );
+            my $code = generate_code( $challenge, $task_text,
+                    $templates->{code}{'ch-N_pl'}, $tests );
+            my $json = generate_code( $challenge, $task_text,
+                    $templates->{json}{'json'}, $tests );
+            push @tasks, {
+                text => $task_text,
+                tests => $tests,
+                code => $code,
+                json => $json,
+            };
+        }
 
         # Generate the README.md skeleton.
         my $readme_text = generate_readme_md( $challenge, $challenge_text );
@@ -379,10 +420,10 @@ sub process_challenge( $challenge ) {
                     $readme_text, 'DO_NOT_OVERWRITE', $dry_run_readme_msg ],
                 [ "$target_dir/perl/challenge-$challenge.txt",
                     $challenge_text ],
-                [ "$target_dir/perl/ch-1.pl",
-                    $task_1_code, 'DO_NOT_OVERWRITE' ],
-                [ "$target_dir/perl/ch-2.pl",
-                    $task_2_code, 'DO_NOT_OVERWRITE' ],
+                ( map [ "$target_dir/perl/ch-$_.pl",
+                        $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ], 1..2 ),
+                ( map [ "$target_dir/perl/ch-$_.json",
+                        $tasks[$_]{json} ], 1..2 ),
             ) : ();
 
         for ( @file_operations ) {
@@ -417,10 +458,10 @@ sub process_challenge( $challenge ) {
 
 sub retrieve_challenge_link( $base_url, $pattern ) {
     my $tree = HTML::TreeBuilder::XPath->new_from_url( $base_url )
-        or die "ERROR: could not retrieve data from $base_url.\n";
+        or error_exit "could not retrieve data from $base_url";
     my $xpath  = "//\@href[.=~/$pattern/";
     my $link = $tree->findvalue( $xpath )
-        or die "ERROR: did not find xpath '$xpath' in data.\n";
+        or error_exit "did not find xpath '$xpath' in data";
     return $link;
 }
 
@@ -444,11 +485,9 @@ sub get_challenge_to_update {
     if ( page_was_modified( $main_url, 'main-last-modified' ) ) {
         my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
         $challenge_path = retrieve_challenge_link( $main_url, $xpath_pattern );
-        %debug and dsay "current-challenge-path: ", pp( $challenge_path );
-        unless ( $challenge_path ) {
-            say STDERR "ERROR: Could not extract challenge url. Aborting.";
-            exit 1;
-        }
+        %debug and dsay "challenge path: ", pp( $challenge_path );
+        error_exit "could not extract challenge url, cannot continue"
+            unless $challenge_path;
 
         if ( $challenge_path ne $status->{'current-challenge-path'}
 	    || $options{FORCE} >= 3 )
@@ -477,6 +516,10 @@ sub get_challenge_to_update {
             $options{FORCE} ? " or reading is forced" : ();
         return $challenge;
     }
+    elsif ( $options{FORCE} ) {
+        vsay "challenge page was not modified, but reading is forced";
+        return $challenge;
+    }
     else {
         vsay "challenge page was not modified";
         return ();
@@ -486,32 +529,31 @@ sub get_challenge_to_update {
 sub page_was_modified( $url, $last_modified_field_name ) {
     my @header = head( $url );
     my $modified_time = time_string( $header[2] );
-    vsay "modified_time: ", pp( $modified_time );
-    if ( $status->{$last_modified_field_name}
-        && $modified_time eq $status->{$last_modified_field_name} )
-    {
-        # vsay "'$url' was not modified";
-        return ()
-            unless $options{FORCE};
-    }
+    vsay "checking $url";
+    vsay "    Last-Modified timestamp: ", pp( $modified_time );
+    vsay "    we have:                 ",
+        pp( $status->{$last_modified_field_name} ), ")";
+    return 0
+        if $status->{$last_modified_field_name}
+            && $modified_time eq $status->{$last_modified_field_name};
     set_toml( $status, $last_modified_field_name, $modified_time );
     return 1;
 }
 
 use List::Util qw( all );
 
-sub generate_code( $challenge, $task_text ) {
+sub generate_code( $challenge, $task_text, $template, $tests ) {
     local $d_area = "code";
     %debug and dsay
-        "generate_code( $challenge, '", $task_text =~ /^(.*)?$/m, " [...]' )";
+        "generate_code( $challenge, ",
+            "'", $task_text =~ /^(.*)?$/m, " [...]', ",
+            "'", $template =~ /^(.*)?$/m, " [...]', ",
+            "<tests> )";
 
     my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
-
-    my @tests = TestExtractor::extract_tests( $task_text );
-    %debug and dsay "extracted tests: ", pp( @tests );
-
-    my $code = $templates->{code}{'ch-N_pl'};
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
+
+    my $code = $template;
 
     my @checks = (
         [ "VARIABLE_NAMES", "input variable names" ],
@@ -519,22 +561,22 @@ sub generate_code( $challenge, $task_text ) {
         [ "OUTPUT",         "expected output data" ],
     );
     for ( @checks ) {
-        unless ( $tests[0] && $tests[0]{$_->[0]} ) {
+        unless ( $tests->[0] && $tests->[0]{$_->[0]} ) {
             say STDERR "WARNING: ",
                 "No $_->[1] were extracted for Task $task.";
         }
     }
 
     my @input_vars =
-        $tests[0] && $tests[0]{VARIABLE_NAMES}
-        ? @{$tests[0]{VARIABLE_NAMES}}
+        $tests->[0] && $tests->[0]{VARIABLE_NAMES}
+        ? @{$tests->[0]{VARIABLE_NAMES}}
         : ();
 
     # Turn array parameters into arrayrefs in some cases.
     if ( @input_vars > 1
-        || $tests[0] && $tests[0]{INPUT}
-            && ref $tests[0]{INPUT}[0] eq 'ARRAY'
-            && ref $tests[0]{INPUT}[0][0] eq 'ARRAY' )
+        || $tests->[0] && $tests->[0]{INPUT}
+            && ref $tests->[0]{INPUT}[0] eq 'ARRAY'
+            && ref $tests->[0]{INPUT}[0][0] eq 'ARRAY' )
     {
         substr $_, 0, 1, '$'
             for @input_vars;
@@ -542,26 +584,24 @@ sub generate_code( $challenge, $task_text ) {
     my $input_params = join ", ", @input_vars;
 
     my $result_var =
-        $tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
+        $tests->[0] && ref $tests->[0]{OUTPUT} eq 'ARRAY'
         ? '@results'
         : '$result';
 
     my $return =
-        $tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
-        ? ref $tests[0]{OUTPUT}[0] eq 'ARRAY'
+        $tests->[0] && ref $tests->[0]{OUTPUT} eq 'ARRAY'
+        ? ref $tests->[0]{OUTPUT}[0] eq 'ARRAY'
             ? '\@results'
             : '@results'
         : '$result';
-
-    my $run_tests = TestExtractor::generate_tests( $sub_name, @tests );
 
     my ( $single_input, $single_output ) =
         map {
             dsay "Checking single:";
             all { dsay "    ", pp $_; $_->@* == 1 && ! ref $_->[0] } $_->@*;
         }
-        [ map $_->{INPUT}, @tests ],
-        [ map $_->{OUTPUT}, @tests ];
+        [ map $_->{INPUT}, $tests->@* ],
+        [ map $_->{OUTPUT}, $tests->@* ];
     dsay "single input: ", $single_input ? "yes" : "no";
     dsay "single output: ", $single_output ? "yes" : "no";
 
@@ -581,9 +621,39 @@ sub generate_code( $challenge, $task_text ) {
             $line = "    [ $name,\n        $input,\n        $expected ],"
                 unless length( $line ) <= 80;
             $line;
-        } @tests ),
+        } $tests->@* ),
         ");";
     %debug and dsay $test_data;
+
+    my $json_input_vars = join ", ", map qq("$_"), @input_vars;
+    my $json_example_data = join ",\n",
+        ( map {
+            chomp ( my $entry = $templates->{json}{json_example} );
+            my $indent = $templates->{json}{indent};
+            my ( $name, $input, $output ) = (
+                pp( $_->{TEST} ),
+                pp( $_->{INPUT} ),
+                $single_output && $_->{OUTPUT}[0] =~ /^(?:true|false)$/i
+                    ? "[ $_->{OUTPUT}->[0] ]"
+                    : pp( $_->{OUTPUT} )
+            );
+            for ( $input, $output ) {
+                s/\n/\n$indent/g;
+                s/,$(\n\s*\])/$1/msg;
+            }
+            my %substitutions = (
+                NAME   => $name,
+                INPUT  => $input,
+                OUTPUT => $output,
+            );
+            $entry =~ s/<$_>/$substitutions{$_}/g
+                for keys %substitutions;
+            $entry;
+        } $tests->@* );
+    dsay ":json", "json example data:\n", $json_example_data;
+    chomp( my $json = $templates->{json}{json} );
+    $code =~ s/<JSON>/$json/;
+
     my $call = "$sub_name( \$_->[1]->\@* )";
     $call = "[ $call ]"
         unless $single_output;
@@ -596,14 +666,15 @@ sub generate_code( $challenge, $task_text ) {
         INPUT_PARAMS => $input_params,
         RESULT_VAR   => $result_var,
         RETURN       => $return,
-        RUN_TESTS    => $run_tests,
         TESTS        => $test_data,
         CALL         => $call,
+        JSON_INPUT_VARS => $json_input_vars,
+        JSON_EXAMPLE_DATA => $json_example_data,
     );
     $code =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
 
-    # vsay $code;
+    %debug and dsay $code;
     return $code;
 }
 
@@ -675,7 +746,7 @@ sub generate_readme_md( $challenge, $text ) {
 
 sub slurp_file( $file ) {
     open my $fh, "<", $file
-        or die "cannot open '$file': $!\n";
+        or error_exit "cannot open '$file': $!";
     my $text = do { local $/ = undef; <$fh> };
     close $fh;
     return $text;
@@ -683,7 +754,7 @@ sub slurp_file( $file ) {
 
 sub spit_file( $file, $text ) {
     open my $fh, ">", $file
-        or die "cannot open '$file' for writing: $!\n";
+        or error_exit "cannot open '$file' for writing: $!";
     print $fh $text;
     close $fh;
 }

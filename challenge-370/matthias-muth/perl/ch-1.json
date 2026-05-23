@@ -1,0 +1,45 @@
+{
+  "challenge": {
+    "week": 370,
+    "task": 1,
+    "name": "Popular Word"
+  },
+  "input_vars": [ "$paragraph", "$banned" ],
+  "examples":
+  [
+    {
+      "in": [
+        "Bob hit a ball, the hit BALL flew far after it was hit.",
+        ["hit"]
+      ],
+      "out": ["ball"],
+      "name": "Example 1"
+    },
+    {
+      "in": [
+        "Apple? apple! Apple, pear, orange, pear, apple, orange.",
+        ["apple", "pear"]
+      ],
+      "out": ["orange"],
+      "name": "Example 2"
+    },
+    {
+      "in": ["A. a, a! A. B. b. b.", ["b"]],
+      "out": ["a"],
+      "name": "Example 3"
+    },
+    {
+      "in": ["Ball.ball,ball:apple!apple.banana", ["ball"]],
+      "out": ["apple"],
+      "name": "Example 4"
+    },
+    {
+      "in": [
+        "The dog chased the cat, but the dog was faster than the cat.",
+        ["the", "dog"]
+      ],
+      "out": ["cat"],
+      "name": "Example 5"
+    }
+  ]
+}

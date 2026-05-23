@@ -1,7 +1,7 @@
 {
   "challenge": {
-    "week": "372",
-    "task": "1",
+    "week": 372,
+    "task": 1,
     "name": "Rearrange Spaces"
   },
   "input_vars": [ "$str" ],

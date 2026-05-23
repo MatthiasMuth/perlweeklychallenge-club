@@ -1,13 +1,17 @@
 #!/usr/bin/env perl
 
+use v5.22;
 use strict;
 use warnings;
 use feature 'say';
 use feature 'signatures';
 no warnings 'experimental::signatures';
+use feature 'postderef_qq';
+no warnings 'experimental::postderef';
 
 use Data::Dump qw( pp );
-use Test2::V0 ( -no_srand => 1 );
+use Test2::V0 qw( -no_srand );
+$ENV{TABLE_TERM_SIZE} //= Term::Table::Util::term_size() // 80;
 
 use lib qw( . .. );
 use TestExtractor;
@@ -57,7 +61,8 @@ do {
     is $extracted[0]{OUTPUT},
         $expected,
 	$_->{TEST},
-	pp( $_ ) . "\n" . pp( $extracted[0] );
+        pp( $_ ), "\n",
+        "got data:\n", pp( $extracted[0]{OUTPUT} );
     vsay "";
 } for @tests;
 
@@ -125,3 +130,7 @@ Expect: [ "job", "bjorg" ]
 
 Output: 12.75
 Expect: [ 12.75 ]
+
+Output: ((72,57), (89,55), (36,84), (10), (95), (99), (35))
+Expect: [[72,57], [89,55], [36,84], [10], [95], [99], [35]]
+

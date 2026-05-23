@@ -1,0 +1,36 @@
+{
+  "challenge": {
+    "week": 370,
+    "task": 2,
+    "name": "Scramble String"
+  },
+  "input_vars": [ "$str1", "$str2" ],
+  "examples":
+  [
+    {
+      "in": ["abc", "acb"],
+      "out": [ true ],
+      "name": "Example 1"
+    },
+    {
+      "in": ["abcd", "cdba"],
+      "out": [ true ],
+      "name": "Example 2"
+    },
+    {
+      "in": ["hello", "hiiii"],
+      "out": [ false ],
+      "name": "Example 3"
+    },
+    {
+      "in": ["ateer", "eater"],
+      "out": [ true ],
+      "name": "Example 4"
+    },
+    {
+      "in": ["abcd", "bdac"],
+      "out": [ false ],
+      "name": "Example 5"
+    }
+  ]
+}

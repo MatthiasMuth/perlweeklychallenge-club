@@ -7,7 +7,7 @@
 ###
 [ mail ]
 
-html = '''
+mail_html = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +44,489 @@ html = '''
 
 </body>
 </html>
+'''
+
+mail_css = '''
+/* Perl Community Ads */
+/* DELETED */
+
+/* -----------------------------------------------------------------------
+   TWC Dark Theme  —  theweeklychallenge.org
+   ----------------------------------------------------------------------- */
+
+/* Variables */
+:root {
+    --bg:        #0b0e14;
+    --surface:   #131720;
+    --surface2:  #1a2030;
+    --border:    #252d3e;
+    --border2:   #2e3a52;
+    --text:      #e2e8f0;
+    --muted:     #64748b;
+    --muted2:    #94a3b8;
+    --accent:    #22d3ee;
+    --accent2:   #3b82f6;
+    --accent3:   #f97316;
+    --success:   #10b981;
+    --warn:      #f59e0b;
+    --danger:    #ef4444;
+    --font-head: 'Outfit', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+    --radius:    8px;
+    --nav-h:     64px;
+}
+
+/* Light mode overrides */
+body.light-mode {
+    --bg:       #f0f4f8;
+    --surface:  #ffffff;
+    --surface2: #e8edf3;
+    --border:   #cbd5e1;
+    --border2:  #94a3b8;
+    --text:     #0f172a;
+    --muted:    #475569;
+    --muted2:   #334155;
+    --accent:   #0891b2;
+    --accent2:  #2563eb;
+    --accent3:  #ea580c;
+}
+body.light-mode .twc-nav {
+    background: rgba(240,244,248,.92);
+}
+body.light-mode .hero-overlay {
+    background: linear-gradient(to right, rgba(240,244,248,.95) 0%, rgba(240,244,248,.6) 40%, rgba(240,244,248,0) 65%);
+}
+body.light-mode .hero-brand-img img {
+    box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    border: 1px solid rgba(0,0,0,.1);
+}
+body.light-mode .task-card {
+    background: #ffffff;
+    border-color: #252d3e; /* --border */
+}
+body.light-mode .post-card {
+    background: #ffffff;
+}
+body.light-mode code {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+body.light-mode pre {
+    background: #1e2433 !important;
+    border-color: #374151;
+}
+body.light-mode pre code {
+    background: transparent;
+    color: #e2e8f0 !important;
+}
+body.light-mode .hero-heading {
+    color: #0f172a;
+}
+
+/* Theme toggle button */
+/* DELETED */
+
+/* Reset */
+/* ### DISABLED ###
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+   ### END DISABLE ### */
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: #0b0e14; /* --bg */
+    color: #e2e8f0; /* --text */
+    font-family: 'Inter', sans-serif; /* --font-body */
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: #22d3ee; text-decoration: none; transition: color .2s; } /* --accent */
+a:hover { color: #e2e8f0; } /* --text */
+
+img { max-width: 100%; display: block; }
+
+/* -------------------------------------------------------------------
+   NAVIGATION
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   MAIN CONTENT
+   ------------------------------------------------------------------- */
+.main-content { padding-top: 0; min-height: 100vh; }
+
+/* -------------------------------------------------------------------
+   HERO
+   ------------------------------------------------------------------- */
+.hero {
+    position: relative;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+.hero-bg-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: .12;
+    filter: grayscale(60%) blur(2px);
+}
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(11,14,20,.97) 0%, rgba(11,14,20,.7) 50%, rgba(11,14,20,.1) 100%);
+}
+.hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(#252d3e 1px, transparent 1px), /* --border */
+        linear-gradient(90deg, #252d3e 1px, transparent 1px); /* --border */
+    background-size: 48px 48px;
+    opacity: .25;
+    mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.5) 20%, rgba(0,0,0,.5) 80%, transparent);
+}
+
+/* Heading + brand image in one row */
+/* DELETED */
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 32px;
+    width: 100%;
+}
+
+/* PARTS DELETED */
+
+/* -------------------------------------------------------------------
+   SECTION WRAPPER
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   ABOUT
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   BOOK BANNER
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   CTA SECTION
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   PAGE HERO (inner pages)
+   ------------------------------------------------------------------- */
+.page-hero {
+    background: #131720; /* --surface */
+    border-bottom: 1px solid #252d3e; /* --border */
+    padding: 60px 32px 40px;
+    position: relative;
+    overflow: hidden;
+}
+.page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(#252d3e 1px, transparent 1px), linear-gradient(90deg, #252d3e 1px, transparent 1px); /* --border --border */
+    background-size: 40px 40px;
+    opacity: .15;
+}
+.page-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+.page-label {
+    font-family: 'Space Mono', monospace; /* --font-mono */
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #22d3ee; /* --accent */
+    margin-bottom: 8px;
+}
+.page-title {
+    font-family: 'Outfit', sans-serif; /* --font-head */
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    color: #e2e8f0; /* --text */
+    letter-spacing: -.02em;
+    margin-bottom: 8px;
+}
+.page-desc { color: #94a3b8; font-size: 15px; margin-bottom: 16px; } /* --muted2 */
+
+/* .breadcrumbs DELETED */
+
+/* -------------------------------------------------------------------
+   CONTENT WRAP (inner pages)
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* Prose typography */
+.prose h1,.prose h2,.prose h3,.prose h4,.prose h5 {
+    font-family: 'Outfit', sans-serif; /* --font-head */
+    font-weight: 700;
+    color: #e2e8f0; /* --text */
+    margin: 1.5em 0 .5em;
+    letter-spacing: -.01em;
+}
+.prose h1 { margin-top: .8em; }
+.prose h2 { font-size: 24px; border-bottom: 1px solid #252d3e; padding-bottom: 8px; margin-bottom: .2em; margin-top: .4em !important; } /* --border */
+.prose h2 + p, .prose h2 + hr + p, .prose h2 + hr { margin-top: 0; }
+.prose h5 { font-size: 14px; margin: .1em 0 .2em; font-weight: 600; }
+.prose h2 + h5 { margin-top: .1em; }
+.prose h3 { font-size: 19px; color: #22d3ee; } /* --accent */
+.prose h4 { font-size: 15px; margin: .3em 0 .1em; }
+.prose p  { color: #94a3b8; margin-bottom: 1em; line-height: 1.8; text-align: justify; hyphens: auto; } /* --muted2 */
+.champion-card p { text-align: center !important; hyphens: none !important; }
+.prose a  { color: #22d3ee; text-decoration: underline; text-underline-offset: 3px; } /* --accent */
+.prose a:hover { color: #e2e8f0; } /* --text */
+.prose ul,.prose ol { padding-left: 1.5em; color: #94a3b8; margin-bottom: 1em; } /* --muted2 */
+.prose li { margin-bottom: .1em; }
+.prose ul li p, .prose ol li p { margin-top: 0; margin-bottom: 0; }
+
+/* ── Bootstrap grid shim (for blog post content using container/row/col) ── */
+.container-fluid { width:100%; padding: 0 15px; }
+.row { display:flex; flex-wrap:wrap; margin: 0 -8px; }
+.row.justify-content-center { justify-content: center; }
+.row.text-center { text-align: center; }
+[class*="col-"] { padding: 0 8px; box-sizing: border-box; }
+.col-1  { flex: 0 0 8.333%;  max-width: 8.333%;  }
+.col-2  { flex: 0 0 16.666%; max-width: 16.666%; }
+.col-3  { flex: 0 0 25%;     max-width: 25%;      }
+.col-4  { flex: 0 0 33.333%; max-width: 33.333%;  }
+.col-6  { flex: 0 0 50%;     max-width: 50%;      }
+.col-12 { flex: 0 0 100%;    max-width: 100%;     }
+@media (min-width:576px)  { .col-sm-1 { flex:0 0 8.333%;  max-width:8.333%;  } }
+@media (min-width:768px)  { .col-md-1 { flex:0 0 8.333%;  max-width:8.333%;  } }
+@media (min-width:992px)  { .col-lg-1 { flex:0 0 8.333%;  max-width:8.333%;  } }
+@media (min-width:1200px) { .col-xl-1 { flex:0 0 8.333%;  max-width:8.333%;  } }
+.mb-2 { margin-bottom: 0.5rem; }
+.py-3 { padding-top: 1rem; padding-bottom: 1rem; }
+
+/* Week link items - hide original Bootstrap markup, replaced by JS grid */
+.links-visible,
+.links-hidden { display: none !important; }
+
+/* JS-built week grid */
+/* DELETED */
+
+.prose code {
+    font-family: 'Space Mono', monospace; /* --font-mono */
+    font-size: 13px;
+    background: #1a2030; /* --surface2 */
+    border: 1px solid #252d3e; /* --border */
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: #f97316; /* --accent3 */
+}
+.prose pre {
+    background: #1e2433;
+    border: 1px solid #252d3e; /* --border */
+    border-radius: 8px; /* --radius */
+    padding: 20px;
+    overflow-x: auto;
+    margin-bottom: 1.5em;
+}
+.prose pre code { background: none; border: none; padding: 0; color: #e8eaf0; font-size: 14px; }
+.prose blockquote {
+    border-left: 3px solid #22d3ee; /* --accent */
+    padding-left: 16px;
+    color: #94a3b8; /* --muted2 */
+    font-style: italic;
+    margin: 1.5em 0;
+}
+.prose table { width:100%; border-collapse:collapse; margin-bottom:1.5em; }
+.prose th { background:#1a2030; color:#e2e8f0; font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; padding:10px 14px; border:1px solid #252d3e; } /* --surface2 --text --font-mono --border */
+.prose td { padding:10px 14px; border:1px solid #252d3e; color:#94a3b8; font-size:14px; } /* --border --muted2 */
+.prose tr:hover td { background:#131720; } /* --surface */
+.prose img { border-radius:8px; margin:1.5em 0; } /* --radius */
+
+/* .back-btn DELETED */
+
+.prose strong { color:#e2e8f0; font-weight:600; } /* --text */
+
+/* -------------------------------------------------------------------
+   POST GRID (list pages)
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   CHART PAGE
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* Sticky TOC */
+/* DELETED */
+
+/* Chart sections */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   FOOTER
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   GUEST CONTRIBUTIONS
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* Blog post Table of Contents */
+/* TOC is rendered as h3 tags in markdown - wrap them in a flex pill row */
+/* Wrap all TOC h3s in a flex row - handled by JS, only style the pill rows here */
+.prose h2#table-of-contents {
+    display: none !important;
+}
+.prose h2#table-of-contents + hr {
+    display: none;
+}
+
+/* Sponsor button */
+/* DELETED */
+
+/* ── TOC pill rows ── */
+/* DELETED */
+
+/* Post tags */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   SEARCH PAGE
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   PREV / NEXT POST NAVIGATION
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+
+/* -------------------------------------------------------------------
+   COPY CODE BUTTON
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   READING TIME
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   READING PROGRESS BAR
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   POST META (published / updated dates)
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* Nav keyboard shortcut badge */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   CODE BLOCK LANGUAGE LABEL
+   ------------------------------------------------------------------- */
+.prose pre {
+    padding-top: 40px; /* make room for label + copy btn */
+}
+
+/* -------------------------------------------------------------------
+   ANCHOR LINKS ON HEADINGS
+   ------------------------------------------------------------------- */
+.prose h1, .prose h2, .prose h3, .prose h4 {
+    position: relative;
+}
+.heading-anchor {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    opacity: 0;
+    color: #64748b; /* --muted */
+    text-decoration: none;
+    vertical-align: middle;
+    transition: opacity .15s, color .15s;
+}
+.prose h1:hover .heading-anchor,
+.prose h2:hover .heading-anchor,
+.prose h3:hover .heading-anchor,
+.prose h4:hover .heading-anchor {
+    opacity: 1;
+}
+.heading-anchor:hover {
+    color: #22d3ee; /* --accent */
+    text-decoration: none;
+}
+
+
+/* -------------------------------------------------------------------
+   EXTERNAL LINK INDICATOR
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   RELATED POSTS
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   PRINT STYLESHEET
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+/* Disqus lazy-load */
+/* DELETED */
+
+/* -------------------------------------------------------------------
+   FOOTER APP / QR CODE
+   ------------------------------------------------------------------- */
+/* DELETED */
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px
+}
+
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: blue;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0
+}
+
 '''
 
 ###
@@ -135,6 +618,36 @@ readme_no_blog = '''
 
 blog_txt = '''
 https://github.com/MatthiasMuth/perlweeklychallenge-club/tree/muthm-<CHALLENGE>/challenge-<CHALLENGE>/matthias-muth#readme
+'''
+
+###
+### JSON
+###
+
+[ json ]
+
+indent = "      "
+json_example = '''
+    {
+      "in": <INPUT>,
+      "out": <OUTPUT>,
+      "name": <NAME>
+    }
+'''
+
+json = '''
+{
+  "challenge": {
+    "week": <CHALLENGE>,
+    "task": <TASK_NUMBER>,
+    "name": "<TASK_NAME>"
+  },
+  "input_vars": [ <JSON_INPUT_VARS> ],
+  "examples":
+  [
+<JSON_EXAMPLE_DATA>
+  ]
+}
 '''
 
 ###
