@@ -8,27 +8,27 @@
   "examples":
   [
     {
-      "in": ["qw"],
+      "in": [["a", "c", "?", "g", "i"]],
       "out": ["e"],
       "name": "Example 1"
     },
     {
-      "in": ["qw"],
+      "in": [["a", "d", "?", "j", "m"]],
       "out": ["g"],
       "name": "Example 2"
     },
     {
-      "in": ["qw"],
+      "in": [["a", "e", "?", "m", "q"]],
       "out": ["i"],
       "name": "Example 3"
     },
     {
-      "in": ["qw"],
+      "in": [["a", "c", "f", "?", "k"]],
       "out": ["h"],
       "name": "Example 4"
     },
     {
-      "in": ["qw"],
+      "in": [["b", "e", "g", "?", "l"]],
       "out": ["j"],
       "name": "Example 5"
     }

@@ -9,27 +9,27 @@
   [
     {
       "in": ["aeiou"],
-      "out": ["aeiou"],
+      "out": [["aeiou"]],
       "name": "Example 1"
     },
     {
       "in": ["aaeeeiioouu"],
-      "out": ["aaeeeiioou", "aaeeeiioouu", "aeeeiioou", "aeeeiioouu"],
+      "out": [["aaeeeiioou", "aaeeeiioouu", "aeeeiioou", "aeeeiioouu"]],
       "name": "Example 2"
     },
     {
       "in": ["aeiouuaxaeiou"],
-      "out": ["aeiou", "aeiou", "eiouua", "aeiouu", "aeiouua"],
+      "out": [["aeiou", "aeiou", "eiouua", "aeiouu", "aeiouua"]],
       "name": "Example 3"
     },
     {
       "in": ["uaeiou"],
-      "out": ["aeiou", "uaeio", "uaeiou"],
+      "out": [["aeiou", "uaeio", "uaeiou"]],
       "name": "Example 4"
     },
     {
       "in": ["aeioaeioa"],
-      "out": [],
+      "out": [[]],
       "name": "Example 5"
     }
   ]
