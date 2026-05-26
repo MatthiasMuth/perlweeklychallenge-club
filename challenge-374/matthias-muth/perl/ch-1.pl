@@ -9,6 +9,7 @@
 #
 
 use v5.36;
+use builtin qw( indexed );
 use List::Util qw( max );
 
 sub count_vowel( $str ) {
@@ -53,7 +54,30 @@ sub count_vowel( $str ) {
     return @results;
 }
 
-use Test2::V0 qw( -no_srand );
+sub count_vowel_substr( $str ) {
+    my @results;
+    for my $vowel_string ( split " ", ( lc $str ) =~ s/[^aeiou]/ /gr ) {
+        my $string_end = length( $vowel_string ) - 1;
+        my %positions;
+        push $positions{ substr( $vowel_string, $_, 1 ) }->@*, $_
+            for 0..$string_end;
+        next if %positions < 5;
+        for my $current_pos ( 0..$string_end ) {
+            my $current_vowel = substr( $vowel_string, $current_pos, 1 );
+            my $fifth_vowel_pos = max( map $_->[0], values %positions );
+            push @results, map {
+                    substr( $vowel_string, $current_pos, $_ - $current_pos + 1 )
+                } $fifth_vowel_pos .. $string_end;
+            shift $positions{$current_vowel}->@*;
+            last if $positions{$current_vowel}->@* == 0;
+        }
+    }
+    return @results;
+}
+
+# use Test2::V0 qw( -no_srand );
+use lib qw( ../../../lib );
+use MultiTest;
 
 my @tests = (
     [ "Example 1", "aeiou", ["aeiou"] ],
@@ -73,8 +97,10 @@ my @tests = (
         bag { item $_ for "aeiou", "uaeio", "uaeiou"; end } ],
     [ "Example 5", "aeioaeioa", [] ],
 );
+my @benchmark_data = ( "aeiouuaxaeiou" );
 
-is [ count_vowel( $_->[1] ) ], $_->[2], $_->[0]
-    for @tests;
+# is [ count_vowel( $_->[1] ) ], $_->[2], $_->[0]
+#     for @tests;
+run( "count_vowel", \@tests, \@benchmark_data );
 
-done_testing;
+# done_testing;
