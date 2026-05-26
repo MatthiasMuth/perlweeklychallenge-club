@@ -629,9 +629,9 @@ https://github.com/MatthiasMuth/perlweeklychallenge-club/tree/muthm-<CHALLENGE>/
 indent = "      "
 json_example = '''
     {
+      "name": <NAME>,
       "in": <INPUT>,
-      "out": <OUTPUT>,
-      "name": <NAME>
+      "out": <OUTPUT>
     }
 '''
 

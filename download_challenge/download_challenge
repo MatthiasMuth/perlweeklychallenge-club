@@ -571,6 +571,7 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         $tests->[0] && $tests->[0]{VARIABLE_NAMES}
         ? @{$tests->[0]{VARIABLE_NAMES}}
         : ();
+    my $json_input_vars = join ", ", map qq("$_"), @input_vars;
 
     # Turn array parameters into arrayrefs in some cases.
     if ( @input_vars > 1
@@ -578,6 +579,7 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
             && ref $tests->[0]{INPUT}[0] eq 'ARRAY'
             && ref $tests->[0]{INPUT}[0][0] eq 'ARRAY' )
     {
+        dsay "turning array parameter into arrayref";
         substr $_, 0, 1, '$'
             for @input_vars;
     }
@@ -588,22 +590,29 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         ? '@results'
         : '$result';
 
+    my ( $single_input, $single_output ) =
+        map {
+            dsay "Checking single:";
+            all { dsay "    ", pp $_; $_->@* == 1 && ! ref $_->[0] } $_->@*;
+        }
+        [ map $_->{INPUT},  $tests->@* ],
+        [ map $_->{OUTPUT}, $tests->@* ];
+    dsay "single input: ",  $single_input ? "yes" : "no";
+    dsay "single output: ", $single_output ? "yes" : "no";
+
+    my ( $single_arrayref_input, $single_arrayref_output ) = (
+        $single_input  && ( all { ref $_->{INPUT}[0]  eq "ARRAY" } $tests->@* ),
+        $single_output && ( all { ref $_->{OUTPUT}[0] eq "ARRAY" } $tests->@* ),
+    );
+    dsay "single arrayref input: ",  $single_arrayref_input  ? "yes" : "no";
+    dsay "single arrayref output: ", $single_arrayref_output ? "yes" : "no";
+
     my $return =
         $tests->[0] && ref $tests->[0]{OUTPUT} eq 'ARRAY'
         ? ref $tests->[0]{OUTPUT}[0] eq 'ARRAY'
             ? '\@results'
             : '@results'
         : '$result';
-
-    my ( $single_input, $single_output ) =
-        map {
-            dsay "Checking single:";
-            all { dsay "    ", pp $_; $_->@* == 1 && ! ref $_->[0] } $_->@*;
-        }
-        [ map $_->{INPUT}, $tests->@* ],
-        [ map $_->{OUTPUT}, $tests->@* ];
-    dsay "single input: ", $single_input ? "yes" : "no";
-    dsay "single output: ", $single_output ? "yes" : "no";
 
     my $test_data = join "\n", 
         "my \@tests = (",
@@ -625,7 +634,6 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         ");";
     %debug and dsay $test_data;
 
-    my $json_input_vars = join ", ", map qq("$_"), @input_vars;
     my $json_example_data = join ",\n",
         ( map {
             chomp ( my $entry = $templates->{json}{json_example} );

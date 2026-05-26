@@ -348,7 +348,7 @@ sub extract_tests( $task_text ) {
         dsay "input:", pp $input;
         dsay "output:", pp $output;
 
-        push @tests, { TEST => $test };
+        push @tests, { TEST => $test, OUTPUT => [] };
 
         # Check whether the Input: part contains any variable sigils.
         # If not, we try to convert '<Sequence of Words> = ...'
@@ -449,7 +449,6 @@ sub extract_tests( $task_text ) {
             push @{$tests[-1]{INPUT}},
                 eval( ( $+{no_paren} || $+{par_list} ) ? "[ $data ]" : $data );
         };
-        %debug and dsay "test after input extraction:\n", pp $tests[-1]; 
 
         while ( $output =~ /^\s* ($data_re) $/xg ) {
             local $d_area = "assign";
@@ -492,12 +491,12 @@ sub extract_tests( $task_text ) {
 
             %debug and dsay "eval ", pp( $+{no_paren} ? "( $_ )" : $_ ); 
             push @{$tests[-1]{OUTPUT}},
-                eval( $+{no_paren} ? "( $_ )" : $_ );
+                eval( $+{no_paren} ? "( $_ )" : $_ )
+                unless $_ eq '[]';
 
         };
-        %debug and dsay "test after output extraction:\n", pp $tests[-1]; 
+        %debug and dsay "test data after extraction:\n", pp $tests[-1]; 
     }
-    %debug and dsay "\@tests after analysis: ", pp @tests; 
 
     unless ( @tests ) {
         # Try an alternative description format:
@@ -515,16 +514,7 @@ sub extract_tests( $task_text ) {
         %debug and dsay "\@tests after alternative analysis: ", pp @tests; 
     }
 
-    # Use array refs for all OUTPUT lists if at least one of the tests does.
-=for disabled
-    if ( any { ref $_->{OUTPUT}[0] } @tests ) {
-        dsay "using array_refs for output";
-        $_->{OUTPUT} = [ $_->{OUTPUT} ]
-            for grep { ! ref $_->{OUTPUT}[0] } @tests;
-    }
-=cut
-
-    %debug and dsay "\@tests final:\n", pp @tests;
+    %debug and dsay " all tests: ", pp @tests; 
     return @tests;
 }
 
