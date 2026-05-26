@@ -7,20 +7,6 @@
          {
             "data" : [
                [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  2
-               ]
-            ],
-            "id" : "Abigail",
-            "name" : "Abigail"
-         },
-         {
-            "data" : [
-               [
                   "Raku",
                   2
                ],
@@ -51,10 +37,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -277,20 +259,6 @@
          {
             "data" : [
                [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Robbie Hatley",
-            "name" : "Robbie Hatley"
-         },
-         {
-            "data" : [
-               [
                   "Raku",
                   2
                ]
@@ -397,11 +365,6 @@
          "colorByPoint" : 1,
          "data" : [
             {
-               "drilldown" : "Abigail",
-               "name" : "Abigail",
-               "y" : 4
-            },
-            {
                "drilldown" : "Arne Sommer",
                "name" : "Arne Sommer",
                "y" : 3
@@ -414,7 +377,7 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "David Ferrone",
@@ -502,11 +465,6 @@
                "y" : 4
             },
             {
-               "drilldown" : "Robbie Hatley",
-               "name" : "Robbie Hatley",
-               "y" : 3
-            },
-            {
                "drilldown" : "Robert Ransbottom",
                "name" : "Robert Ransbottom",
                "y" : 2
@@ -542,14 +500,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 373"
+         "name" : "The Weekly Challenge - 374"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 29] Last updated at 2026-05-18 03:49:17 GMT"
+      "text" : "[Champions: 27] Last updated at 2026-05-25 04:43:31 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 373"
+      "text" : "The Weekly Challenge - 374"
    },
    "tooltip" : {
       "followPointer" : 1,
