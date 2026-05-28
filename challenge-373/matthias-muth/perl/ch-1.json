@@ -4,32 +4,33 @@
     "task": 1,
     "name": "Equal List"
   },
-  "input_vars": [ "@arr1", "@arr2" ],
-  "examples": [
+  "input_vars": [ "$arr1", "$arr2" ],
+  "examples":
+  [
     {
-      "name": "Example 1",
       "in": [["a", "bc"], ["ab", "c"]],
-      "out": [ true ]
+      "out": [ true ],
+      "name": "Example 1"
     },
     {
-      "name": "Example 2",
       "in": [["a", "b", "c"], ["a", "bc"]],
-      "out": [ true ]
+      "out": [ true ],
+      "name": "Example 2"
     },
     {
-      "name": "Example 3",
       "in": [["a", "bc"], ["a", "c", "b"]],
-      "out": [ false ]
+      "out": [ false ],
+      "name": "Example 3"
     },
     {
-      "name": "Example 4",
       "in": [["ab", "c", ""], ["", "a", "bc"]],
-      "out": [ true ]
+      "out": [ true ],
+      "name": "Example 4"
     },
     {
-      "name": "Example 5",
       "in": [["p", "e", "r", "l"], ["perl"]],
-      "out": [ true ]
+      "out": [ true ],
+      "name": "Example 5"
     }
   ]
 }

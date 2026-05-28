@@ -535,6 +535,12 @@ pre code {
 [code]
 
 ch-N_pl = '''
+<IMPLEMENTATION>
+
+<RUN_TESTS>
+'''
+
+implementation = '''
 #!/usr/bin/env perl
 #
 #       The Weekly Challenge - Perl & Raku
@@ -551,14 +557,16 @@ sub <SUB_NAME>( <INPUT_PARAMS> ) {
     my <RESULT_VAR>;
     return <RETURN>;
 }
+'''
 
+tests_indent = "    "
+run_tests = '''
 use lib qw( . ../../../lib );
 use MultiTest;
 
 <TESTS>
 
 run( "<SUB_NAME>", \@tests );
-
 __END__
 
 # Version for publishing:
@@ -566,6 +574,42 @@ __END__
 use Test2::V0 qw( -no_srand );
 is <CALL>, $_->[2], $_->[0]
     for @tests;
+done_testing;
+'''
+
+run_json_tests = '''
+#
+# Read test data from the accompanying 'ch-*.json' file and run the tests.
+#
+
+use Test2::V0 qw( -no_srand );
+
+# Avoid messages about table width in case of test failures.
+# (Term::Table::Util::term_size comes with Test2::V0.)
+$ENV{TABLE_TERM_SIZE} //= Term::Table::Util::term_size() // 80;
+
+# Read the test data from the JSON file.
+( my $json_file = $0 ) =~ s/\.pl$/.json/;
+my $json_text = -f $json_file && do { local ( @ARGV, $/ ) = $json_file; <> }
+    or die "could not read test data from '$json_file\n";
+my $json_data = decode_json( $json_text )
+    or die "ERROR: could not read test data from '$json_file\n";
+
+# Convert expected output strings "true" and "false" or JSON Boolean constants
+# into Test2::V0::Compare T and F conditions. 
+for ( @{ $json_data->{examples} } ) {
+    for ( @{ $_->{out} } ) {
+        if ( /^(?:(true)|(false))$/i || ref $_ eq "JSON::PP::Boolean" ) {
+            $_ = $1 ? T : $2 ? F : $_ ? T : F;
+        }
+    }
+}
+
+# Run the tests, calling the subroutine whose name is generated.
+( my $sub = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
+no strict 'refs';
+is [ $sub->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
+    for @{ $json_data->{examples} };
 done_testing;
 '''
 
@@ -643,8 +687,7 @@ json = '''
     "name": "<TASK_NAME>"
   },
   "input_vars": [ <JSON_INPUT_VARS> ],
-  "examples":
-  [
+  "examples": [
 <JSON_EXAMPLE_DATA>
   ]
 }

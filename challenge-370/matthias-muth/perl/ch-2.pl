@@ -89,34 +89,26 @@ sub is_reverse_scramble( $str1, $str2 ) {
     return true;
 }
 
+no warnings 'once';
+*scramble_string = \&is_scramble;
+
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1", ["abc", "acb"], T ],
+    [ "Example 2", ["abcd", "cdba"], T ],
+    [ "Example 3", ["hello", "hiiii"], F ],
+    [ "Example 4", ["ateer", "eater"], T ],
+    [ "Example 5", ["abcd", "bdac"], F ],
+);
+
+run( "scramble_string", \@tests );
+__END__
+
+# Version for publishing:
+
 use Test2::V0 qw( -no_srand );
-
-sub run_challenge_tests() {
-    is is_scramble( "abc", "acb" ), T,
-        'Example 1: is_scramble( "abc", "acb" ) is true';
-    is is_scramble( "abcd", "cdba" ), T,
-        'Example 2: is_scramble( "abcd", "cdba" ) is true';
-    is is_scramble( "hello", "hiiii" ), F,
-        'Example 3: is_scramble( "hello", "hiiii" ) is false';
-    is is_scramble( "ateer", "eater" ), T,
-        'Example 4: is_scramble( "ateer", "eater" ) is true';
-    is is_scramble( "abcd", "bdac" ), F,
-        'Example 5: is_scramble( "abcd", "bdac" ) is false';
-
-    is is_reverse_scramble( "abc", "acb" ), T,
-        'Example 1: is_reverse_scramble( "abc", "acb" ) is true';
-    is is_reverse_scramble( "abcd", "cdba" ), T,
-        'Example 2: is_reverse_scramble( "abcd", "cdba" ) is true';
-    is is_reverse_scramble( "hello", "hiiii" ), F,
-        'Example 3: is_reverse_scramble( "hello", "hiiii" ) is false';
-    is is_reverse_scramble( "ateer", "eater" ), T,
-        'Example 4: is_reverse_scramble( "ateer", "eater" ) is true';
-    is is_reverse_scramble( "abcd", "bdac" ), F,
-        'Example 5: is_reverse_scramble( "abcd", "bdac" ) is false';
-
-    done_testing;
-}
-
-unless ( caller ) {
-    run_challenge_tests;
-}
+is scramble_string( $_->[1]->@* ), $_->[2], $_->[0]
+    for @tests;
+done_testing;
