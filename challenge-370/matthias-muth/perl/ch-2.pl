@@ -89,6 +89,16 @@ sub is_reverse_scramble( $str1, $str2 ) {
     return true;
 }
 
+no warnings 'once';
+*scramble_string = \&is_scramble;
+*scramble_string_reverse = \&is_reverse_scramble;
+
+use lib qw( . ../../../lib );
+use MultiTest;
+
+run_json_tests( "scramble_string" );
+
+__END__
 use Test2::V0 qw( -no_srand );
 
 sub run_challenge_tests() {

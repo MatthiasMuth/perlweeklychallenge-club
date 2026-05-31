@@ -19,6 +19,14 @@ sub find_k_beauty( $num, $k ) {
     return $k_beauty;
 }
 
+use List::Util qw( sum );
+sub find_k_beauty( $num, $k ) {
+    return sum(
+        map $num % substr ( $num, $_, $k ) == 0,
+            0 .. length( $num ) - $k
+    );
+}
+
 use lib qw( . ../../../lib );
 use MultiTest;
 
