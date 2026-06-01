@@ -79,16 +79,6 @@
          {
             "data" : [
                [
-                  "Raku",
-                  2
-               ]
-            ],
-            "id" : "Feng Chang",
-            "name" : "Feng Chang"
-         },
-         {
-            "data" : [
-               [
                   "Perl",
                   2
                ],
@@ -117,16 +107,6 @@
             ],
             "id" : "Jorg Sommrey",
             "name" : "Jorg Sommrey"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ]
-            ],
-            "id" : "Kjetil Skotheim",
-            "name" : "Kjetil Skotheim"
          },
          {
             "data" : [
@@ -255,6 +235,20 @@
             ],
             "id" : "Reinier Maliepaard",
             "name" : "Reinier Maliepaard"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Robbie Hatley",
+            "name" : "Robbie Hatley"
          },
          {
             "data" : [
@@ -395,11 +389,6 @@
                "y" : 2
             },
             {
-               "drilldown" : "Feng Chang",
-               "name" : "Feng Chang",
-               "y" : 2
-            },
-            {
                "drilldown" : "Jaldhar H. Vyas",
                "name" : "Jaldhar H. Vyas",
                "y" : 5
@@ -408,11 +397,6 @@
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
                "y" : 3
-            },
-            {
-               "drilldown" : "Kjetil Skotheim",
-               "name" : "Kjetil Skotheim",
-               "y" : 2
             },
             {
                "drilldown" : "Lubos Kolouch",
@@ -465,6 +449,11 @@
                "y" : 4
             },
             {
+               "drilldown" : "Robbie Hatley",
+               "name" : "Robbie Hatley",
+               "y" : 3
+            },
+            {
                "drilldown" : "Robert Ransbottom",
                "name" : "Robert Ransbottom",
                "y" : 2
@@ -500,14 +489,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 374"
+         "name" : "The Weekly Challenge - 375"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 27] Last updated at 2026-05-25 04:43:31 GMT"
+      "text" : "[Champions: 26] Last updated at 2026-06-01 03:01:39 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 374"
+      "text" : "The Weekly Challenge - 375"
    },
    "tooltip" : {
       "followPointer" : 1,
