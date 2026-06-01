@@ -27,17 +27,39 @@ sub popular_word( $paragraph, $banned ) {
     return max_by { ++$n_occurences{$_} } @words;
 }
 
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1",
+        [
+          "Bob hit a ball, the hit BALL flew far after it was hit.",
+          ["hit"],
+        ],
+        "ball" ],
+    [ "Example 2",
+        [
+          "Apple? apple! Apple, pear, orange, pear, apple, orange.",
+          ["apple", "pear"],
+        ],
+        "orange" ],
+    [ "Example 3", ["A. a, a! A. B. b. b.", ["b"]], "a" ],
+    [ "Example 4", ["Ball.ball,ball:apple!apple.banana", ["ball"]], "apple" ],
+    [ "Example 5",
+        [
+          "The dog chased the cat, but the dog was faster than the cat.",
+          ["the", "dog"],
+        ],
+        "cat" ],
+);
+
+run( "popular_word", \@tests );
+
+__END__
+
+# Version for publishing:
+
 use Test2::V0 qw( -no_srand );
-
-is popular_word( "Bob hit a ball, the hit BALL flew far after it was hit.", ["hit"] ), "ball",
-    'Example 1: popular_word( "Bob hit a ball, the hit BALL flew far after it was hit.", ["hit"] ) eq "ball"';
-is popular_word( "Apple? apple! Apple, pear, orange, pear, apple, orange.", ["apple", "pear"] ), "orange",
-    'Example 2: popular_word( "Apple? apple! Apple, pear, orange, pear, apple, orange.", ["apple", "pear"] ) eq "orange"';
-is popular_word( "A. a, a! A. B. b. b.", ["b"] ), "a",
-    'Example 3: popular_word( "A. a, a! A. B. b. b.", ["b"] ) eq "a"';
-is popular_word( "Ball.ball,ball:apple!apple.banana", ["ball"] ), "apple",
-    'Example 4: popular_word( "Ball.ball,ball:apple!apple.banana", ["ball"] ) eq "apple"';
-is popular_word( "The dog chased the cat, but the dog was faster than the cat.", ["the", "dog"] ), "cat",
-    'Example 5: popular_word( "The dog chased the cat, but the dog was faster than the cat.", ["the", "dog"] ) eq "cat"';
-
+is popular_word( $_->[1]->@* ), $_->[2], $_->[0]
+    for @tests;
 done_testing;

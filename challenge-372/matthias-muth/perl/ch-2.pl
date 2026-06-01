@@ -22,18 +22,24 @@ sub largest_substring( $str ) {
     ) // -1;
 }
 
-# (No changes needed below!)
+use lib qw( . ../../../lib );
+use MultiTest;
 
-# Read the test data from the JSON file.
-use File::JSON::Slurper qw( read_json );
-my $json_file = $0 =~ s/\.pl$/.json/r;
-my $json_data = -f $json_file && read_json( $json_file )
-    or die "ERROR: could not read test data from '$json_file\n";
+my @tests = (
+    [ "Example 1", "aaaaa", 3 ],
+    [ "Example 2", "abcdeba", 5 ],
+    [ "Example 3", "abbc", 0 ],
+    [ "Example 4", "abcaacbc", 4 ],
+    [ "Example 5", "laptop", 2 ],
+);
 
-# Run the tests, calling the subroutine whose name is generated.
+run( "largest_substring", \@tests );
+
+__END__
+
+# Version for publishing:
+
 use Test2::V0 qw( -no_srand );
-no strict 'refs';
-my $sub = lc( $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/gr;
-is [ $sub->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+is largest_substring( $_->[1] ), $_->[2], $_->[0]
+    for @tests;
 done_testing;

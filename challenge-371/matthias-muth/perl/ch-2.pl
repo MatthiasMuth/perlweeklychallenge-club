@@ -32,24 +32,28 @@ sub subset_equilibrium( @nums ) {
     return @results;
 }
 
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1", [ 2, 1, 4, 3 ],
+        bag { item $_ for [2, 1], [1, 4], [4, 3], [2, 3]; end } ],
+    [ "Example 2", [ 3, 0, 3, 0 ],
+        bag { item $_ for [3, 0], [3, 0, 3]; end } ],
+    [ "Example 3", [ 5, 1, 1, 1 ],
+        bag { item $_ for [5, 1, 1]; end } ],
+    [ "Example 4", [ 3, -1, 4, 2 ],
+        bag { item $_ for [3, 2], [3, -1, 4]; end } ],
+    [ "Example 5", [ 10, 20, 30, 40 ], [] ],
+);
+
+run( "subset_equilibrium", \@tests );
+
+__END__
+
+# Version for publishing:
+
 use Test2::V0 qw( -no_srand );
-
-is [ subset_equilibrium( 2, 1, 4, 3 ) ],
-    bag { item $_ for [2, 1], [1, 4], [4, 3], [2, 3]; end },
-    'Example 1: subset_equilibrium( 2, 1, 4, 3 )'
-        . ' => ([2, 1], [1, 4], [4, 3], [2, 3])';
-is [ subset_equilibrium( 3, 0, 3, 0 ) ],
-    bag { item $_ for [3, 0], [3, 0, 3]; end },
-    'Example 2: subset_equilibrium( 3, 0, 3, 0 )'
-        . ' => ([3, 0], [3, 0, 3])';
-is [ subset_equilibrium( 5, 1, 1, 1 ) ],
-    [ [5, 1, 1] ],
-    'Example 3: subset_equilibrium( 5, 1, 1, 1 ) => ([5, 1, 1])';
-is [ subset_equilibrium( 3, -1, 4, 2 ) ],
-    bag { item $_ for [3, 2], [3, -1, 4]; end },
-    'Example 4: subset_equilibrium( 3, -1, 4, 2 )  => ([3, 2], [3, -1, 4])';
-is [ subset_equilibrium( 10, 20, 30, 40 ) ],
-    [],
-    'Example 5: subset_equilibrium( 10, 20, 30, 40 ) => ()';
-
+is [ subset_equilibrium( $_->[1]->@* ) ], $_->[2], $_->[0]
+    for @tests;
 done_testing;

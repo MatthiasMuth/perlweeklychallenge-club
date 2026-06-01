@@ -16,25 +16,24 @@ sub equal_list( $arr1, $arr2 ) {
 
 # (No changes needed below!)
 
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1", [["a", "bc"], ["ab", "c"]], T ],
+    [ "Example 2", [["a", "b", "c"], ["a", "bc"]], T ],
+    [ "Example 3", [["a", "bc"], ["a", "c", "b"]], F ],
+    [ "Example 4", [["ab", "c", ""], ["", "a", "bc"]], T ],
+    [ "Example 5", [["p", "e", "r", "l"], ["perl"]], T ],
+);
+
+run( "equal_list", \@tests );
+
+__END__
+
+# Version for publishing:
+
 use Test2::V0 qw( -no_srand );
-use JSON::Slurper qw( slurp_json );
-
-# Read the test data from the JSON file.
-( my $json_file = __FILE__ ) =~ s/\.pl$/.json/;
-my $json_data = -f $json_file && slurp_json( $json_file )
-    or die "ERROR: could not read test data from '$json_file\n";
-
-# Adjust expected output "true" and "false" to be boolean values,
-# checked with T and F (from Test2::V0::Compare).
-for ( @{ $json_data->{examples} } ) {
-    $_->{out} = [ $1 ? T : F ]
-        if scalar @{ $_->{out} } == 1
-            && $_->{out}[0] =~ /^(?:(true)|(false))/i;
-}
-
-# Run the tests, calling the subroutine whose name is generated.
-( my $sub = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
-no strict 'refs';
-is [ $sub->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+is equal_list( $_->[1]->@* ), $_->[2], $_->[0]
+    for @tests;
 done_testing;

@@ -20,25 +20,27 @@ sub list_division( $list, $n ) {
 
 # (No changes needed below!)
 
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1", [[1 .. 5], 2], [[1, 2, 3], [4, 5]] ],
+    [ "Example 2", [[1 .. 6], 3], [[1, 2], [3, 4], [5, 6]] ],
+    [ "Example 3", [[1, 2, 3], 2], [[1, 2], [3]] ],
+    [ "Example 4", [[1 .. 10], 5], [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]] ],
+    [ "Example 5", [[1, 2, 3], 4], [-1] ],
+    [ "Example 6",
+        [[72, 57, 89, 55, 36, 84, 10, 95, 99, 35], 7],
+        [[72, 57], [89, 55], [36, 84], [10], [95], [99], [35]] ],
+);
+
+run( "list_division", \@tests );
+
+__END__
+
+# Version for publishing:
+
 use Test2::V0 qw( -no_srand );
-use JSON::Slurper qw( slurp_json );
-
-# Read the test data from the JSON file.
-( my $json_file = __FILE__ ) =~ s/\.pl$/.json/;
-my $json_data = -f $json_file && slurp_json( $json_file )
-    or die "ERROR: could not read test data from '$json_file\n";
-
-# Adjust expected output "true" and "false" to be boolean values,
-# checked with T and F (from Test2::V0::Compare).
-for ( @{ $json_data->{examples} } ) {
-    $_->{out} = [ $1 ? T : F ]
-        if scalar @{ $_->{out} } == 1
-            && $_->{out}[0] =~ /^(?:(true)|(false))/i;
-}
-
-# Run the tests, calling the subroutine whose name is generated.
-( my $sub = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
-no strict 'refs';
-is [ $sub->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+is [ list_division( $_->[1]->@* ) ], $_->[2], $_->[0]
+    for @tests;
 done_testing;
