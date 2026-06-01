@@ -1,0 +1,39 @@
+{
+  "challenge": {
+    "week": 376,
+    "task": 2,
+    "name": "Doubled Words"
+  },
+  "input_vars": [ "$str" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": ["you"],
+      "out": []
+    },
+    {
+      "name": "Example 2",
+      "in": [
+        "Find doubled words despite capitalization differences, such as with "
+      ],
+      "out": []
+    },
+    {
+      "name": "Example 3",
+      "in": ["to make a word bold: "],
+      "out": []
+    },
+    {
+      "name": "Example 4",
+      "in": [
+        "Perl officially stands for Practical Extraction and Report Language, except when it doesn"
+      ],
+      "out": [""]
+    },
+    {
+      "name": "Example 5",
+      "in": ["There"],
+      "out": []
+    }
+  ]
+}

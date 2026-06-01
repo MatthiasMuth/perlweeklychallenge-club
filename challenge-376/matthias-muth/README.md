@@ -1,147 +1,123 @@
-# A Single Beauty
+# Challenge 376 tasks: Chessboard Squares - Doubled Words
+**Challenge 376 solutions in Perl by Matthias Muth**
 
-**Challenge 375 solutions in Perl by Matthias Muth**
+## Task 1: Chessboard Squares
 
-## Task 1: Single Common Word
-
-> You are given two array of strings.<br/>
-> Write a script to return the number of strings that appear exactly once in each of the two given arrays. String comparison is case sensitive.
+> You are given two coordinates of a square on 8x8 chessboard.<br/>
+> Write a script to find the given two coordinates have the same colour.<br/>
+> 8 W B W B W B W B<br/>
+> 7 B W B W B W B W<br/>
+> 6 W B W B W B W B<br/>
+> 5 B W B W B W B W<br/>
+> 4 W B W B W B W B<br/>
+> 3 B W B W B W B W<br/>
+> 2 W B W B W B W B<br/>
+> 1 B W B W B W B W<br/>
+>   a b c d e f g h
 >
 > **Example 1**
 >
 > ```text
-> Input: @array1 = ("apple", "banana", "cherry")
->  @array2 = ("banana", "cherry", "date")
-> Output: 2
+> Input: $c1 = "a7", $c2 = "f4"
+> Output: true
 > ```
 >
 > **Example 2**
 >
 > ```text
-> Input: @array1 = ("a", "ab", "abc")
->  @array2 = ("a", "a", "ab", "abc")
-> Output: 2
-> 
-> "a" appears once in @array1 but appears twice in @array2, therefore, not counted.
+> Input: $c1 = "c1", $c2 = "e8"
+> Output: false
 > ```
 >
 > **Example 3**
 >
 > ```text
-> Input: @array1 = ("orange", "lemon")
->  @array2 = ("grape", "melon")
-> Output: 0
+> Input: $c1 = "b5", $c2 = "h2"
+> Output: false
 > ```
 >
 > **Example 4**
 >
 > ```text
-> Input: @array1 = ("test", "test", "demo")
->  @array2 = ("test", "demo", "demo")
-> Output: 0
+> Input: $c1 = "f3", $c2 = "h1"
+> Output: true
 > ```
 >
 > **Example 5**
 >
 > ```text
-> Input: @array1 = ("Hello", "world")
->  @array2 = ("hello", "world")
-> Output: 1
-> 
-> String comparison is case sensitive.
+> Input: $c1 = "a1", $c2 = "g8"
+> Output: false
 > ```
 
-I guess the easiest way to compare the strings is to make an inventory. As we also need to decide whether a string appears exactly one, we should also keep a count of each string. The solution for me is to use a hash for each array, and to use `frequency` (from `List::MoreUtils`) to do the counting.
 
-After that, `grep` (in scalar context) can return the number of entries who show exactly one occurrence in both of the arrays. Going through the first array's frequencies, the condition is that the respective frequency is exactly `1` , and also the same entry in the second array's frequencies is exactly `1`. As we are not sure whether that second value exists at all, a defined-or with `0` makes sure that at least there is a numerical value to compare with in that case.
-
-Using `==` as a chained comparison is a little 'Modern Perl' tweak.  
+Lorem ipsum dolor sit amet...
 
 ```perl
-use v5.36;
-use List::MoreUtils qw( frequency );
-
-sub single_common_word( $array1, $array2 ) {
-    my %freq1 = frequency $array1->@*;
-    my %freq2 = frequency $array2->@*;
-    return scalar grep { $freq1{$_} == 1 == ( $freq2{$_} // 0 ) } keys %freq1;
+sub chessboard_squares() {
+    ...;
 }
 ```
 
-## Task 2: Find K-Beauty
+## Task 2: Doubled Words
 
-> You are given a number and a digit (k).<br/>
-> Write a script to find the K-Beauty of the given number. The K-Beauty of an integer number is defined as the number of substrings of given number when it is read as a string has length of ‘k’ and is a divisor of given number.
+> You are given a string (which may contain embedded newlines) which is taken from a page on a website. The string will not contain brackets qw{ [ ] }.<br/>
+> Write a script that will find doubled words (such as “this this”) and highlight (wrap in brackets) each doubled word.<br/>
+> The script should:<br/>
+> - Work across lines, even finding situations where a word at the end of<br/>
+>   one line is repeated at the beginning of the next.<br/>
+> <br/>
+> - Find doubled words despite capitalization differences, such as with<br/>
+>   'The the...', as well as allow differing amounts of whitespace (spaces,<br/>
+>   tabs, newlines, and the like) to lie between the words.<br/>
+> <br/>
+> - Find doubled words even when separated by HTML tags. For example, to<br/>
+>   make a word bold: '...it is <B>very</B> very important...'. Only show<br/>
+>   lines containing doubled words.<br/>
+> <br/>
+> Adapted from Mastering Regular Expressions, Third Edition by Jeffrey E. F. Friedl
 >
 > **Example 1**
 >
 > ```text
-> Input: $num = 240, $k = 2
-> Output: 2
-> 
-> Substring with length 2:
-> 24: 240 is divisible by 24
-> 40: 240 is divisible by 40
+> Input: $str = "you're given the job of checking the pages on a\nweb server for doubled words (such as 'this this'), a common problem\nwith documents subject to heavy editing."
+> Output: "web server for doubled words (such as '[this] [this]'), a common problem"
 > ```
 >
 > **Example 2**
 >
 > ```text
-> Input: $num = 1020, $k = 2
-> Output: 3
-> 
-> Substring with length 2:
-> 10: 1020 is divisible by 10
-> 02: 1020 is divisible by 2
-> 20: 1020 is divisible by 20
+> Input: $str = "Find doubled words despite capitalization differences, such as with 'The\nthe...', as well as allow differing amounts of whitespace (spaces,\ntabs, newlines, and the like) to lie between the words."
+> Output: "Find doubled words despite capitalization differences, such as with '[The]\n[the]...', as well as allow differing amounts of whitespace (spaces,"
 > ```
 >
 > **Example 3**
 >
 > ```text
-> Input: $num = 444, $k = 2
-> Output: 0
-> 
-> Substring with length 2:
-> First "44": 444 is not divisible by 44
-> Second "44": 444 is not divisible by 44
+> Input: $str = "to make a word bold: '...it is <B>very</B> very important...'."
+> Output: "to make a word bold: '...it is <B>[very]</B> [very] important...'."
 > ```
 >
 > **Example 4**
 >
 > ```text
-> Input: $num = 17, $k = 2
-> Output: 1
-> 
-> Substring with length 2:
-> 17: 17 is divisible by 17
+> Input: $str = "Perl officially stands for Practical Extraction and Report Language, except when it doesn't."
+> Output: ""
 > ```
 >
 > **Example 5**
 >
 > ```text
-> Input: $num = 123, $k = 1
-> Output: 2
-> 
-> Substring with length 1:
-> 1: 123 is divisible by 1
-> 2: 123 is not divisible by 2
-> 3: 123 is divisible by 3
+> Input: $str = "There's more than one one way to do it.\nEasy things should be easy and hard things should be possible."
+> Output: "There's more than [one] [one] way to do it."
 > ```
 
-All substrings have the same length, `$k`. The first substring starts at position `0`, and the last possible one starts at position `length( $num ) - $k`. A substring is a divisor of the original number if the `%` remainder of the number divided by that substring is `0`. We can simply sum up the comparison results for all substrings (which have a numerical value of `1` if the comparison is true, and `0` if not).
 
-That actually makes is a one-statement solution: 
+Lorem ipsum dolor sit amet...
 
 ```perl
-use v5.36;
-use List::Util qw( sum );
-
-sub find_k_beauty( $num, $k ) {
-    return sum(
-        map $num % substr ( $num, $_, $k ) == 0,
-            0 .. length( $num ) - $k
-    );
+sub doubled_words() {
+    ...;
 }
 ```
 
