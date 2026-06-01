@@ -10,9 +10,12 @@
 
 use v5.36;
 
+use List::Util qw( sum );
 sub find_k_beauty( $num, $k ) {
-    my @results;
-    return @results;
+    return sum(
+        map $num % substr ( $num, $_, $k ) == 0,
+            0 .. length( $num ) - $k
+    );
 }
 
 use lib qw( . ../../../lib );

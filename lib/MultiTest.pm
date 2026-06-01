@@ -17,7 +17,7 @@ use parent 'Exporter';
 
 our @EXPORT = (
     @Test2::V0::EXPORT,
-    qw( run run_tests run_json_tests run_benchmarks ),
+    qw( run run_tests run_benchmarks ),
 );
 
 use Test2::V0 qw( -no_srand );
@@ -60,9 +60,12 @@ sub get_options() {
                 push @tests_to_run_patterns, qr/Test.*\b$_\b/i
                     for split /,|\s+/, $_[1];
             },
-        "json!" => \$options{USE_JSON},
+        "json!"    => \$options{USE_JSON},
+        "publish!" => \$options{USE_PUBLISH},
     ) or die "Usage!\n";
     Getopt::Long::Configure( "default" );
+
+    $do_tests //= ! $do_benchmark;
 
     $do_tests //= ! $do_benchmark;
 
@@ -88,7 +91,25 @@ sub run_tests( $sub_base_name = undef, @tests ) {
         # We will generate the subroutine name and read the test data
         # from the .json file.
         # A subroutine name that was given may overrride the generated one.
-        return run_json_tests( $sub_base_name );
+        ( $sub_base_name, @tests ) = load_json_data();
+    }
+
+    if ( $options{USE_PUBLISH} ) {
+        # Execute the 'for publishing' version of the tests.
+        # Extract the code after __END__:
+        my $code = do { local ( @ARGV, $/ ) = $0; <> };
+        $code =~ s/\A.*?__END__\n//s;
+        $verbose and note "executing tests prepared for publishing";
+        my $result = eval "package main; $code; 1";
+        unless ( defined $result ) {
+            die "execution failed: $@\n";
+        }
+
+        # Get the Test2 context and check for failures.
+        my $ctx = context();
+        my $hub = $ctx->hub;
+        $ctx->release;
+        return $hub->is_passing;
     }
 
     # This runs the tests not only for the sub named "$sub_base_name",
@@ -158,14 +179,14 @@ sub run_tests( $sub_base_name = undef, @tests ) {
     return $hub->is_passing;
 }
 
-sub run_json_tests( $sub_name ) {
+sub load_json_data() {
     # Load the JSON module only when needed.
     require JSON::PP;
     JSON::PP->import( 'decode_json' );
 
     # Read the test data from the JSON file.
     ( my $json_file = $0 ) =~ s/\.pl$/.json/;
-    vsay "reading tests from $json_file";
+    $verbose and note "reading tests from $json_file";
     my $json_text = -f $json_file
         && do { local ( @ARGV, $/ ) = $json_file; <> }
         or die "could not read test data from '$json_file\n";
@@ -185,15 +206,14 @@ sub run_json_tests( $sub_name ) {
         }
     }
 
-    # Run the tests, calling the subroutine whose name is generated.
-    ( $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g
-        unless defined $sub_name;
-    no strict 'refs';
-    do {
-        %debug && dsay ":json", pp $_;
-        is [ "::$sub_name"->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    } for @{ $json_data->{examples} };
-    done_testing;
+    # Generate the subroutine name.
+    ( my $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
+
+    # Convert the tests to our intenal format.
+    my @tests = 
+        map [ $_->{name}, $_->{in}, $_->{out} ], @{ $json_data->{examples} };
+
+    return $sub_name, @tests;
 }
 
 sub run_benchmark( $sub_base_name, $benchmark_params ) {

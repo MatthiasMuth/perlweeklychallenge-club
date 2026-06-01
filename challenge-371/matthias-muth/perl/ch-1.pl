@@ -26,26 +26,28 @@ sub missing_letter( @seq ) {
     return chr( $base + $add - $subtract );
 }
 
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1", [ "a", "c", "?", "g", "i" ], "e" ],
+    [ "Example 2", [ "a", "d", "?", "j", "m" ], "g" ],
+    [ "Example 3", [ "a", "e", "?", "m", "q" ], "i" ],
+    [ "Example 4", [ "a", "c", "f", "?", "k" ], "h" ],
+    [ "Example 5", [ "b", "e", "g", "?", "l" ], "j" ],
+    [ "Own Test 1", [ qw( ? b c d ) ], "a" ],
+    [ "Own Test 2", [ qw( a ? c d ) ], "b" ],
+    [ "Own Test 3", [ qw( a b ? d ) ], "c" ],
+    [ "Own Test 4", [ qw( a b c ? ) ], "d" ],
+);
+
+run( "missing_letter", \@tests );
+
+__END__
+
+# Version for publishing:
+
 use Test2::V0 qw( -no_srand );
-
-is missing_letter( qw(a c ? g i) ), "e",
-    'Example 1: missing_letter( qw(a c ? g i) ) eq "e"';
-is missing_letter( qw(a d ? j m) ), "g",
-    'Example 2: missing_letter( qw(a d ? j m) ) eq "g"';
-is missing_letter( qw(a e ? m q) ), "i",
-    'Example 3: missing_letter( qw(a e ? m q) ) eq "i"';
-is missing_letter( qw(a c f ? k) ), "h",
-    'Example 4: missing_letter( qw(a c f ? k) ) eq "h"';
-is missing_letter( qw(b e g ? l) ), "j",
-    'Example 5: missing_letter( qw(b e g ? l) ) eq "j"';
-
-is missing_letter( qw(? b c d) ), "a",
-    'Own Test 1: missing_letter( qw(? b c d) ) eq "a"';
-is missing_letter( qw(a ? c d) ), "b",
-    'Own Test 1: missing_letter( qw(a ? c d) ) eq "b"';
-is missing_letter( qw(a b ? d) ), "c",
-    'Own Test 1: missing_letter( qw(a b ? d) ) eq "c"';
-is missing_letter( qw(a b c ?) ), "d",
-    'Own Test 1: missing_letter( qw(a b c ?) ) eq "d"';
-
+is missing_letter( $_->[1]->@* ), $_->[2], $_->[0]
+    for @tests;
 done_testing;

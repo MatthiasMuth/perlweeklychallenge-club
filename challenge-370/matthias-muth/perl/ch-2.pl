@@ -91,6 +91,7 @@ sub is_reverse_scramble( $str1, $str2 ) {
 
 no warnings 'once';
 *scramble_string = \&is_scramble;
+*scramble_string_reverse = \&is_reverse_scramble;
 
 use lib qw( . ../../../lib );
 use MultiTest;
@@ -104,6 +105,7 @@ my @tests = (
 );
 
 run( "scramble_string", \@tests );
+
 __END__
 
 # Version for publishing:

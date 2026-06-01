@@ -29,7 +29,23 @@ else
     update=""
 fi
 
-git checkout dev -- challenge-$challenge/matthias-muth
+dir="challenge-$challenge/matthias-muth"
+git checkout dev -- "$dir"
+
+echo "Activating testing section prepared for publishing"
+perl -i~ -g -n -E '
+    /^# version for publishing/mi or do {
+        warn "no '\''publishing'\'' template in '\''$ARGV'\''\n";
+        print;
+        next;
+    };
+    s<^use lib .*?\n^use MultiTest.*?\n>
+        <use Test2::V0 qw( -no_srand );\n>ms;
+    s<^run.*?\n.*Version for publishing.*use Test2::V.*?\n><>msi;
+    print
+' "$dir"/perl/ch-[12].pl
+git add -u
+
 git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth$update"
 git push --set-upstream origin muthm-$challenge
 

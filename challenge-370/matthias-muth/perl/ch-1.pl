@@ -54,6 +54,7 @@ my @tests = (
 );
 
 run( "popular_word", \@tests );
+
 __END__
 
 # Version for publishing:
