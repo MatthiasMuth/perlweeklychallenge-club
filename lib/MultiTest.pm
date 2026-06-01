@@ -60,7 +60,8 @@ sub get_options() {
                 push @tests_to_run_patterns, qr/Test.*\b$_\b/i
                     for split /,|\s+/, $_[1];
             },
-        "json!" => \$options{USE_JSON},
+        "json!"    => \$options{USE_JSON},
+        "publish!" => \$options{USE_PUBLISH},
     ) or die "Usage!\n";
     Getopt::Long::Configure( "default" );
 
@@ -88,7 +89,25 @@ sub run_tests( $sub_base_name = undef, @tests ) {
         # We will generate the subroutine name and read the test data
         # from the .json file.
         # A subroutine name that was given may overrride the generated one.
-        return run_json_tests( $sub_base_name );
+        ( $sub_base_name, @tests ) = load_json_data();
+    }
+
+    if ( $options{USE_PUBLISH} ) {
+        # Execute the 'for publishing' version of the tests.
+        # Extract the code after __END__:
+        my $code = do { local ( @ARGV, $/ ) = $0; <> };
+        $code =~ s/\A.*?__END__\n//s;
+        $verbose and note "executing tests prepared for publishing";
+        my $result = eval "package main; $code; 1";
+        unless ( defined $result ) {
+            die "execution failed: $@\n";
+        }
+
+        # Get the Test2 context and check for failures.
+        my $ctx = context();
+        my $hub = $ctx->hub;
+        $ctx->release;
+        return $hub->is_passing;
     }
 
     # This runs the tests not only for the sub named "$sub_base_name",
@@ -158,6 +177,43 @@ sub run_tests( $sub_base_name = undef, @tests ) {
     return $hub->is_passing;
 }
 
+sub load_json_data() {
+    # Load the JSON module only when needed.
+    require JSON::PP;
+    JSON::PP->import( 'decode_json' );
+
+    # Read the test data from the JSON file.
+    ( my $json_file = $0 ) =~ s/\.pl$/.json/;
+    $verbose and note "reading tests from $json_file";
+    my $json_text = -f $json_file
+        && do { local ( @ARGV, $/ ) = $json_file; <> }
+        or die "could not read test data from '$json_file\n";
+    my $json_data = decode_json( $json_text );
+
+    for ( @{ $json_data->{examples} } ) {
+        for ( @{ $_->{out} } ) {
+            if ( ref $_ eq "JSON::PP::Boolean" ) {
+                # Convert JSON true and false constants 
+                # into Test2::V0::Compare T and F conditions. 
+                $_ = $_ ? T : F;
+            }
+            elsif ( /^(?:(true)|(false))/i ) {
+                # The same for strings "true" and "false"
+                $_ = $1 ? T : F;
+            }
+        }
+    }
+
+    # Generate the subroutine name.
+    ( my $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
+
+    # Convert the tests to our intenal format.
+    my @tests = 
+        map [ $_->{name}, $_->{in}, $_->{out} ], @{ $json_data->{examples} };
+
+    return $sub_name, @tests;
+}
+
 sub run_json_tests( $sub_name ) {
     # Load the JSON module only when needed.
     require JSON::PP;
@@ -165,7 +221,7 @@ sub run_json_tests( $sub_name ) {
 
     # Read the test data from the JSON file.
     ( my $json_file = $0 ) =~ s/\.pl$/.json/;
-    vsay "reading tests from $json_file";
+    $verbose and note "reading tests from $json_file";
     my $json_text = -f $json_file
         && do { local ( @ARGV, $/ ) = $json_file; <> }
         or die "could not read test data from '$json_file\n";
