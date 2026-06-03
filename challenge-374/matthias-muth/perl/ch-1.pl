@@ -76,31 +76,29 @@ sub count_vowel_substr( $str ) {
 }
 
 # use Test2::V0 qw( -no_srand );
-use lib qw( ../../../lib );
+
+use lib qw( . ../../../lib );
 use MultiTest;
 
 my @tests = (
     [ "Example 1", "aeiou", ["aeiou"] ],
-    [ "Example 2", "aaeeeiioouu",
-        bag {
-            item $_ for "aaeeeiioou", "aaeeeiioouu", "aeeeiioou", "aeeeiioouu";
-            end;
-        }
-    ],
-    [ "Example 3", "aeiouuaxaeiou",
-        bag {
-            item $_ for "aeiou", "aeiou", "eiouua", "aeiouu", "aeiouua";
-            end;
-        }
-    ],
-    [ "Example 4", "uaeiou",
-        bag { item $_ for "aeiou", "uaeio", "uaeiou"; end } ],
+    [ "Example 2",
+        "aaeeeiioouu",
+        ["aaeeeiioou", "aaeeeiioouu", "aeeeiioou", "aeeeiioouu"] ],
+    [ "Example 3",
+        "aeiouuaxaeiou",
+        ["aeiou", "aeiou", "eiouua", "aeiouu", "aeiouua"] ],
+    [ "Example 4", "uaeiou", ["aeiou", "uaeio", "uaeiou"] ],
     [ "Example 5", "aeioaeioa", [] ],
 );
-my @benchmark_data = ( "aeiouuaxaeiou" );
 
-# is [ count_vowel( $_->[1] ) ], $_->[2], $_->[0]
-#     for @tests;
-run( "count_vowel", \@tests, \@benchmark_data );
+run( "count_vowel", \@tests );
 
-# done_testing;
+__END__
+
+# Version for publishing:
+
+use Test2::V0 qw( -no_srand );
+is [ count_vowel( $_->[1] ) ], $_->[2], $_->[0]
+    for @tests;
+done_testing;

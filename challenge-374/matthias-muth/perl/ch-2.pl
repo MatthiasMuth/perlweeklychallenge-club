@@ -18,7 +18,8 @@ sub largest_same_digits_number( $str ) {
     return $max;
 }
 
-use Test2::V0 qw( -no_srand );
+use lib qw( . ../../../lib );
+use MultiTest;
 
 my @tests = (
     [ "Example 1", 6777133339, 3333 ],
@@ -28,7 +29,13 @@ my @tests = (
     [ "Example 5", 11122233, 222 ],
 );
 
+run( "largest_same_digits_number", \@tests );
+
+__END__
+
+# Version for publishing:
+
+use Test2::V0 qw( -no_srand );
 is largest_same_digits_number( $_->[1] ), $_->[2], $_->[0]
     for @tests;
-
 done_testing;

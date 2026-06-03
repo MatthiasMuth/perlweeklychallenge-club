@@ -7,7 +7,7 @@
 #                      for multiple implementations
 #
 
-use v5.20;
+use v5.26;
 use warnings;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -17,7 +17,7 @@ use parent 'Exporter';
 
 our @EXPORT = (
     @Test2::V0::EXPORT,
-    qw( run run_tests run_benchmarks ),
+    qw( run run_tests run_json_tests run_benchmarks ),
 );
 
 use Test2::V0 qw( -no_srand );
@@ -67,8 +67,6 @@ sub get_options() {
 
     $do_tests //= ! $do_benchmark;
 
-    $do_tests //= ! $do_benchmark;
-
     dsay "tests_to_run_patterns: ", pp @tests_to_run_patterns
         if @tests_to_run_patterns;
 
@@ -91,14 +89,17 @@ sub run_tests( $sub_base_name = undef, @tests ) {
         # We will generate the subroutine name and read the test data
         # from the .json file.
         # A subroutine name that was given may overrride the generated one.
-        ( $sub_base_name, @tests ) = load_json_data();
+        # ( $sub_base_name, @tests ) = load_json_data();
+        return run_json_tests( $sub_base_name );
     }
 
     if ( $options{USE_PUBLISH} ) {
         # Execute the 'for publishing' version of the tests.
         # Extract the code after __END__:
         my $code = do { local ( @ARGV, $/ ) = $0; <> };
-        $code =~ s/\A.*?__END__\n//s;
+        $code =~ s/\A.*?__END__\n//s
+            or die "did not find an __END__ section"
+                . " that could contain testing code\n";
         $verbose and note "executing tests prepared for publishing";
         my $result = eval "package main; $code; 1";
         unless ( defined $result ) {
@@ -192,17 +193,13 @@ sub load_json_data() {
         or die "could not read test data from '$json_file\n";
     my $json_data = decode_json( $json_text );
 
+    # Convert JSON true and false constants
+    # as well as strings "true" and "false"
+    # into Test2::V0::Compare T and F conditions.
     for ( @{ $json_data->{examples} } ) {
         for ( @{ $_->{out} } ) {
-            if ( ref $_ eq "JSON::PP::Boolean" ) {
-                # Convert JSON true and false constants 
-                # into Test2::V0::Compare T and F conditions. 
-                $_ = $_ ? T : F;
-            }
-            elsif ( /^(?:(true)|(false))/i ) {
-                # The same for strings "true" and "false"
-                $_ = $1 ? T : F;
-            }
+            $_ = $1 ? T : $2 ? F : $_ ? T : F
+                if /^(t)rue$|^(f)alse$/i || ref eq "JSON::PP::Boolean";
         }
     }
 
@@ -210,10 +207,44 @@ sub load_json_data() {
     ( my $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
 
     # Convert the tests to our intenal format.
-    my @tests = 
+    my @tests =
         map [ $_->{name}, $_->{in}, $_->{out} ], @{ $json_data->{examples} };
 
     return $sub_name, @tests;
+}
+
+sub run_json_tests( $sub_name ) {
+    # Load the JSON module only when needed.
+    require JSON::PP;
+    JSON::PP->import( 'decode_json' );
+
+    # Read the test data from the JSON file.
+    ( my $json_file = $0 ) =~ s/\.pl$/.json/;
+    $verbose and note "running tests read from $json_file";
+    my $json_text = -f $json_file
+        && do { local ( @ARGV, $/ ) = $json_file; <> }
+        or die "could not read test data from '$json_file\n";
+    my $json_data = decode_json( $json_text );
+
+    # Convert JSON true and false constants
+    # as well as strings "true" and "false"
+    # into Test2::V0::Compare T and F conditions.
+    for ( @{ $json_data->{examples} } ) {
+        for ( @{ $_->{out} } ) {
+            $_ = $1 ? T : $2 ? F : $_ ? T : F
+                if /^(t)rue$|^(f)alse$/i || ref eq "JSON::PP::Boolean";
+        }
+    }
+
+    # Run the tests, calling the subroutine whose name is generated.
+    ( $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g
+        unless defined $sub_name;
+    no strict 'refs';
+    do {
+        %debug && dsay ":json", pp $_;
+        is [ "::$sub_name"->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
+    } for @{ $json_data->{examples} };
+    done_testing;
 }
 
 sub run_benchmark( $sub_base_name, $benchmark_params ) {

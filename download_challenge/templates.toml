@@ -567,6 +567,7 @@ use MultiTest;
 <TESTS>
 
 run( "<SUB_NAME>", \@tests );
+
 __END__
 
 # Version for publishing:
@@ -691,6 +692,10 @@ json = '''
 <JSON_EXAMPLE_DATA>
   ]
 }
+'''
+
+json_file = '''
+<JSON>
 '''
 
 ###

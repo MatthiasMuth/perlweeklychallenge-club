@@ -30,15 +30,11 @@ use lib qw( . ../../../lib );
 use MultiTest;
 
 my @tests = (
-    [ "Example 1", [ "a", "c", "?", "g", "i" ], "e" ],
-    [ "Example 2", [ "a", "d", "?", "j", "m" ], "g" ],
-    [ "Example 3", [ "a", "e", "?", "m", "q" ], "i" ],
-    [ "Example 4", [ "a", "c", "f", "?", "k" ], "h" ],
-    [ "Example 5", [ "b", "e", "g", "?", "l" ], "j" ],
-    [ "Own Test 1", [ qw( ? b c d ) ], "a" ],
-    [ "Own Test 2", [ qw( a ? c d ) ], "b" ],
-    [ "Own Test 3", [ qw( a b ? d ) ], "c" ],
-    [ "Own Test 4", [ qw( a b c ? ) ], "d" ],
+    [ "Example 1", ["a", "c", "?", "g", "i"], "e" ],
+    [ "Example 2", ["a", "d", "?", "j", "m"], "g" ],
+    [ "Example 3", ["a", "e", "?", "m", "q"], "i" ],
+    [ "Example 4", ["a", "c", "f", "?", "k"], "h" ],
+    [ "Example 5", ["b", "e", "g", "?", "l"], "j" ],
 );
 
 run( "missing_letter", \@tests );

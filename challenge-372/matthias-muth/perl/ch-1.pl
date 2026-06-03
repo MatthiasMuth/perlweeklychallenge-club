@@ -19,8 +19,6 @@ sub rearrange_spaces( $str ) {
     return join( " " x $gap_length, @words ) . " " x $n_trailing;
 }
 
-# (No changes needed below!)
-
 use lib qw( . ../../../lib );
 use MultiTest;
 
@@ -41,6 +39,6 @@ __END__
 # Version for publishing:
 
 use Test2::V0 qw( -no_srand );
-is rearrange_spaces( $_->[1]->@* ), $_->[2], $_->[0]
+is rearrange_spaces( $_->[1] ), $_->[2], $_->[0]
     for @tests;
 done_testing;

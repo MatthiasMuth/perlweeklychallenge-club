@@ -347,7 +347,7 @@ sub process_challenge( $challenge ) {
 
         # Generate the code skeletons and json data.
         # if -keep was given, extract the current implementation,
-        # (and TODO additional own tests, and benchmark_data)
+        # (TODO: and additional own tests, and benchmark_data)
         # from the existing .pl file.
         my @task_texts =
             ( undef, $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms );
@@ -366,10 +366,15 @@ sub process_challenge( $challenge ) {
                     "code template with kept code:\n", pp $code_template
                 if $current_implementation{code};
 
+            dsay ":eol", "code file template: ", pp $code_template;
             my $code = generate_code( $challenge, $task_texts[$_],
                     $code_template, $tests );
+            dsay ":eol", "code file: ", pp $code;
+            dsay ":eol", "json_file template: ",
+                pp $templates->{json}{'json'};
             my $json = generate_code( $challenge, $task_texts[$_],
                     $templates->{json}{'json'}, $tests );
+            dsay ":eol", "json: ", pp $json;
             {
                 text => $task_texts[$_],
                 tests => $tests,
@@ -415,9 +420,9 @@ sub process_challenge( $challenge ) {
                 [ "$target_dir/perl/challenge-$challenge.txt",
                     $challenge_text ],
                 ( map [ "$target_dir/perl/ch-$_.pl",
-                        $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ], 1..2 ),
+                        $tasks[$_]{code} . "\n", 'DO_NOT_OVERWRITE' ], 1..2 ),
                 ( map [ "$target_dir/perl/ch-$_.json",
-                        $tasks[$_]{json} ], 1..2 ),
+                        $tasks[$_]{json} . "\n" ], 1..2 ),
             ) : ();
 
         dsay ":keep", "file operations:\n", pp @file_operations;
@@ -581,12 +586,15 @@ sub extract_implementation( $file ) {
     my ( $code, $rest ) = 
         $text =~
             /\A ( (?:           # Line by line.
-                    (?! use\s(?:lib|Test2::V0|MultiTest) | run_tests )
+                    (?! use\s(?:lib|Test2::V0|MultiTest)
+                        | run_tests
+                        | ^\# \s+ \(?No \s changes \s needed )
                     [^\n]* \n
                   )* )          # Implementation text.
                \s*              # Empty newline in between (skipped
                (.*)             # Capture testing part.
             /msx;
+    # Remove trailing newlines.
     $code =~ s/\s+\z//s;
     $rest =~ s/\s+\z//s;
     dsay ":keep", "extracted code:\n", $code;
@@ -609,7 +617,6 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
     ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
 
     my $code = $template;
-    chomp $code;
 
     my @checks = (
         [ "VARIABLE_NAMES", "input variable names" ],
@@ -629,11 +636,15 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         : ();
     my $json_input_vars = join ", ", map qq("$_"), @input_vars;
 
-    # Turn array parameters into arrayrefs in some cases.
+    # We need a local copy of the tests, because we might modify the
+    # input  and/or output parameters.
+    my @tests = map +{ $_->%* }, $tests->@*;
+
+    # Turn input array parameters into arrayrefs in some cases.
     if ( @input_vars > 1
-        || $tests->[0] && $tests->[0]{INPUT}
-            && ref $tests->[0]{INPUT}[0] eq 'ARRAY'
-            && ref $tests->[0]{INPUT}[0][0] eq 'ARRAY' )
+        || $tests[0] && $tests[0]{INPUT}
+            && ref $tests[0]{INPUT}[0] eq 'ARRAY'
+            && ref $tests[0]{INPUT}[0][0] eq 'ARRAY' )
     {
         dsay "turning array parameter into arrayref";
         substr $_, 0, 1, '$'
@@ -642,26 +653,37 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
     my $input_params = join ", ", @input_vars;
 
     my $result_var =
-        $tests->[0] && ref $tests->[0]{OUTPUT} eq 'ARRAY'
+        $tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
         ? '@results'
         : '$result';
 
-    my ( $single_input, $single_output ) =
-        map {
-            dsay "Checking single:";
-            all { dsay "    ", pp $_; $_->@* == 1 && ! ref $_->[0] } $_->@*;
-        }
-        [ map $_->{INPUT},  $tests->@* ],
-        [ map $_->{OUTPUT}, $tests->@* ];
-    dsay "single input: ",  $single_input ? "yes" : "no";
-    dsay "single output: ", $single_output ? "yes" : "no";
-
-    my ( $single_arrayref_input, $single_arrayref_output ) = (
-        $single_input  && ( all { ref $_->{INPUT}[0]  eq "ARRAY" } $tests->@* ),
-        $single_output && ( all { ref $_->{OUTPUT}[0] eq "ARRAY" } $tests->@* ),
-    );
+    my ( $single_scalar_input, $single_arrayref_input,
+            $single_scalar_output, $single_arrayref_output  ) =
+        map { do { dsay "  ", scalar $_->@*;
+                    dsay "    $_->@*";
+                    dsay "    ", pp $_->@*;
+                    all { $_->@* <= 1 } $_->@* }
+                ? ( ( all { ! ref $_->[0] } $_->@* ),
+                    ( all { $_->@* == 0 || ref $_->[0] eq "ARRAY" } $_->@* ) )
+                : ( 0, 0 ) }
+            [ map $_->{INPUT},  @tests ],
+            [ map $_->{OUTPUT}, @tests ];
+    dsay "single scalar input: ",  $single_scalar_input ? "yes" : "no";
     dsay "single arrayref input: ",  $single_arrayref_input  ? "yes" : "no";
+    dsay "single scalar output: ", $single_scalar_output ? "yes" : "no";
     dsay "single arrayref output: ", $single_arrayref_output ? "yes" : "no";
+
+    if ( $single_arrayref_input ) {
+        dsay "turning single arrayref input parameter into array";
+        $_->{INPUT} = [ $_->{INPUT}->@* ? $_->{INPUT}[0]->@* : () ]
+            for @tests;
+    }
+
+    if ( $single_arrayref_output ) {
+        dsay "turning single arrayref output into array";
+        $_->{OUTPUT} = [ $_->{OUTPUT}->@* ? $_->{OUTPUT}[0]->@* : () ]
+            for @tests;
+    }
 
     my $return =
         $tests->[0] && ref $tests->[0]{OUTPUT} eq 'ARRAY'
@@ -675,8 +697,8 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         ( map {
             my ( $name, $input, $expected ) = (
                 pp( $_->{TEST} ),
-                pp( $single_input ? $_->{INPUT}->[0] : $_->{INPUT} ),
-                $single_output
+                pp( $single_scalar_input ? $_->{INPUT}->[0] : $_->{INPUT} ),
+                $single_scalar_output
                 ? $_->{OUTPUT}[0] =~ /^(?:(t)rue|(f)alse)$/i
                     ? uc( $1 || $2 )
                     : pp( $_->{OUTPUT}->[0] )
@@ -695,7 +717,7 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
                             ? " " : "\n    " ) . "],";
             }
             $line;
-        } $tests->@* ),
+        } @tests ),
         ");";
     %debug and dsay $test_data;
 
@@ -706,7 +728,7 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
             my ( $name, $input, $output ) = (
                 pp( $_->{TEST} ),
                 pp( $_->{INPUT} ),
-                $single_output && $_->{OUTPUT}[0] =~ /^(?:true|false)$/i
+                $single_scalar_output && $_->{OUTPUT}[0] =~ /^(?:true|false)$/i
                     ? "[ $_->{OUTPUT}->[0] ]"
                     : pp( $_->{OUTPUT} )
             );
@@ -723,21 +745,23 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
             $entry =~ s/<$_>/$substitutions{$_}/g
                 for keys %substitutions;
             $entry;
-        } $tests->@* );
+        } @tests );
     dsay ":json", "json example data:\n", $json_example_data;
-    chomp( my $json = $templates->{json}{json} );
+    chomp ( my $json = $templates->{json}{json} );
+    dsay ":json", "json template:\n", pp $json;
     $code =~ s/<JSON>/$json/;
 
-    my $call = "$sub_name( \$_->[1]->\@* )";
+    my $call =
+        "$sub_name( \$_->[1]" . ( $single_scalar_input ? "" : "->\@*" ) . " )";
     $call = "[ $call ]"
-        unless $single_output;
+        unless $single_scalar_output;
 
     chomp( my $implementation = $templates->{code}{implementation} );
     # TODO: Optionally use existing implementation.
-    chomp( my $run_tests =
+    my $run_tests =
         $options{USE_JSON}
         ? $templates->{code}{run_json_tests}
-        : $templates->{code}{run_tests} );
+        : $templates->{code}{run_tests};
 
     my %substitutions = (
         CHALLENGE    => $challenge,
@@ -762,6 +786,7 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
     dsay "code: ", pp $code;
 
     %debug and dsay $code;
+    $code =~ s/\n*$//;
     return $code;
 }
 

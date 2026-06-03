@@ -322,7 +322,12 @@ sub extract_tests( $task_text ) {
     # These regular expressions are used for extracting input or output
     # test data.
     my $var_name      = qr/ [\@\$]\w+ /x;
-    my $literal       = qr/ ".*?" | '.*?' | [+-]?\d+(?:\.\d+)? | undef /x;
+    my $q_string      = qr/ ' (?: [^'\\]++  | \\. )* ' /x;
+    my $qq_string     = qr/ " (?: [^"\\]++  | \\. )* " /x;
+    my $qw_string     = qr/ qw\( (?: [^\\\)]++ | \\. )* \) /x;
+    my $number        = qr/ [+-]?\d+(?:\.\d+)? /x;
+    my $literal       = qr/ $qq_string | $q_string | $qw_string
+                            | $number | undef /x;
     my $bracketed     = qr/ \[ [^\[]*? \] /xs;
     my $parenthesized = qr/ \( [^\[]*? \) /xs;
     my $entry         = qr/ $literal | $bracketed | $parenthesized /x;
@@ -385,8 +390,11 @@ sub extract_tests( $task_text ) {
         for ( $input, $output ) {
             dsay "processing '$_'";
             # To avoid misinterpretations of '@' or '$' within strings when the
-            # data is 'eval'ed, we turn all double quotes into single quotes.
-            s/\"/'/g;
+            # data is 'eval'ed, we escape those characters.
+            s< $qq_string >{
+                dsay "\$&: '$&'";
+                $& =~ s/\$/\\\$/gr =~ s/\@/\\\@/gr
+            }xeg;
 
             # Replace qw(...) by a sequence of values, with parentheses.
             dsay "checking $_";
@@ -406,11 +414,15 @@ sub extract_tests( $task_text ) {
             # 'barewords' (here: combinations of letters, digits or underscores,
             # starting with a letter) and enclose them in single quotes.
             my $bareword = qr/ \b (?!undef) [a-z_][a-z0-9_]* \b /ix;
-            while ( / ^Input: | ^Output: | '.*?' | [\$\@]$bareword
+            dsay "\$_: ", pp $_;
+            while ( / ^Input: | ^Output: | $literal | [\$\@]$bareword
                     | ( $bareword ) /xg )
             {
+                # dsay "  \$&: ", pp $&;
+                # dsay "    ^CAPTURE: ", pp @{^CAPTURE};
+                # dsay "    \$1: ", pp $1;
                 if ( $1 ) {
-                    dsay "    $1 is '$1'";
+                    dsay "    \$1 is <$1>";
                     my $p = pos();
                     substr $_, $p - length( $1 ), length( $1 ), "'$1'";
                     pos = $p + 2;
