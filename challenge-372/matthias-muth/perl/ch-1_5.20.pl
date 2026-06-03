@@ -24,19 +24,26 @@ sub rearrange_spaces( $str ) {
     return join( " " x $gap_length, @words ) . " " x $n_trailing;
 }
 
-# (No changes needed below!)
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1", "  challenge  ", "challenge    " ],
+    [ "Example 2", "coding  is  fun", "coding  is  fun" ],
+    [ "Example 3", "a b c  d", "a b c d " ],
+    [ "Example 4", "  team      pwc  ", "team          pwc" ],
+    [ "Example 5",
+        "   the  weekly  challenge  ",
+        "the    weekly    challenge " ],
+);
+
+run( "rearrange_spaces", \@tests );
+
+__END__
+
+# Version for publishing:
 
 use Test2::V0 qw( -no_srand );
-use File::JSON::Slurper qw( read_json );
-
-# Read the test data from the JSON file.
-my $json_file = $0 =~ s/\.pl$/.json/r;
-my $json_data = -f $json_file && read_json( $json_file )
-    or die "ERROR: could not read test data from '$json_file\n";
-
-# Run the tests, calling the subroutine whose name is generated.
-my $sub_name = lc( $json_data->{challenge}{name} ) =~ s/[^a-z]+/_/gr;
-no strict 'refs';
-is [ $sub_name->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+is rearrange_spaces( $_->[1] ), $_->[2], $_->[0]
+    for @tests;
 done_testing;

@@ -22,19 +22,18 @@ sub rearrange_spaces {
     return join( " " x $gap_length, @words ) . " " x $n_trailing;
 }
 
-# (No changes needed below!)
-
 use Test2::V0 qw( -no_srand );
-use JSON::Slurper qw( slurp_json );
 
-# Read the test data from the JSON file.
-( my $json_file = __FILE__ ) =~ s/\.pl$/.json/;
-my $json_data = -f $json_file && slurp_json( $json_file )
-    or die "ERROR: could not read test data from '$json_file\n";
+my @tests = (
+    [ "Example 1", "  challenge  ", "challenge    " ],
+    [ "Example 2", "coding  is  fun", "coding  is  fun" ],
+    [ "Example 3", "a b c  d", "a b c d " ],
+    [ "Example 4", "  team      pwc  ", "team          pwc" ],
+    [ "Example 5",
+        "   the  weekly  challenge  ",
+        "the    weekly    challenge " ],
+);
 
-# Run the tests, calling the subroutine whose name is generated.
-no strict 'refs';
-( my $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
-is [ $sub_name->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+is rearrange_spaces( $_->[1] ), $_->[2], $_->[0]
+    for @tests;
 done_testing;

@@ -322,7 +322,12 @@ sub extract_tests( $task_text ) {
     # These regular expressions are used for extracting input or output
     # test data.
     my $var_name      = qr/ [\@\$]\w+ /x;
-    my $literal       = qr/ ".*?" | '.*?' | [+-]?\d+(?:\.\d+)? | undef /x;
+    my $q_string      = qr/ ' (?: [^'\\]++  | \\. )* ' /x;
+    my $qq_string     = qr/ " (?: [^"\\]++  | \\. )* " /x;
+    my $qw_string     = qr/ qw\( (?: [^\\\)]++ | \\. )* \) /x;
+    my $number        = qr/ [+-]?\d+(?:\.\d+)? /x;
+    my $literal       = qr/ $qq_string | $q_string | $qw_string
+                            | $number | undef /x;
     my $bracketed     = qr/ \[ [^\[]*? \] /xs;
     my $parenthesized = qr/ \( [^\[]*? \) /xs;
     my $entry         = qr/ $literal | $bracketed | $parenthesized /x;
@@ -348,7 +353,7 @@ sub extract_tests( $task_text ) {
         dsay "input:", pp $input;
         dsay "output:", pp $output;
 
-        push @tests, { TEST => $test };
+        push @tests, { TEST => $test, OUTPUT => [] };
 
         # Check whether the Input: part contains any variable sigils.
         # If not, we try to convert '<Sequence of Words> = ...'
@@ -385,8 +390,11 @@ sub extract_tests( $task_text ) {
         for ( $input, $output ) {
             dsay "processing '$_'";
             # To avoid misinterpretations of '@' or '$' within strings when the
-            # data is 'eval'ed, we turn all double quotes into single quotes.
-            s/\"/'/g;
+            # data is 'eval'ed, we escape those characters.
+            s< $qq_string >{
+                dsay "\$&: '$&'";
+                $& =~ s/\$/\\\$/gr =~ s/\@/\\\@/gr
+            }xeg;
 
             # Replace qw(...) by a sequence of values, with parentheses.
             dsay "checking $_";
@@ -406,11 +414,15 @@ sub extract_tests( $task_text ) {
             # 'barewords' (here: combinations of letters, digits or underscores,
             # starting with a letter) and enclose them in single quotes.
             my $bareword = qr/ \b (?!undef) [a-z_][a-z0-9_]* \b /ix;
-            while ( / ^Input: | ^Output: | '.*?' | [\$\@]$bareword
+            dsay "\$_: ", pp $_;
+            while ( / ^Input: | ^Output: | $literal | [\$\@]$bareword
                     | ( $bareword ) /xg )
             {
+                # dsay "  \$&: ", pp $&;
+                # dsay "    ^CAPTURE: ", pp @{^CAPTURE};
+                # dsay "    \$1: ", pp $1;
                 if ( $1 ) {
-                    dsay "    $1 is '$1'";
+                    dsay "    \$1 is <$1>";
                     my $p = pos();
                     substr $_, $p - length( $1 ), length( $1 ), "'$1'";
                     pos = $p + 2;
@@ -435,28 +447,68 @@ sub extract_tests( $task_text ) {
         }
 
         while ( $input =~ / ($var_name) \s* =? \s* ($data_re) /xg ) {
-            dsay "data_re found ", pp_hash %{^CAPTURE};
-            push @{$tests[-1]{VARIABLE_NAMES}}, $1;
+
+            # Experiment: remove outer parentheses, if present.
+            my ( $var_name, $data ) = ( $1, $2 );
+            if ( $+{par_list} ) {
+                dsay ":assign", "experiment: remove outer parenthesis";
+                dsay ":assign", "from: $data";
+                $data =~ s/\((.*)\)/$1/;
+                dsay ":assign", "  to: $data";
+            }
+
+            push @{$tests[-1]{VARIABLE_NAMES}}, $var_name;
             push @{$tests[-1]{INPUT}},
-                eval( ( $+{no_paren} || $+{par_list} ) ? "[ $2 ]" : $2 );
+                eval( ( $+{no_paren} || $+{par_list} ) ? "[ $data ]" : $data );
         };
-        dsay "\@tests after push: ", pp @tests; 
 
         while ( $output =~ /^\s* ($data_re) $/xg ) {
+            local $d_area = "assign";
             local $_ = $1;
-            # dsay "\$_: <$_>";
-            # Special case:  (1,2),(3,4),(5,6)
-            # should become: [1,2],[3,4],[5,6] ]
-            if ( $+{no_paren} && /$parenthesized/ ) {
+            %debug and do {
+                dsay "assigning output for $_";
+                dsay "data_re found ", pp_hash %{^CAPTURE};
+            };
+
+            # Special case:  ( (1,2),(3,4),(5,6) )
+            # should become: [1,2],[3,4],[5,6]
+            # Experiment: remove outer parentheses if there are
+            # parenthesized or bracketed opbjects inside.
+            if ( $+{par_list} && /^ \( .* [([] /x ) {
+                dsay "experiment: remove outer parenthesis";
+                dsay "from: $_";
+                s/\((.*)\)/$1/;
+                dsay "REPLACE from $_";
                 # vsay "found special case <$_>";
                 s/\(/\[/g;
                 s/\)/\]/g;
+                dsay "          to $_";
+                dsay "eval ", pp( $+{no_paren} ? "( $_ )" : $_ ); 
+                push @{$tests[-1]{OUTPUT}},
+                    eval( $+{no_paren} ? "( $_ )" : $_ );
+                next;
+                dsay "  to: $_";
+                dsay "now assigning output for $_";
+                dsay "now data_re found ", pp_hash %{^CAPTURE};
             }
+
+            # Special case:  (1,2),(3,4),(5,6)
+            # should become: [1,2],[3,4],[5,6]
+            if ( 1 || $+{no_paren} && /$parenthesized/ ) {
+                dsay "REPLACE from $_";
+                s/\(/\[/g;
+                s/\)/\]/g;
+                dsay "          to $_";
+            }
+
+            %debug and dsay "eval ", pp( $+{no_paren} ? "( $_ )" : $_ ); 
             push @{$tests[-1]{OUTPUT}},
-                eval( $+{no_paren} ? "( $_ )" : $_ );
+                eval( $+{no_paren} ? "( $_ )" : $_ )
+                unless $_ eq '[]';
+
         };
+        %debug and dsay "test data after extraction:\n", pp $tests[-1]; 
     }
-    dsay "\@tests after analysis: ", pp @tests; 
 
     unless ( @tests ) {
         # Try an alternative description format:
@@ -471,17 +523,10 @@ sub extract_tests( $task_text ) {
                 VARIABLE_NAMES => [ '@input' ],
             }
         }
+        %debug and dsay "\@tests after alternative analysis: ", pp @tests; 
     }
 
-    dsay "\@tests after analysis: ", pp @tests; 
-    # Use array refs for all OUTPUT lists if at least one of the tests does.
-    if ( any { ref $_->{OUTPUT}[0] } @tests ) {
-        dsay "using array_refs for output";
-        $_->{OUTPUT} = [ $_->{OUTPUT} ]
-            for grep { ! ref $_->{OUTPUT}[0] } @tests;
-    }
-
-    dsay pp @tests;
+    %debug and dsay " all tests: ", pp @tests; 
     return @tests;
 }
 

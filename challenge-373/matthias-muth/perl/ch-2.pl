@@ -18,8 +18,6 @@ sub list_division( $list, $n ) {
     } 1..$n;
 }
 
-# (No changes needed below!)
-
 use lib qw( . ../../../lib );
 use MultiTest;
 

@@ -111,19 +111,22 @@ use TestExtractor;
 sub error_exit { say STDERR $0 =~ s'^.*/''r, ": ", @_; exit 1 }
 sub usage      { say STDERR "Usage!"; exit 2 }
 
+$options{USE_JSON} = $ENV{USE_JSON_TESTS};
 GetOptions(
     "force|f!"   => sub { $options{FORCE} = $_[1] ? ++$options{FORCE} : 0 },
     "FORCE"      => sub { $options{FORCE} = 2 },
     "new"        => sub { $options{FORCE} = 3 },
-    "check|n"    => \$options{DRY_RUN},
+    "input|i:s"  => \$options{INPUT_FILE},
     "mail:s"     => sub { push $options{MAIL_TO}->@*, split /[,\s]\s*/, $_[1] },
     "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
+    "keep!"      => \$options{KEEP},
+    "json!"      => \$options{USE_JSON},
     "nogit"      => \$options{NO_GIT},
-    "input|i:s"  => \$options{INPUT_FILE},
     "files!"     => \$options{WRITE_FILES},
     "archive!"   => \$options{ARCHIVE},
-    "quiet|q!"   => \$options{QUIET},
+    "check|n"    => \$options{DRY_RUN},
     "verbose|v!" => \$verbose,
+    "quiet|q!"   => \$options{QUIET},
     "help|?"     => \&usage,
 ) or do {
     say STDERR "    Use '$0 -help' for usage information.";
@@ -239,7 +242,7 @@ sub process_challenge( $challenge ) {
     };
 
     # The tasks html will be used for checking whether the task descriptions
-    # have changed, and then also for sending mails (or not).
+    # have changed, and possibly for sending mails.
 
     # Create the tasks html from the template,
     # copying in the extracted HTML parts.
@@ -335,55 +338,51 @@ sub process_challenge( $challenge ) {
 	    }
 	}
 
-	# Extract a pure text version of the challenge description.
-        my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
-        $tree->parse_content( $tasks_html )
-            or error_exit "could not parse html data";
-
-        # Extract nodes containing the title and the date,
-        # followed by two <br> to create empty lines,
-        # followed by everything inside the <div class="post-content"> block,
-        # individually.
-        my @nodes = $tree->findnodes( '//article/*' );
-        error_exit "could not extract tasks text from tasks html"
-            unless @nodes;
-
-        # Extract the text from the nodes.
-        # Ignore <hr> to avoid empty lines where they are not needed.
-        # Add an extra empty line before 'Example 1'.
-        # Reduce multiple empty lines to one within <pre> text
-        # (example descriptions).
-        # Add an extra empty line after <h5> ('submitted by').
+        # Generate the text version of the challenge page.
         my $challenge_text = join "",
             "$page_title\n",
             "$published_date\n",
             "\n",
-            map {
-                ( $_->as_text =~ /^Example 1/ ? "\n" : "" )
-                . ( $_->{_tag} =~ /^pre/
-                    ?  $_->as_text =~ s/^\s*$//gmr
-                    : $_->as_text )
-                . "\n"
-                . ( $_->{_tag} =~ /^h5/ ? "\n" : "" )
-            } grep $_->{_tag} ne "hr", @nodes;
-        %debug and dsay ":html", "challenge_text:\n", $challenge_text;
+            extract_challenge_text_from_html( $tasks_html );
 
         # Generate the code skeletons and json data.
-        my @tasks = ( undef );  # Task numbers are 1-based.
-        for my $task_text (  $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms ) {
-            my $tests = [ TestExtractor::extract_tests( $task_text ) ];
+        # if -keep was given, extract the current implementation,
+        # (TODO: and additional own tests, and benchmark_data)
+        # from the existing .pl file.
+        my @task_texts =
+            ( undef, $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms );
+        my @tasks = ( undef, map {
+            my $tests = [ TestExtractor::extract_tests( $task_texts[$_] ) ];
             %debug and dsay "extracted tests: ", pp( $tests );
-            my $code = generate_code( $challenge, $task_text,
-                    $templates->{code}{'ch-N_pl'}, $tests );
-            my $json = generate_code( $challenge, $task_text,
+
+            my $code_template = $templates->{code}{'ch-N_pl'};
+            my %current_implementation =
+                $options{KEEP}
+                ? extract_implementation( "$target_dir/perl/ch-$_.pl" )
+                : ();
+            %debug and dsay ":keep", "keep:\n", pp_hash %current_implementation;
+            $code_template =~ s/<IMPLEMENTATION>/$current_implementation{code}/
+                and dsay ":keep",
+                    "code template with kept code:\n", pp $code_template
+                if $current_implementation{code};
+
+            dsay ":eol", "code file template: ", pp $code_template;
+            my $code = generate_code( $challenge, $task_texts[$_],
+                    $code_template, $tests );
+            dsay ":eol", "code file: ", pp $code;
+            dsay ":eol", "json_file template: ",
+                pp $templates->{json}{'json'};
+            my $json = generate_code( $challenge, $task_texts[$_],
                     $templates->{json}{'json'}, $tests );
-            push @tasks, {
-                text => $task_text,
+            dsay ":eol", "json: ", pp $json;
+            {
+                text => $task_texts[$_],
                 tests => $tests,
                 code => $code,
                 json => $json,
             };
-        }
+        } 1, 2 );
+        dsay ":keep", "tasks:\n", pp @tasks;
 
         # Generate the README.md skeleton.
         my $readme_text = generate_readme_md( $challenge, $challenge_text );
@@ -421,11 +420,12 @@ sub process_challenge( $challenge ) {
                 [ "$target_dir/perl/challenge-$challenge.txt",
                     $challenge_text ],
                 ( map [ "$target_dir/perl/ch-$_.pl",
-                        $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ], 1..2 ),
+                        $tasks[$_]{code} . "\n", 'DO_NOT_OVERWRITE' ], 1..2 ),
                 ( map [ "$target_dir/perl/ch-$_.json",
-                        $tasks[$_]{json} ], 1..2 ),
+                        $tasks[$_]{json} . "\n" ], 1..2 ),
             ) : ();
 
+        dsay ":keep", "file operations:\n", pp @file_operations;
         for ( @file_operations ) {
             my ( $file, $contents, $do_not_overwrite, $add_msg ) =
 		@$_;
@@ -540,6 +540,69 @@ sub page_was_modified( $url, $last_modified_field_name ) {
     return 1;
 }
 
+sub extract_challenge_text_from_html( $tasks_html ) { 
+    # Extract a pure text version of the challenge description.
+    my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
+    $tree->parse_content( $tasks_html )
+        or error_exit "could not parse html data";
+
+    # Extract nodes containing the title and the date,
+    # followed by two <br> to create empty lines,
+    # followed by everything inside the <div class="post-content"> block,
+    # individually.
+    my @nodes = $tree->findnodes( '//article/*' );
+    error_exit "could not extract tasks text from tasks html"
+            . " (no '//article/*' nodes)"
+        unless @nodes;
+
+    # Extract the text from the nodes.
+    # Ignore <hr> to avoid empty lines where they are not needed.
+    # Add an extra empty line before 'Example 1'.
+    # Reduce multiple empty lines to one within <pre> text
+    # (example descriptions).
+    # Add an extra empty line after <h5> ('submitted by').
+    my $challenge_text = join "",
+        map {
+            ( $_->as_text =~ /^Example 1/ ? "\n" : "" )
+            . ( $_->{_tag} =~ /^pre/
+                ?  $_->as_text =~ s/^\s*$//gmr
+                : $_->as_text )
+            . "\n"
+            . ( $_->{_tag} =~ /^h5/ ? "\n" : "" )
+        } grep $_->{_tag} ne "hr", @nodes;
+    %debug and dsay ":html", "challenge_text:\n", $challenge_text;
+    return $challenge_text;
+}
+
+sub extract_implementation( $file ) {
+    # my $text = slurp_file( $file );
+    open my $fh, "-|", "git show dev:$file" or die "pipe\n";
+    my $text = do { local $/; <$fh> };
+    close $fh;
+    chomp $text;
+    $text =~ s/^use lib .*?^use TestExtractor.*?\n^\s*?\n//ms
+        and dsay ":keep", "removed TextExtractor include:\n", pp $&;
+    dsay ":keep", "text:\n", $text;
+    my ( $code, $rest ) = 
+        $text =~
+            /\A ( (?:           # Line by line.
+                    (?! use\s(?:lib|Test2::V0|MultiTest)
+                        | run_tests
+                        | ^\# \s+ \(?No \s changes \s needed )
+                    [^\n]* \n
+                  )* )          # Implementation text.
+               \s*              # Empty newline in between (skipped
+               (.*)             # Capture testing part.
+            /msx;
+    # Remove trailing newlines.
+    $code =~ s/\s+\z//s;
+    $rest =~ s/\s+\z//s;
+    dsay ":keep", "extracted code:\n", $code;
+    dsay ":keep", "extracted testing\n", $rest;
+    my ( @own_tests, $data_section );
+    return ( code => $code, own_tests => \@own_tests );
+}
+
 use List::Util qw( all );
 
 sub generate_code( $challenge, $task_text, $template, $tests ) {
@@ -571,22 +634,56 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         $tests->[0] && $tests->[0]{VARIABLE_NAMES}
         ? @{$tests->[0]{VARIABLE_NAMES}}
         : ();
+    my $json_input_vars = join ", ", map qq("$_"), @input_vars;
 
-    # Turn array parameters into arrayrefs in some cases.
+    # We need a local copy of the tests, because we might modify the
+    # input  and/or output parameters.
+    my @tests = map +{ $_->%* }, $tests->@*;
+
+    # Turn input array parameters into arrayrefs in some cases.
     if ( @input_vars > 1
-        || $tests->[0] && $tests->[0]{INPUT}
-            && ref $tests->[0]{INPUT}[0] eq 'ARRAY'
-            && ref $tests->[0]{INPUT}[0][0] eq 'ARRAY' )
+        || $tests[0] && $tests[0]{INPUT}
+            && ref $tests[0]{INPUT}[0] eq 'ARRAY'
+            && ref $tests[0]{INPUT}[0][0] eq 'ARRAY' )
     {
+        dsay "turning array parameter into arrayref";
         substr $_, 0, 1, '$'
             for @input_vars;
     }
     my $input_params = join ", ", @input_vars;
 
     my $result_var =
-        $tests->[0] && ref $tests->[0]{OUTPUT} eq 'ARRAY'
+        $tests[0] && ref $tests[0]{OUTPUT} eq 'ARRAY'
         ? '@results'
         : '$result';
+
+    my ( $single_scalar_input, $single_arrayref_input,
+            $single_scalar_output, $single_arrayref_output  ) =
+        map { do { dsay "  ", scalar $_->@*;
+                    dsay "    $_->@*";
+                    dsay "    ", pp $_->@*;
+                    all { $_->@* <= 1 } $_->@* }
+                ? ( ( all { ! ref $_->[0] } $_->@* ),
+                    ( all { $_->@* == 0 || ref $_->[0] eq "ARRAY" } $_->@* ) )
+                : ( 0, 0 ) }
+            [ map $_->{INPUT},  @tests ],
+            [ map $_->{OUTPUT}, @tests ];
+    dsay "single scalar input: ",  $single_scalar_input ? "yes" : "no";
+    dsay "single arrayref input: ",  $single_arrayref_input  ? "yes" : "no";
+    dsay "single scalar output: ", $single_scalar_output ? "yes" : "no";
+    dsay "single arrayref output: ", $single_arrayref_output ? "yes" : "no";
+
+    if ( $single_arrayref_input ) {
+        dsay "turning single arrayref input parameter into array";
+        $_->{INPUT} = [ $_->{INPUT}->@* ? $_->{INPUT}[0]->@* : () ]
+            for @tests;
+    }
+
+    if ( $single_arrayref_output ) {
+        dsay "turning single arrayref output into array";
+        $_->{OUTPUT} = [ $_->{OUTPUT}->@* ? $_->{OUTPUT}[0]->@* : () ]
+            for @tests;
+    }
 
     my $return =
         $tests->[0] && ref $tests->[0]{OUTPUT} eq 'ARRAY'
@@ -595,37 +692,35 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
             : '@results'
         : '$result';
 
-    my ( $single_input, $single_output ) =
-        map {
-            dsay "Checking single:";
-            all { dsay "    ", pp $_; $_->@* == 1 && ! ref $_->[0] } $_->@*;
-        }
-        [ map $_->{INPUT}, $tests->@* ],
-        [ map $_->{OUTPUT}, $tests->@* ];
-    dsay "single input: ", $single_input ? "yes" : "no";
-    dsay "single output: ", $single_output ? "yes" : "no";
-
     my $test_data = join "\n", 
         "my \@tests = (",
         ( map {
             my ( $name, $input, $expected ) = (
                 pp( $_->{TEST} ),
-                pp( $single_input ? $_->{INPUT}->[0] : $_->{INPUT} ),
-                $single_output
+                pp( $single_scalar_input ? $_->{INPUT}->[0] : $_->{INPUT} ),
+                $single_scalar_output
                 ? $_->{OUTPUT}[0] =~ /^(?:(t)rue|(f)alse)$/i
                     ? uc( $1 || $2 )
                     : pp( $_->{OUTPUT}->[0] )
                 : pp( $_->{OUTPUT} )
             );
             my $line = "    [ $name, $input, $expected ],";
-            $line = "    [ $name,\n        $input,\n        $expected ],"
-                unless length( $line ) <= 80;
+            my $input_output_indent = "        ";
+            unless ( length( $line ) <= 80 ) {
+                $input    =~ s/\n/\n$input_output_indent/g;
+                $expected =~ s/\n/\n$input_output_indent/g;
+                $line = join "\n",
+                    "    [ $name,",
+                    "        $input,",
+                    "        $expected"
+                        . ( 8 + length( $expected ) + 3 <= 80
+                            ? " " : "\n    " ) . "],";
+            }
             $line;
-        } $tests->@* ),
+        } @tests ),
         ");";
     %debug and dsay $test_data;
 
-    my $json_input_vars = join ", ", map qq("$_"), @input_vars;
     my $json_example_data = join ",\n",
         ( map {
             chomp ( my $entry = $templates->{json}{json_example} );
@@ -633,11 +728,12 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
             my ( $name, $input, $output ) = (
                 pp( $_->{TEST} ),
                 pp( $_->{INPUT} ),
-                $single_output && $_->{OUTPUT}[0] =~ /^(?:true|false)$/i
+                $single_scalar_output && $_->{OUTPUT}[0] =~ /^(?:true|false)$/i
                     ? "[ $_->{OUTPUT}->[0] ]"
                     : pp( $_->{OUTPUT} )
             );
             for ( $input, $output ) {
+                s<(-?\d+)\s*\.\.\s*(-?\d+)>{ join ", ", $1 .. $2 }eg;
                 s/\n/\n$indent/g;
                 s/,$(\n\s*\])/$1/msg;
             }
@@ -649,14 +745,23 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
             $entry =~ s/<$_>/$substitutions{$_}/g
                 for keys %substitutions;
             $entry;
-        } $tests->@* );
+        } @tests );
     dsay ":json", "json example data:\n", $json_example_data;
-    chomp( my $json = $templates->{json}{json} );
+    chomp ( my $json = $templates->{json}{json} );
+    dsay ":json", "json template:\n", pp $json;
     $code =~ s/<JSON>/$json/;
 
-    my $call = "$sub_name( \$_->[1]->\@* )";
+    my $call =
+        "$sub_name( \$_->[1]" . ( $single_scalar_input ? "" : "->\@*" ) . " )";
     $call = "[ $call ]"
-        unless $single_output;
+        unless $single_scalar_output;
+
+    chomp( my $implementation = $templates->{code}{implementation} );
+    # TODO: Optionally use existing implementation.
+    my $run_tests =
+        $options{USE_JSON}
+        ? $templates->{code}{run_json_tests}
+        : $templates->{code}{run_tests};
 
     my %substitutions = (
         CHALLENGE    => $challenge,
@@ -671,10 +776,17 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         JSON_INPUT_VARS => $json_input_vars,
         JSON_EXAMPLE_DATA => $json_example_data,
     );
+    dsay "code: ", pp $code;
+    $code =~ s/<IMPLEMENTATION>/$implementation/;
+    dsay "code: ", pp $code;
+    $code =~ s/<RUN_TESTS>/$run_tests/;
+    dsay "code: ", pp $code;
     $code =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
+    dsay "code: ", pp $code;
 
     %debug and dsay $code;
+    $code =~ s/\n*$//;
     return $code;
 }
 

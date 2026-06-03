@@ -14,8 +14,6 @@ sub equal_list( $arr1, $arr2 ) {
     return join( "", $arr1->@* ) eq join( "", $arr2->@* );
 }
 
-# (No changes needed below!)
-
 use lib qw( . ../../../lib );
 use MultiTest;
 
