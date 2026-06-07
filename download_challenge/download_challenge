@@ -118,7 +118,7 @@ GetOptions(
     "input|i:s"  => \$options{INPUT_FILE},
     "mail:s"     => sub { push $options{MAIL_TO}->@*, split /[,\s]\s*/, $_[1] },
     "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
-    "keep!"      => \$options{KEEP},
+    "keep:s"     => \$options{KEEP},
     "nogit"      => \$options{NO_GIT},
     "files!"     => \$options{WRITE_FILES},
     "archive!"   => \$options{ARCHIVE},
@@ -344,7 +344,6 @@ sub process_challenge( $challenge ) {
             extract_challenge_text_from_html( $tasks_html );
 
         # Generate the code skeletons and json data.
-        # if -keep was given, extract the current implementation,
         # (TODO: and additional own tests, and benchmark_data)
         # from the existing .pl file.
         my @task_texts =
@@ -354,12 +353,19 @@ sub process_challenge( $challenge ) {
             %debug and dsay "extracted tests: ", pp( $tests );
 
             # Fill the IMPLEMENTATION part either with generated code,
-            # or with the current implementation retrieved from the latest
-            # 'dev' commit.
+            # or, if the -keep <source> option was used, with the existing
+            # implementation.
+            # With '-keep <commit>', the implementation is taken from the file
+            # in the Git commit <commit>.
+            # With '-keep current' (or just '-keep', which implies an empty
+            # string), it is taken from the existing file.
             my %current_implementation =
-                $options{KEEP}
-                ? extract_implementation( "$target_dir/perl/ch-$_.pl" )
+                exists $options{KEEP}
+                ? extract_implementation(
+                    "$target_dir/perl/ch-$_.pl", $options{KEEP} )
                 : ();
+            %debug and dsay ":keep", "current_implementation:\n",
+                pp_hash %current_implementation;
 
             my $template = $templates->{code}{'implementation'};
             my $implementation =
@@ -367,7 +373,7 @@ sub process_challenge( $challenge ) {
                 || generate_code( $challenge, $task_texts[$_],
                     $template, $tests );
             $implementation =~ s/\n+\z//;
-            %debug and dsay "implementation:\n", $implementation;
+            %debug and dsay ":keep", "implementation:\n", $implementation;
 
             # Create two versions of the code file:
             # - with @tests and a call to MultiTest,
@@ -428,14 +434,16 @@ sub process_challenge( $challenge ) {
                     $readme_text, 'DO_NOT_OVERWRITE', $dry_run_readme_msg ],
                 [ "$target_dir/perl/challenge-$challenge.txt",
                     $challenge_text ],
-                map {
+                ( map {
                     [ "$target_dir/perl/ch-$_.pl",
-                        $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ],
+                        $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ]
+                } 1..2 ),
+                ( map {
                     [ "$target_dir/perl-json/ch-$_.pl",
-                        $tasks[$_]{code_json}, 'DO_NOT_OVERWRITE' ],
+                        $tasks[$_]{code_json} ],
                     [ "$target_dir/perl-json/ch-$_.json",
                         $tasks[$_]{json} . "\n" ],
-                    } 1..2,
+                } 1..2 ),
             ) : ();
 
         dsay "file operations:\n", pp @file_operations;
@@ -587,12 +595,20 @@ sub extract_challenge_text_from_html( $tasks_html ) {
     return $challenge_text;
 }
 
-sub extract_implementation( $file ) {
-    # my $text = slurp_file( $file );
-    open my $fh, "-|", "git show dev:$file" or die "pipe\n";
-    my $text = do { local $/; <$fh> };
-    close $fh;
+sub extract_implementation( $file, $source ) {
+    dsay ":keep", "extract_implementation( $file, ", pp( $source ), " )";
+    $source ||= "current";
+    my $text =
+        $source =~ /^current$/i
+        ?  slurp_file( $file )
+        : do {
+            open my $fh, "-|", "git show $source:$file" or die "pipe\n";
+            my $text = do { local $/; <$fh> };
+            close $fh;
+            $text;
+        };
     chomp $text;
+    dsay ":keep", "text after reading: ", pp $text;
     $text =~ s/^use lib .*?^use TestExtractor.*?\n^\s*?\n//ms
         and dsay ":keep", "removed TextExtractor include:\n", pp $&;
     dsay ":keep", "text:\n", $text;

@@ -473,7 +473,7 @@ sub extract_tests( $task_text ) {
             # Special case:  ( (1,2),(3,4),(5,6) )
             # should become: [1,2],[3,4],[5,6]
             # Experiment: remove outer parentheses if there are
-            # parenthesized or bracketed opbjects inside.
+            # parenthesized or bracketed objects inside.
             if ( $+{par_list} && /^ \( .* [([] /x ) {
                 dsay "experiment: remove outer parenthesis";
                 dsay "from: $_";
@@ -496,8 +496,9 @@ sub extract_tests( $task_text ) {
             # should become: [1,2],[3,4],[5,6]
             if ( 1 || $+{no_paren} && /$parenthesized/ ) {
                 dsay "REPLACE from $_";
-                s/\(/\[/g;
-                s/\)/\]/g;
+                s<( '(?: [^'\\] | \\. )*' | "(?: [^"\\] | \\. )*" ) | ( [()] )>{
+                    defined( $1 ) ? $1 : ( $2 eq '(' ? '[' : ']' )
+                }xge;
                 dsay "          to $_";
             }
 
