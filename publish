@@ -22,10 +22,11 @@ git pull
 git fetch upstream
 git merge --ff-only upstream/master
 
-if git checkout muthm-$challenge; then
+branch="muthm"
+if git checkout "$branch"; then
     update=" - Update"
 else
-    git checkout -b muthm-$challenge
+    git checkout -b "$branch"
     update=""
 fi
 
@@ -47,7 +48,7 @@ perl -i~ -g -n -E '
 git add -u
 
 git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth$update"
-git push --set-upstream origin muthm-$challenge
+git push --set-upstream origin "$branch"
 
 git push --all
 git push --tags
