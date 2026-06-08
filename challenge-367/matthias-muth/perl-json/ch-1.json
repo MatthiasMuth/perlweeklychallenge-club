@@ -1,0 +1,35 @@
+{
+  "challenge": {
+    "week": 367,
+    "task": 1,
+    "name": "Max Odd Binary"
+  },
+  "input_vars": [ "$str" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": [1011],
+      "out": [1101]
+    },
+    {
+      "name": "Example 2",
+      "in": [100],
+      "out": ["001"]
+    },
+    {
+      "name": "Example 3",
+      "in": [111000],
+      "out": [110001]
+    },
+    {
+      "name": "Example 4",
+      "in": ["0101"],
+      "out": [1001]
+    },
+    {
+      "name": "Example 5",
+      "in": [1111],
+      "out": [1111]
+    }
+  ]
+}

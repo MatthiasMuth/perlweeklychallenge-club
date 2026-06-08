@@ -1,0 +1,39 @@
+{
+  "challenge": {
+    "week": 369,
+    "task": 1,
+    "name": "Valid Tag"
+  },
+  "input_vars": [ "$caption" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": ["Cooking with 5 ingredients!"],
+      "out": ["#cookingWithIngredients"]
+    },
+    {
+      "name": "Example 2",
+      "in": ["the-last-of-the-mohicans"],
+      "out": ["#thelastofthemohicans"]
+    },
+    {
+      "name": "Example 3",
+      "in": ["  extra spaces here"],
+      "out": ["#extraSpacesHere"]
+    },
+    {
+      "name": "Example 4",
+      "in": ["iPhone 15 Pro Max Review"],
+      "out": ["#iphoneProMaxReview"]
+    },
+    {
+      "name": "Example 5",
+      "in": [
+        "Ultimate 24-Hour Challenge: Living in a Smart Home controlled entirely by Artificial Intelligence and Voice Commands in the year 2026!"
+      ],
+      "out": [
+        "#ultimateHourChallengeLivingInASmartHomeControlledEntirelyByArtificialIntelligenceAndVoiceCommandsIn"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "challenge": {
+    "week": 369,
+    "task": 2,
+    "name": "Group Division"
+  },
+  "input_vars": [ "$str", "$size", "$filler" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": ["RakuPerl", 4, "*"],
+      "out": ["Raku", "Perl"]
+    },
+    {
+      "name": "Example 2",
+      "in": ["Python", 5, 0],
+      "out": ["Pytho", "n0000"]
+    },
+    {
+      "name": "Example 3",
+      "in": [12345, 3, "x"],
+      "out": [123, "45x"]
+    },
+    {
+      "name": "Example 4",
+      "in": ["HelloWorld", 3, "_"],
+      "out": ["Hel", "loW", "orl", "d__"]
+    },
+    {
+      "name": "Example 5",
+      "in": ["AI", 5, "!"],
+      "out": ["AI!!!"]
+    }
+  ]
+}

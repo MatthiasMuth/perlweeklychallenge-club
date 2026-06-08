@@ -1,0 +1,35 @@
+{
+  "challenge": {
+    "week": 368,
+    "task": 1,
+    "name": "Make it Bigger"
+  },
+  "input_vars": [ "$str", "$char" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": [15456, 5],
+      "out": [1546]
+    },
+    {
+      "name": "Example 2",
+      "in": [7332, 3],
+      "out": [732]
+    },
+    {
+      "name": "Example 3",
+      "in": [2231, 2],
+      "out": [231]
+    },
+    {
+      "name": "Example 4",
+      "in": [543251, 5],
+      "out": [54321]
+    },
+    {
+      "name": "Example 5",
+      "in": [1921, 1],
+      "out": [921]
+    }
+  ]
+}

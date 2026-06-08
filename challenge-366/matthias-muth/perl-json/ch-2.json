@@ -1,0 +1,35 @@
+{
+  "challenge": {
+    "week": 366,
+    "task": 2,
+    "name": "Valid Times"
+  },
+  "input_vars": [ "$time" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": ["?2:34"],
+      "out": [3]
+    },
+    {
+      "name": "Example 2",
+      "in": ["?4:?0"],
+      "out": [12]
+    },
+    {
+      "name": "Example 3",
+      "in": ["??:??"],
+      "out": [1440]
+    },
+    {
+      "name": "Example 4",
+      "in": ["?3:45"],
+      "out": [3]
+    },
+    {
+      "name": "Example 5",
+      "in": ["2?:15"],
+      "out": [4]
+    }
+  ]
+}

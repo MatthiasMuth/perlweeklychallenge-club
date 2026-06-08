@@ -1,0 +1,35 @@
+{
+  "challenge": {
+    "week": 372,
+    "task": 1,
+    "name": "Rearrange Spaces"
+  },
+  "input_vars": [ "$str" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": ["  challenge  "],
+      "out": ["challenge    "]
+    },
+    {
+      "name": "Example 2",
+      "in": ["coding  is  fun"],
+      "out": ["coding  is  fun"]
+    },
+    {
+      "name": "Example 3",
+      "in": ["a b c  d"],
+      "out": ["a b c d "]
+    },
+    {
+      "name": "Example 4",
+      "in": ["  team      pwc  "],
+      "out": ["team          pwc"]
+    },
+    {
+      "name": "Example 5",
+      "in": ["   the  weekly  challenge  "],
+      "out": ["the    weekly    challenge "]
+    }
+  ]
+}
