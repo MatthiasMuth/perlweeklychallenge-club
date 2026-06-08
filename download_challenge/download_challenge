@@ -360,7 +360,7 @@ sub process_challenge( $challenge ) {
             # With '-keep current' (or just '-keep', which implies an empty
             # string), it is taken from the existing file.
             my %current_implementation =
-                exists $options{KEEP}
+                defined $options{KEEP}
                 ? extract_implementation(
                     "$target_dir/perl/ch-$_.pl", $options{KEEP} )
                 : ();
@@ -632,7 +632,7 @@ sub extract_implementation( $file, $source ) {
     return ( code => $code, own_tests => \@own_tests );
 }
 
-use List::Util qw( all );
+use List::Util qw( any all );
 
 sub generate_code( $challenge, $task_text, $template, $tests ) {
     local $d_area = "gen_code";
@@ -753,7 +753,8 @@ sub generate_tests( $challenge, $task_text, $template, $tests ) {
                     dsay "    ", pp $_->@*;
                     all { $_->@* <= 1 } $_->@* }
                 ? ( ( all { ! ref $_->[0] } $_->@* ),
-                    ( all { $_->@* == 0 || ref $_->[0] eq "ARRAY" } $_->@* ) )
+                    ( ( all { $_->@* <= 1 } $_->@* )
+                        && ( any { ref $_->[0] eq "ARRAY" } $_->@* ) ) )
                 : ( 0, 0 ) }
             [ map $_->{INPUT},  @tests ],
             [ map $_->{OUTPUT}, @tests ];
@@ -764,14 +765,22 @@ sub generate_tests( $challenge, $task_text, $template, $tests ) {
 
     if ( $single_arrayref_input ) {
         dsay "turning single arrayref input parameter into array";
-        $_->{INPUT} = [ $_->{INPUT}->@* ? $_->{INPUT}[0]->@* : () ]
-            for @tests;
+        $_->{INPUT}->@* and do {
+            $_->{INPUT} = [
+                ref $_->{INPUT}[0] eq "ARRAY"
+                    ? $_->{INPUT}[0]->@*
+                    : $_->{INPUT}[0] ]
+        } for @tests;
     }
 
     if ( $single_arrayref_output ) {
         dsay "turning single arrayref output into array";
-        $_->{OUTPUT} = [ $_->{OUTPUT}->@* ? $_->{OUTPUT}[0]->@* : () ]
-            for @tests;
+        $_->{OUTPUT}->@* and do {
+            $_->{OUTPUT} = [
+                ref $_->{OUTPUT}[0] eq "ARRAY"
+                    ? $_->{OUTPUT}[0]->@*
+                    : $_->{OUTPUT}[0] ]
+        } for @tests;
     }
 
     my $test_data = join "\n", 
