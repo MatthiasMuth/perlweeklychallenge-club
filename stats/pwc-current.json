@@ -7,6 +7,16 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Abigail",
+            "name" : "Abigail"
+         },
+         {
+            "data" : [
+               [
                   "Raku",
                   2
                ],
@@ -37,6 +47,10 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Blog",
+                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -79,26 +93,18 @@
          {
             "data" : [
                [
-                  "Perl",
-                  2
-               ],
-               [
                   "Raku",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
-            "id" : "Jaldhar H. Vyas",
-            "name" : "Jaldhar H. Vyas"
+            "id" : "Feng Chang",
+            "name" : "Feng Chang"
          },
          {
             "data" : [
                [
                   "Perl",
-                  2
+                  1
                ],
                [
                   "Blog",
@@ -226,11 +232,11 @@
             "data" : [
                [
                   "Perl",
-                  2
+                  1
                ],
                [
                   "Blog",
-                  2
+                  1
                ]
             ],
             "id" : "Reinier Maliepaard",
@@ -264,7 +270,11 @@
             "data" : [
                [
                   "Perl",
-                  2
+                  1
+               ],
+               [
+                  "Raku",
+                  1
                ],
                [
                   "Blog",
@@ -310,7 +320,7 @@
                ],
                [
                   "Raku",
-                  2
+                  1
                ]
             ],
             "id" : "Ulrich Rieke",
@@ -359,6 +369,11 @@
          "colorByPoint" : 1,
          "data" : [
             {
+               "drilldown" : "Abigail",
+               "name" : "Abigail",
+               "y" : 2
+            },
+            {
                "drilldown" : "Arne Sommer",
                "name" : "Arne Sommer",
                "y" : 3
@@ -371,7 +386,7 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 2
+               "y" : 3
             },
             {
                "drilldown" : "David Ferrone",
@@ -389,14 +404,14 @@
                "y" : 2
             },
             {
-               "drilldown" : "Jaldhar H. Vyas",
-               "name" : "Jaldhar H. Vyas",
-               "y" : 5
+               "drilldown" : "Feng Chang",
+               "name" : "Feng Chang",
+               "y" : 2
             },
             {
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "Lubos Kolouch",
@@ -446,7 +461,7 @@
             {
                "drilldown" : "Reinier Maliepaard",
                "name" : "Reinier Maliepaard",
-               "y" : 4
+               "y" : 2
             },
             {
                "drilldown" : "Robbie Hatley",
@@ -476,7 +491,7 @@
             {
                "drilldown" : "Ulrich Rieke",
                "name" : "Ulrich Rieke",
-               "y" : 4
+               "y" : 3
             },
             {
                "drilldown" : "W. Luis Mochan",
@@ -489,14 +504,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 375"
+         "name" : "The Weekly Challenge - 376"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 26] Last updated at 2026-06-01 03:01:39 GMT"
+      "text" : "[Champions: 27] Last updated at 2026-06-07 21:36:45 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 375"
+      "text" : "The Weekly Challenge - 376"
    },
    "tooltip" : {
       "followPointer" : 1,
