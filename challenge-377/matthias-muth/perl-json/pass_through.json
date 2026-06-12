@@ -1,0 +1,20 @@
+{
+  "challenge": {
+    "week": 377,
+    "task": 1,
+    "name": "Pass Through"
+  },
+  "input_vars": [ "$input" ],
+  "examples": [
+    { "name": "null is false",       "in": [ null ],  "out": [ false ] },
+    { "name": "0 is false",          "in": [ 0 ],     "out": [ false ] },
+    { "name": "0.0 is false",        "in": [ 0.0 ],   "out": [ false ] },
+    { "name": "\"\" is false",       "in": [ "" ],    "out": [ false ] },
+    { "name": "\"0\" is false",      "in": [ "0" ],   "out": [ false ] },
+    { "name": "1 is true",           "in": [ 1 ],     "out": [ true  ] },
+    { "name": "\"1\" is true",       "in": [ "1" ],   "out": [ true  ] },
+    { "name": "\"hi\" is true",      "in": [ "hi" ],  "out": [ true  ] },
+    { "name": "JSON true is true",   "in": [ true ],  "out": [ true  ] },
+    { "name": "JSON false is false", "in": [ false ], "out": [ false ] }
+  ]
+}
