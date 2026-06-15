@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JSON example data for Perl Weekly Challenges</title>
+</head>
+<body>
+
+<h1>JSON example data for Perl Weekly Challenges</h1>
+
+<p>
+This site provides JSON example data for Perl Weekly Challenges.<br/>
+New challenges are usually added shortly after publication,
+which should make the data useful both for the current week's challenge
+and for exploring older tasks.
+</p><p>
+The site also includes Perl skeleton scripts for each challenge task.
+Each skeleton contains
+<ul><li>a subroutine stub,
+whose name and parameters are derived from the challenge task title
+and example data,
+<li>boilerplate code that reads the corresponding JSON file
+and runs tests for all published examples.<br/>
+(The boilerplate code is the same for all challenge tasks,
+no need for any adaptions.)<br/>
+</ul>
+</p><p>
+The idea is that you can start working on the solutions right away
+after downloading these files,
+and immediately test whether your solutions work for the published examples,
+just by running the Perl script.
+</p>
+
+<h3>Download or repository access:</h3>
+<p>
+Files can be downloaded directly, e.g.
+<pre><code><small>curl -O https://matthiasmuth.github.io/perlweeklychallenge-club/examples/challenge-378/ch-1.json
+curl -O https://matthiasmuth.github.io/perlweeklychallenge-club/examples/challenge-378/ch-1.pl
+curl -O https://matthiasmuth.github.io/perlweeklychallenge-club/examples/challenge-378/ch-2.json
+curl -O https://matthiasmuth.github.io/perlweeklychallenge-club/examples/challenge-378/ch-2.pl
+</small></code></pre>
+or, more simply if you use <code>bash</code> or a similar shell:
+<pre><code><small>curl --remote-name-all \
+    https://matthiasmuth.github.io/perlweeklychallenge-club/examples/challenge-378/ch-{1,2}.{json,pl}
+</small></code></pre>
+</p>
+<p>
+All files are also available in Git in the
+<a href="https://github.com/MatthiasMuth/perlweeklychallenge-club/tree/json-examples">
+    <code>json-examples</code></a>
+branch in my repository.
+
+<h3>Challenges currently available:</h3>
+<ul>
+  <li><a href="examples/challenge-378/">Challenge 378</a></li>
+  <li><a href="examples/challenge-377/">Challenge 377</a></li>
+</ul>
+
+<h3>More Challenges?</h3>
+<p>
+I will be happy to generate JSON example data for older challenges.<br/>
+If there is a particular challenge (or range of challenges)
+you would like to see, please let me know by
+<a href="https://github.com/MatthiasMuth/perlweeklychallenge-club/issues/new">
+opening an issue</a>
+in the repository.
+</p>
+
+</body>
+</html>
