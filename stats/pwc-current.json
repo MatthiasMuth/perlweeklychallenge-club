@@ -47,10 +47,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -93,18 +89,26 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ],
+               [
                   "Raku",
                   2
+               ],
+               [
+                  "Blog",
+                  1
                ]
             ],
-            "id" : "Feng Chang",
-            "name" : "Feng Chang"
+            "id" : "Jaldhar H. Vyas",
+            "name" : "Jaldhar H. Vyas"
          },
          {
             "data" : [
                [
                   "Perl",
-                  1
+                  2
                ],
                [
                   "Blog",
@@ -113,20 +117,6 @@
             ],
             "id" : "Jorg Sommrey",
             "name" : "Jorg Sommrey"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Lubos Kolouch",
-            "name" : "Lubos Kolouch"
          },
          {
             "data" : [
@@ -163,10 +153,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Matthias Muth",
@@ -232,29 +218,15 @@
             "data" : [
                [
                   "Perl",
-                  1
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Reinier Maliepaard",
-            "name" : "Reinier Maliepaard"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
                   2
                ],
                [
                   "Blog",
-                  1
+                  2
                ]
             ],
-            "id" : "Robbie Hatley",
-            "name" : "Robbie Hatley"
+            "id" : "Reinier Maliepaard",
+            "name" : "Reinier Maliepaard"
          },
          {
             "data" : [
@@ -270,11 +242,11 @@
             "data" : [
                [
                   "Perl",
-                  1
+                  2
                ],
                [
                   "Raku",
-                  1
+                  2
                ],
                [
                   "Blog",
@@ -320,7 +292,7 @@
                ],
                [
                   "Raku",
-                  1
+                  2
                ]
             ],
             "id" : "Ulrich Rieke",
@@ -386,7 +358,7 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "David Ferrone",
@@ -404,18 +376,13 @@
                "y" : 2
             },
             {
-               "drilldown" : "Feng Chang",
-               "name" : "Feng Chang",
-               "y" : 2
+               "drilldown" : "Jaldhar H. Vyas",
+               "name" : "Jaldhar H. Vyas",
+               "y" : 5
             },
             {
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Lubos Kolouch",
-               "name" : "Lubos Kolouch",
                "y" : 3
             },
             {
@@ -436,7 +403,7 @@
             {
                "drilldown" : "Matthias Muth",
                "name" : "Matthias Muth",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "Mohammad Sajid Anwar",
@@ -461,12 +428,7 @@
             {
                "drilldown" : "Reinier Maliepaard",
                "name" : "Reinier Maliepaard",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Robbie Hatley",
-               "name" : "Robbie Hatley",
-               "y" : 3
+               "y" : 4
             },
             {
                "drilldown" : "Robert Ransbottom",
@@ -476,7 +438,7 @@
             {
                "drilldown" : "Roger Bell_West",
                "name" : "Roger Bell_West",
-               "y" : 3
+               "y" : 5
             },
             {
                "drilldown" : "Simon Green",
@@ -491,7 +453,7 @@
             {
                "drilldown" : "Ulrich Rieke",
                "name" : "Ulrich Rieke",
-               "y" : 3
+               "y" : 4
             },
             {
                "drilldown" : "W. Luis Mochan",
@@ -504,14 +466,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 376"
+         "name" : "The Weekly Challenge - 377"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 27] Last updated at 2026-06-07 21:36:45 GMT"
+      "text" : "[Champions: 25] Last updated at 2026-06-15 00:54:42 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 376"
+      "text" : "The Weekly Challenge - 377"
    },
    "tooltip" : {
       "followPointer" : 1,
