@@ -3,27 +3,63 @@
 <head>
   <meta charset="utf-8">
   <title>Challenge 378 JSON example data</title>
+  <style>
+    pre.sample {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Challenge 329 JSON example data and Perl solution skeletons</h1>
+<h1>Challenge 378 JSON example data and Perl solution skeletons</h1>
 
-<ul>
+<blockquote>
   <table>
-    <tr><td><a href="ch-1.json"><code>ch-1.json</code></a></td>
-      <td>&nbsp;</td>
-      <td><a href="ch-1.json" download>(download)</a></td></tr>
-    <tr><td><a href="ch-1.pl"><code>ch-1.pl</code></a></td>
-      <td>&nbsp;</td>
+    <tr><td colspan="2"><a href="ch-1.json"><code>ch-1.json</code></a></td>
+      <td><a href="ch-1.json" download>(download)</a>
+          <a href="ch-1.json">(curl)</a></td></tr>
+    <tr><td style="width: 4em;"></td><td colspan="2"><pre class="sample">{
+  "challenge": {
+    "week": 378,
+    "task": 1,
+    "name": "Second Largest Digit"
+  },
+  "input_vars": [ "$str" ],
+  "examples": [
+    {
+      "name": "Example 1",
+      "in": ["aaaaa77777"],
+      "out": [-1]
+    },
+    [...]
+}</pre></td></tr>
+    <tr><td colspan="2"><a href="ch-1.pl"><code>ch-1.pl</code></a></td>
       <td><a href="ch-1.pl" download>(download)</a></td></tr>
-    <tr><td><a href="ch-2.json"><code>ch-2.json</code></a></td>
-      <td>&nbsp;</td>
+    <tr><td></td><td colspan="2"><pre class="sample">#!/usr/bin/env perl
+#
+#       The Weekly Challenge - Perl & Raku
+#       (https://theweeklychallenge.org)
+#       Challenge 378 Task 1: Second Largest Digit
+#
+
+use v5.36;
+
+sub second_largest_digit( $str ) {
+    my @results;
+    return @results;
+}
+
+# Read test data from the accompanying '.json' file and run the tests.
+# (Fixed boilerplate code, no changes needed.)
+[...]</pre></td></tr>
+    <tr><td colspan="2"><a href="ch-2.json"><code>ch-2.json</code></a></td>
       <td><a href="ch-2.json" download>(download)</a></td></tr>
-    <tr><td><a href="ch-2.pl"><code>ch-2.pl</code></a></td>
-      <td>&nbsp;</td>
+    <tr><td colspan="2"><a href="ch-2.pl"><code>ch-2.pl</code></a></td>
       <td><a href="ch-2.pl" download>(download)</a></td></tr>
   </table>
-</ul>
+</blockquote>
 
 <p><a href="../../">Back to challenge list</a></p>
 
