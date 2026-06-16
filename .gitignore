@@ -1,0 +1,11 @@
+.*.sw?
+**/run/
+~*
+NUL
+xx*
+yy*
+x?
+y?
+*.bak
+*~
+tmp/
