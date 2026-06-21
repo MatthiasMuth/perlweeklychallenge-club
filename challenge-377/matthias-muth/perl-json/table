@@ -1,0 +1,44 @@
+Comparison                builtin  boolean
+1, T                      ok       ok
+"1", T                    ok       ok
+"x", T                    ok       ok
+true, T                   ok       ok
+"true", T                 ok       ok
+0, F                      ok       ok
+"0", F                    ok       ok
+"", F                     ok       ok
+false, F                  ok       ok
+"false", F                not ok   not ok
+
+1, true                   ok       not ok
+"1", true                 ok       not ok
+"x", true                 not ok   not ok
+true, true                ok       ok
+"true", true              not ok   not ok
+0, false                  not ok   not ok
+"0", false                not ok   not ok
+"", false                 ok       not ok
+false, false              ok       ok
+"false", false            not ok   not ok
+
+1, JSON::PP::true         not ok   not ok
+"1", JSON::PP::true       not ok   not ok
+"x", JSON::PP::true       not ok   not ok
+true, JSON::PP::true      not ok   ok
+"true", JSON::PP::true    not ok   not ok
+0, JSON::PP::false        not ok   not ok
+"0", JSON::PP::false      not ok   not ok
+"", JSON::PP::false       not ok   not ok
+false, JSON::PP::false    not ok   ok
+"false", JSON::PP::false  not ok   not ok
+
+JSON::PP::true, 1         ok       ok
+JSON::PP::true, "1"       ok       ok
+JSON::PP::true, "x"       not ok   not ok
+JSON::PP::true, true      ok       ok
+JSON::PP::true,  "true"   not ok   not ok
+JSON::PP::false, 0        ok       ok
+JSON::PP::false, "0"      ok       ok
+JSON::PP::false, ""       not ok   not ok
+JSON::PP::false, false    not ok   ok
+JSON::PP::false, "false"  not ok   not ok

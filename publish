@@ -1,39 +1,81 @@
 #!/bin/bash
 
-[ $1 ] || { echo "Usage: $0 <challenge number>" >&2; exit 2; }
+# Option and argument processing
+while :; do
+    case "$1" in
+        [0-9]* )        challenge="$1";;
+        json|-json )    PUBLISH_JSON=1;;
+        * )             break;;
+    esac
+    shift
+done
 
-challenge="$1"
+if [ ! "$challenge" ]; then
+    last_challenge_dir="$( ls -d -r challenge-* | head -1 )"
+    challenge="${last_challenge_dir##*-}"
+fi
+
+# Change into the toplevel directory.
+toplevel="$( git rev-parse --show-toplevel )"
+cd "$toplevel"
 
 set -v
 
+# Stash if necessary.
 git update-index --refresh -q >/dev/null
 if ! git diff-index --quiet HEAD --; then
     git stash
     stashed=1
 fi
 
+# Update all important branches.
 set -e
+# Update dev
 git checkout dev
 git pull
 
+# Update master
 git checkout master
 git pull
 
 git fetch upstream
 git merge --ff-only upstream/master
 
-if git checkout muthm-$challenge; then
-    update=" - Update"
-else
-    git checkout -b muthm-$challenge
-    update=""
-fi
+branch="muthm"
+git switch "$branch" || git switch -c "$branch"
+git merge --no-edit master
 
 dir="challenge-$challenge/matthias-muth"
-git checkout dev -- "$dir"
 
-echo "Activating testing section prepared for publishing"
-perl -i~ -g -n -E '
+update=""
+if [ "$PUBLISH_JSON" ]; then
+    # Publish 'perl-json' directory.
+    [ "$( git ls-tree -d --name-only $branch -- $dir/perl-json )" ] \
+        && update=" - Update"
+
+    git checkout dev -- \
+        $( git ls-tree --name-only dev -- \
+            "$dir"/perl-json/ch-1.json \
+            "$dir"/perl-json/ch-1.pl \
+            "$dir"/perl-json/ch-2.json \
+            "$dir"/perl-json/ch-2.pl )
+
+    git commit -m "Challenge $challenge .json files and solution skeletons for Perl$update" \
+        || true
+else
+    # Publish solution.
+    [ "$( git ls-tree -d --name-only $branch -- $dir/perl )" ] \
+        && update=" - Update"
+
+    git checkout dev -- \
+        $( git ls-tree --name-only dev -- \
+            "$dir"/README.md \
+            "$dir"/blog.txt \
+            "$dir"/perl/ch-1.pl \
+            "$dir"/perl/ch-2.pl )
+
+    echo "Activating testing section prepared for publishing"
+    perl -i~ -g -n -E '
     /^# version for publishing/mi or do {
         warn "no '\''publishing'\'' template in '\''$ARGV'\''\n";
         print;
@@ -43,11 +85,14 @@ perl -i~ -g -n -E '
         <use Test2::V0 qw( -no_srand );\n>ms;
     s<^run.*?\n.*Version for publishing.*use Test2::V.*?\n><>msi;
     print
-' "$dir"/perl/ch-[12].pl
-git add -u
+    ' "$dir"/perl/ch-[12].pl
+    git add -- "$dir"/perl/ch-[12].pl
 
-git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth$update"
-git push --set-upstream origin muthm-$challenge
+    git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth$update" \
+        || true
+fi
+
+git push --set-upstream origin "$branch"
 
 git push --all
 git push --tags

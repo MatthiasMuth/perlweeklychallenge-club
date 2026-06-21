@@ -1,0 +1,189 @@
+# boolean
+ok 1 -  1, T 
+ok 2 - "1", T
+ok 3 - "x", T 
+ok 4 - true, T 
+ok 5 - "true", T 
+ok 6 - 0, F 
+ok 7 - "0", F 
+ok 8 - "", F 
+ok 9 - false, F 
+not ok 10 - "false", F 
+# Failed test '"false", F '
+# at ./all-tests.pl line 32.
+# +-------+---------+-------+-----+
+# | GOT   | OP      | CHECK | LNs |
+# +-------+---------+-------+-----+
+# | false | FALSE() | FALSE | 32  |
+# +-------+---------+-------+-----+
+not ok 11 -  1, true 
+# Failed test ' 1, true '
+# at ./all-tests.pl line 34.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 1   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 12 - "1", true
+# Failed test '"1", true'
+# at ./all-tests.pl line 35.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 1   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 13 - "x", true 
+# Failed test '"x", true '
+# at ./all-tests.pl line 36.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | x   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+ok 14 - true, true 
+not ok 15 - "true", true 
+# Failed test '"true", true '
+# at ./all-tests.pl line 38.
+# +------+--------+----------+
+# | GOT  | OP     | CHECK    |
+# +------+--------+----------+
+# | true | ${...} | <SCALAR> |
+# +------+--------+----------+
+not ok 16 - 0, false 
+# Failed test '0, false '
+# at ./all-tests.pl line 40.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 0   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 17 - "0", false 
+# Failed test '"0", false '
+# at ./all-tests.pl line 41.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 0   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 18 - "", false 
+# Failed test '"", false '
+# at ./all-tests.pl line 42.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# |     | ${...} | <SCALAR> |
+# +-----+--------+----------+
+ok 19 - false, false 
+not ok 20 - "false", false 
+# Failed test '"false", false '
+# at ./all-tests.pl line 44.
+# +-------+--------+----------+
+# | GOT   | OP     | CHECK    |
+# +-------+--------+----------+
+# | false | ${...} | <SCALAR> |
+# +-------+--------+----------+
+not ok 21 - 1, JSON::PP::true 
+# Failed test '1, JSON::PP::true '
+# at ./all-tests.pl line 46.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 1   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 22 - "1", JSON::PP::true 
+# Failed test '"1", JSON::PP::true '
+# at ./all-tests.pl line 47.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 1   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 23 - "x", JSON::PP::true 
+# Failed test '"x", JSON::PP::true '
+# at ./all-tests.pl line 48.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | x   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+ok 24 - true, JSON::PP::true 
+not ok 25 - "true", JSON::PP::true 
+# Failed test '"true", JSON::PP::true '
+# at ./all-tests.pl line 50.
+# +------+--------+----------+
+# | GOT  | OP     | CHECK    |
+# +------+--------+----------+
+# | true | ${...} | <SCALAR> |
+# +------+--------+----------+
+not ok 26 - 0, JSON::PP::false 
+# Failed test '0, JSON::PP::false '
+# at ./all-tests.pl line 52.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 0   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 27 - "0", JSON::PP::false 
+# Failed test '"0", JSON::PP::false '
+# at ./all-tests.pl line 53.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# | 0   | ${...} | <SCALAR> |
+# +-----+--------+----------+
+not ok 28 - "", JSON::PP::false 
+# Failed test '"", JSON::PP::false '
+# at ./all-tests.pl line 54.
+# +-----+--------+----------+
+# | GOT | OP     | CHECK    |
+# +-----+--------+----------+
+# |     | ${...} | <SCALAR> |
+# +-----+--------+----------+
+ok 29 - false, JSON::PP::false 
+not ok 30 - "false", JSON::PP::false 
+# Failed test '"false", JSON::PP::false '
+# at ./all-tests.pl line 56.
+# +-------+--------+----------+
+# | GOT   | OP     | CHECK    |
+# +-------+--------+----------+
+# | false | ${...} | <SCALAR> |
+# +-------+--------+----------+
+ok 31 - JSON::PP::true, 1
+ok 32 - JSON::PP::true, "1"
+not ok 33 - JSON::PP::true, "x"
+# Failed test 'JSON::PP::true, "x"'
+# at ./all-tests.pl line 60.
+# +-----+----+-------+
+# | GOT | OP | CHECK |
+# +-----+----+-------+
+# | 1   | eq | x     |
+# +-----+----+-------+
+ok 34 - JSON::PP::true, true
+not ok 35 - JSON::PP::true,  "true"
+# Failed test 'JSON::PP::true,  "true"'
+# at ./all-tests.pl line 62.
+# +-----+----+-------+
+# | GOT | OP | CHECK |
+# +-----+----+-------+
+# | 1   | eq | true  |
+# +-----+----+-------+
+ok 36 - JSON::PP::false, 0
+ok 37 - JSON::PP::false, "0"
+not ok 38 - JSON::PP::false, ""
+# Failed test 'JSON::PP::false, ""'
+# at ./all-tests.pl line 66.
+# +-----+----+-------+
+# | GOT | OP | CHECK |
+# +-----+----+-------+
+# | 0   | eq |       |
+# +-----+----+-------+
+ok 39 - JSON::PP::false, false
+not ok 40 - JSON::PP::false, "false"
+# Failed test 'JSON::PP::false, "false"'
+# at ./all-tests.pl line 68.
+# +-----+----+-------+
+# | GOT | OP | CHECK |
+# +-----+----+-------+
+# | 0   | eq | false |
+# +-----+----+-------+
+1..40

@@ -216,15 +216,25 @@ sub load_json_data() {
 sub run_json_tests( $sub_name ) {
     # Load the JSON module only when needed.
     require JSON::PP;
-    JSON::PP->import( 'decode_json' );
+    require File::Basename;
+    require File::Spec;
 
-    # Read the test data from the JSON file.
+    # Read the test data from the JSON file in the same dierectory as the
+    # running script itself, alternatively in ../perl-json.
     ( my $json_file = $0 ) =~ s/\.pl$/.json/;
-    $verbose and note "running tests read from $json_file";
+    unless ( -f $json_file ) {
+        my $try = File::Spec->canonpath(
+            File::Basename::dirname( $json_file )
+            . "/../perl-json/"
+            . File::Basename::basename( $json_file ) );
+        $json_file = $try
+            if -f $try;
+    }
     my $json_text = -f $json_file
         && do { local ( @ARGV, $/ ) = $json_file; <> }
-        or die "could not read test data from '$json_file\n";
-    my $json_data = decode_json( $json_text );
+        or die "could not read test data from '$json_file'\n";
+    my $json_data = JSON::PP::decode_json( $json_text );
+    $verbose and note "running tests read from $json_file";
 
     # Convert JSON true and false constants
     # as well as strings "true" and "false"
@@ -232,7 +242,7 @@ sub run_json_tests( $sub_name ) {
     for ( @{ $json_data->{examples} } ) {
         for ( @{ $_->{out} } ) {
             $_ = $1 ? T : $2 ? F : $_ ? T : F
-                if /^(t)rue$|^(f)alse$/i || ref eq "JSON::PP::Boolean";
+                if /^(t)rue$|^(f)alse$/i || JSON::PP::is_bool( $_ );
         }
     }
 

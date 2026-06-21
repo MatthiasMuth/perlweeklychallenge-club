@@ -10,13 +10,11 @@
 
 use v5.36;
 
-use List::Util qw( sum );
-
 sub chessboard_squares( $c1, $c2 ) {
     my $dist = 0;
-    $dist += ord( $_ )
+    $dist ^= ord( $_ )
         for split "", "$c1$c2";
-    return $dist % 2 == 0;
+    return ( $dist & 0x01 ) == 0;
 }
 
 use lib qw( . ../../../lib );
