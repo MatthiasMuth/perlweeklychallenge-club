@@ -18,6 +18,12 @@ sub reverse_existence( $str ) {
         map scalar reverse( $_ ), keys %substring_exists;
 }
 
+sub reverse_existence( $str, $length = 2 ) {
+    my $rev = reverse $str;
+
+    0 + ($str =~ /(?=(.{$length})).(?(?{index($rev, $1) < 0})(*FAIL))/);
+}
+
 use lib qw( . ../../../lib );
 use MultiTest;
 

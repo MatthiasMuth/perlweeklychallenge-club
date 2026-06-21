@@ -9,10 +9,11 @@
 #
 
 use v5.36;
+use List::Util qw( uniq );
 
 sub second_largest_digit( $str ) {
-    my @results;
-    return @results;
+    my @sorted_digits = sort { $b <=> $a } uniq $str =~ /\d/g;
+    return $sorted_digits[1] // -1;
 }
 
 # Read test data from the accompanying '.json' file and run the tests.
@@ -43,9 +44,26 @@ for ( @{ $json_data->{examples} } ) {
     }
 }
 
-# Run the tests, calling the subroutine by its generated name.
+use Scalar::Util qw( blessed );
+use Data::Dump qw( pp );
+
 ( my $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
-no strict 'refs';
-is [ "::$sub_name"->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+my @vars = @{ $json_data->{input_vars} };
+for ( @{ $json_data->{examples} } ) {
+    # Give the example text.
+    my @input = @{ $_->{in} };
+    my @output = @{ $_->{out} };
+    print "$_->{name}:\n";
+    print "    Input: ",
+        join( ", ",
+            map pp( $input[$_] ), 0..$#input ), "\n";
+    print "    Output: ",
+        join( ", ",
+            map ref $output[$_] ? lc $output[$_]->name() : pp( $output[$_] ),
+                0..$#output ), "\n";
+
+    # Run the test, calling the subroutine by its generated name.
+    no strict 'refs';
+    is [ "::$sub_name"->( @{ $_->{in} } ) ], $_->{out}, $_->{name};
+}
 done_testing;

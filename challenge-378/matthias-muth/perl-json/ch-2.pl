@@ -11,8 +11,10 @@
 use v5.36;
 
 sub sum_of_words( $str1, $str2, $str3 ) {
-    my @results;
-    return @results;
+    my @values =
+        map { join "", map ord( $_ ) - ord( "a" ), split "", $_ }
+            $str1, $str2, $str3;
+    return $values[0] + $values[1] == $values[2]
 }
 
 # Read test data from the accompanying '.json' file and run the tests.
@@ -43,9 +45,26 @@ for ( @{ $json_data->{examples} } ) {
     }
 }
 
-# Run the tests, calling the subroutine by its generated name.
+use Scalar::Util qw( blessed );
+use Data::Dump qw( pp );
+
 ( my $sub_name = lc $json_data->{challenge}{name} ) =~ s/[^_a-z]+/_/g;
-no strict 'refs';
-is [ "::$sub_name"->( @{ $_->{in} } ) ], $_->{out}, $_->{name}
-    for @{ $json_data->{examples} };
+my @vars = @{ $json_data->{input_vars} };
+for ( @{ $json_data->{examples} } ) {
+    # Give the example text.
+    my @input = @{ $_->{in} };
+    my @output = @{ $_->{out} };
+    print "$_->{name}:\n";
+    print "    Input: ",
+        join( ", ",
+            map pp( $input[$_] ), 0..$#input ), "\n";
+    print "    Output: ",
+        join( ", ",
+            map ref $output[$_] ? lc $output[$_]->name() : pp( $output[$_] ),
+                0..$#output ), "\n";
+
+    # Run the test, calling the subroutine by its generated name.
+    no strict 'refs';
+    is [ "::$sub_name"->( @{ $_->{in} } ) ], $_->{out}, $_->{name};
+}
 done_testing;
