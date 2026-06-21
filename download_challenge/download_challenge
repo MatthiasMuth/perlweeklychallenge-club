@@ -117,7 +117,7 @@ GetOptions(
     "new"        => sub { $options{FORCE} = 3 },
     "input|i:s"  => \$options{INPUT_FILE},
     "mail:s"     => sub { push $options{MAIL_TO}->@*, split /[,\s]\s*/, $_[1] },
-    "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
+    "nomail|no-mail" => sub { $options{MAIL_TO} = []; },	# Defined but empty.
     "keep:s"     => \$options{KEEP},
     "nogit"      => \$options{NO_GIT},
     "files!"     => \$options{WRITE_FILES},
@@ -220,9 +220,16 @@ sub process_challenge( $challenge ) {
         map {
             m'<title\b.*?>(.*?\d+)',
             m'<h1\b.*?>(.*?)</h1>'m,
-            m'^\s*(Published .*)$'m,
-            m'(<h2 id="TASK1">.*)\n+<p>.*?(Last date to submit.*?)</p>'s,
+            ( m'^\s*(Published .*)$'m )[0] // "(unknown)",
+            m'(<h2 id="TASK1">.*)\n+<p>.*?(Last date to submit.*?)</p>'s
         } $page_html;
+
+    # Try to extract the tasks from a pre-release gist if they couldn't be
+    # extracted in standard challenge page format.
+    ( $tasks, $deadline ) =
+        $page_html =~ m"(<h2\b[^>]*>\s*\QTask 1\E.*)\n+
+                <p\b[^>]*>.*?(\QLast date to submit\E.*?)</p>"xs
+        if ! $tasks;
 
     unless ( $challenge ) {
         ( $challenge ) = $title =~ /(\d+)/;
@@ -433,6 +440,7 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
     #  - the code files, not overwriting them if they already exist.
 
     my $archive_dir = "./challenge_htmls/$challenge";
+    my $json_dir = "../json-examples/examples/challenge-$challenge";
 
     my @file_operations =
         ( ! $options{UPDATE} || $archive_file || $options{FORCE} )
@@ -453,10 +461,8 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
                     $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ]
             } 1..2 ),
             ( map {
-                [ "$target_dir/perl-json/ch-$_.pl",
-                    $tasks[$_]{code_json} ],
-                [ "$target_dir/perl-json/ch-$_.json",
-                    $tasks[$_]{json} . "\n" ],
+                [ "$json_dir/ch-$_.pl",   $tasks[$_]{code_json} ],
+                [ "$json_dir/ch-$_.json", $tasks[$_]{json} . "\n" ],
             } 1..2 ),
         ) : ();
 
@@ -579,6 +585,12 @@ sub extract_challenge_text_from_html( $tasks_html ) {
     my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
     $tree->parse_content( $tasks_html )
         or error_exit "could not parse html data";
+
+    # Check whether this is a pre-release gist page.
+    dsay ":gist", $tasks_html;
+    $tasks_html =~ /<meta name=\"hostname\"/ and do {
+        vsay "this is a pre-release gist file";
+    };
 
     # Extract nodes containing the title and the date,
     # followed by two <br> to create empty lines,
