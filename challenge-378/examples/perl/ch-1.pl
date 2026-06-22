@@ -24,13 +24,26 @@ use Test2::V0 qw( -no_srand );
 # (Term::Table::Util::term_size comes with Test2::V0.)
 $ENV{TABLE_TERM_SIZE} //= Term::Table::Util::term_size() // 80;
 
-# Read the test data from the JSON file.
+# Look for the JSON file in the same directory as the script itself.
+# Assuming that the script is in 'challenge-NNN/<user>/perl', also
+# look in all peer directories (such as 'challenge-NNN/<user>/json-examples')
+# and in the standard place 'challenge-NNN/examples/json'
+# itself. Look in the ../* peer directories if the file is not found.
 use JSON::PP qw( decode_json );
 ( my $json_file = $0 ) =~ s/\.pl$/.json/;
-note "reading tests from $json_file";
-my $json_text = -f $json_file
-    && do { local ( @ARGV, $/ ) = $json_file; <> }
-    or die "could not read test data from $json_file\n";
+unless ( -f $json_file ) {
+    require File::Basename;
+    File::Basename->import();
+    require File::Spec::Functions;
+    File::Spec::Functions->import();
+    my @other_files = glob(
+        catfile( dirname( $json_file ), updir(), "*", basename( $json_file ) ) )
+        or die "did not find a '$json_file' test data file\n";
+    $json_file = $other_files[0];
+}
+my $json_text = do { local ( @ARGV, $/ ) = $json_file; <> }
+    or die "could not read test data from '$json_file'\n";
+note "using example test data from '$json_file'";
 my $json_data = decode_json( $json_text );
 
 # Convert any expected output strings "true" and "false"
@@ -53,11 +66,11 @@ for ( @{ $json_data->{examples} } ) {
     # Give the example text.
     my @input = @{ $_->{in} };
     my @output = @{ $_->{out} };
-    print "$_->{name}:\n";
-    print "    Input: ",
+    note "$_->{name}:\n";
+    note "    Input: ",
         join( ", ",
             map pp( $input[$_] ), 0..$#input ), "\n";
-    print "    Output: ",
+    note "    Output: ",
         join( ", ",
             map ref $output[$_] ? lc $output[$_]->name() : pp( $output[$_] ),
                 0..$#output ), "\n";
