@@ -9,9 +9,9 @@
 
 /.gitignore
 /challenge-*/matthias-muth/
+/challenge-*/examples/
 /index.html
 /README.md
-/examples/
 /download_challenge/
 /lib
 /publish
