@@ -17,6 +17,20 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Ali Moradi",
+            "name" : "Ali Moradi"
+         },
+         {
+            "data" : [
+               [
                   "Raku",
                   2
                ],
@@ -27,6 +41,16 @@
             ],
             "id" : "Arne Sommer",
             "name" : "Arne Sommer"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Asher Harvey-Smith",
+            "name" : "Asher Harvey-Smith"
          },
          {
             "data" : [
@@ -121,6 +145,20 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Lubos Kolouch",
+            "name" : "Lubos Kolouch"
+         },
+         {
+            "data" : [
+               [
                   "Raku",
                   2
                ]
@@ -162,11 +200,21 @@
             "data" : [
                [
                   "Perl",
-                  1
+                  2
+               ]
+            ],
+            "id" : "mauke",
+            "name" : "mauke"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
                ],
                [
                   "Raku",
-                  1
+                  2
                ]
             ],
             "id" : "Mohammad Sajid Anwar",
@@ -273,6 +321,16 @@
          {
             "data" : [
                [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Simon Proctor",
+            "name" : "Simon Proctor"
+         },
+         {
+            "data" : [
+               [
                   "Perl",
                   2
                ],
@@ -346,9 +404,19 @@
                "y" : 2
             },
             {
+               "drilldown" : "Ali Moradi",
+               "name" : "Ali Moradi",
+               "y" : 3
+            },
+            {
                "drilldown" : "Arne Sommer",
                "name" : "Arne Sommer",
                "y" : 3
+            },
+            {
+               "drilldown" : "Asher Harvey-Smith",
+               "name" : "Asher Harvey-Smith",
+               "y" : 2
             },
             {
                "drilldown" : "Athanasius",
@@ -386,6 +454,11 @@
                "y" : 3
             },
             {
+               "drilldown" : "Lubos Kolouch",
+               "name" : "Lubos Kolouch",
+               "y" : 3
+            },
+            {
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
                "y" : 2
@@ -406,9 +479,14 @@
                "y" : 2
             },
             {
+               "drilldown" : "mauke",
+               "name" : "mauke",
+               "y" : 2
+            },
+            {
                "drilldown" : "Mohammad Sajid Anwar",
                "name" : "Mohammad Sajid Anwar",
-               "y" : 2
+               "y" : 4
             },
             {
                "drilldown" : "Packy Anderson",
@@ -446,6 +524,11 @@
                "y" : 3
             },
             {
+               "drilldown" : "Simon Proctor",
+               "name" : "Simon Proctor",
+               "y" : 2
+            },
+            {
                "drilldown" : "Thomas Kohler",
                "name" : "Thomas Kohler",
                "y" : 4
@@ -466,14 +549,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 377"
+         "name" : "The Weekly Challenge - 378"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 25] Last updated at 2026-06-15 00:54:42 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-06-22 06:08:41 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 377"
+      "text" : "The Weekly Challenge - 378"
    },
    "tooltip" : {
       "followPointer" : 1,
