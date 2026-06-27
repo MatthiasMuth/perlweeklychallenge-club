@@ -1,0 +1,40 @@
+#!/usr/bin/env perl
+#
+#       The Weekly Challenge - Perl & Raku
+#       (https://theweeklychallenge.org)
+#
+#       Challenge 379 Task 1: Reverse String
+#
+#       Perl solution by Matthias Muth.
+#
+
+use v5.36;
+
+sub reverse_string( $str ) {
+    my $reversed = "";
+    $reversed .= substr( $str, -1, 1, "" )
+        while length $str > 0;
+    return $reversed
+}
+
+use lib qw( . ../../../lib );
+use MultiTest;
+
+my @tests = (
+    [ "Example 1", "", "" ],
+    [ "Example 2", "reverse the given string", "gnirts nevig eht esrever" ],
+    [ "Example 3", "Perl is Awesome", "emosewA si lreP" ],
+    [ "Example 4", "v1.0.0-Beta!", "!ateB-0.0.1v" ],
+    [ "Example 5", "racecar", "racecar" ],
+);
+
+run( "reverse_string", \@tests );
+
+__END__
+
+# Version for publishing:
+
+use Test2::V0 qw( -no_srand );
+is reverse_string( $_->[1] ), $_->[2], $_->[0]
+    for @tests;
+done_testing;
