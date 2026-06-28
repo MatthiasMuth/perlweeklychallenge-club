@@ -10,11 +10,39 @@
 
 use v5.36;
 
-sub reverse_string( $str ) {
+sub reverse_string_destructive( $str ) {
     my $reversed = "";
     $reversed .= substr( $str, -1, 1, "" )
         while length $str > 0;
-    return $reversed
+    return $reversed;
+}
+
+sub reverse_string_non_d( $str ) {
+    my $reversed = "";
+    $reversed .= substr( $str, length( $str ) - $_, 1 )
+        for 1 .. length( $str );
+    return $reversed;
+}
+
+sub reverse_string_non_d_minus( $str ) {
+    my $reversed = "";
+    $reversed .= substr( $str, -$_, 1 )
+        for 1 .. length( $str );
+    return $reversed;
+}
+
+sub reverse_string_prepend( $str ) {
+    my $reversed = "";
+    $reversed = $_ . $reversed
+        for split "", $str;
+    return $reversed;
+}
+
+sub reverse_string_substr( $str ) {
+    my $reversed = "";
+    substr( $reversed, 0, 0, $_ )
+        for split "", $str;
+    return $reversed;
 }
 
 use lib qw( . ../../../lib );
@@ -28,7 +56,9 @@ my @tests = (
     [ "Example 5", "racecar", "racecar" ],
 );
 
-run( "reverse_string", \@tests );
+my @benchmark_data = ( $tests[1][2] );
+
+run( "reverse_string", \@tests, \@benchmark_data );
 
 __END__
 

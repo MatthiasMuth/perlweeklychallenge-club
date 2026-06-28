@@ -11,7 +11,6 @@
 use v5.36;
 
 use List::Util qw( sum );
-
 use Math::Prime::Util qw( todigits );
 
 sub armstrong_number_math_prime_util( $base, $limit ) {
@@ -31,7 +30,8 @@ sub armstrong_number_increment( $base, $limit ) {
         push @results, $n
             if sum( @powers ) == $n;
 
-        # Increment digits and powers.
+        # Increment digits and powers,
+        # starting with the least significant digit.
         my $pos = 0;
         while ( ++$digits[$pos] == $base ) {
             $digits[$pos] = $powers[$pos] = 0;
@@ -51,7 +51,7 @@ my @tests = (
     [ "Example 3", [16, 1000], [0 .. 15, 342, 371, 520, 584, 645] ],
 );
 
-my @benchmark_data = ( 16, 1000 );
+my @benchmark_data = ( 2, 1000 );
 
 run( "armstrong_number", \@tests, \@benchmark_data );
 
