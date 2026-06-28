@@ -36,34 +36,41 @@ git pull
 
 # Update master
 git checkout master
-git pull
-
-git fetch upstream
-git merge --ff-only upstream/master
-
-branch="muthm"
-git switch "$branch" || git switch -c "$branch"
-git merge --no-edit master
-
-dir="challenge-$challenge/matthias-muth"
+git pull --ff-only
 
 update=""
 if [ "$PUBLISH_JSON" ]; then
-    # Publish 'perl-json' directory.
-    [ "$( git ls-tree -d --name-only $branch -- $dir/perl-json )" ] \
+    # Publish 'perl-json' directory to 'json-examples' branch.
+    branch="json-examples"
+    git switch "$branch" || git switch -c --orphan "$branch"
+
+    source_dir="challenge-$challenge/matthias-muth/perl-json"
+    target_dir="examples/challenge-$challenge"
+    [ "$( git ls-tree -d --name-only HEAD -- "$source_dir" )" ] \
         && update=" - Update"
 
-    git checkout dev -- \
-        $( git ls-tree --name-only dev -- \
-            "$dir"/perl-json/ch-1.json \
-            "$dir"/perl-json/ch-1.pl \
-            "$dir"/perl-json/ch-2.json \
-            "$dir"/perl-json/ch-2.pl )
+    mkdir -p "$target_dir"
+    git ls-tree --name-only dev -- \
+        "$source_dir"/ch-1.json \
+        "$source_dir"/ch-1.pl \
+        "$source_dir"/ch-2.json \
+        "$source_dir"/ch-2.pl \
+        | while read source_file; do
+            target_file="$target_dir/${source_file##*/}"
+            git show dev:"$source_file" > "$target_file"
+        done
 
-    git commit -m "Challenge $challenge .json files and solution skeletons for Perl$update" \
+    msg="Challenge $challenge .json example data and Perl solution skeletons"
+    git add "$target_dir"
+    git commit -m "$msg$update" \
         || true
 else
     # Publish solution.
+    branch="muthm"
+    git switch "$branch" || git switch -c "$branch"
+    git merge --no-edit master
+
+    dir="challenge-$challenge/matthias-muth"
     [ "$( git ls-tree -d --name-only $branch -- $dir/perl )" ] \
         && update=" - Update"
 
@@ -88,7 +95,8 @@ else
     ' "$dir"/perl/ch-[12].pl
     git add -- "$dir"/perl/ch-[12].pl
 
-    git commit -m "Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth$update" \
+    msg="Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth"
+    git commit -m "$msg$update" \
         || true
 fi
 
