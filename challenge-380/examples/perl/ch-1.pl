@@ -23,8 +23,8 @@ use Test2::V0 qw( -no_srand );
 # (Term::Table::Util::term_size comes with Test2::V0.)
 $ENV{TABLE_TERM_SIZE} //= Term::Table::Util::term_size() // 80;
 
-# Look for the JSON file in the same directory as the script itself.
-# Look in all ../* directories if it doesn't exist there.
+# Look for the JSON file in the same directory as the script itself,
+# or in all sibling directories (<dir>/../*) if necessary.
 use JSON::PP qw( decode_json );
 ( my $json_file = $0 ) =~ s/\.pl$/.json/;
 unless ( -f $json_file ) {
@@ -35,9 +35,11 @@ unless ( -f $json_file ) {
         or die "did not find a '$json_file' test data file\n";
     $json_file = $other_files[0];
 }
+
+# Read the JSON file.
 my $json_text = do { local ( @ARGV, $/ ) = $json_file; <> }
     or die "could not read test data from '$json_file'\n";
-note "using example test data from '$json_file'";
+note "using test data from '$json_file'";
 my $json_data = decode_json( $json_text );
 
 # Convert any expected output strings "true" and "false"
