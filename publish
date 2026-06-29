@@ -40,13 +40,15 @@ git pull --ff-only
 
 update=""
 if [ "$PUBLISH_JSON" ]; then
-    # Publish 'perl-json' directory to 'json-examples' branch.
+    # Publish 'challenge-NNN/examples' directory to 'json-examples' branch.
     branch="json-examples"
     git switch "$branch" || git switch -c --orphan "$branch"
 
-    source_dir="challenge-$challenge/matthias-muth/perl-json"
-    target_dir="examples/challenge-$challenge"
-    [ "$( git ls-tree -d --name-only HEAD -- "$source_dir" )" ] \
+    source_dir="challenge-$challenge/examples/json"
+    target_dir="challenge-$challenge/examples/json"
+    # Check whether any files in the target directory are under Git control
+    # already. If so, it is an 'update'.
+    [ "$( git ls-tree -d --name-only HEAD -- "$target_dir" )" ] \
         && update=" - Update"
 
     mkdir -p "$target_dir"
