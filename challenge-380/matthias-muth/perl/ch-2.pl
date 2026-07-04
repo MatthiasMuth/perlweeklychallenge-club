@@ -13,9 +13,11 @@ use v5.36;
 use List::Util qw( sum );
 
 sub reverse_degree( $str ) {
+    my $position = 1;
     return sum(
-        map $_ * ( ord( "z" ) + 1 - ord( substr( $str, $_ - 1, 1 ) ) ),
-            1..length( $str ) );
+        map $position++ * ( ord( "z" ) + 1 - ord( $_ ) ),
+            split //, $str
+    );
 }
 
 use lib qw( . ../../../lib );

@@ -1,9 +1,11 @@
-# Challenge 380 tasks: Sum of Frequencies - Reverse Degree
+# Watch Your Zeros, and Don’t Get Off by One!
+
 **Challenge 380 solutions in Perl by Matthias Muth**
 
 ## Task 1: Sum of Frequencies
 
->
+> You are given a string consisting of English letters.<br/>
+> Write a script to find the vowel and consonant with maximum frequency. Return the sum of two frequencies.
 >
 > **Example 1**
 >
@@ -70,18 +72,47 @@
 > Max frequency of consonant: 1
 > ```
 
+For the result,
+we need to count the vowels and the consonants, separately,
+and we need to do so for each vowel separately, and for each consonant separately.
 
-Lorem ipsum dolor sit amet...
+I usually let `frequency` from `List::MoreUtils`
+do the work of counting,
+but in this case I found it easier to increment the counts
+directly within the loop that selects the single characters,
+like this:
+```
+    my ( %vowel_freqs, %other_freqs );
+    /^[aeiou]/ ? ++$vowel_freqs{$_} : ++$other_freqs{$_}
+        for fc( $str ) =~ /[a-z]/g;
+```
+The `for` loop (or '`for` statement modifier', actually)
+delivers single letters from the string, ignoring anything else, like whitespace or punctuation for example.
+Even if the task description promises that we have a string of English letters only, I consider it good style to write code that is a bit forgiving.
+
+But it does one more thing: it folds the letters to their lowercase representation, using `fc` (*fold case*). See [perldoc](https://perldoc.perl.org/functions/fc) for an explanation why `lc` (*lowercase*) may not be correct in some cases. Again, we don't expect any mixed case input strings, but who knows...
+
+We now have two hashes of frequencies. For the result to be returned, we need to add the maximum value of each of them. In case we don't have any vowels, or any consonants, there will not be a maximum. Instead of checking the result for `undef` by using a `//` *defined-or* operator, I simply add a zero to the list of values passed to `max`, which solves that problem more easily.
+
+So here is my solution for this task:
 
 ```perl
-sub sum_of_frequencies() {
-    ...;
+use v5.36;
+use List::Util qw( max );
+
+sub sum_of_frequencies( $str ) {
+    my ( %vowel_freqs, %other_freqs );
+    /^[aeiou]/ ? ++$vowel_freqs{$_} : ++$other_freqs{$_}
+        for fc( $str ) =~ /[a-z]/g;
+    return max( 0, values %vowel_freqs ) + max( 0, values %other_freqs );
 }
 ```
 
 ## Task 2: Reverse Degree
 
->
+> You are given a string.<br/>
+> Write a script to find the reverse degree of the given string.<br/>
+> For each character, multiply its position in the reversed alphabet (‘a’ = 26, ‘b’ = 25, …, ‘z’ = 1) with its position in the string. Sum these products for all characters in the string to get the reverse degree.
 >
 > **Example 1**
 >
@@ -148,13 +179,29 @@ sub sum_of_frequencies() {
 > Sum of product: 1 + 4 + 9
 > ```
 
+We need to have a loop over the characters. At the same time we need the 'position' of each character, for computing the product which we add to the sum. Typical Perl loops are zero-based, but the 'position' is one based.
 
-Lorem ipsum dolor sit amet...
+If we loop over the (zero-based) character indexes in the string, we always need to add `1` to get the (one-based) 'position' for calculating that product.
+
+If we loop over the (one-based) 'position', we always need to always need to *subtract* `1` to get the (zero-based) character index.
+
+Both ways are not nice, because mixing zero- and one-based indexing in the same loop can be confusing.
+
+But there is a third way: we completely eliminate all zero-based processing, by looping not over the character index, but over the characters themselves. This comes at the cost of using a separate variable for the (one-based) 'position'. But actually it makes the code so much simpler that I prefer this construction over the two above:
 
 ```perl
-sub reverse_degree() {
-    ...;
+use v5.36;
+use List::Util qw( sum );
+
+sub reverse_degree( $str ) {
+    my $position = 1;
+    return sum(
+        map $position++ * ( ord( "z" ) + 1 - ord( $_ ) ),
+            split //, $str
+    );
 }
 ```
+
+Of course we have one more 'off-by-one' situation: The 'position in the reversed alphabet' (as opposed to the 'position in the string'). We have to add one to the character value (`ord`) of the letter `'z'` before we subtract the current character's character value to get the correct position. But I guess that is clear enough.
 
 #### **Thank you for the challenge!**

@@ -16,7 +16,7 @@ sub sum_of_frequencies( $str ) {
     my ( %vowel_freqs, %other_freqs );
     /^[aeiou]/ ? ++$vowel_freqs{$_} : ++$other_freqs{$_}
         for fc( $str ) =~ /[a-z]/g;
-    return max( values %vowel_freqs, 0 ) + max( values %other_freqs, 0 );
+    return max( 0, values %vowel_freqs ) + max( 0, values %other_freqs );
 }
 
 use lib qw( . ../../../lib );
