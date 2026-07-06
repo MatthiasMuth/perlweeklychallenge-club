@@ -17,6 +17,20 @@
          {
             "data" : [
                [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Ali Moradi",
+            "name" : "Ali Moradi"
+         },
+         {
+            "data" : [
+               [
                   "Raku",
                   2
                ],
@@ -127,6 +141,16 @@
             ],
             "id" : "Jorg Sommrey",
             "name" : "Jorg Sommrey"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ]
+            ],
+            "id" : "Kjetil Skotheim",
+            "name" : "Kjetil Skotheim"
          },
          {
             "data" : [
@@ -356,6 +380,11 @@
                "y" : 2
             },
             {
+               "drilldown" : "Ali Moradi",
+               "name" : "Ali Moradi",
+               "y" : 3
+            },
+            {
                "drilldown" : "Arne Sommer",
                "name" : "Arne Sommer",
                "y" : 3
@@ -399,6 +428,11 @@
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
                "y" : 3
+            },
+            {
+               "drilldown" : "Kjetil Skotheim",
+               "name" : "Kjetil Skotheim",
+               "y" : 2
             },
             {
                "drilldown" : "Mark Anderson",
@@ -485,7 +519,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 26] Last updated at 2026-06-24 02:06:36 GMT"
+      "text" : "[Champions: 28] Last updated at 2026-07-06 00:29:31 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge - 377"
