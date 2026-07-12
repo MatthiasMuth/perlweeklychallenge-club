@@ -11,8 +11,16 @@
 use v5.36;
 
 sub smaller_greater_element( @int ) {
-    my @results;
-    return @results;
+    my ( $min, $max, %freq ) = ( $int[0], $int[0] );
+    for ( @int ) {
+        $max >= $_ or $max = $_;
+        $min <= $_ or $min = $_;
+        ++$freq{$_};
+    }
+    return
+        scalar %freq <= 2
+        ? 0
+        : @int - $freq{$min} - $freq{$max};
 }
 
 use lib qw( . ../../../lib );

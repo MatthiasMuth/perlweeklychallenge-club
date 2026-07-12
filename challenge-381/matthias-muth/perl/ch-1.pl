@@ -14,14 +14,13 @@ no warnings 'experimental::builtin';
 
 sub same_row_column( $matrix ) {
     my $n = scalar $matrix->@*;
-    my @column_presences;
+    my ( @row_presences, @column_presences );
     for my $r ( keys $matrix->@* ) {
-        my @row_presences;
         for my $c ( keys $matrix->[$r]->@* ) {
             my $value = $matrix->[$r][$c];
             return false
                 unless 0 < $value <= $n
-                    && ! $row_presences[$value]++
+                    && ! $row_presences[$r][$value]++
                     && ! $column_presences[$c][$value]++
         }
     }
