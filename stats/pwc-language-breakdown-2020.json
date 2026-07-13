@@ -898,7 +898,7 @@
                ],
                [
                   "Blog",
-                  11
+                  12
                ]
             ],
             "id" : "044",
@@ -916,7 +916,7 @@
                ],
                [
                   "Blog",
-                  11
+                  12
                ]
             ],
             "id" : "043",
@@ -1206,12 +1206,12 @@
             {
                "drilldown" : "044",
                "name" : "044",
-               "y" : 90
+               "y" : 91
             },
             {
                "drilldown" : "043",
                "name" : "043",
-               "y" : 72
+               "y" : 73
             },
             {
                "drilldown" : "042",
@@ -1223,7 +1223,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-07-08 21:49:03 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-07-12 23:20:14 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"

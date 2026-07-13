@@ -19,19 +19,19 @@ my @matrices = (
         [ 1 ]
     ],
     [
-        [1, 2, 5],
-        [5, 1, 2],
-        [2, 5, 1]
+        [ 1, 2, 5 ],
+        [ 5, 1, 2 ],
+        [ 2, 5, 1 ]
     ],
     [
-        [1, 2, 3],
-        [1, 2, 3],
-        [1, 2, 3]
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ]
     ],
     [
-        [1, 2, 3],
-        [3, 1, 2],
-        [3, 2, 1]
+        [ 1, 2, 3 ],
+        [ 3, 1, 2 ],
+        [ 3, 2, 1 ]
     ]
 );
 
@@ -86,7 +86,7 @@ sub validate_matrix_sequences{
     # left-shifted by every value from 1 to n,
     # inclusive (e.g.  if n = 3, $bits_initial
     # will be 0x0E or 00001110b)
-    my $bits_initial = (2 ** ($#$matrix + 1) - 1) << 1;
+    my $bits_initial = (2 ** scalar(@{$matrix}) - 1) << 1;
     my $i;
     my $row_bits; 
     my $col_bits; 
@@ -111,7 +111,7 @@ sub validate_matrix_sequences{
         # If either the row or column bit values for
         # this value of $k is not 0x00, one of the
         # expected integer values was not seen, so we
-        # indicate the invalidation has failed
+        # indicate the validation has failed
         return(0)
             if($row_bits || $col_bits);
     }
