@@ -9,14 +9,64 @@
 #
 
 use v5.36;
+use builtin qw( true false );
+
+use Verbose;
+use Dsay;
+use Test2::V0 qw( -no_srand );
+
+my @is_square;
+
+sub descend_hamiltonian( $chain, $available ) {
+    state $i = Indent->new( width => 2 );
+    local $d_area = "descend";
+    %debug and dsay $i++,
+        "descend_hamiltonian( ", pp( $chain ), ", ", pp( $available ), " )";
+    my @solutions;
+    if ( $available->@* == 0 ) {
+        %debug and dsay $i--, "return ",
+            pp $is_square[ $chain->[-1] + $chain->[0] ] ? $chain : ();
+        return $is_square[ $chain->[-1] + $chain->[0] ] ? $chain : ();
+    }
+    for ( keys $available->@* ) {
+        if ( $is_square[ $chain->[-1] + $available->[$_] ] ) {
+            push @solutions,
+                descend_hamiltonian(
+                    [ $chain->@*, $available->[$_] ],
+                    [ $available->@[ 0 .. $_ - 1, $_ + 1 .. $available->$#* ] ]
+                );
+        }
+    }
+    %debug and dsay $i--, "return ", pp @solutions;
+    return @solutions;
+}
+
 
 sub hamiltonian_cycle( $n ) {
-    my @results;
-    return @results;
+    $is_square[ $_ * $_ ] = 1
+        for 1 .. $n + ( $n - 1 );
+    my ( $chain, $available ) = ( [ 1 ], [ 2..$n ] );
+    my @solutions = descend_hamiltonian( $chain, $available );
+    if ( $verbose ) {
+        note "found ", plural( scalar @solutions, "solution" ), ":";
+        note "$_->@*"
+            for @solutions;
+    }
+    return @solutions ? $solutions[0]->@* : ();
 }
 
 use lib qw( . ../../../lib );
 use MultiTest;
+
+sub chain_check( @chain ) {
+    return () unless @chain >= 2;
+    my $previous = $chain[-1];
+    for ( keys @chain ) {
+        return false unless $chain[$_] == $previous;
+        $previous = $chain[$_];
+    }
+    return true;
+}
 
 my @tests = (
     [ "Example 1",
@@ -56,44 +106,44 @@ my @tests = (
           15,
         ]
     ],
-    [ "Example 2", 15, [-1] ],
+    [ "Example 2", 15, [] ],
     [ "Example 3",
         34,
         [
           1,
           8,
-          17,
-          32,
-          4,
-          21,
           28,
-          11,
-          25,
-          24,
-          12,
-          13,
-          3,
+          21,
+          4,
+          32,
+          17,
+          19,
           6,
           30,
-          19,
-          14,
-          22,
-          27,
-          9,
-          16,
-          20,
-          29,
-          7,
-          18,
-          31,
-          5,
-          4,
           34,
           15,
           10,
           26,
           23,
           2,
+          14,
+          22,
+          27,
+          9,
+          16,
+          33,
+          31,
+          18,
+          7,
+          29,
+          20,
+          5,
+          11,
+          25,
+          24,
+          12,
+          13,
+          3,
         ]
     ],
 );
