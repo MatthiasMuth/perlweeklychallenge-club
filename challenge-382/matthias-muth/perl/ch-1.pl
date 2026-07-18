@@ -10,6 +10,7 @@
 
 use v5.36;
 use builtin qw( true false );
+no warnings 'experimental::builtin';
 
 use Verbose;
 use Dsay;
@@ -20,11 +21,11 @@ my @is_square;
 sub descend_hamiltonian( $chain, $available ) {
     state $i = Indent->new( width => 2 );
     local $d_area = "descend";
-    %debug and dsay $i++,
+    $debug{'DESCEND'} and dsay $i++,
         "descend_hamiltonian( ", pp( $chain ), ", ", pp( $available ), " )";
     my @solutions;
     if ( $available->@* == 0 ) {
-        %debug and dsay $i--, "return ",
+        $debug{'DESCEND'} and dsay $i--, "return ",
             pp $is_square[ $chain->[-1] + $chain->[0] ] ? $chain : ();
         return $is_square[ $chain->[-1] + $chain->[0] ] ? $chain : ();
     }
@@ -35,117 +36,65 @@ sub descend_hamiltonian( $chain, $available ) {
                     [ $chain->@*, $available->[$_] ],
                     [ $available->@[ 0 .. $_ - 1, $_ + 1 .. $available->$#* ] ]
                 );
+            # If we want to stop searching after we found
+            # the first solution, we return from here:
+            # return @solutions
+            #     if @solutions;
         }
     }
-    %debug and dsay $i--, "return ", pp @solutions;
+    $debug{'DESCEND'} and dsay $i--, "return ", pp @solutions;
     return @solutions;
 }
 
-
 sub hamiltonian_cycle( $n ) {
-    $is_square[ $_ * $_ ] = 1
-        for 1 .. $n + ( $n - 1 );
+    # Create a lookup table for all perfect squares up to the largest
+    # possible sum of two numbers i, j <= n.
+    # It is much faster to look up whether ( i + j ) is a square number than
+    # repeatedly computing the square root of ( i + j ) and checking
+    # whether it is an integer.
+
+    # It is much faster to look up whether ( i + j ) is a square number than
+    # actually computing the square root and checking whether it is an
+    # integer number.
+    for ( my $i = 1; ( my $square = $i * $i ) <= ( $n - 1 ) + $n; ++$i ) {
+        $is_square[ $square ] = 1;
+    }
+
+    # Start recursion with the first element as the chain, and all other
+    # numbers available for completing the chain.
+    # Use an array for the solutions, as there can be many of them.
     my ( $chain, $available ) = ( [ 1 ], [ 2..$n ] );
     my @solutions = descend_hamiltonian( $chain, $available );
+
     if ( $verbose ) {
-        note "found ", plural( scalar @solutions, "solution" ), ":";
-        note "$_->@*"
-            for @solutions;
+        note "found ", scalar( @solutions ), " solution",
+            scalar @solutions == 1 ? "" : "s";
+            # note "$_->@*"
+            # for @solutions;
     }
+    # Even if there can be multiple solutions, only return the first one. 
     return @solutions ? $solutions[0]->@* : ();
+}
+
+sub chain_check {
+    my $chain = $_;     # Per Test2::V0 convention, validator callbacks
+                        # receive the value to be checked in $_.
+    return false unless $chain->@*;
+    # Cheating for index 0 to compare with $chain->[-1], which miraculously
+    # is the end of the chain.
+    for ( keys $chain->@* ) {
+        return false unless $is_square[ $chain->[$_] + $chain->[ $_ - 1 ] ];
+    }
+    return true;
 }
 
 use lib qw( . ../../../lib );
 use MultiTest;
 
-sub chain_check( @chain ) {
-    return () unless @chain >= 2;
-    my $previous = $chain[-1];
-    for ( keys @chain ) {
-        return false unless $chain[$_] == $previous;
-        $previous = $chain[$_];
-    }
-    return true;
-}
-
 my @tests = (
-    [ "Example 1",
-        32,
-        [
-          1,
-          8,
-          28,
-          21,
-          4,
-          32,
-          17,
-          19,
-          30,
-          6,
-          3,
-          13,
-          12,
-          24,
-          25,
-          11,
-          5,
-          31,
-          18,
-          7,
-          29,
-          20,
-          16,
-          9,
-          27,
-          22,
-          14,
-          2,
-          23,
-          26,
-          10,
-          15,
-        ]
-    ],
+    [ "Example 1", 32, validator( \&chain_check ) ],
     [ "Example 2", 15, [] ],
-    [ "Example 3",
-        34,
-        [
-          1,
-          8,
-          28,
-          21,
-          4,
-          32,
-          17,
-          19,
-          6,
-          30,
-          34,
-          15,
-          10,
-          26,
-          23,
-          2,
-          14,
-          22,
-          27,
-          9,
-          16,
-          33,
-          31,
-          18,
-          7,
-          29,
-          20,
-          5,
-          11,
-          25,
-          24,
-          12,
-          13,
-          3,
-        ]
-    ],
+    [ "Example 3", 34, validator( \&chain_check ) ],
 );
 
 run( "hamiltonian_cycle", \@tests );

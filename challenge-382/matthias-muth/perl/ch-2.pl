@@ -11,8 +11,11 @@
 use v5.36;
 
 sub replace_question_mark( $str ) {
-    my @results;
-    return \@results;
+    return
+        $str =~ /\?/
+        ? ( replace_question_mark( $str =~ s//0/r ),
+            replace_question_mark( $str =~ s//1/r ) )
+        : ( $str );
 }
 
 use lib qw( . ../../../lib );
