@@ -12,21 +12,11 @@ use v5.36;
 use builtin qw( true false );
 no warnings 'experimental::builtin';
 
-use Verbose;
-use Dsay;
-use Test2::V0 qw( -no_srand );
-
 my @is_square;
 
 sub descend_hamiltonian( $chain, $available ) {
-    state $i = Indent->new( width => 2 );
-    local $d_area = "descend";
-    $debug{'DESCEND'} and dsay $i++,
-        "descend_hamiltonian( ", pp( $chain ), ", ", pp( $available ), " )";
     my @solutions;
     if ( $available->@* == 0 ) {
-        $debug{'DESCEND'} and dsay $i--, "return ",
-            pp $is_square[ $chain->[-1] + $chain->[0] ] ? $chain : ();
         return $is_square[ $chain->[-1] + $chain->[0] ] ? $chain : ();
     }
     for ( keys $available->@* ) {
@@ -42,7 +32,6 @@ sub descend_hamiltonian( $chain, $available ) {
             #     if @solutions;
         }
     }
-    $debug{'DESCEND'} and dsay $i--, "return ", pp @solutions;
     return @solutions;
 }
 
@@ -66,12 +55,6 @@ sub hamiltonian_cycle( $n ) {
     my ( $chain, $available ) = ( [ 1 ], [ 2..$n ] );
     my @solutions = descend_hamiltonian( $chain, $available );
 
-    if ( $verbose ) {
-        note "found ", scalar( @solutions ), " solution",
-            scalar @solutions == 1 ? "" : "s";
-            # note "$_->@*"
-            # for @solutions;
-    }
     # Even if there can be multiple solutions, only return the first one. 
     return @solutions ? $solutions[0]->@* : ();
 }
