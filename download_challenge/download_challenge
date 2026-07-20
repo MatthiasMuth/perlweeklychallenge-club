@@ -1,4 +1,41 @@
 #!/usr/bin/env perl
+
+=head1 NAME
+
+download_challenge - produce code skeletons for weekly challenges
+
+=head1 SYNOPSIS
+
+    download_challenge          # Download the latest challenge,
+                                # but only if it is new and has not
+                                # been downloaded before,
+                                # or if the webpage has been updated
+                                # since then.
+
+    download_challenge -f       # Download latest challenge
+                                # unconditionally, only writing out files
+                                # that do not exist yet.
+
+    download_challenge -F       # Download latest challenge
+                                # unconditionally,
+                                # overwiting existing files.
+
+    download_challenge 378      # Download challenge 378 unconditionally,
+                                # only writing out files that do not
+                                # exist yet (-f assumed automatically).
+
+    download_challenge -F 378   # Download challenge 378 unconditionally,
+                                # overwiting existing files.
+
+    download_challenge -gist    # Find early bird challenge gists that
+                                # are new or have changed since the
+                                # last check,
+                                # and produce JSON test data files and
+                                # Perl skeletons in the 'examples'
+                                # directory.
+
+=cut
+
 #
 #	download_challenge [<options>] [<challenge> ...]
 #		downloads the challenges given as parameters from the
@@ -76,7 +113,52 @@
 #	    -nomail | -nom
 #		Do not send any default emails.
 #
-
+#       Steps for downloading and creating JSON files from pre-release gists:
+#       - Determine whether there is a change in the gists.
+#       - If there is, download the gist list and check the status of
+#         the latest challenge pre-release.
+#       - If it has changed, process an update.
+#       - If it is new, process a new challenge pre-release gist.
+#		  * retrieve the task descriptions for the given challenges,
+#		  * write the task text files if they have changed,
+#		  * generate the code skeleton files if they do not yet exist.
+#		No mail is sent unless the -mail <recipient> option is
+#		given explicitly.
+#
+#	Options:	[WIP!]
+#	    -input <html file> | -i <html file>
+#	    	Read html from <html file> instead of retrieving it from the
+#	    	Weekly Challenge web site.
+#	    -nofiles | -nof
+#	        Do not write any output files.
+#	    -mail <recipient>
+#		Send mail (or mails) to <recipient>.
+#		The default list of recipients is not used if this option is
+#		given.
+#		This option can be used multiple times.
+#	    -nomail | -nom
+#		Do not send any default emails.
+#
+#       Steps for downloading and creating JSON files from pre-release gists:
+#       - Determine whether there is a change in the gists.
+#       - If there is, download the gist list and check the status of
+#         the latest challenge pre-release.
+#       - If it has changed, process an update.
+#       - If it is new, process a new challenge pre-release gist.
+#       Processing a pre-release gist for the first time or for an update:
+#       - Download using the same mechanisms as for the challenge page,
+#         just with the proper URL.
+#       - Extract html, then extract task text, then extract tests...
+#       - Write out the json and skeleton files
+#         (examples/json and examples/perl directories).
+#       - Commit them in dev and push.
+#       - Check out the files and add them in the muthm branch,
+#       - Commit and push the muthm branch.
+#       - Create a pull request in the manwar repo
+#         (via github API).
+#       - Send an email to interested recipients announcing the
+#         addition in github.com/MatthiasMuth.
+#         
 use v5.26;
 use strict;
 use warnings;
@@ -117,7 +199,7 @@ GetOptions(
     "new"        => sub { $options{FORCE} = 3 },
     "input|i:s"  => \$options{INPUT_FILE},
     "mail:s"     => sub { push $options{MAIL_TO}->@*, split /[,\s]\s*/, $_[1] },
-    "nomail"     => sub { $options{MAIL_TO} = []; },	# Defined but empty.
+    "nomail|no-mail" => sub { $options{MAIL_TO} = []; },	# Defined but empty.
     "keep:s"     => \$options{KEEP},
     "nogit"      => \$options{NO_GIT},
     "files!"     => \$options{WRITE_FILES},
@@ -209,7 +291,7 @@ sub process_challenge( $challenge ) {
         }
         : do {
             my ( $main_url, $challenge_path ) =
-                @$status{ qw( main-url current-challenge-path ) };
+                $status->@{ qw( main-page-url challenge-path ) };
             $challenge_path =~ s/\d+/$challenge/;
             vsay "downloading $main_url$challenge_path";
             get( $main_url . $challenge_path )
@@ -220,9 +302,17 @@ sub process_challenge( $challenge ) {
         map {
             m'<title\b.*?>(.*?\d+)',
             m'<h1\b.*?>(.*?)</h1>'m,
-            m'^\s*(Published .*)$'m,
-            m'(<h2 id="TASK1">.*)\n+<p>.*?(Last date to submit.*?)</p>'s,
+            ( m'^\s*(Published .*)$'m )[0] // "(unknown)",
+            m'(<h2 id="TASK1">.*)\n+<p>.*?(Last date to submit.*?)</p>'s
         } $page_html;
+
+    # Try to extract the tasks from a pre-release gist if they couldn't be
+    # extracted in standard challenge page format.
+    ( $tasks, $deadline ) =
+        $page_html =~ m"(<div\b[^>]*><h2\b[^>]*>\s*\QTask 1\E.*)\n+
+                <p\b[^>]*>.*?(\QLast date to submit\E.*?)</p>"xs
+        if ! $tasks;
+    dsay ":extract", "\$1 \$2:\n", pp( $1 ), "\n", pp( $2 );
 
     unless ( $challenge ) {
         ( $challenge ) = $title =~ /(\d+)/;
@@ -267,14 +357,14 @@ sub process_challenge( $challenge ) {
     my $archive_file = "";
     $archive_file =~ s/[-:]//g;
     if ( $options{UPDATE} ) {
-        $html_has_changed = $md5 ne $status->{'current-challenge-html-md5'};
+        $html_has_changed = $md5 ne $status->{'challenge-html-md5'};
         if ( $html_has_changed ) {
-            dsay "current md5: $status->{'current-challenge-html-md5'}";
+            dsay "current md5: $status->{'challenge-html-md5'}";
             prot "Task description html has changed (md5:$md5)"
-                unless ! $status->{'current-challenge-html-md5'};
-            set_toml( $status, 'current-challenge-html-md5', $md5 );
+                unless ! $status->{'challenge-html-md5'};
+            set_toml( $status, 'challenge-html-md5', $md5 );
             $archive_file = 
-                $status->{'current-challenge-last-modified'} . "_$md5"
+                $status->{'challenge-last-modified'} . "_$md5"
                     =~ s/[-:]//gr;
         }
         else {
@@ -308,7 +398,6 @@ sub process_challenge( $challenge ) {
         }
     }
 
-
     # Generate the text version of the challenge page.
     my $challenge_text = join "",
         "$page_title\n",
@@ -332,7 +421,7 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
     # to make sure that the repository was updated and the file checked out
     # first.
 
-    my $target_dir = "../challenge-$challenge/$status->{user}";
+    my $target_dir = "../challenge-$challenge/$status->{'user'}";
     my $readme_file = "$target_dir/README.md";
 
     my $dry_run_readme_msg = "";
@@ -433,6 +522,7 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
     #  - the code files, not overwriting them if they already exist.
 
     my $archive_dir = "./challenge_htmls/$challenge";
+    my $examples_dir = "../challenge-$challenge/examples";
 
     my @file_operations =
         ( ! $options{UPDATE} || $archive_file || $options{FORCE} )
@@ -453,10 +543,8 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
                     $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ]
             } 1..2 ),
             ( map {
-                [ "$target_dir/perl-json/ch-$_.pl",
-                    $tasks[$_]{code_json} ],
-                [ "$target_dir/perl-json/ch-$_.json",
-                    $tasks[$_]{json} . "\n" ],
+                [ "$examples_dir/json/ch-$_.json", $tasks[$_]{json} . "\n" ],
+                [ "$examples_dir/perl/ch-$_.pl",   $tasks[$_]{code_json} ],
             } 1..2 ),
         ) : ();
 
@@ -506,32 +594,35 @@ sub get_challenge_to_update {
     # or the new challenge number if it has changed.
     # Otherwise return nothing.
 
-    my ( $challenge ) = $status->{'current-challenge-path'} =~ /(\d+)/;
-
     # Step 1:
     # Determine the current challenge number:
     # - Check whether the main page was modified.
     # - Update to the current challenge number if it has.
     # - If no change was detected, use what we have cached in status.toml.
 
-    my $main_url = $status->{'main-url'};
-    my $challenge_path = $status->{'current-challenge-path'};
-    if ( page_was_modified( $main_url, 'main-last-modified' ) ) {
+    my $main_url = $status->{'main-page-url'};
+    my ( $challenge, $challenge_path ) =
+        $status->@{ qw( challenge-number challenge-path ) };
+    my $main_page_modified =
+        page_was_modified( $main_url, $status->{'main-page-last-modified'} );
+    if ( $main_page_modified ) {
+        set_toml( $status, 'main-page-last-modified', $main_page_modified );
         my $xpath_pattern  = '\/blog\/perl-weekly-challenge-\\d+';
         $challenge_path = retrieve_challenge_link( $main_url, $xpath_pattern );
         %debug and dsay "challenge path: ", pp( $challenge_path );
         error_exit "could not extract challenge url, cannot continue"
             unless $challenge_path;
 
-        if ( $challenge_path ne $status->{'current-challenge-path'}
+        if ( $challenge_path ne $status->{'challenge-path'}
 	    || $options{FORCE} >= 3 )
 	{
             ( $challenge ) = $challenge_path =~ /(\d+)$/;
             prot "New challenge $challenge detected."
                 unless $options{QUIET};
-            set_toml( $status, "current-challenge-path", $challenge_path );
-            set_toml( $status, "current-challenge-last-modified", "" );
-            set_toml( $status, "current-challenge-html-md5", "" );
+            set_toml( $status, "challenge-number", $challenge );
+            set_toml( $status, "challenge-path", $challenge_path );
+            set_toml( $status, "challenge-last-modified", "" );
+            set_toml( $status, "challenge-html-md5", "" );
         }
         else {
             vsay "challenge url has not changed";
@@ -542,16 +633,18 @@ sub get_challenge_to_update {
     }
 
     # Step 2:
-    # Check the challenge page modification time.
-    if ( page_was_modified(
-        $main_url . $challenge_path, 'current-challenge-last-modified' ) )
-    {
-        vsay "challenge page was modified",
-            $options{FORCE} ? " or reading is forced" : ();
-        return $challenge;
-    }
-    elsif ( $options{FORCE} ) {
-        vsay "challenge page was not modified, but reading is forced";
+    # Check whether the challenge page needs to be downloaded.
+    my $new_modified_timestamp =
+        page_was_modified(
+            $main_url . $challenge_path, $status->{'challenge-last-modified'} );
+    my $msg = 
+        ! $status->{'challenge-last-modified'}  ? "new challenge page" :
+        $options{FORCE}                         ? "download is forced" :
+        $new_modified_timestamp                 ? "challenge page was modified"
+                                                : "";
+    if ( $msg ) {
+        vsay $msg;
+        set_toml( $status, "challenge-last-modified", $new_modified_timestamp );
         return $challenge;
     }
     else {
@@ -560,18 +653,15 @@ sub get_challenge_to_update {
     }
 }
 
-sub page_was_modified( $url, $last_modified_field_name ) {
+sub page_was_modified( $url, $last_modified ) {
     my @header = head( $url );
     my $modified_time = time_string( $header[2] );
     vsay "checking $url";
-    vsay "    Last-Modified timestamp: ", pp( $modified_time );
-    vsay "    we have:                 ",
-        pp( $status->{$last_modified_field_name} ), ")";
-    return 0
-        if $status->{$last_modified_field_name}
-            && $modified_time eq $status->{$last_modified_field_name};
-    set_toml( $status, $last_modified_field_name, $modified_time );
-    return 1;
+    vsay "    we have:       ", pp( $last_modified );
+    vsay "    last-modified: ", pp( $modified_time );
+    return $modified_time eq ( $last_modified || 0 )
+        ? 0
+        : $modified_time;
 }
 
 sub extract_challenge_text_from_html( $tasks_html ) { 
@@ -579,6 +669,12 @@ sub extract_challenge_text_from_html( $tasks_html ) {
     my $tree = HTML::TreeBuilder::XPath->new( ignore_unknown => 0 );
     $tree->parse_content( $tasks_html )
         or error_exit "could not parse html data";
+
+    # Check whether this is a pre-release gist page.
+    dsay ":gist", $tasks_html;
+    $tasks_html =~ /class="markdown-heading"/ and do {
+        vsay "this is a pre-release gist file";
+    };
 
     # Extract nodes containing the title and the date,
     # followed by two <br> to create empty lines,
@@ -595,6 +691,16 @@ sub extract_challenge_text_from_html( $tasks_html ) {
     # Reduce multiple empty lines to one within <pre> text
     # (example descriptions).
     # Add an extra empty line after <h5> ('submitted by').
+    %debug and do {
+        local $d_area = "nodes";
+        dsay "nodes as tags:";
+        dsay "    $_->{_tag}"
+            for @nodes;
+        dsay "nodes as text:";
+        dsay "    $_->{_tag}: *************\n", pp $_->as_text
+            for @nodes;
+    };
+
     my $challenge_text = join "",
         map {
             ( $_->as_text =~ /^Example 1/ ? "\n" : "" )
@@ -713,6 +819,48 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
     return $code;
 }
 
+use Data::Dump::Filtered qw( dump_filtered );
+
+sub pp_quoted( $obj, $source //= "" ) {
+    local $d_area = "quoted";
+    %debug and dsay "pp_quoted( ", pp( $obj ), ", <$source> )";
+
+    # Shortcuts:
+    # If there is no string literal that contains a number, we can let
+    # pp do all the work.
+    unless ( $source =~ /"[+-]?\d+"|'[+-]?\d+'/ ) {
+        dsay "shortcut: no quoted number";
+        return pp $obj;
+    }
+
+    # Enumerate all literals, and tag them with their representation type.
+    my @quote_types;
+    while ( $source =~ /
+        (?<q>   ' ) (?: [^'\\]*+  | \\. )* '
+        | (?<q> " ) (?: [^"\\]*+  | \\. )* "
+        | (?<q>   ) [+-]?\d+(?:\.\d+)? /xg )
+    { 
+        push @quote_types, $+{q};
+    }
+    %debug and dsay "    quote types: ", pp @quote_types;
+
+    my $i = 0;
+    my $filter = sub ( $ctx, $obj ) {
+        if ( $ctx->is_scalar ) {
+            my $quote = $quote_types[ $i++ ];
+            %debug and dsay "    filter: <$$obj> quote <$quote>";
+            %debug and dsay "        returning $quote$$obj$quote";
+            return { dump => "$quote$$obj$quote" };
+        }
+        %debug and dsay "    unfiltered: $obj";
+        return undef;
+    };
+
+    my $result = dump_filtered( $obj, $filter );
+    %debug and dsay "pp_quoted returns '$result'";
+    return $result;
+}
+
 sub generate_tests( $challenge, $task_text, $template, $tests ) {
     local $d_area = "gen_tests";
     %debug and dsay
@@ -799,14 +947,18 @@ sub generate_tests( $challenge, $task_text, $template, $tests ) {
     my $test_data = join "\n", 
         "my \@tests = (",
         ( map {
+            dsay ":quoted", "test:";
+            dsay ":quoted", "    ", pp $_;
             my ( $name, $input, $expected ) = (
                 pp( $_->{TEST} ),
-                pp( $single_scalar_input ? $_->{INPUT}->[0] : $_->{INPUT} ),
+                pp_quoted(
+                    $single_scalar_input ? $_->{INPUT}->[0] : $_->{INPUT},
+                    $_->{INPUT_SOURCE} ),
                 $single_scalar_output
                 ? $_->{OUTPUT}[0] =~ /^(?:(t)rue|(f)alse)$/i
                     ? uc( $1 || $2 )
-                    : pp( $_->{OUTPUT}->[0] )
-                : pp( $_->{OUTPUT} )
+                    : pp_quoted( $_->{OUTPUT}->[0], $_->{OUTPUT_SOURCE} )
+                : pp_quoted( $_->{OUTPUT}, $_->{OUTPUT_SOURCE} )
             );
             my $line = "    [ $name, $input, $expected ],";
             my $input_output_indent = "        ";
@@ -831,10 +983,10 @@ sub generate_tests( $challenge, $task_text, $template, $tests ) {
             my $indent = $templates->{json}{indent};
             my ( $name, $input, $output ) = (
                 pp( $_->{TEST} ),
-                pp( $_->{INPUT} ),
+                pp_quoted( $_->{INPUT}, $_->{INPUT_SOURCE} ),
                 $single_scalar_output && $_->{OUTPUT}[0] =~ /^(?:true|false)$/i
                     ? "[ $_->{OUTPUT}->[0] ]"
-                    : pp( $_->{OUTPUT} )
+                    : pp_quoted( $_->{OUTPUT}, $_->{OUTPUT_SOURCE} )
             );
             for ( $input, $output ) {
                 s<(-?\d+)\s*\.\.\s*(-?\d+)>{ join ", ", $1 .. $2 }eg;

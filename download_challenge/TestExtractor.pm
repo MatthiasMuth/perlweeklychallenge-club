@@ -457,13 +457,16 @@ sub extract_tests( $task_text ) {
                 dsay ":assign", "  to: $data";
             }
 
+            my $eval_string =
+                ( $+{no_paren} || $+{par_list} ) ? "[ $data ]" : $data;
+            dsay "input eval ", pp( $eval_string );
             push @{$tests[-1]{VARIABLE_NAMES}}, $var_name;
-            push @{$tests[-1]{INPUT}},
-                eval( ( $+{no_paren} || $+{par_list} ) ? "[ $data ]" : $data );
+            $tests[-1]{INPUT_SOURCE} = $eval_string;
+            push @{$tests[-1]{INPUT}}, eval( $eval_string );
         };
 
         while ( $output =~ /^\s* ($data_re) $/xg ) {
-            local $d_area = "assign";
+            # local $d_area = "assign";
             local $_ = $1;
             %debug and do {
                 dsay "assigning output for $_";
@@ -483,13 +486,11 @@ sub extract_tests( $task_text ) {
                 s/\(/\[/g;
                 s/\)/\]/g;
                 dsay "          to $_";
-                dsay "eval ", pp( $+{no_paren} ? "( $_ )" : $_ ); 
-                push @{$tests[-1]{OUTPUT}},
-                    eval( $+{no_paren} ? "( $_ )" : $_ );
+                my $eval_string = $+{no_paren} ? "( $_ )" : $_;
+                dsay "output eval (list of lists) ", pp( $eval_string );
+                $tests[-1]{OUTPUT_SOURCE} = $eval_string;
+                push @{$tests[-1]{OUTPUT}}, eval( $eval_string );
                 next;
-                dsay "  to: $_";
-                dsay "now assigning output for $_";
-                dsay "now data_re found ", pp_hash %{^CAPTURE};
             }
 
             # Special case:  (1,2),(3,4),(5,6)
@@ -502,11 +503,12 @@ sub extract_tests( $task_text ) {
                 dsay "          to $_";
             }
 
-            %debug and dsay "eval ", pp( $+{no_paren} ? "( $_ )" : $_ ); 
-            push @{$tests[-1]{OUTPUT}},
-                eval( $+{no_paren} ? "( $_ )" : $_ )
-                unless $_ eq '[]';
-
+            my $eval_string = $+{no_paren} ? "( $_ )" : $_;
+            %debug and dsay "output eval ", pp( $eval_string );
+            unless ( $_ eq '[]' ) {
+                $tests[-1]{OUTPUT_SOURCE} = $eval_string;
+                push @{$tests[-1]{OUTPUT}}, eval( $eval_string );
+            }
         };
         %debug and dsay "test data after extraction:\n", pp $tests[-1]; 
     }
@@ -520,7 +522,9 @@ sub extract_tests( $task_text ) {
             push @tests, {
                 TEST => "Example " . ++$n_examples,
                 INPUT => [ split " ", $1 ],
+                INPUT_SOURCE => "[ $1 ]",
                 OUTPUT => [ $2 ],
+                OUTPUT_SOURCE => "[ $2 ]",
                 VARIABLE_NAMES => [ '@input' ],
             }
         }
