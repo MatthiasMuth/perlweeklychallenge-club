@@ -46,7 +46,6 @@ def validate_circle(n):
 
 
 def gen_all_circles(n):
-    # Precompute perfect squares up to 2 * n
     limit = int(math.sqrt(2 * n))
     squares = {i * i: 1 for i in range(1, limit + 1)}
 
@@ -76,8 +75,6 @@ def gen_all_circles(n):
     dfs()
     return all_solutions
 
-
-# --- UNIT TEST CASE ---
 class TestSquareSumCircle(unittest.TestCase):
     def test_square_sum_circles(self):
         examples = [
