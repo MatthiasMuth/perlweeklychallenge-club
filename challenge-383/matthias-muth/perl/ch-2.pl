@@ -11,8 +11,10 @@
 use v5.36;
 
 sub nearest_rgb( $color ) {
-    my @results;
-    return @results;
+    my @values = unpack "C3", pack "(H2)*", unpack "x(a2)*", $color;
+    $_ =  int( ( $_ + int( 51 / 2 ) ) / 51 ) * 51
+        for @values;
+    return sprintf "#%02X%02X%02X", @values;
 }
 
 use lib qw( . ../../../lib );

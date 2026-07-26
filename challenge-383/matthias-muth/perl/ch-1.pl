@@ -9,10 +9,25 @@
 #
 
 use v5.36;
+use builtin qw( true false );
+no warnings 'experimental::builtin';
+
+use List::Util qw( mesh );
 
 sub similar_list( $list1, $list2, $list3 ) {
-    my @results;
-    return @results;
+    # Build a thesaurus for similar words.
+    my %thesaurus = map {
+        my %similarity_class = map { ( $_ => 1 ) } $_->@*;
+        map { ( $_ => \%similarity_class ) } $_->@*;
+    } $list3->@*;
+
+    # Now check whether all words in the two lists are the same or similar.
+    for my ( $word1, $word2 ) ( mesh $list1, $list2 ) {
+        return false
+            unless $word1 eq $word2
+              || $thesaurus{ $word1 }{ $word2 };
+    }
+    return true;
 }
 
 use lib qw( . ../../../lib );
