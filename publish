@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+#       publish
+#       (worktree version)
+#
 
 # Option and argument processing
 while :; do
@@ -15,101 +19,111 @@ if [ ! "$challenge" ]; then
     challenge="${last_challenge_dir##*-}"
 fi
 
-# Change into the toplevel directory.
-toplevel="$( git rev-parse --show-toplevel )"
-cd "$toplevel"
+copy_files() {
+    local source_branch="$1" source_dir="$2" target_branch="$3"
+    shift 3
+    local files=("$@")
 
-set -v
+    if [ -z "$source_branch" ] || [ -z "$source_dir" ] \
+        || [ -z "$target_branch" ]
+    then
+        cat <<'EOF' >&2
+usage: copy_files <source_branch> <source_dir> <target_branch> [file ...]
+    <target_branch> must be a worktree of the same name at toplevel.
+    With no files given, all files in <source_dir> are copied.
+EOF
+        return 2
+    fi
 
-# Stash if necessary.
-git update-index --refresh -q >/dev/null
-if ! git diff-index --quiet HEAD --; then
-    git stash
-    stashed=1
-fi
-
-# Update all important branches.
-set -e
-# Update dev
-git checkout dev
-git pull
-
-# Update master
-git checkout master
-git pull --ff-only
-
-update=""
-if [ "$PUBLISH_JSON" ]; then
-    # Publish 'challenge-NNN/examples' directory to 'json-examples' branch.
-    branch="json-examples"
-    git switch "$branch" || git switch -c --orphan "$branch"
-
-    source_dir="challenge-$challenge/examples/json"
-    target_dir="challenge-$challenge/examples/json"
-    # Check whether any files in the target directory are under Git control
-    # already. If so, it is an 'update'.
-    [ "$( git ls-tree -d --name-only HEAD -- "$target_dir" )" ] \
-        && update=" - Update"
-
-    mkdir -p "$target_dir"
-    git ls-tree --name-only dev -- \
-        "$source_dir"/ch-1.json \
-        "$source_dir"/ch-1.pl \
-        "$source_dir"/ch-2.json \
-        "$source_dir"/ch-2.pl \
-        | while read source_file; do
-            target_file="$target_dir/${source_file##*/}"
-            git show dev:"$source_file" > "$target_file"
+    local pathspecs=()
+    if [ "${#files[@]}" -eq 0 ]; then
+        pathspecs=("$source_dir")
+    else
+        local f
+        for f in "${files[@]}"; do
+            pathspecs+=("$source_dir/$f")
         done
+    fi
 
+    (
+        cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+
+        if [ ! -d "$target_branch" ]; then
+            echo "error: worktree '$target_branch' not found" >&2
+            exit 2
+        fi
+
+        cd "$target_branch" || exit 1
+
+        local found_files
+        set -x
+        readarray -t found_files < <( git ls-tree -r --name-only \
+            "$source_branch" -- "${pathspecs[@]}" )
+        if [ "${#found_files[@]}" -eq 0 ]; then
+            echo "error: no requested files found in '$source_branch'" >&2
+            exit 1
+        fi
+
+        git checkout "$source_branch" -- "${found_files[@]}"
+        set +x
+        ls -l "$source_dir"
+    )
+}
+
+publish_files() {
+    local target_branch="$1" msg="$2" source_dir="$3"
+
+    if [ -z "$target_branch" ] || [ -z "$source_dir" ]; then
+        cat <<'EOF' >&2
+usage: publish_files <target_branch> <msg> <source_dir>
+    <target_branch> must be a worktree of the same name at toplevel.
+EOF
+        return 2
+    fi
+
+    (
+        cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+
+        if [ ! -d "$target_branch" ]; then
+            echo "error: worktree '$target_branch' not found" >&2
+            exit 2
+        fi
+
+        cd "$target_branch" || exit 1
+
+        local update=""
+        [ -n "$( git ls-tree -d --name-only \
+            "$target_branch" -- "$source_dir" )" ] && update=" - Update"
+
+        git add "$source_dir"
+        git commit -m "$msg$update" || true
+        git push
+    )
+}
+
+cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+
+if [ "$PUBLISH_JSON" ]; then
+    # Publish 'challenge-NNN/examples/json' directory to 'json-examples' branch.
+    source_dir="challenge-$challenge/examples/json"
+    target_branch="json-examples"
     msg="Challenge $challenge .json example data and Perl solution skeletons"
-    git add "$target_dir"
-    git commit -m "$msg$update" \
-        || true
+    msg="Provide JSON test data for Challenge $challenge task examples"
+    copy_files dev "$source_dir" json-examples ch-{1,2}.json
+    publish_files json-examples "$msg" "$source_dir"
 else
-    # Publish solution.
-    branch="muthm"
-    git switch "$branch" || git switch -c "$branch"
-    git merge --no-edit master
-
-    dir="challenge-$challenge/matthias-muth"
-    [ "$( git ls-tree -d --name-only $branch -- $dir/perl )" ] \
-        && update=" - Update"
-
-    git checkout dev -- \
-        $( git ls-tree --name-only dev -- \
-            "$dir"/README.md \
-            "$dir"/blog.txt \
-            "$dir"/perl/ch-1.pl \
-            "$dir"/perl/ch-2.pl )
-
-    echo "Activating testing section prepared for publishing"
-    perl -i~ -g -n -E '
-    /^# version for publishing/mi or do {
-        warn "no '\''publishing'\'' template in '\''$ARGV'\''\n";
-        print;
-        next;
-    };
-    s<^use lib .*?\n^use MultiTest.*?\n>
-        <use Test2::V0 qw( -no_srand );\n>ms;
-    s<^run.*?\n.*Version for publishing.*use Test2::V.*?\n><>msi;
-    print
+    # Publish challenge solution.
+    source_dir="challenge-$challenge/matthias-muth"
+    target_branch="muthm"
+    files=( README.md blog.txt perl/ch-{1,2}.pl )
+    false && echo "Activating testing section prepared for publishing"
+    false && perl -i~ -g -n -E '
+	s<^use lib .*?\n^use MultiTest.*?\n>
+	    <use Test2::V0 qw( -no_srand );\n>ms;
+	s<^run\( "(.*).*\z><>ms;
     ' "$dir"/perl/ch-[12].pl
-    git add -- "$dir"/perl/ch-[12].pl
 
     msg="Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth"
-    git commit -m "$msg$update" \
-        || true
-fi
-
-git push --set-upstream origin "$branch"
-
-git push --all
-git push --tags
-
-git checkout dev
-
-if [ "$stashed" ]; then
-    git stash pop
-    git status -uno
+    copy_files dev "$source_dir" muthm "${files[@]}"
+    publish_files muthm "$msg" "$source_dir"
 fi
