@@ -9,44 +9,6 @@
                [
                   "Perl",
                   2
-               ]
-            ],
-            "id" : "Adam Russell",
-            "name" : "Adam Russell"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Ali Moradi",
-            "name" : "Ali Moradi"
-         },
-         {
-            "data" : [
-               [
-                  "Raku",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Arne Sommer",
-            "name" : "Arne Sommer"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
                ],
                [
                   "Raku",
@@ -61,30 +23,14 @@
                [
                   "Perl",
                   2
-               ]
-            ],
-            "id" : "Bob Lied",
-            "name" : "Bob Lied"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ]
-            ],
-            "id" : "David Ferrone",
-            "name" : "David Ferrone"
-         },
-         {
-            "data" : [
+               ],
                [
                   "Raku",
                   2
                ]
             ],
-            "id" : "David Smith",
-            "name" : "David Smith"
+            "id" : "David Ferrone",
+            "name" : "David Ferrone"
          },
          {
             "data" : [
@@ -95,38 +41,6 @@
             ],
             "id" : "E. Choroba",
             "name" : "E. Choroba"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Raku",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Jaldhar H. Vyas",
-            "name" : "Jaldhar H. Vyas"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Jorg Sommrey",
-            "name" : "Jorg Sommrey"
          },
          {
             "data" : [
@@ -167,20 +81,6 @@
             ],
             "id" : "Matthew Neleigh",
             "name" : "Matthew Neleigh"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Matthias Muth",
-            "name" : "Matthias Muth"
          },
          {
             "data" : [
@@ -242,15 +142,15 @@
             "data" : [
                [
                   "Perl",
-                  2
+                  1
                ],
                [
                   "Blog",
                   1
                ]
             ],
-            "id" : "Robbie Hatley",
-            "name" : "Robbie Hatley"
+            "id" : "Reinier Maliepaard",
+            "name" : "Reinier Maliepaard"
          },
          {
             "data" : [
@@ -261,38 +161,6 @@
             ],
             "id" : "Robert Ransbottom",
             "name" : "Robert Ransbottom"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Raku",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Roger Bell_West",
-            "name" : "Roger Bell_West"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Simon Green",
-            "name" : "Simon Green"
          },
          {
             "data" : [
@@ -335,16 +203,6 @@
             ],
             "id" : "W. Luis Mochan",
             "name" : "W. Luis Mochan"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ]
-            ],
-            "id" : "Wanderdoc",
-            "name" : "Wanderdoc"
          }
       ]
    },
@@ -365,54 +223,19 @@
          "colorByPoint" : 1,
          "data" : [
             {
-               "drilldown" : "Adam Russell",
-               "name" : "Adam Russell",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Ali Moradi",
-               "name" : "Ali Moradi",
-               "y" : 3
-            },
-            {
-               "drilldown" : "Arne Sommer",
-               "name" : "Arne Sommer",
-               "y" : 3
-            },
-            {
                "drilldown" : "Athanasius",
                "name" : "Athanasius",
                "y" : 4
             },
             {
-               "drilldown" : "Bob Lied",
-               "name" : "Bob Lied",
-               "y" : 2
-            },
-            {
                "drilldown" : "David Ferrone",
                "name" : "David Ferrone",
-               "y" : 2
-            },
-            {
-               "drilldown" : "David Smith",
-               "name" : "David Smith",
-               "y" : 2
+               "y" : 4
             },
             {
                "drilldown" : "E. Choroba",
                "name" : "E. Choroba",
                "y" : 2
-            },
-            {
-               "drilldown" : "Jaldhar H. Vyas",
-               "name" : "Jaldhar H. Vyas",
-               "y" : 5
-            },
-            {
-               "drilldown" : "Jorg Sommrey",
-               "name" : "Jorg Sommrey",
-               "y" : 3
             },
             {
                "drilldown" : "Kjetil Skotheim",
@@ -435,11 +258,6 @@
                "y" : 2
             },
             {
-               "drilldown" : "Matthias Muth",
-               "name" : "Matthias Muth",
-               "y" : 3
-            },
-            {
                "drilldown" : "Mohammad Sajid Anwar",
                "name" : "Mohammad Sajid Anwar",
                "y" : 2
@@ -460,24 +278,14 @@
                "y" : 2
             },
             {
-               "drilldown" : "Robbie Hatley",
-               "name" : "Robbie Hatley",
-               "y" : 3
+               "drilldown" : "Reinier Maliepaard",
+               "name" : "Reinier Maliepaard",
+               "y" : 2
             },
             {
                "drilldown" : "Robert Ransbottom",
                "name" : "Robert Ransbottom",
                "y" : 2
-            },
-            {
-               "drilldown" : "Roger Bell_West",
-               "name" : "Roger Bell_West",
-               "y" : 5
-            },
-            {
-               "drilldown" : "Simon Green",
-               "name" : "Simon Green",
-               "y" : 3
             },
             {
                "drilldown" : "Thomas Kohler",
@@ -493,21 +301,16 @@
                "drilldown" : "W. Luis Mochan",
                "name" : "W. Luis Mochan",
                "y" : 3
-            },
-            {
-               "drilldown" : "Wanderdoc",
-               "name" : "Wanderdoc",
-               "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 384"
+         "name" : "The Weekly Challenge - 385"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 27] Last updated at 2026-08-03 00:51:48 GMT"
+      "text" : "[Champions: 16] Last updated at 2026-08-06 21:35:10 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 384"
+      "text" : "The Weekly Challenge - 385"
    },
    "tooltip" : {
       "followPointer" : 1,
