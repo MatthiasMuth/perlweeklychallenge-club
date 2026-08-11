@@ -28,7 +28,7 @@ my @tests = (
     [ "Example 2", ["EEADEE", 16], 15642094 ],
     [ "Example 3", ["755", 8], 493 ],
     [ "Example 4", ["1BRJB", 36], 2228519 ],
-    [ "Example 5", ["7Myql", 64], 123456789 ],
+    [ "Example 5", ["7MyqL", 64], 123456789 ],
 );
 
 is reverse_base( $_->[1]->@* ), $_->[2], $_->[0]
