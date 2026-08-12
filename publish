@@ -14,10 +14,42 @@ while :; do
     shift
 done
 
+cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+
 if [ ! "$challenge" ]; then
     last_challenge_dir="$( ls -d -r challenge-* | head -1 )"
     challenge="${last_challenge_dir##*-}"
 fi
+
+sync_worktree() {
+    local target_branch="$1"
+
+    if [ -z "$target_branch" ]; then
+        echo "usage: sync_worktree <target_branch>" >&2
+        return 2
+    fi
+
+    (
+        cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+
+        if [ ! -d "$target_branch" ]; then
+            echo "error: worktree '$target_branch' not found" >&2
+            exit 2
+        fi
+
+        cd "$target_branch" || exit 1
+
+	# Merge upstream/master in, if possible.
+        git fetch upstream || exit 1
+        if ! git merge --ff-only upstream/master; then
+            echo "note: '$target_branch' not yet mergeable upstream" \
+                "(likely due to an open PR)" >&2
+        fi
+
+	# Pull changes made to <branch> elsewhere.
+        git pull --ff-only origin "$target_branch"
+    )
+}
 
 copy_files() {
     local source_branch="$1" source_dir="$2" target_branch="$3"
@@ -56,7 +88,6 @@ EOF
         cd "$target_branch" || exit 1
 
         local found_files
-        set -x
         readarray -t found_files < <( git ls-tree -r --name-only \
             "$source_branch" -- "${pathspecs[@]}" )
         if [ "${#found_files[@]}" -eq 0 ]; then
@@ -65,7 +96,6 @@ EOF
         fi
 
         git checkout "$source_branch" -- "${found_files[@]}"
-        set +x
         ls -l "$source_dir"
     )
 }
@@ -101,29 +131,34 @@ EOF
     )
 }
 
-cd "$( git rev-parse --git-common-dir )"/.. || exit 1
-
 if [ "$PUBLISH_JSON" ]; then
     # Publish 'challenge-NNN/examples/json' directory to 'json-examples' branch.
-    source_dir="challenge-$challenge/examples/json"
+    source_branch="dev"
+    source_dir="challenge-$challenge/examples"
+    files=( json/ch-{1,2}.json )
     target_branch="json-examples"
-    msg="Challenge $challenge .json example data and Perl solution skeletons"
+    # msg="Challenge $challenge .json example data and Perl solution skeletons"
     msg="Provide JSON test data for Challenge $challenge task examples"
-    copy_files dev "$source_dir" json-examples ch-{1,2}.json
-    publish_files json-examples "$msg" "$source_dir"
 else
     # Publish challenge solution.
+    source_branch="dev"
     source_dir="challenge-$challenge/matthias-muth"
-    target_branch="muthm"
     files=( README.md blog.txt perl/ch-{1,2}.pl )
-    false && echo "Activating testing section prepared for publishing"
+    target_branch="muthm"
+    msg="Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth"
+fi
+
+sync_worktree "$target_branch" || exit 1
+copy_files "$source_branch" "$source_dir" "$target_branch" "${files[@]}" \
+    || exit 1
+
+if [ "$target_branch" = "muthm" ]; then
+    echo "TODO: activating testing section prepared for publishing"
     false && perl -i~ -g -n -E '
 	s<^use lib .*?\n^use MultiTest.*?\n>
 	    <use Test2::V0 qw( -no_srand );\n>ms;
 	s<^run\( "(.*).*\z><>ms;
-    ' "$dir"/perl/ch-[12].pl
-
-    msg="Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth"
-    copy_files dev "$source_dir" muthm "${files[@]}"
-    publish_files muthm "$msg" "$source_dir"
+    ' "$source_dir"/perl/ch-[12].pl
 fi
+
+publish_files "$target_branch" "$msg" "$source_dir"
