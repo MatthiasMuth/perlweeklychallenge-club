@@ -9,23 +9,27 @@
 #
 
 use v5.36;
-use Dsay;
 
 use Math::Prime::Util qw( fromdigits );
 
 sub reverse_base( $num, $base ) {
-    return undef unless 0 < $base <= 64;
-    # Let fromdigits with a string parameter handle everything for bases <= 36.
-    return fromdigits( $num, $base )
-        if $base <= 36;
-
-    # Bases up to 64 go here.
-    my @digits = ( 0..9, "A".."Z", "a".."z", "+", "/" );
-    my %digit_values = map { ( $digits[$_] => $_ ) } keys @digits;
-    dsay pp_hash %digit_values;
-    my @num_digits = map $digit_values{$_}, split "", $num;
-    dsay "num_digits: @num_digits";
-    return fromdigits( \@num_digits, $base );
+    if ( 0 < $base <= 36 ) {
+        # For bases up to 36, we can let 'fromdigits' with a
+        # string parameter handle everything.
+        return fromdigits( $num, $base );
+    }
+    elsif ( $base <= 64 ) {
+        # For bases up to 64, 'fromdigits' with an array of
+        # digit values returns the result.
+        # The digit values are obtained using a hash lookup.
+        my @digits = ( 0..9, "A".."Z", "a".."z", "+", "/" );
+        my %digit_values = map { ( $digits[$_] => $_ ) } keys @digits;
+        my @num_digits = map $digit_values{$_}, split "", $num;
+        return fromdigits( \@num_digits, $base );
+    }
+    else {
+        return undef;
+    }
 }
 
 use lib qw( . ../../../lib );
