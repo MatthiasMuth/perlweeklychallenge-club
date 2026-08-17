@@ -35,16 +35,6 @@
          {
             "data" : [
                [
-                  "Raku",
-                  2
-               ]
-            ],
-            "id" : "Asher Harvey-Smith",
-            "name" : "Asher Harvey-Smith"
-         },
-         {
-            "data" : [
-               [
                   "Perl",
                   2
                ],
@@ -61,6 +51,10 @@
                [
                   "Perl",
                   2
+               ],
+               [
+                  "Blog",
+                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -70,10 +64,6 @@
             "data" : [
                [
                   "Perl",
-                  2
-               ],
-               [
-                  "Raku",
                   2
                ]
             ],
@@ -166,7 +156,7 @@
             "data" : [
                [
                   "Perl",
-                  2
+                  1
                ]
             ],
             "id" : "Matthew Neleigh",
@@ -177,10 +167,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Matthias Muth",
@@ -241,20 +227,6 @@
             ],
             "id" : "Peter Meszaros",
             "name" : "Peter Meszaros"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  1
-               ],
-               [
-                  "Blog",
-                  1
-               ]
-            ],
-            "id" : "Reinier Maliepaard",
-            "name" : "Reinier Maliepaard"
          },
          {
             "data" : [
@@ -349,16 +321,6 @@
             ],
             "id" : "W. Luis Mochan",
             "name" : "W. Luis Mochan"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
-                  2
-               ]
-            ],
-            "id" : "Wanderdoc",
-            "name" : "Wanderdoc"
          }
       ]
    },
@@ -389,11 +351,6 @@
                "y" : 3
             },
             {
-               "drilldown" : "Asher Harvey-Smith",
-               "name" : "Asher Harvey-Smith",
-               "y" : 2
-            },
-            {
                "drilldown" : "Athanasius",
                "name" : "Athanasius",
                "y" : 4
@@ -401,12 +358,12 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 2
+               "y" : 3
             },
             {
                "drilldown" : "David Ferrone",
                "name" : "David Ferrone",
-               "y" : 4
+               "y" : 2
             },
             {
                "drilldown" : "David Smith",
@@ -446,12 +403,12 @@
             {
                "drilldown" : "Matthew Neleigh",
                "name" : "Matthew Neleigh",
-               "y" : 2
+               "y" : 1
             },
             {
                "drilldown" : "Matthias Muth",
                "name" : "Matthias Muth",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "Mohammad Sajid Anwar",
@@ -471,11 +428,6 @@
             {
                "drilldown" : "Peter Meszaros",
                "name" : "Peter Meszaros",
-               "y" : 2
-            },
-            {
-               "drilldown" : "Reinier Maliepaard",
-               "name" : "Reinier Maliepaard",
                "y" : 2
             },
             {
@@ -512,21 +464,16 @@
                "drilldown" : "W. Luis Mochan",
                "name" : "W. Luis Mochan",
                "y" : 3
-            },
-            {
-               "drilldown" : "Wanderdoc",
-               "name" : "Wanderdoc",
-               "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 385"
+         "name" : "The Weekly Challenge - 386"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 28] Last updated at 2026-08-10 02:29:22 GMT"
+      "text" : "[Champions: 25] Last updated at 2026-08-17 01:24:51 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 385"
+      "text" : "The Weekly Challenge - 386"
    },
    "tooltip" : {
       "followPointer" : 1,
