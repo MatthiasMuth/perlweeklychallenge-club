@@ -25,6 +25,8 @@ pwc() {
     typeset _pwc_challenge _pwc_cd_to _pwc_announce _pwc_git_status_for
     typeset _pwc_github_repo _pwc_edit _pwc_dir
     _pwc_challenge=`ls -dr "$pwc"/challenge-*/matthias-muth | head -1`
+    challenge=""
+     [[ "$_pwc_challenge" =~ challenge-([0-9]+) ]] && challenge="${BASH_REMATCH[1]}"
     _pwc_cd_to="$pwc_challenge"
     _pwc_git_status_for="."
     _pwc_github_repo="https://github.com/MatthiasMuth/perlweeklychallenge-club"
@@ -36,6 +38,7 @@ pwc() {
                                 )
                                 _pwc_cd_to="$_pwc_challenge"
                                 _pwc_announce=1
+                                challenge="$1"
                                 ;;
             h | home )          _pwc_cd_to="$pwc"
                                 _pwc_git_status_for=""
@@ -44,6 +47,10 @@ pwc() {
                                 _pwc_announce=1
                                 ;;
             p | perl )          _pwc_cd_to="$_pwc_challenge/perl"
+                                _pwc_announce=1
+                                _pwc_git_status_for=".."
+                                ;;
+            j | json )          _pwc_cd_to="$_pwc_challenge/../examples/json"
                                 _pwc_announce=1
                                 _pwc_git_status_for=".."
                                 ;;
@@ -58,9 +65,9 @@ pwc() {
         esac
         shift
     done
-    if [ "$_pwc_announce" -a -f "$_pwc_challenge/perl/challenge-*.txt" ]; then
+    if [ "$_pwc_announce" -a -f "$_pwc_challenge"/perl/challenge-${challenge}.txt ]; then
         perl -wne 'print if $. == 1 || /^Task \d+:/' \
-            "$_pwc_challenge/perl/challenge-*.txt"
+            "$_pwc_challenge"/perl/challenge-${challenge}.txt
         echo ""
     fi
     cd "${_pwc_cd_to:-$pwc}"
