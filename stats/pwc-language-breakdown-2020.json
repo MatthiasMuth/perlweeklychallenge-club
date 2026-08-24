@@ -376,7 +376,7 @@
                ],
                [
                   "Blog",
-                  17
+                  18
                ]
             ],
             "id" : "073",
@@ -394,7 +394,7 @@
                ],
                [
                   "Blog",
-                  19
+                  20
                ]
             ],
             "id" : "072",
@@ -412,7 +412,7 @@
                ],
                [
                   "Blog",
-                  15
+                  16
                ]
             ],
             "id" : "071",
@@ -430,7 +430,7 @@
                ],
                [
                   "Blog",
-                  17
+                  18
                ]
             ],
             "id" : "070",
@@ -1061,22 +1061,22 @@
             {
                "drilldown" : "073",
                "name" : "073",
-               "y" : 112
+               "y" : 113
             },
             {
                "drilldown" : "072",
                "name" : "072",
-               "y" : 116
+               "y" : 117
             },
             {
                "drilldown" : "071",
                "name" : "071",
-               "y" : 82
+               "y" : 83
             },
             {
                "drilldown" : "070",
                "name" : "070",
-               "y" : 98
+               "y" : 99
             },
             {
                "drilldown" : "069",
@@ -1223,7 +1223,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-08-17 01:24:51 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-08-24 01:11:56 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
