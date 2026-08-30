@@ -52,4 +52,5 @@ my @tests = (
     ],
 );
 
-run( "dyck_words", \@tests );
+my @benchmark_data = ( 6 );
+run( "dyck_words", \@tests, \@benchmark_data );

@@ -16,7 +16,7 @@ use Dsay;
 use List::Util qw( product );
 
 sub secret_santa( $n ) {
-    return int( product( 1..$n ) / exp( 1 ) + 0.5 );
+    return int( ( product( 1..$n ) + 1 ) / exp( 1 ) );
 }
 
 sub secret_santa_bfs( $n ) {
