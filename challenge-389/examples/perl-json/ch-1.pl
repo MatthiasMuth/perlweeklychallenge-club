@@ -19,8 +19,8 @@ use feature 'signatures';
 no warnings 'experimental::signatures';
 
 sub reorder_notes( $melody ) {
-    my @results;
-    return \@results;
+    my $result;
+    return $result;
 }
 
 # Read test data from the accompanying '.json' file and run the tests.

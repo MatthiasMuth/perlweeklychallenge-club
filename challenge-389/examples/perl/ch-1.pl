@@ -17,27 +17,42 @@ use feature 'signatures';
 no warnings 'experimental::signatures';
 
 sub reorder_notes( $melody ) {
-    my @results;
-    return \@results;
+    my $result;
+    return $result;
 }
 
 use Test2::V0 qw( -no_srand );
 
 my @tests = (
     [ "Example 1",
-        [["Mozart", ["C" .. "G", "A", "B"], [7, 1, 6, 2, 5, 3, 4] ]],
-        [["D", "F", "A", "B", "G", "E", "C"]] ],
+        [ [ "Bach",
+            ["C", "D", "E", "F#", "G", "A", "B"],
+            [7, 1, 6, 2, 5, 3, 4] ] ],
+        "BACH => D F# A B G E C",
+    ],
     [ "Example 2",
-        [["Chopin", ["C", "C#", "D", "D#", "E", "F"], [6, 5, 4, 3, 2, 1]]],
-        [["F", "E", "D#", "D", "C#", "C"]] ],
-    [ "Example 3", [["Vivaldi", ["A" .. "E"], [1 .. 5]]], [["A" .. "E"]] ],
+        [ ["Beethoven", ["C", "D", "F#", "G", "Ab"], [1, 3, 5, 2, 4]] ],
+        "BEETHOVEN => C G D Ab F#",
+    ],
+    [ "Example 3",
+        [ [ "Brahms",
+            ["C", "Db", "Eb", "F", "G", "Ab", "Bb", "C", "D"],
+            [9, 3, 7, 1, 8, 5, 2, 6, 4] ] ],
+        "BRAHMS => F Bb Db D Ab C Eb G C",
+    ],
     [ "Example 4",
-        [["Debussy", ["C", "D", "F", "G", "A"], [1, 3, 5, 2, 4]]],
-        [["C", "G", "D", "A", "F"]] ],
-    [ "Example 5", [["Stravinsky", ["C#"], [1]]], [["C#"]] ],
+        [ [ "Bruckner",
+            ["G", "F#", "Bb", "C", "D", "Eb", "F"],
+            [4, 7, 2, 6, 1, 5, 3] ] ],
+        "BRUCKNER => D Bb F G Eb C F#",
+    ],
+    [ "Example 5",
+        [ ["Berg", ["C#"], [1]] ],
+        "BERG => C#",
+    ],
 );
 
-is [ reorder_notes( $_->[1]->@* ) ], $_->[2], $_->[0]
+is reorder_notes( $_->[1]->@* ), $_->[2], $_->[0]
     for @tests;
 
 done_testing;
