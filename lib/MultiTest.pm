@@ -182,11 +182,25 @@ sub run_tests( $sub_base_name = undef, @tests ) {
 
 sub load_json_data() {
     # Load the JSON module only when needed.
+    dsay "load_json_data";
     require JSON::PP;
     JSON::PP->import( 'decode_json' );
+    require File::Basename;
+    File::Basename->import( qw( dirname basename ) );
+    require File::Spec::Functions;
+    File::Spec::Functions->import(); 
 
     # Read the test data from the JSON file.
     ( my $json_file = $0 ) =~ s/\.pl$/.json/;
+    unless ( -f $json_file ) {
+        my $dirname  = File::Basename::dirname( $json_file );
+        my $basename = File::Basename::basename( $json_file );
+        -f $_ && do { $json_file = $_; last }
+            for ( glob( catfile( $dirname, updir(), "*", $basename ) ) )[0]
+                    // (),
+                catfile( $dirname, updir(), updir(), "examples", "json",
+                    $basename );
+    }
     $verbose and note "reading tests from $json_file";
     my $json_text = -f $json_file
         && do { local ( @ARGV, $/ ) = $json_file; <> }
@@ -217,21 +231,25 @@ sub run_json_tests( $sub_name ) {
     # Load the JSON module only when needed.
     require JSON::PP;
     require File::Basename;
-    require File::Spec;
+    File::Basename->import( qw( dirname basename ) );
+    require File::Spec::Functions;
+    File::Spec::Functions->import(); 
 
     # Read the test data from the JSON file in the same dierectory as the
     # running script itself, alternatively in ../perl-json.
     ( my $json_file = $0 ) =~ s/\.pl$/.json/;
     unless ( -f $json_file ) {
-        my $try = File::Spec->canonpath(
-            File::Basename::dirname( $json_file )
-            . "/../perl-json/"
-            . File::Basename::basename( $json_file ) );
-        $json_file = $try
-            if -f $try;
+        my $basename = basename( $json_file );
+        my $dirname  = dirname( $json_file );
+        -f $_ && do { $json_file = $_; last }
+            for ( glob( catfile( $dirname, updir(), "*", $basename ) ) )[0]
+                    // (),
+                catfile( $dirname, updir(), updir(), "examples", "json",
+                    $basename );
     }
-    my $json_text = -f $json_file
-        && do { local ( @ARGV, $/ ) = $json_file; <> }
+    my $json_text =
+        defined $json_file && -f $json_file
+            && do { local ( @ARGV, $/ ) = $json_file; <> }
         or die "could not read test data from '$json_file'\n";
     my $json_data = JSON::PP::decode_json( $json_text );
     $verbose and note "running tests read from $json_file";
