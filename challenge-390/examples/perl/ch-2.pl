@@ -29,6 +29,8 @@ my @tests = (
     [ "Example 3", ["cbaed", 3], "abcde" ],
     [ "Example 4", ["fedcba", 4], "abcdef" ],
     [ "Example 5", ["perl", 1], "erlp" ],
+    [ "Example 6", ["oloolooo", 1], "looloooo" ],
+    [ "Example 7", ["oloooolo", 1], "looloooo" ],
 );
 
 is order_characters( $_->[1]->@* ), $_->[2], $_->[0]
