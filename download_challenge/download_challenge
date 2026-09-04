@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-download_challenge - produce code skeletons for weekly challenges
+download_challenge - produce code templates for weekly challenges
 
 =head1 SYNOPSIS
 
@@ -31,7 +31,7 @@ download_challenge - produce code skeletons for weekly challenges
                                 # are new or have changed since the
                                 # last check,
                                 # and produce JSON test data files and
-                                # Perl skeletons in the 'examples'
+                                # Perl templates in the 'examples'
                                 # directory.
 
 =cut
@@ -52,7 +52,7 @@ download_challenge - produce code skeletons for weekly challenges
 #		  	written for this week's challenge)
 #		  * blog.txt
 #		  * perl/README-<challenge>.md
-#		  	(blog skeleton; to be moved up to ../README.md after
+#		  	(blog template; to be moved up to ../README.md after
 #		  	editing)
 #		  * perl/ch-1.pl
 #		  * perl/ch-1.pl
@@ -87,7 +87,7 @@ download_challenge - produce code skeletons for weekly challenges
 #		    the 'status.toml' file),
 #		  * send the task descriptions as html email to a default list
 #		    of recipients (specified in 'status.toml').
-#		  * generate skeleton files for .../perl/ch-[12].pl based on
+#		  * generate template files for .../perl/ch-[12].pl based on
 #		    the challenge task descriptions, if they do not yet exist.
 #
 #	    download_challenge <challenge> ...
@@ -95,7 +95,7 @@ download_challenge - produce code skeletons for weekly challenges
 #		parameters, only these steps are done by default:
 #		  * retrieve the task descriptions for the given challenges,
 #		  * write the task text files if they have changed,
-#		  * generate the code skeleton files if they do not yet exist.
+#		  * generate the code template files if they do not yet exist.
 #		No mail is sent unless the -mail <recipient> option is
 #		given explicitly.
 #
@@ -121,7 +121,7 @@ download_challenge - produce code skeletons for weekly challenges
 #       - If it is new, process a new challenge pre-release gist.
 #		  * retrieve the task descriptions for the given challenges,
 #		  * write the task text files if they have changed,
-#		  * generate the code skeleton files if they do not yet exist.
+#		  * generate the code template files if they do not yet exist.
 #		No mail is sent unless the -mail <recipient> option is
 #		given explicitly.
 #
@@ -149,7 +149,7 @@ download_challenge - produce code skeletons for weekly challenges
 #       - Download using the same mechanisms as for the challenge page,
 #         just with the proper URL.
 #       - Extract html, then extract task text, then extract tests...
-#       - Write out the json and skeleton files
+#       - Write out the json and template files
 #         (examples/json and examples/perl directories).
 #       - Commit them in dev and push.
 #       - Check out the files and add them in the muthm branch,
@@ -201,7 +201,7 @@ GetOptions(
     "mail:s"     => sub { push $options{MAIL_TO}->@*, split /[,\s]\s*/, $_[1] },
     "nomail|no-mail" => sub { $options{MAIL_TO} = []; },	# Defined but empty.
     "keep:s"     => \$options{KEEP},
-    "nogit"      => \$options{NO_GIT},
+    "nogit|no-git" => \$options{NO_GIT},
     "files!"     => \$options{WRITE_FILES},
     "archive!"   => \$options{ARCHIVE},
     "check|n"    => \$options{DRY_RUN},
@@ -269,7 +269,7 @@ process_challenge( $challenge )
 
 # Update the status toml file.
 write_toml( $status )
-    if $options{UPDATE} && ! $options{DRY_RUN};
+    if $options{UPDATE} && ! $options{DRY_RUN} && ! $options{GIST};
 
 exit 0;
 
@@ -286,7 +286,9 @@ sub process_challenge( $challenge ) {
     my $page_html =
         $options{INPUT_FILE}
         ? do {
-            vsay "using input file '$options{INPUT_FILE}'";
+            vsay $options{INPUT_FILE} eq "-"
+                ? "reading STDIN"
+                : "using input file '$options{INPUT_FILE}'";
             do { local ( @ARGV, $/ ) = $options{INPUT_FILE}; <> };
         }
         : do {
@@ -315,7 +317,7 @@ sub process_challenge( $challenge ) {
     dsay ":extract", "\$1 \$2:\n", pp( $1 ), "\n", pp( $2 );
 
     unless ( $challenge ) {
-        ( $challenge ) = $title =~ /(\d+)/;
+        ( $challenge ) = $page_title =~ /(\d+)/;
         vsay "extracted challenge number '$challenge'";
     }
 
@@ -417,7 +419,7 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
     # The README.md file is created by the maintainer of the 'master'
     # branch when the new challenge directories are created.
     # It is copied from the previous week's challenge.
-    # In order to update it to the current week's skeleton, we need
+    # In order to update it to the current week's template, we need
     # to make sure that the repository was updated and the file checked out
     # first.
 
@@ -434,7 +436,7 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
         }
 
         # If the file exists now, it is the previous week's version.
-        # We remove it to make space for this week's skeleton.
+        # We remove it to make space for this week's template.
         if ( -f $readme_file ) {
             unlink $readme_file;
         }
@@ -445,14 +447,27 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
         }
     }
 
-    # Generate the code skeletons and json data.
-    # (TODO: and additional own tests, and benchmark_data)
-    # from the existing .pl file.
+    # Generate the code templates and json data.
+    # (TODO: copy additional own tests and benchmark_data
+    # from the existing .pl file.)
     my @task_texts =
         ( undef, $challenge_text =~ /(^Task 1.*)(^Task 2.*)/ms );
-    my @tasks = ( undef, map {
-        my $tests = [ TestExtractor::extract_tests( $task_texts[$_] ) ];
+
+    # Create the file contents for all code files (and the json data).
+    my $code_templates = $templates->{'code'};
+    my @tasks = ( undef );
+    for my $task ( 1..2 ) {
+        my $task_text = $task_texts[$task];
+        my $tests = [ TestExtractor::extract_tests( $task_text ) ];
         %debug and dsay "extracted tests: ", pp( $tests );
+        $task_text =~ /^Task (?<task_number>\d+):\s*(?<task_name>.*?)\s*$/m;
+        my $task_data = {
+            CHALLENGE   => $challenge,
+            TASK_NUMBER => $+{task_number},
+            TASK_NAME   => $+{task_name},
+            TESTS       => $tests,
+        };
+        %debug and dsay "task data: ", pp( $task_data );
 
         # Fill the IMPLEMENTATION part either with generated code,
         # or, if the -keep <source> option was used, with the existing
@@ -461,51 +476,71 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
         # in the Git commit <commit>.
         # With '-keep current' (or just '-keep', which implies an empty
         # string), it is taken from the existing file.
-        my %current_implementation =
+        my ( $current_implementation, $current_tests ) =
             defined $options{KEEP}
             ? extract_implementation(
-                "$target_dir/perl/ch-$_.pl", $options{KEEP} )
+                "$target_dir/perl/ch-${task}.pl", $options{KEEP} )
             : ();
         %debug and dsay ":keep", "current_implementation:\n",
-            pp_hash %current_implementation;
+            pp $current_implementation;
 
-        my $template = $templates->{code}{'implementation'};
-        my $generated_code =
-            generate_code( $challenge, $task_texts[$_], $template, $tests );
-        $generated_code =~ s/\n+\z//;
+        my $solution_code = $current_implementation
+            || generate_code( $code_templates->{'solution_code'}, $task_data );
+        $solution_code =~ s/\n+\z//;
+        %debug and dsay ":keep", "solution_code:\n", $solution_code;
 
-        my $implementation =
-            $current_implementation{code} || $generated_code;
-        %debug and dsay ":keep", "implementation:\n", $implementation;
+        my $template_code =
+            generate_code( $code_templates->{'template_code'}, $task_data );
+        $template_code =~ s/\n+\z//;
+        %debug and dsay ":keep", "template_code:\n", $template_code;
 
-        # Create two versions of the code file:
-        # - with @tests and a call to MultiTest, possibly using the existing
-        #   implementation of the solution,
-        # - with code for running json tests, always with generated code.
-        my $code_template = $templates->{code}{'ch-N_pl'};
+        # Create several versions of code files:
+        # - with @tests and a call to MultiTest, possibly using an existing
+        #   implementation of the solution read from a git branch or commit
+        #   (as the basis for the own solution),
+        # - with generated template code
+        #   and a @tests array with simple testing code
+        #   (for publishing 'perl' templates),
+        # - with generated template code,
+        #   and code for running tests read from .json files
+        #   (for publishing 'perl-json' templates).
+        my $code = $code_templates->{'ch-N_pl'};
+        $code =~ s/<$_>/$task_data->{$_}/g
+            for keys $task_data->%*;
 
-        my $run_tests = generate_tests( $challenge, $task_texts[$_],
-                $templates->{code}{'run_tests'} =~ s/\n+\z//r,
-                $tests );
-        my $run_json_tests =
-            $templates->{code}{'run_json_tests'} =~ s/\n+\z//r;
+        # The final newline is part of the 'code' template. Therefore, 
+        # the testing sections should not contain trailing newlines.
+        my $multitest_tests = generate_testing_code(
+                $code_templates->{'multitest_tests'}, $task_data );
+        my $test2_tests = generate_testing_code(
+                $code_templates->{'test2_tests'}, $task_data );
+        my $json_tests = $code_templates->{'json_tests'} =~ s/\n+\z//r;
+        my $json = generate_testing_code(
+            $templates->{'json'}{'json'}, $task_data );
 
-        my $json = generate_tests( $challenge, $task_texts[$_],
-                $templates->{json}{'json'}, $tests );
-        {
-            text      => $task_texts[$_],
-            code      => $code_template
-                            =~ s/<IMPLEMENTATION>/$implementation/r
-                            =~ s/<RUN_TESTS>/$run_tests/r,
-            code_json => $code_template
-                            =~ s/<IMPLEMENTATION>/$generated_code/r
-                            =~ s/<RUN_TESTS>/$run_json_tests/r,
-            json      => $json,
+        push @tasks, {
+            text => $task_text,
+            solution => $code
+                =~ s(<CREDITS>\n)
+                    ($code_templates->{'solution_credits'})r
+                =~ s/<IMPLEMENTATION>/$solution_code/r
+                =~ s/<RUN_TESTS>/$multitest_tests/r,
+            perl_template => $code
+                =~ s(<CREDITS>\n)
+                    ($code_templates->{'perl_template_credits'})r
+                =~ s/<IMPLEMENTATION>/$template_code/r
+                =~ s/<RUN_TESTS>/$test2_tests/r,
+            perl_json_template => $code
+                =~ s(<CREDITS>\n)
+                    ($code_templates->{'json_template_credits'})r
+                =~ s/<IMPLEMENTATION>/$template_code/r
+                =~ s/<RUN_TESTS>/$json_tests/r,
+            json => $json . "\n",
         };
-    } 1, 2 );
-    %debug and dsay ":eol", "tasks:\n", pp @tasks;
+    }
+    # %debug and dsay ":eol", "tasks:\n", pp @tasks;
 
-    # Generate the README.md skeleton.
+    # Generate the README.md template.
     my $readme_text = generate_readme_md( $challenge, $challenge_text );
 
     # Generate README-no-blog.md
@@ -540,15 +575,19 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
                 $challenge_text ],
             ( map {
                 [ "$target_dir/perl/ch-$_.pl",
-                    $tasks[$_]{code}, 'DO_NOT_OVERWRITE' ]
+                    $tasks[$_]{'solution'}, 'DO_NOT_OVERWRITE' ]
             } 1..2 ),
             ( map {
-                [ "$examples_dir/json/ch-$_.json", $tasks[$_]{json} . "\n" ],
-                [ "$examples_dir/perl/ch-$_.pl",   $tasks[$_]{code_json} ],
+                [ "$examples_dir/json/ch-$_.json",
+                    $tasks[$_]{'json'} ],
+                [ "$examples_dir/perl/ch-$_.pl",
+                    $tasks[$_]{'perl_template'} ],
+                [ "$examples_dir/perl-json/ch-$_.pl",
+                    $tasks[$_]{'perl_json_template'} ],
             } 1..2 ),
         ) : ();
 
-    dsay "file operations:\n", pp @file_operations;
+    dsay ":fop", "file operations:\n", pp @file_operations;
     for ( @file_operations ) {
         my ( $file, $contents, $do_not_overwrite, $add_msg ) =
             @$_;
@@ -674,6 +713,7 @@ sub extract_challenge_text_from_html( $tasks_html ) {
     dsay ":gist", $tasks_html;
     $tasks_html =~ /class="markdown-heading"/ and do {
         vsay "this is a pre-release gist file";
+        $options{GIST} = 1;
     };
 
     # Extract nodes containing the title and the date,
@@ -748,24 +788,21 @@ sub extract_implementation( $file, $source ) {
     dsay ":keep", "extracted code:\n", $code;
     dsay ":keep", "extracted testing\n", $rest;
     my ( @own_tests, $data_section );
-    return ( code => $code, own_tests => \@own_tests );
+    return ( $code, \@own_tests );
 }
 
 use List::Util qw( any all );
 
-sub generate_code( $challenge, $task_text, $template, $tests ) {
-    local $d_area = "gen_code";
+sub generate_code( $template, $task_data ) {
+    local $d_area = "gen";
     %debug and dsay
-        "generate_code( $challenge, ",
-            "'", $task_text =~ /^(.*)?$/m, " [...]', ",
+        "generate_code( ",
             "'", $template =~ /^(.*)?$/m, " [...]', ",
-            "<tests> )";
+            pp( $task_data ), " )";
 
-    my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
-    ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
+    ( my $sub_name = lc $task_data->{TASK_NAME} ) =~ s/\W+/_/g;
 
-    my $code = $template;
-
+    my $tests = $task_data->{TESTS};
     my @checks = (
         [ "VARIABLE_NAMES", "input variable names" ],
         [ "INPUT",          "input data" ],
@@ -774,7 +811,7 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
     for ( @checks ) {
         unless ( $tests->[0] && $tests->[0]{$_->[0]} ) {
             say STDERR "WARNING: ",
-                "No $_->[1] were extracted for Task $task.";
+                "No $_->[1] were extracted for Task $task_data->{TASK_NUMBER}.";
         }
     }
 
@@ -804,14 +841,12 @@ sub generate_code( $challenge, $task_text, $template, $tests ) {
         : '$result';
 
     my %substitutions = (
-        CHALLENGE    => $challenge,
-        TASK_NUMBER  => $task,
-        TASK_NAME    => $task_name,
         SUB_NAME     => $sub_name,
         INPUT_PARAMS => $input_params,
         RESULT_VAR   => $result_var,
         RETURN       => $return,
     );
+    my $code = $template;
     $code =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
     $code =~ s/\n+$//;
@@ -861,19 +896,16 @@ sub pp_quoted( $obj, $source //= "" ) {
     return $result;
 }
 
-sub generate_tests( $challenge, $task_text, $template, $tests ) {
-    local $d_area = "gen_tests";
+sub generate_testing_code( $template, $task_data ) {
+    local $d_area = "gen";
     %debug and dsay
-        "generate_tests( $challenge, ",
-            "'", $task_text =~ /^(.*)?$/m, " [...]', ",
+        "generate_testing_code( ",
             "'", $template =~ /^(.*)?$/m, " [...]', ",
-            "<tests> )";
+            pp( $task_data ), " )";
 
-    my ( $task, $task_name ) = $task_text =~ /^Task (\d+):\s*(.*?)\s*$/m;
-    ( my $sub_name = lc $task_name ) =~ s/\W+/_/g;
+    ( my $sub_name = lc $task_data->{TASK_NAME} ) =~ s/\W+/_/g;
 
-    my $code = $template;
-
+    my $tests = $task_data->{TESTS};
     my @checks = (
         [ "VARIABLE_NAMES", "input variable names" ],
         [ "INPUT",          "input data" ],
@@ -882,7 +914,7 @@ sub generate_tests( $challenge, $task_text, $template, $tests ) {
     for ( @checks ) {
         unless ( $tests->[0] && $tests->[0]{$_->[0]} ) {
             say STDERR "WARNING: ",
-                "No $_->[1] were extracted for Task $task.";
+                "No $_->[1] were extracted for Task $task_data->{TASK_NUMBER}.";
         }
     }
 
@@ -1005,7 +1037,7 @@ sub generate_tests( $challenge, $task_text, $template, $tests ) {
     dsay ":json", "json example data:\n", $json_example_data;
     chomp ( my $json = $templates->{json}{json} );
     dsay ":json", "json template:\n", pp $json;
-    $code =~ s/<JSON>/$json/;
+    $json =~ s/<JSON>/$json/;
 
     my $call =
         "$sub_name( \$_->[1]" . ( $single_scalar_input ? "" : "->\@*" ) . " )";
@@ -1013,15 +1045,14 @@ sub generate_tests( $challenge, $task_text, $template, $tests ) {
         unless $single_scalar_output;
 
     my %substitutions = (
-        CHALLENGE    => $challenge,
-        TASK_NUMBER  => $task,
-        TASK_NAME    => $task_name,
+        $task_data->%*,
         SUB_NAME     => $sub_name,
         TESTS        => $test_data,
         CALL         => $call,
         JSON_INPUT_VARS => $json_input_vars,
         JSON_EXAMPLE_DATA => $json_example_data,
     );
+    my $code = $template;
     $code =~ s/<$_>/$substitutions{$_}/g
         for keys %substitutions;
     $code =~ s/\n+\z//;
@@ -1149,3 +1180,32 @@ sub timestamp {
 }
 
 1;
+
+
+__END__
+
+Code versions:
+
+Solution template:
+    (header)
+    solution_credits
+    implementation (solution_code (v5.36) or -keep <branch>)
+    multitest_tests (includes <TESTS>)
+
+Perl template:
+    (header)
+    perl_template_credits
+    template_code (v5.20)
+    test2_tests (includes <TESTS>)
+
+Perl-JSON template:
+    (header)
+    json_template_credits
+    template_code (v5.20)
+    json_tests
+
+Published solution: (produced dynamically with 'publish')
+    (header)
+    solution_credits
+    implementation (-keep dev)
+    test2_tests (includes <TESTS>, from '-keep dev')

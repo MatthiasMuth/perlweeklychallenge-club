@@ -153,12 +153,12 @@ copy_files "$source_branch" "$source_dir" "$target_branch" "${files[@]}" \
     || exit 1
 
 if [ "$target_branch" = "muthm" ]; then
-    echo "TODO: activating testing section prepared for publishing"
-    false && perl -i~ -g -n -E '
+    perl -i -g -p -E '
 	s<^use lib .*?\n^use MultiTest.*?\n>
 	    <use Test2::V0 qw( -no_srand );\n>ms;
-	s<^run\( "(.*).*\z><>ms;
-    ' "$source_dir"/perl/ch-[12].pl
+        s<^(my \@tests =.*?^\);\n).*^__END__>
+            { $1 =~ s/((?:Own Test|Example) \d+):"/$1"/igr }ems;
+    ' "$target_branch/$source_dir"/perl/ch-[12].pl
 fi
 
 publish_files "$target_branch" "$msg" "$source_dir"
