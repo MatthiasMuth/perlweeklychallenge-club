@@ -143,9 +143,11 @@ sub run_tests( $sub_base_name = undef, @tests ) {
             my $descr = $test;
             if ( HAS_DATA_DUMP ) {
                 $descr .= " $sub"
-                    . "( " . ( pp( $input->@* ) =~ s/^\((.*?)\)$/$1/r ) . " )"
+                    . "( "
+                        . ( pp( ref $input ? $input->@* : $input)
+                            =~ s/^\((.*?)\)$/$1/r ) . " )"
                     . "\n    "
-                    . "=> " . pp( $expected->@* )
+                    . "=> " . pp( ref $expected ? $expected->@* : $expected )
                     if HAS_DATA_DUMP && substr( $descr, -1, 1 ) eq ":";
                 $descr =~ s/\n   (?= =>)//
                     if length( $descr ) - length( "\n   " ) <= $term_size - 8;
