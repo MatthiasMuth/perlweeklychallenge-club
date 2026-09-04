@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 #
 #	update_git.pl
-#	Refresh the Perl Weekly Challenge repository by
+#	Refresh the dev branch by
 #	- stashing the current state if necessary,
-#	- update the master branch from upstream (manwar), fast-forwards only,
-#	- update the dev branch from master (but keep the .gitignore file),
+#	- update the dev branch from upstream/master
+#	  (keeping local changes and additions),
 #	- push everything,
 #	- restore the stashed state (if there is one).
 #
@@ -89,25 +89,20 @@ if ( $use_stash  ) {
     }
 }
 
-qsay "updating master";
-git_command( $repo, qw( checkout --quiet master ) );
-git_command( $repo, qw( pull --quiet ) );
-git_command( $repo, qw( fetch --quiet upstream ) );
-git_command( $repo, qw( merge --ff-only --quiet upstream/master ) );
+qsay "fetching upstream";
+git_command( $repo, qw( fetch upstream ) );
 
 qsay "updating dev";
-git_command( $repo, qw( checkout --quiet dev ) );
+git_command( $repo, qw( switch --quiet dev ) );
 git_command( $repo, qw( merge --quiet --strategy ort -X ours ),
     "-m", "Merge branch 'master' into dev (keeping our changes)",
-    "master" );
+    "upstream/master" );
 
 qsay "pushing changes";
-git_command( $repo, qw( push --quiet --all ) );
+git_command( $repo, qw( push --quiet ) );
 git_command( $repo, qw( push --quiet --tags ) );
 
 if ( $use_stash  ) {
     qsay "getting back previous changes from stash";
     git_command( $repo, qw( stash pop --quiet ) );
 }
-
-git_command( $repo, qw( status ) );
