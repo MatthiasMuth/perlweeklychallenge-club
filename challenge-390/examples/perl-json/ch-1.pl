@@ -3,7 +3,7 @@
 #       The Weekly Challenge - Perl & Raku
 #       (https://theweeklychallenge.org)
 #
-#       Challenge 390 Task 1: IPv4 Address
+#       Challenge 390 Task 1: Decode String
 #
 #       Perl solution template with JSON-based tests.
 #       Uses .json files from the current directory or a sibling
@@ -18,9 +18,9 @@ use warnings;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-sub ipv4_address( $str ) {
+sub decode_string( $str ) {
     my @results;
-    return \@results;
+    return @results;
 }
 
 # Read test data from the accompanying '.json' file and run the tests.

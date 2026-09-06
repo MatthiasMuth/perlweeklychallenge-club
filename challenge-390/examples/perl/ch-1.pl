@@ -3,7 +3,7 @@
 #       The Weekly Challenge - Perl & Raku
 #       (https://theweeklychallenge.org)
 #
-#       Challenge 390 Task 1: IPv4 Address
+#       Challenge 390 Task 1: Decode String
 #
 #       Perl solution template.
 #       Uses test data extracted from the challenge task examples
@@ -16,24 +16,22 @@ use warnings;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-sub ipv4_address( $str ) {
+sub decode_string( $str ) {
     my @results;
-    return \@results;
+    return @results;
 }
 
 use Test2::V0 qw( -no_srand );
 
 my @tests = (
-    [ "Example 1", "0000", ["0.0.0.0"] ],
-    [ "Example 2",
-        "101023",
-        ["1.0.10.23", "1.0.102.3", "10.1.0.23", "10.10.2.3", "101.0.2.3"] ],
-    [ "Example 3", "255255255255", ["255.255.255.255"] ],
-    [ "Example 4", "999999999", [] ],
-    [ "Example 5", "010010", ["0.10.0.10", "0.100.1.0"] ],
+    [ "Example 1", "2[3[a]]", "aaaaaa" ],
+    [ "Example 2", "10[a]", "aaaaaaaaaa" ],
+    [ "Example 3", "a2[b]c3[d]e", "abbcddde" ],
+    [ "Example 4", "2[a2[b]c]", "abbcabbc" ],
+    [ "Example 5", "1[a]2[b3[c]]", "abcccbccc" ],
 );
 
-is [ ipv4_address( $_->[1] ) ], $_->[2], $_->[0]
+is decode_string( $_->[1] ), $_->[2], $_->[0]
     for @tests;
 
 done_testing;
