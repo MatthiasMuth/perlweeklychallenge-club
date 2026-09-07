@@ -61,10 +61,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -135,6 +131,20 @@
             ],
             "id" : "Jorg Sommrey",
             "name" : "Jorg Sommrey"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
+               ],
+               [
+                  "Blog",
+                  1
+               ]
+            ],
+            "id" : "Lubos Kolouch",
+            "name" : "Lubos Kolouch"
          },
          {
             "data" : [
@@ -211,6 +221,16 @@
                [
                   "Perl",
                   2
+               ]
+            ],
+            "id" : "Peter Meszaros",
+            "name" : "Peter Meszaros"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  2
                ],
                [
                   "Blog",
@@ -274,7 +294,7 @@
                ],
                [
                   "Raku",
-                  2
+                  1
                ]
             ],
             "id" : "Ulrich Rieke",
@@ -345,7 +365,7 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "David Ferrone",
@@ -370,6 +390,11 @@
             {
                "drilldown" : "Jorg Sommrey",
                "name" : "Jorg Sommrey",
+               "y" : 3
+            },
+            {
+               "drilldown" : "Lubos Kolouch",
+               "name" : "Lubos Kolouch",
                "y" : 3
             },
             {
@@ -398,6 +423,11 @@
                "y" : 3
             },
             {
+               "drilldown" : "Peter Meszaros",
+               "name" : "Peter Meszaros",
+               "y" : 2
+            },
+            {
                "drilldown" : "Robbie Hatley",
                "name" : "Robbie Hatley",
                "y" : 3
@@ -420,7 +450,7 @@
             {
                "drilldown" : "Ulrich Rieke",
                "name" : "Ulrich Rieke",
-               "y" : 4
+               "y" : 3
             },
             {
                "drilldown" : "W. Luis Mochan",
@@ -433,14 +463,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 388"
+         "name" : "The Weekly Challenge - 389"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 22] Last updated at 2026-08-30 23:39:56 GMT"
+      "text" : "[Champions: 24] Last updated at 2026-09-06 23:38:29 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 388"
+      "text" : "The Weekly Challenge - 389"
    },
    "tooltip" : {
       "followPointer" : 1,
