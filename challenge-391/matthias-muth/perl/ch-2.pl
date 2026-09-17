@@ -13,6 +13,7 @@ use Dsay;
 
 use List::Util qw( max );
 
+no warnings 'recursion';
 sub find_longest_fit( $boxes, $start ) {
     return max( 1,
         map 1 + find_longest_fit( $boxes, $_ ),
@@ -24,15 +25,44 @@ sub find_longest_fit( $boxes, $start ) {
 }
 
 use Memoize qw( memoize flush_cache );
-memoize( 'find_longest_fit' )
-    unless $debug{'NO_MEMOIZE'};
+if ( $debug{'NO_MEMOIZE'} ) {
+    vsay "switching off memoizing";
+}
+else {
+    memoize( 'find_longest_fit' );
+}
 
-sub arrange_box( @boxes ) {
+sub arrange_box_recursive( @boxes ) {
     @boxes = sort { $a->[0] <=> $b->[0] || $a->[1] <=> $b->[1] } @boxes;
-    dsay pp @boxes;
+    # dsay pp @boxes;
     flush_cache( 'find_longest_fit' )
         unless $debug{'NO_MEMOIZE'};
     return max( map { find_longest_fit( \@boxes, $_ ) } keys @boxes );
+}
+
+sub arrange_box_loops ( @boxes ) {
+    @boxes = sort { $a->[0] <=> $b->[0] || $a->[1] <=> $b->[1] } @boxes;
+ 
+    my @path_lengths = map { 1 } keys @boxes;
+    for my $start ( keys @boxes ) {
+        %debug and dsay "start: box $start (", pp( $boxes[$start] ), "),",
+            " path length $path_lengths[$start]";
+        for my $next ( $start + 1 .. $#boxes ) {
+            my $fits = $boxes[$next][0] > $boxes[$start][0]
+                && $boxes[$next][1] > $boxes[$start][1];
+            %debug and dprint "  box $next (", pp( $boxes[$next] ),
+                ", path length $path_lengths[$next] )",
+                $fits ? "fits" : "does not fit\n";
+            next unless $fits;
+            %debug and dsay
+                $path_lengths[$start] + 1 > $path_lengths[$next]
+                ? ( "updating path length to ", $path_lengths[$start] + 1 )
+                : "no change to path length";
+            $path_lengths[$next] = $path_lengths[$start] + 1
+                if $path_lengths[$start] + 1 > $path_lengths[$next];
+        }
+    }
+    return max( @path_lengths );
 }
 
 use lib qw( . ../../../lib );
@@ -48,7 +78,11 @@ my @tests = (
 
 use Test2::Plugin::SRand seed => 20260917;
 
-sub create_boxes( $n, $max_width, $max_height ) {
+sub create_ordered_boxes( $n ) {
+    return map { [ $_, $_ ] } 1..$n; 
+}
+
+sub create_random_boxes( $n, $max_width, $max_height ) {
     my ( @boxes, %have );
     while ( @boxes < $n ) {
         my ( $w, $h ) = map { int rand( $_ ) + 1 } $max_width, $max_height;
@@ -58,26 +92,35 @@ sub create_boxes( $n, $max_width, $max_height ) {
     return @boxes;
 }
 
-=head2 Box Matrix:
-
-    10 |        [10,10] [5, 7]  
-       +--------+-------+
-     5 | [5, 7] | 
-       +--------+-------+
-
-sub show_box_matrix( @boxes ) {
-
-    my $all
-=cut
-
+my $i = 0;
 push @tests, ( 
-    [ "Generated Test 1 (4 boxes)",   [ create_boxes( 4, 8, 8 ) ], 2 ],
-    [ "Generated Test 2 (100 boxes)", [ create_boxes( 100, 100, 100 ) ], 15 ],
-    [ "Generated Test 3 (1000 boxes)",
-        [ create_boxes( 1000, 1000, 1000 ) ], 63 ],
+    ( map {
+        [ sprintf( "Generated Test %02d (%d boxes)", ++$i, $_ ),
+            [ create_ordered_boxes( $_ ) ], $_ ]
+    } 4..30, 31, 100, 1000 ),
+    ( map {
+        [ sprintf( "Generated Test %02d (%d random boxes)", ++$i, $_->[0] ),
+            [ create_random_boxes( $_->[0], $_->[0], $_->[0] ) ], $_->[1] ]
+    } [ 1000, 62 ] ),
 );
 
-run( "arrange_box", \@tests );
+use Benchmark qw( :all :hireswallclock );
+
+if ( $debug{RUNTIME} ) {
+    timethese( 1, {
+        map {
+            my $test_id = $_;
+            $tests[$test_id][0]
+                . " (" . scalar( $tests[$test_id][1]->@* ) . " boxes)"
+                => sub { arrange_box_recursive( $tests[$test_id][1]->@* ) }
+        } keys @tests
+    } );
+    exit 0;
+}
+
+my @benchmark_data = ( $tests[-1][1]->@* );
+
+run( "arrange_box", \@tests, \@benchmark_data );
 
 __END__
 is arrange_box( $_->[1]->@* ), $_->[2], $_->[0]
