@@ -67,7 +67,7 @@ sub get_options() {
 
     $do_tests //= ! $do_benchmark;
 
-    dsay "tests_to_run_patterns: ", pp @tests_to_run_patterns
+    dsay ":options", "tests_to_run_patterns: ", pp @tests_to_run_patterns
         if @tests_to_run_patterns;
 
     $done = 1;
