@@ -32,37 +32,51 @@ else {
     memoize( 'find_longest_fit' );
 }
 
-sub arrange_box_recursive( @boxes ) {
+sub Xarrange_box_recursive( @boxes ) {
     @boxes = sort { $a->[0] <=> $b->[0] || $a->[1] <=> $b->[1] } @boxes;
     # dsay pp @boxes;
     flush_cache( 'find_longest_fit' )
         unless $debug{'NO_MEMOIZE'};
-    return max( map { find_longest_fit( \@boxes, $_ ) } keys @boxes );
+    return max( map { find_longest_fit( \@boxes, $_ ) } keys @boxes ) // 0;
 }
 
-sub arrange_box_loops ( @boxes ) {
-    @boxes = sort { $a->[0] <=> $b->[0] || $a->[1] <=> $b->[1] } @boxes;
+sub Xarrange_box ( @boxes ) {
+    @boxes = sort { $a->[0] <=> $b->[0] } @boxes;
  
     my @path_lengths = map { 1 } keys @boxes;
-    for my $start ( keys @boxes ) {
-        %debug and dsay "start: box $start (", pp( $boxes[$start] ), "),",
-            " path length $path_lengths[$start]";
-        for my $next ( $start + 1 .. $#boxes ) {
-            my $fits = $boxes[$next][0] > $boxes[$start][0]
-                && $boxes[$next][1] > $boxes[$start][1];
-            %debug and dprint "  box $next (", pp( $boxes[$next] ),
-                ", path length $path_lengths[$next] )",
+    for my $current ( keys @boxes ) {
+        %debug and dsay "start: box $current (", pp( $boxes[$current] ), "),",
+            " path length $path_lengths[$current]";
+        for my $other ( $current + 1 .. $#boxes ) {
+            my $fits = $boxes[$other][0] > $boxes[$current][0]
+                && $boxes[$other][1] > $boxes[$current][1];
+            %debug and dprint "  box $other (", pp( $boxes[$other] ),
+                ", path length $path_lengths[$other] )",
                 $fits ? "fits" : "does not fit\n";
             next unless $fits;
             %debug and dsay
-                $path_lengths[$start] + 1 > $path_lengths[$next]
-                ? ( "updating path length to ", $path_lengths[$start] + 1 )
+                $path_lengths[$current] + 1 > $path_lengths[$other]
+                ? ( "updating path length to ", $path_lengths[$current] + 1 )
                 : "no change to path length";
-            $path_lengths[$next] = $path_lengths[$start] + 1
-                if $path_lengths[$start] + 1 > $path_lengths[$next];
+            $path_lengths[$other] = $path_lengths[$current] + 1
+                if $path_lengths[$current] + 1 > $path_lengths[$other];
         }
     }
-    return max( @path_lengths );
+    return max( @path_lengths ) // 0;
+}
+
+sub arrange_box ( @boxes ) {
+    @boxes = sort { $a->[0] <=> $b->[0] || $a->[1] <=> $b->[1] } @boxes;
+    my @path_lengths = ( 1 ) x @boxes;
+    for my $current ( keys @boxes ) {
+        for my $other ( $current + 1 .. $#boxes ) {
+            $path_lengths[$other] = $path_lengths[$current] + 1
+                if $boxes[$other][0] > $boxes[$current][0]
+                    && $boxes[$other][1] > $boxes[$current][1]
+                    && $path_lengths[$current] + 1 > $path_lengths[$other];
+        }
+    }
+    return max( @path_lengths ) // 0;
 }
 
 use lib qw( . ../../../lib );
@@ -94,10 +108,13 @@ sub create_random_boxes( $n, $max_width, $max_height ) {
 
 my $i = 0;
 push @tests, ( 
+    [ "Own Test 1:", [ ], 0 ],
+    [ sprintf( "Generated Test %02d (1 box)", ++$i ),
+            [ [ 1, 1 ] ], 1 ],
     ( map {
-        [ sprintf( "Generated Test %02d (%d boxes)", ++$i, $_ ),
+        [ sprintf( "Generated Test %02d (%d sequential boxes)", ++$i, $_ ),
             [ create_ordered_boxes( $_ ) ], $_ ]
-    } 4..30, 31, 100, 1000 ),
+    } 2..31, 100, 1000 ),
     ( map {
         [ sprintf( "Generated Test %02d (%d random boxes)", ++$i, $_->[0] ),
             [ create_random_boxes( $_->[0], $_->[0], $_->[0] ) ], $_->[1] ]
@@ -109,10 +126,13 @@ use Benchmark qw( :all :hireswallclock );
 if ( $debug{RUNTIME} ) {
     timethese( 1, {
         map {
+            dsay "map $tests[$_][0]";
             my $test_id = $_;
             $tests[$test_id][0]
-                . " (" . scalar( $tests[$test_id][1]->@* ) . " boxes)"
-                => sub { arrange_box_recursive( $tests[$test_id][1]->@* ) }
+                => sub { Xarrange_box_recursive( $tests[$test_id][1]->@* ) }
+        } grep {
+            $tests[$_][0] =~ /^Generated.*?(\d+)\D*$/
+                && $1 <= 31
         } keys @tests
     } );
     exit 0;
