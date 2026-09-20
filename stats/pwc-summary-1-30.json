@@ -24,7 +24,7 @@
             2,
             43,
             93,
-            333,
+            335,
             44,
             13,
             8,
@@ -73,7 +73,7 @@
             0,
             0,
             2,
-            777,
+            779,
             0
          ],
          "name" : "Raku"
@@ -94,7 +94,7 @@
             0,
             0,
             13,
-            131,
+            132,
             0,
             32,
             4,
@@ -108,14 +108,14 @@
             0,
             0,
             0,
-            389,
+            390,
             0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-09-13 23:15:53 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-09-20 22:27:54 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2026]"
