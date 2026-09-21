@@ -26,7 +26,7 @@ use Test2::V0 qw( -no_srand );
 my @tests = (
     [ "Example 1", ["a", "ab", "abc", "d", "de", "def"], 9 ],
     [ "Example 2", ["a", "aa", "aaa", "aaaa"], 0 ],
-    [ "Example 3", ["meet", "app", "code", "sky", "bold"], 14 ],
+    [ "Example 3", ["meet", "app", "code", "sky", "bold"], 16 ],
     [ "Example 4", ["a", "ab", "abc", "abcd", "efghi"], 20 ],
     [ "Example 5", ["xyz", "w", "abcdefg", "hij"], 21 ],
 );

@@ -24,11 +24,11 @@ sub convert_palindrome( $str ) {
 use Test2::V0 qw( -no_srand );
 
 my @tests = (
-    [ "Example 1", "aacecaaa", "aaacecaaa" ],
+    [ "Example 1", "pinnipeds", "sdepinnipeds" ],
     [ "Example 2", "abcd", "dcbabcd" ],
     [ "Example 3", "bananas", "sananabananas" ],
-    [ "Example 4", "racecar", "racecar" ],
-    [ "Example 5", "aaaaa", "aaaaa" ],
+    [ "Example 4", "dissident", "tnedissident" ],
+    [ "Example 5", "cailliachs", "shcailliachs" ],
 );
 
 is convert_palindrome( $_->[1] ), $_->[2], $_->[0]
