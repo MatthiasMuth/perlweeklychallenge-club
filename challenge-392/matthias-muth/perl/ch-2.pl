@@ -9,7 +9,6 @@
 #
 
 use v5.36;
-use Verbose;
 
 use List::Util qw( reduce );
 use Algorithm::Combinatorics qw( combinations );
@@ -19,9 +18,6 @@ sub words_length_product( @words ) {
         reduce { $a |= 1 << ( 26 - ( ord( $b ) & 0x1F ) ) }
             0, split "", $_;
     } @words;
-
-    vsay "word '$words[$_]' signature ", sprintf "0b%026b", $sigs[$_]
-        for keys @words;
 
     my $max = 0;
     my $iter = combinations( [ keys @words ], 2 );

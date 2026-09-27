@@ -9,7 +9,6 @@
 #
 
 use v5.36;
-use Dsay;
 
 sub is_palindrome( $str ) {
     return substr( $str, 0, length( $str) / 2 )
@@ -19,11 +18,8 @@ sub is_palindrome( $str ) {
 sub convert_palindrome( $str ) {
     my $reversed = reverse $str;
     my $prepend = "";
-    dsay pp $str, $reversed;
-    dsay "  prepend: '$prepend' => '$prepend.$str'";
     until ( is_palindrome( $prepend . $str ) ) {
         $prepend .= substr( $reversed, 0, 1, "" );
-        dsay "  prepend: '$prepend' => '$prepend.$str'";
     }
     return $prepend . $str;
 }
