@@ -51,10 +51,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Bob Lied",
@@ -89,10 +85,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "E. Choroba",
@@ -120,16 +112,6 @@
             "data" : [
                [
                   "Perl",
-                  1
-               ]
-            ],
-            "id" : "Lance Wicks",
-            "name" : "Lance Wicks"
-         },
-         {
-            "data" : [
-               [
-                  "Perl",
                   2
                ],
                [
@@ -144,7 +126,7 @@
             "data" : [
                [
                   "Raku",
-                  1
+                  2
                ]
             ],
             "id" : "Mark Anderson",
@@ -155,10 +137,6 @@
                [
                   "Perl",
                   2
-               ],
-               [
-                  "Blog",
-                  1
                ]
             ],
             "id" : "Matthias Muth",
@@ -224,11 +202,11 @@
             "data" : [
                [
                   "Perl",
-                  1
+                  2
                ],
                [
                   "Blog",
-                  1
+                  2
                ]
             ],
             "id" : "Reinier Maliepaard",
@@ -247,6 +225,16 @@
             ],
             "id" : "Robbie Hatley",
             "name" : "Robbie Hatley"
+         },
+         {
+            "data" : [
+               [
+                  "Raku",
+                  2
+               ]
+            ],
+            "id" : "Robert Ransbottom",
+            "name" : "Robert Ransbottom"
          },
          {
             "data" : [
@@ -368,7 +356,7 @@
             {
                "drilldown" : "Bob Lied",
                "name" : "Bob Lied",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "David Ferrone",
@@ -383,17 +371,12 @@
             {
                "drilldown" : "E. Choroba",
                "name" : "E. Choroba",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "Jaldhar H. Vyas",
                "name" : "Jaldhar H. Vyas",
                "y" : 5
-            },
-            {
-               "drilldown" : "Lance Wicks",
-               "name" : "Lance Wicks",
-               "y" : 1
             },
             {
                "drilldown" : "Lubos Kolouch",
@@ -403,12 +386,12 @@
             {
                "drilldown" : "Mark Anderson",
                "name" : "Mark Anderson",
-               "y" : 1
+               "y" : 2
             },
             {
                "drilldown" : "Matthias Muth",
                "name" : "Matthias Muth",
-               "y" : 3
+               "y" : 2
             },
             {
                "drilldown" : "Mohammad Sajid Anwar",
@@ -433,12 +416,17 @@
             {
                "drilldown" : "Reinier Maliepaard",
                "name" : "Reinier Maliepaard",
-               "y" : 2
+               "y" : 4
             },
             {
                "drilldown" : "Robbie Hatley",
                "name" : "Robbie Hatley",
                "y" : 3
+            },
+            {
+               "drilldown" : "Robert Ransbottom",
+               "name" : "Robert Ransbottom",
+               "y" : 2
             },
             {
                "drilldown" : "Roger Bell_West",
@@ -471,14 +459,14 @@
                "y" : 2
             }
          ],
-         "name" : "The Weekly Challenge - 391"
+         "name" : "The Weekly Challenge - 392"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 24] Last updated at 2026-09-20 22:27:54 GMT"
+      "text" : "[Champions: 24] Last updated at 2026-09-28 00:48:46 GMT"
    },
    "title" : {
-      "text" : "The Weekly Challenge - 391"
+      "text" : "The Weekly Challenge - 392"
    },
    "tooltip" : {
       "followPointer" : 1,
