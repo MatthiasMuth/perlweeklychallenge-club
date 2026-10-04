@@ -11,18 +11,14 @@
 use v5.36;
 
 use List::Util qw( sum min );
-use Math::Prime::Util qw( next_prime primes );
+use Math::Prime::Util qw( is_prime prev_prime next_prime );
 
 sub prime_step( $str ) {
-    my $target = sum( map { ord } split "", $str );
-    my $next_prime = next_prime( $target );
-    return min (
-        map { abs( $_ - $target ) }
-            primes(
-                $next_prime - 2 * ( $next_prime - $target ),
-                $next_prime
-            )->@*
-    );
+    my $sum = sum( map { ord } split "", $str );
+    return 
+        is_prime( $sum )
+        ? 0
+        : min ( $sum - prev_prime( $sum ), next_prime( $sum ) - $sum );
 }
 
 use lib qw( . ../../../lib );
