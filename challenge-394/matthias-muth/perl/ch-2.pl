@@ -5,23 +5,18 @@
 #
 #       Challenge 394 Task 2: Alternating Vowels Consonants
 #
-#       Perl solution template.
-#       Uses test data extracted from the challenge task examples
-#       to test the solution during development.
-#       (Template by Matthias Muth)
+#       Perl solution by Matthias Muth.
 #
 
-use v5.20;
-use warnings;
-use feature 'signatures';
-no warnings 'experimental::signatures';
+use v5.36;
 
 sub alternating_vowels_consonants( @str ) {
     my @results;
     return \@results;
 }
 
-use Test2::V0 qw( -no_srand );
+use lib qw( . ../../../lib );
+use MultiTest;
 
 my @tests = (
     [ "Example 1", ["relocate", "delocate", "allocate"], ["locate"] ],
@@ -31,6 +26,9 @@ my @tests = (
     [ "Example 5", ["schoolmaster", "schoolhouse", "schooling"], ["ho", "ol"] ],
 );
 
+run( "alternating_vowels_consonants", \@tests );
+
+__END__
 is [ alternating_vowels_consonants( $_->[1]->@* ) ], $_->[2], $_->[0]
     for @tests;
 
