@@ -9,23 +9,9 @@
 #
 
 use v5.36;
-use Dsay;
-
-sub merge_sorted_arrays( $a, $b ) {
-    my ( $i, $j ) = ( 0, 0 );
-    my @results;
-    while ( $i <= $a->$#* && $j <= $b->$#* ) {
-        push @results,
-            $a->[$i] < $b->[$j]
-            ? ( $a->[$i], ++$i )[0]
-            : ( $b->[$j], ++$j )[0];
-    }
-    return ( @results, $a->@[$i..$a->$#*], $b->@[$j..$b->$#*] );
-}
 
 sub array_median( $arr1, $arr2 ) {
     my @all = sort { $a <=> $b } ( $arr1->@*, $arr2->@* );
-    @all = merge_sorted_arrays( $arr1, $arr2 );
     return @all % 2 == 0
         ? ( $all[ @all / 2 - 1 ] + $all[ @all / 2 ] ) / 2
         : $all[ int( @all / 2 ) ];

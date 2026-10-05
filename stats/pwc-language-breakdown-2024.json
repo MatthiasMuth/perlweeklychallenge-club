@@ -70,7 +70,7 @@
                ],
                [
                   "Blog",
-                  11
+                  12
                ]
             ],
             "id" : "299",
@@ -88,7 +88,7 @@
                ],
                [
                   "Blog",
-                  21
+                  22
                ]
             ],
             "id" : "298",
@@ -106,7 +106,7 @@
                ],
                [
                   "Blog",
-                  24
+                  25
                ]
             ],
             "id" : "297",
@@ -466,7 +466,7 @@
                ],
                [
                   "Blog",
-                  29
+                  28
                ]
             ],
             "id" : "277",
@@ -484,7 +484,7 @@
                ],
                [
                   "Blog",
-                  28
+                  27
                ]
             ],
             "id" : "276",
@@ -994,17 +994,17 @@
             {
                "drilldown" : "299",
                "name" : "299",
-               "y" : 65
+               "y" : 66
             },
             {
                "drilldown" : "298",
                "name" : "298",
-               "y" : 78
+               "y" : 79
             },
             {
                "drilldown" : "297",
                "name" : "297",
-               "y" : 94
+               "y" : 95
             },
             {
                "drilldown" : "296",
@@ -1104,12 +1104,12 @@
             {
                "drilldown" : "277",
                "name" : "277",
-               "y" : 127
+               "y" : 126
             },
             {
                "drilldown" : "276",
                "name" : "276",
-               "y" : 126
+               "y" : 125
             },
             {
                "drilldown" : "275",
@@ -1246,7 +1246,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-09-28 00:48:46 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-10-05 03:17:32 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"

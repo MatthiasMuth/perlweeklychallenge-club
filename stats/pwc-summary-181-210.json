@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            20,
             78,
             21,
             1,
@@ -23,7 +24,7 @@
             390,
             0,
             4,
-            338,
+            340,
             20,
             6,
             13,
@@ -34,19 +35,19 @@
             0,
             0,
             1,
-            226,
+            227,
             0,
             0,
             40,
-            14,
-            7
+            14
          ],
          "name" : "Perl"
       },
       {
          "data" : [
             0,
-            643,
+            0,
+            644,
             1,
             49,
             91,
@@ -69,17 +70,17 @@
             2,
             0,
             0,
-            158,
+            159,
             1,
             10,
             40,
-            0,
             0
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
             0,
             5,
             0,
@@ -93,7 +94,7 @@
             0,
             0,
             1,
-            148,
+            145,
             0,
             0,
             0,
@@ -108,14 +109,13 @@
             0,
             0,
             16,
-            0,
-            4
+            0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-09-28 00:48:46 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-10-05 03:17:32 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2026]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Mariano Ortega",
          "Mariano Spadaccini",
          "Mark Anderson",
          "Mark J. Reed",
@@ -154,8 +155,7 @@
          "Moray Jones",
          "Mustafa Aydin",
          "Myoungjin Jeon",
-         "Nazareno Delucca",
-         "Neil Bowers"
+         "Nazareno Delucca"
       ]
    },
    "yAxis" : {
