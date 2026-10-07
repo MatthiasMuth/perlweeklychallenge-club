@@ -76,6 +76,16 @@ sub get_options() {
 sub run( $sub_base_name, $tests, $benchmark_params = undef ) {
     get_options;
 
+    # Use the last test entry's input parameters as benchmark data
+    # as a default.
+    # If all tests have a simple scalar as test data ('single_input'),
+    # put that parameter into an arrayref. If not, we can use the test
+    # input data as it is.
+    $benchmark_params //=
+        ( all { ref $_->[1] ne "ARRAY" } $tests->@* )
+        ? [ $tests->[-1][1] ]
+        : $tests->[-1][1];
+
     # Run the tests and/or the benchmark, depending on the command line options.
     # If tests are run, run the benchmark only if the tests succeed.
     ! $do_tests || run_tests( $sub_base_name, $tests->@* )
