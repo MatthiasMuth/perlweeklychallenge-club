@@ -1,164 +1,219 @@
-#!/bin/bash
+#!/usr/bin/env perl
 #
-#       publish
-#       (worktree version)
+#	publish.pl
+#	(worktree version)
 #
 
-# Option and argument processing
-while :; do
-    case "$1" in
-        [0-9]* )        challenge="$1";;
-        json|-json )    PUBLISH_JSON=1;;
-        * )             break;;
-    esac
-    shift
-done
+use v5.36;
+use feature 'try';
+use builtin qw( true false );
 
-cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+use Cwd            qw( abs_path );
+use File::Basename qw( basename dirname );
 
-if [ ! "$challenge" ]; then
-    last_challenge_dir="$( ls -d -r challenge-* | head -1 )"
-    challenge="${last_challenge_dir##*-}"
-fi
+use Verbose;
+use Dsay;
 
-sync_worktree() {
-    local target_branch="$1"
+use Getopt::Long;
+use Git::Repository;
+use List::Util qw( max );
 
-    if [ -z "$target_branch" ]; then
-        echo "usage: sync_worktree <target_branch>" >&2
-        return 2
-    fi
+my ( $challenge, $publish_json );
 
-    (
-        cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+# --- Option and argument processing -------------------------------
+GetOptions(
+    "j|json!"  => \$publish_json,
+    "n|check!" => \$options{DRY_RUN},
+) or do { say STDERR "Usage!"; exit 2 };
 
-        if [ ! -d "$target_branch" ]; then
-            echo "error: worktree '$target_branch' not found" >&2
-            exit 2
-        fi
-
-        cd "$target_branch" || exit 1
-
-	# Merge upstream/master in, if possible.
-        git fetch upstream || exit 1
-        if ! git merge --ff-only upstream/master; then
-            echo "note: '$target_branch' not yet mergeable upstream" \
-                "(likely due to an open PR)" >&2
-        fi
-
-	# Pull changes made to <branch> elsewhere.
-        git pull --ff-only origin "$target_branch"
-    )
+for ( @ARGV ) {
+    /^\d+$/    and do { $challenge = $&;   next };
+    /^json$/i  and do { $publish_json = 1; next };
+    say STDERR "Usage!";
+    exit 2;
 }
 
-copy_files() {
-    local source_branch="$1" source_dir="$2" target_branch="$3"
-    shift 3
-    local files=("$@")
+# --- Locate the repo global toplevel (parent of the shared .git dir) -----
+my $repo = Git::Repository->new( { fatal => '!0' } );
+my $toplevel =
+    dirname( abs_path( $repo->run( qw( rev-parse --git-common-dir ) ) ) );
+chdir $toplevel
+    or die "ERROR: cannot chdir to '$toplevel': $!\n";
 
-    if [ -z "$source_branch" ] || [ -z "$source_dir" ] \
-        || [ -z "$target_branch" ]
-    then
-        cat <<'EOF' >&2
-usage: copy_files <source_branch> <source_dir> <target_branch> [file ...]
-    <target_branch> must be a worktree of the same name at toplevel.
-    With no files given, all files in <source_dir> are copied.
-EOF
-        return 2
-    fi
+# --- Get challenge number if not given as command line argument.
+$challenge = max( map /(\d+)/, glob( "challenge-*" ) )
+    unless $challenge;
 
-    local pathspecs=()
-    if [ "${#files[@]}" -eq 0 ]; then
-        pathspecs=("$source_dir")
-    else
-        local f
-        for f in "${files[@]}"; do
-            pathspecs+=("$source_dir/$f")
-        done
-    fi
+# --- Helpers --------------------------------------------------------
+sub sync_worktree( $target_branch ) {
+    die "usage: sync_worktree <target_branch>\n"
+        unless $target_branch;
 
-    (
-        cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+    my $worktree_repo =
+        Git::Repository->new( work_tree => $target_branch, { fatal => '!0' } );
 
-        if [ ! -d "$target_branch" ]; then
-            echo "error: worktree '$target_branch' not found" >&2
-            exit 2
-        fi
+    # Merge upstream/master in, if possible.
+    $worktree_repo->run( qw( fetch upstream ) );
 
-        cd "$target_branch" || exit 1
+    my $cmd = $worktree_repo->command( qw( merge --ff-only upstream/master ) );
+    $cmd->close;
+    if ( $cmd->exit != 0 ) {
+        say STDERR "NOTE: '$target_branch' not yet mergeable upstream",
+            " (likely due to an open PR)";
+    }
 
-        local found_files
-        readarray -t found_files < <( git ls-tree -r --name-only \
-            "$source_branch" -- "${pathspecs[@]}" )
-        if [ "${#found_files[@]}" -eq 0 ]; then
-            echo "error: no requested files found in '$source_branch'" >&2
-            exit 1
-        fi
+    # Pull changes made to <branch> elsewhere.
+    $worktree_repo->run( qw( pull --ff-only origin ), $target_branch,
+        { quiet => 1 } );
 
-        git checkout "$source_branch" -- "${found_files[@]}"
-        ls -l "$source_dir"
-    )
+    return 1;
 }
 
-publish_files() {
-    local target_branch="$1" msg="$2" source_dir="$3"
+sub copy_files( $source_branch, $source_dir, $target_branch, @files ) {
+    unless ( $source_branch && $source_dir && $target_branch ) {
+        say STDERR
+            "usage: copy_files <source_branch> <source_dir> <target_branch>",
+            " [file ...]\n",
+            "    <target_branch> must be a worktree of the same name",
+            " at toplevel.\n",
+            "    With no files given, all files in <source_dir> are copied.";
+        return;
+    }
 
-    if [ -z "$target_branch" ] || [ -z "$source_dir" ]; then
-        cat <<'EOF' >&2
-usage: publish_files <target_branch> <msg> <source_dir>
-    <target_branch> must be a worktree of the same name at toplevel.
-EOF
-        return 2
-    fi
+    my @pathspecs = @files
+        ? map { "$source_dir/$_" } @files
+        : ( $source_dir );
 
-    (
-        cd "$( git rev-parse --git-common-dir )"/.. || exit 1
+    my $worktree_repo =
+        Git::Repository->new( work_tree => $target_branch, { fatal => '!0' } );
 
-        if [ ! -d "$target_branch" ]; then
-            echo "error: worktree '$target_branch' not found" >&2
-            exit 2
-        fi
+    my @found_files = $worktree_repo->run(
+        qw( ls-tree -r --name-only ), $source_branch, '--', @pathspecs );
+    unless ( @found_files ) {
+        say STDERR "ERROR: no requested files found in '$source_branch'";
+        return;
+    }
 
-        cd "$target_branch" || exit 1
+    $worktree_repo->run( qw( checkout ), $source_branch, '--', @found_files );
 
-        local update=""
-        [ -n "$( git ls-tree -d --name-only \
-            "$target_branch" -- "$source_dir" )" ] && update=" - Update"
+    for my $f ( @found_files ) {
+        my $path = "$toplevel/$target_branch/$f";
+        my $size = -e $path ? ( stat $path )[7] : '?';
+        say "$f\t($size bytes)";
+    }
 
-        git add "$source_dir"
-        git commit -m "$msg$update" || true
-        git push
-    )
+    return 1;
 }
 
-if [ "$PUBLISH_JSON" ]; then
+sub is_update( $repo, $target_branch, $source_dir ) {
+    my $my_email = $repo->run( qw( config user.email ) );
+    my @files = $repo->run(
+        qw( ls-tree -r --name-only ), $target_branch, '--', $source_dir );
+    for my $path ( @files ) {
+        my $author_email = $repo->run(
+            qw( log -1 --format=%ae ), $target_branch, '--', $path );
+        return 1
+            if $author_email eq $my_email;
+    }
+    return 0;
+}
+
+
+sub publish_files( $target_branch, $msg, $source_dir, @excludes ) {
+   unless ( $target_branch && $source_dir ) {
+        say STDERR
+            "usage: publish_files <target_branch> <msg> <source_dir>\n",
+            "    <target_branch> must be a worktree of the same name",
+            " at toplevel.";
+        return;
+    }
+
+    my $worktree_repo =
+        Git::Repository->new( work_tree => $target_branch, { fatal => '!0' } );
+
+    my $update =
+        is_update( $worktree_repo, $target_branch, $source_dir )
+        ? " - Update" : "";
+
+    $worktree_repo->run( qw( add ), $source_dir );
+    my @added = $worktree_repo->run( qw( diff --cached --name-only ) );
+    if ( @added == 0 ) {
+        qsay "nothing to commit";
+        return 1;
+    }
+    qsay "added $_"
+        for @added;
+    qsay "committing '$msg$update'";
+    my $cmd = $worktree_repo->command( qw( commit -m ), "$msg$update" );
+    $cmd->close;
+
+    if ( $cmd->exit == 0 ) {
+        my $push_target = $worktree_repo->run(
+            qw( rev-parse --abbrev-ref ), "$target_branch\@{push}" );
+        qsay "pushing to $push_target";
+        $worktree_repo->run( qw( push ), { quiet => 1 } )
+    }
+
+    return 1;
+}
+
+sub fix_muthm_solution( $file ) {
+    return unless -f $file;
+    my $content = do { local ( @ARGV, $/ ) = $file; <> };
+
+    $content =~ s{ ^use \s+ lib \s .*? \n
+                   ^use \s+ MultiTest .*? \n }
+                 {use Test2::V0 qw( -no_srand );\n}msx;
+
+    $content =~ s{ ^ ( my \s+ \@tests \s* = .*? ^ \) ; \n ) .*? ^__END__ }
+                 { my $tests = $1;
+                   $tests =~ s/((?:Own Test|Example) \d+):?"/$1"/gi;
+                   $tests }emsx;
+
+    open my $out, '>', $file
+        or die "ERROR: cannot write '$file': $!\n";
+    print $out $content;
+    close $out;
+
+    return;
+}
+
+# --- main -------------------------------------------------------------
+
+my ( $source_branch, $source_dir, @files, $target_branch, $msg );
+
+if ($publish_json) {
     # Publish 'challenge-NNN/examples/json' directory to 'json-examples' branch.
-    source_branch="dev"
-    source_dir="challenge-$challenge/examples"
-    files=( json/ch-{1,2}.json )
-    target_branch="json-examples"
-    # msg="Challenge $challenge .json example data and Perl solution skeletons"
-    msg="Provide JSON test data for Challenge $challenge task examples"
-else
+    $source_branch = "dev";
+    $source_dir    = "challenge-$challenge/examples";
+    @files         = qw( json/ch-1.json json/ch-2.json );
+    $target_branch = "json-examples";
+    $msg = "Provide JSON test data for Challenge $challenge task examples";
+}
+else {
     # Publish challenge solution.
-    source_branch="dev"
-    source_dir="challenge-$challenge/matthias-muth"
-    files=( README.md blog.txt perl/ch-{1,2}.pl )
-    target_branch="muthm"
-    msg="Challenge $challenge Task 1 and 2 solutions in Perl by Matthias Muth"
-fi
+    $source_branch = "dev";
+    $source_dir    = "challenge-$challenge/matthias-muth";
+    @files         = qw( README.md blog.txt perl/ch-1.pl perl/ch-2.pl );
+    $target_branch = "muthm";
+    $msg = "Challenge $challenge Task 1 and 2 solutions in Perl"
+        . " by Matthias Muth";
+}
 
-sync_worktree "$target_branch" || exit 1
-copy_files "$source_branch" "$source_dir" "$target_branch" "${files[@]}" \
-    || exit 1
+qsay "syncing worktree '$target_branch'";
+sync_worktree( $target_branch ) or exit 1;
 
-if [ "$target_branch" = "muthm" ]; then
-    perl -i -g -p -E '
-	s<^use lib .*?\n^use MultiTest.*?\n>
-	    <use Test2::V0 qw( -no_srand );\n>ms;
-        s<^(my \@tests =.*?^\);\n).*^__END__>
-            { $1 =~ s/((?:Own Test|Example) \d+):"/$1"/igr }ems;
-    ' "$target_branch/$source_dir"/perl/ch-[12].pl
-fi
+qsay "copying files from '$source_branch' to '$target_branch'";
+copy_files( $source_branch, $source_dir, $target_branch, @files )
+    or exit 1;
 
-publish_files "$target_branch" "$msg" "$source_dir"
+if ( $target_branch eq 'muthm' ) {
+    qsay "adjusting test scaffolding in copied solution files";
+    fix_muthm_solution( $_ )
+        for map {"$toplevel/$target_branch/$source_dir/perl/$_"}
+            qw( ch-1.pl ch-2.pl );
+}
+
+qsay "publishing '$source_dir' to '$target_branch'";
+publish_files( $target_branch, $msg, $source_dir )
+    unless $options{DRY_RUN};
