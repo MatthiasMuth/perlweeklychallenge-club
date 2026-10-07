@@ -427,7 +427,7 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
     my $readme_file = "$target_dir/README.md";
 
     my $dry_run_readme_msg = "";
-    if ( ! -f $readme_file ) {
+    if ( ! -f $readme_file && ! $options{GIST} ) {
         unless ( $options{DRY_RUN} || $options{NO_GIT} ) {
             system "./update_git.pl" . ( $verbose ? " -v" : " -q" );
         }
@@ -565,14 +565,16 @@ sub write_files( $challenge, $page_html, $tasks_html, $challenge_text,
             $options{UPDATE} && $options{ARCHIVE} && $archive_file
                 ? [ "$archive_dir/$archive_file", $page_html ]
                 : (),
-            [ "$target_dir/README-no-blog.md",
-                $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
-            [ "$target_dir/blog.txt",
-                $blog_text, 'DO_NOT_OVERWRITE' ],
-            [ $readme_file,
-                $readme_text, 'DO_NOT_OVERWRITE', $dry_run_readme_msg ],
-            [ "$target_dir/perl/challenge-$challenge.txt",
-                $challenge_text ],
+            $options{GIST} ? () : (
+                [ "$target_dir/README-no-blog.md",
+                    $readme_no_blog_text, 'DO_NOT_OVERWRITE' ],
+                [ "$target_dir/blog.txt",
+                    $blog_text, 'DO_NOT_OVERWRITE' ],
+                [ $readme_file,
+                    $readme_text, 'DO_NOT_OVERWRITE', $dry_run_readme_msg ],
+                [ "$target_dir/perl/challenge-$challenge.txt",
+                    $challenge_text ],
+            ),
             ( map {
                 [ "$target_dir/perl/ch-$_.pl",
                     $tasks[$_]{'solution'}, 'DO_NOT_OVERWRITE' ]

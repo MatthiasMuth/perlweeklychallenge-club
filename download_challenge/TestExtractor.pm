@@ -194,7 +194,7 @@ sub generate_tests( $sub_name, @tests ) {
                     : $_->{INPUT}[0]
                 : @{$_->{INPUT}}
             : ();
-        dsay "  input_params: ", pp( @input_params );
+        %debug and dsay "  input_params: ", pp( @input_params );
 
         $_->{OUTPUT} or do {
             my $message =
@@ -266,7 +266,7 @@ sub generate_tests( $sub_name, @tests ) {
         @generated_code,
         "",
         "done_testing;";
-    dsay pp $generated_tests;
+    %debug and dsay pp $generated_tests;
     return $generated_tests;
 }
 
@@ -309,7 +309,7 @@ sub read_task( $fd_or_filename, $wanted_task = undef ) {
             if $wanted_task && $task != $wanted_task;
 
         $task_text .= $_;
-        dsay "task text added:", pp $task_text;
+        %debug and dsay "task text added:", pp $task_text;
     }
 
     return $task_title, $task_text;
@@ -317,7 +317,7 @@ sub read_task( $fd_or_filename, $wanted_task = undef ) {
 
 sub extract_tests( $task_text ) {
     local $d_area = "tests";
-    dsay "extract_tests( ", pp( $task_text ), " )";
+    %debug and dsay "extract_tests( ", pp( $task_text ), " )";
 
     # These regular expressions are used for extracting input or output
     # test data.
@@ -325,7 +325,7 @@ sub extract_tests( $task_text ) {
     my $q_string      = qr/ ' (?: [^'\\]++  | \\. )* ' /x;
     my $qq_string     = qr/ " (?: [^"\\]++  | \\. )* " /x;
     my $qw_string     = qr/ qw\( (?: [^\\\)]++ | \\. )* \) /x;
-    my $number        = qr/ [+-]?\d+(?:\.\d+)? /x;
+    my $number        = qr/ (?<![\w.]) [+-]?\d+(?:\.\d+)? (?![\w.]) /x;
     my $literal       = qr/ $qq_string | $q_string | $qw_string
                             | $number | undef /x;
     my $bracketed     = qr/ \[ [^\[]*? \] /xs;
@@ -349,9 +349,9 @@ sub extract_tests( $task_text ) {
         /xmsg )
     {
         my ( $test, $input, $output) = ( $1, $2, $3 );
-        dsay "test:\n", pp $test;
-        dsay "input:", pp $input;
-        dsay "output:", pp $output;
+        %debug and dsay "test:\n", pp $test;
+        %debug and dsay "input:", pp $input;
+        %debug and dsay "output:", pp $output;
 
         push @tests, { TEST => $test, OUTPUT => [] };
 
@@ -373,7 +373,7 @@ sub extract_tests( $task_text ) {
                 say STDERR $message
                     unless $messages_given{$message};
                 $messages_given{$message} = 1;
-                dsay "changed \$input to '$input'";
+                %debug and dsay "changed \$input to '$input'";
             }
             else {
                 my $message =
@@ -388,41 +388,43 @@ sub extract_tests( $task_text ) {
         }
 
         for ( $input, $output ) {
-            dsay "processing '$_'";
+            %debug and dsay "processing '$_'";
             # To avoid misinterpretations of '@' or '$' within strings when the
             # data is 'eval'ed, we escape those characters.
             s< $qq_string >{
-                dsay "\$&: '$&'";
+                %debug and dsay "\$&: '$&'";
                 $& =~ s/\$/\\\$/gr =~ s/\@/\\\@/gr
             }xeg;
 
             # Replace qw(...) by a sequence of values, with parentheses.
-            dsay "checking $_";
-            dsay m<\bqw\(\s*(.*?)\s*\)> ? "found qw" : "no qw";
+            %debug and dsay "checking $_";
+            %debug and dsay m<\bqw\(\s*(.*?)\s*\)> ? "found qw" : "no qw";
             s<\bqw\(\s*(.*?)\s*\)>{
-                dsay "found qw( $1 )";
+                %debug and dsay "found qw( $1 )";
                 "( " . join( ", ", map "'$_'", split " ", $1 ) . " )"
             }e;
 
             # We convert 'barewords' into quoted strings.
-            # We search for these patterns, but we just skip them without
+            # These patterns will be recognized, but skipped without
             # changing them:
             #  * 'Input:', 'Output:' at the beginning of the string,
-            #  * quoted strings,
+            #  * recognized literals (including 'undef'),
             #  * variable names having a $ or @ sigil.
             # After we are sure it's none of those, we also check unquoted
-            # 'barewords' (here: combinations of letters, digits or underscores,
-            # starting with a letter) and enclose them in single quotes.
-            my $bareword = qr/ \b (?!undef) [a-z_][a-z0-9_]* \b /ix;
-            dsay "\$_: ", pp $_;
-            while ( / ^Input: | ^Output: | $literal | [\$\@]$bareword
-                    | ( $bareword ) /xg )
+            # 'grmblmx' (combinations of any letters, digits and '_')
+            # and enclose them in single quotes.
+            my $variable = qr/ [[\$\@] [a-z_][a-z0-9_]* \b /ix;
+            my $grmblmx = qr/ \w+ /ix;
+            %debug and dsay "\$_: ", pp $_;
+            while ( / ^Input: | ^Output: | $literal | $variable
+                    | ( $grmblmx ) /xg )
             {
-                # dsay "  \$&: ", pp $&;
-                # dsay "    ^CAPTURE: ", pp @{^CAPTURE};
-                # dsay "    \$1: ", pp $1;
+                %debug and dsay "  \$&: ", pp $&;
+                %debug and dsay "    ^CAPTURE: ", pp @{^CAPTURE};
+                %debug and dsay "    \$1: ", pp $1;
                 if ( $1 ) {
-                    dsay "    \$1 is <$1>";
+                    # Quote the unrecognized 'grmblmx' sequence.
+                    %debug and dsay "    \$1 is <$1>";
                     my $p = pos();
                     substr $_, $p - length( $1 ), length( $1 ), "'$1'";
                     pos = $p + 2;
@@ -434,7 +436,7 @@ sub extract_tests( $task_text ) {
             # s/\(/\[/g;
             # s/\)/\]/g;
 
-            dsay "before adding commas: $_";
+            %debug and dsay "before adding commas: $_";
             # Add missing commas between literals.
             while ( /$literal/g ) {
                 my $p = pos;
@@ -444,33 +446,48 @@ sub extract_tests( $task_text ) {
                 }xeg;
                 pos = $p;
             }
+            %debug and dsay "after adding commas: $_";
         }
 
         while ( $input =~ / ($var_name) \s* =? \s* ($data_re) /xg ) {
 
             # Experiment: remove outer parentheses, if present.
             my ( $var_name, $data ) = ( $1, $2 );
+            %debug and dsay "var_name '$var_name', data ", pp $data;
             if ( $+{par_list} ) {
-                dsay ":assign", "experiment: remove outer parenthesis";
-                dsay ":assign", "from: $data";
+                %debug and dsay ":assign",
+                    "experiment: remove outer parenthesis";
+                %debug and dsay ":assign", "from: $data";
                 $data =~ s/\((.*)\)/$1/;
-                dsay ":assign", "  to: $data";
+                %debug and dsay ":assign", "  to: $data";
             }
 
             my $eval_string =
                 ( $+{no_paren} || $+{par_list} ) ? "[ $data ]" : $data;
-            dsay "input eval ", pp( $eval_string );
+            %debug and dsay "input eval ", pp( $eval_string );
             push @{$tests[-1]{VARIABLE_NAMES}}, $var_name;
             $tests[-1]{INPUT_SOURCE} = $eval_string;
             push @{$tests[-1]{INPUT}}, eval( $eval_string );
         };
 
+        sub no_yes { $_[0] ? "yes" : "no" }
+        %debug and do {
+            dsay "output: ", pp $output;
+            dsay "output matches \$number: ", no_yes( $output =~ /$number/ );
+            dsay "output matches \$literal ", no_yes( $output =~ /$literal/ );
+            dsay "output matches \$data_re ", no_yes( $output =~ /$data_re/ );
+            # dsay "pattern: ", pp qr/^\s* ($data_re) $/x;
+            dsay "output matches pattern: ",
+                no_yes( $output =~ /^\s* ($data_re) $/x );
+        };
+
         while ( $output =~ /^\s* ($data_re) $/xg ) {
+            %debug and dsay "output match for \$data_re: ", pp $1;
             # local $d_area = "assign";
             local $_ = $1;
             %debug and do {
-                dsay "assigning output for $_";
-                dsay "data_re found ", pp_hash %{^CAPTURE};
+                %debug and dsay "assigning output for $_";
+                %debug and dsay "data_re found ", pp_hash %{^CAPTURE};
             };
 
             # Special case:  ( (1,2),(3,4),(5,6) )
@@ -478,16 +495,17 @@ sub extract_tests( $task_text ) {
             # Experiment: remove outer parentheses if there are
             # parenthesized or bracketed objects inside.
             if ( $+{par_list} && /^ \( .* [([] /x ) {
-                dsay "experiment: remove outer parenthesis";
-                dsay "from: $_";
+                %debug and dsay "experiment: remove outer parenthesis";
+                %debug and dsay "from: $_";
                 s/\((.*)\)/$1/;
-                dsay "REPLACE from $_";
+                %debug and dsay "REPLACE from $_";
                 # vsay "found special case <$_>";
                 s/\(/\[/g;
                 s/\)/\]/g;
-                dsay "          to $_";
+                %debug and dsay "          to $_";
                 my $eval_string = $+{no_paren} ? "( $_ )" : $_;
-                dsay "output eval (list of lists) ", pp( $eval_string );
+                %debug and dsay
+                    "output eval (list of lists) ", pp( $eval_string );
                 $tests[-1]{OUTPUT_SOURCE} = $eval_string;
                 push @{$tests[-1]{OUTPUT}}, eval( $eval_string );
                 next;
@@ -496,11 +514,11 @@ sub extract_tests( $task_text ) {
             # Special case:  (1,2),(3,4),(5,6)
             # should become: [1,2],[3,4],[5,6]
             if ( 1 || $+{no_paren} && /$parenthesized/ ) {
-                dsay "REPLACE from $_";
+                %debug and dsay "REPLACE from $_";
                 s<( '(?: [^'\\] | \\. )*' | "(?: [^"\\] | \\. )*" ) | ( [()] )>{
                     defined( $1 ) ? $1 : ( $2 eq '(' ? '[' : ']' )
                 }xge;
-                dsay "          to $_";
+                %debug and dsay "          to $_";
             }
 
             my $eval_string = $+{no_paren} ? "( $_ )" : $_;

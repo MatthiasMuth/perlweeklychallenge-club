@@ -1,0 +1,29 @@
+#
+#   t/expected_tests.toml
+#
+
+challenge-290-1 = '''
+(
+  {
+    INPUT => [[5, 6, 4, 1]],
+    OUTPUT => [4],
+    TEST => "Example 1",
+    VARIABLE_NAMES => ["\@ints"],
+  },
+  {
+    INPUT => [[4, 5]],
+    OUTPUT => [5],
+    TEST => "Example 2",
+    VARIABLE_NAMES => ["\@ints"],
+  },
+  {
+    INPUT => [[1, 2, 2, 3]],
+    OUTPUT => [1],
+    TEST => "Example 3",
+    VARIABLE_NAMES => ["\@ints"],
+  },
+)
+'''
+
+challenge-290-2 = '''
+'''

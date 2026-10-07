@@ -535,12 +535,6 @@ pre code {
 [code]
 
 ch-N_pl = '''
-<IMPLEMENTATION>
-
-<RUN_TESTS>
-'''
-
-implementation = '''
 #!/usr/bin/env perl
 #
 #       The Weekly Challenge - Perl & Raku
@@ -548,9 +542,43 @@ implementation = '''
 #
 #       Challenge <CHALLENGE> Task <TASK_NUMBER>: <TASK_NAME>
 #
-#       Perl solution by Matthias Muth.
+<CREDITS>
 #
 
+<IMPLEMENTATION>
+
+<RUN_TESTS>
+'''
+
+#
+#   Credits
+#
+
+solution_credits = '''
+#       Perl solution by Matthias Muth.
+'''
+
+perl_template_credits = '''
+#       Perl solution template.
+#       Uses test data extracted from the challenge task examples
+#       to test the solution during development.
+#       (Template by Matthias Muth)
+'''
+
+json_template_credits = '''
+#       Perl solution template with JSON-based tests.
+#       Uses .json files from the current directory or a sibling
+#       directory (typically '../json') that contain test data
+#       extracted from the challenge task examples
+#       to test the solution during development.
+#       (Template by Matthias Muth)
+'''
+
+#
+#   Code
+#
+
+solution_code = '''
 use v5.36;
 
 sub <SUB_NAME>( <INPUT_PARAMS> ) {
@@ -559,8 +587,24 @@ sub <SUB_NAME>( <INPUT_PARAMS> ) {
 }
 '''
 
+template_code = '''
+use v5.20;
+use warnings;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
+sub <SUB_NAME>( <INPUT_PARAMS> ) {
+    my <RESULT_VAR>;
+    return <RETURN>;
+}
+'''
+
+#
+#   Test code
+#
 tests_indent = "    "
-run_tests = '''
+
+multitest_tests = '''
 use lib qw( . ../../../lib );
 use MultiTest;
 
@@ -569,16 +613,24 @@ use MultiTest;
 run( "<SUB_NAME>", \@tests );
 
 __END__
-
-# Version for publishing:
-
-use Test2::V0 qw( -no_srand );
 is <CALL>, $_->[2], $_->[0]
     for @tests;
+
 done_testing;
 '''
 
-run_json_tests = '''
+test2_tests = '''
+use Test2::V0 qw( -no_srand );
+
+<TESTS>
+
+is <CALL>, $_->[2], $_->[0]
+    for @tests;
+
+done_testing;
+'''
+
+json_tests = '''
 # Read test data from the accompanying '.json' file and run the tests.
 # (Fixed boilerplate code, no changes needed.)
 
@@ -587,13 +639,23 @@ use Test2::V0 qw( -no_srand );
 # (Term::Table::Util::term_size comes with Test2::V0.)
 $ENV{TABLE_TERM_SIZE} //= Term::Table::Util::term_size() // 80;
 
-# Read the test data from the JSON file.
+# Look for the JSON file in the same directory as the script itself,
+# or in all sibling directories (<dir>/../*) if necessary.
 use JSON::PP qw( decode_json );
 ( my $json_file = $0 ) =~ s/\.pl$/.json/;
-note "reading tests from $json_file";
-my $json_text = -f $json_file
-    && do { local ( @ARGV, $/ ) = $json_file; <> }
-    or die "could not read test data from $json_file\n";
+unless ( -f $json_file ) {
+    require File::Basename;        File::Basename->import();
+    require File::Spec::Functions; File::Spec::Functions->import();
+    my @other_files = glob(
+        catfile( dirname( $json_file ), updir(), "*", basename( $json_file ) ) )
+        or die "did not find a '$json_file' test data file\n";
+    $json_file = $other_files[0];
+}
+
+# Read the JSON file.
+my $json_text = do { local ( @ARGV, $/ ) = $json_file; <> }
+    or die "could not read test data from '$json_file'\n";
+note "using test data from '$json_file'";
 my $json_data = decode_json( $json_text );
 
 # Convert any expected output strings "true" and "false"
@@ -655,15 +717,15 @@ sub <TASK_2_SUB>() {
 ### README_NO_BLOG
 ###
 readme_no_blog = '''
-**Challenge <CHALLENGE> solutions in Perl by Matthias Muth**
+**Challenge solutions in Perl by Matthias Muth**
 
-(sorry, no blog post this time...)
+(sorry, no blog post for this week's challenge...)
 
 **Thank you for the challenge!**
 '''
 
 blog_txt = '''
-https://github.com/MatthiasMuth/perlweeklychallenge-club/tree/muthm-<CHALLENGE>/challenge-<CHALLENGE>/matthias-muth#readme
+https://github.com/manwar/perlweeklychallenge-club/blob/master/challenge-<CHALLENGE>/matthias-muth/README.md
 '''
 
 ###

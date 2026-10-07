@@ -20,19 +20,19 @@ use Getopt::Long;
 use List::Util qw( max );
 use Dsay;
 
-my %do_run;
+my %tests_to_run;
 GetOptions(
     "v|verbose!" => \$TestExtractor::verbose,
     "run:s"      =>
         sub {
             while ( $_[1] =~ /(\d+)\s*-s*(\d+)|(\d+)/g ) {
-                $do_run{$_} = 1
+                $tests_to_run{$_} = 1
                     for $1 ? ( $1..$2 ) : $3;
             }
         },
 ) or do { say "usage!"; exit 2 };
 
-my $last_test_to_run = %do_run ? max( keys %do_run ) : undef;
+my $last_test_to_run = %tests_to_run ? max( keys %tests_to_run ) : undef;
 
 my ( $test_no, @tests );
 while ( <DATA> ) {
@@ -48,10 +48,11 @@ while ( <DATA> ) {
 	next;
     };
     /^Output:\s*(.*)$/ and do {
-	my $test = "Test " . ++$test_no . " (DATA line $.)";
+	my $test = "Test " . ++$test_no;
         push @tests, {
 	    TEST => $test,
 	    OUTPUT => $1,
+            SOURCE => "DATA line $.",
 	};
 	next;
     };
@@ -64,15 +65,18 @@ while ( <DATA> ) {
 # say pp @tests;
 # say "";
 
+my $sep_line = "";
 for ( @tests ) {
     SKIP: {
-        if ( %do_run ) {
+        if ( %tests_to_run ) {
+            next SKIP unless $_->{TEST};
             ( my $test_no ) = $_->{TEST} =~ /(\d+)/;
             if ( $test_no > $last_test_to_run ) {
                 done_testing;
                 exit 0;
             }
-            skip unless $do_run{$test_no};
+            $sep_line = "\n";
+            skip unless $tests_to_run{$test_no};
         }
 
         if ( $_->{COMMENT} ) {
@@ -81,27 +85,33 @@ for ( @tests ) {
             next;
         }
 
-        vsay "output: ", pp $_->{OUTPUT};
-        0 and vsay "passing in <",
-                "$_->{TEST}\nInput: \$dummy = 1\nOutput: $_->{OUTPUT}", ">";
-        my @extracted = TestExtractor::extract_tests(
-                "$_->{TEST}\nInput: \$dummy = 1\nOutput: $_->{OUTPUT}" );
-        vsay "extracted:", pp \@extracted;
-
-        0 && vsay "expected: ", pp( $_->{EXPECTED} );
         my $expected = eval $_->{EXPECTED};
-        vsay "expected: ", pp $expected;
+        $verbose and do {
+            $sep_line and vsay ""; $sep_line = "\n";
+            note "output: ", pp( $_->{OUTPUT} ), "\n",
+                "expected: ", pp( $expected ), "\n\n";
+        };
+
+        0 and vsay "passing in <",
+                "$_->{TEST}\nInput: \$dummy = \"dummy\"\n",
+                "Output: $_->{OUTPUT}", ">";
+        my @extracted = TestExtractor::extract_tests(
+                "$_->{TEST}\n"
+                . "Input: \$dummy = \"dummy\"\n"
+                . "Output: $_->{OUTPUT}" );
+        $verbose and note "extracted:", pp \@extracted;
 
         # 48 characters = " => " + 2 x 22
         #               = " => " + 2 x "max 19..."
+        my $source = delete $_->{SOURCE};
         my $descr = join " => ",
             map length > 22 ? substr( $_, 0, 19 ) . "..." : $_,
                 $_->@{ qw( OUTPUT EXPECTED ) };
-        is $extracted[0]{OUTPUT},
-            $expected,
-            $_->{TEST} . " " . $descr,
-            pp( $_ ), "\n",
-            "got data:\n", pp( $extracted[0]{OUTPUT} );
+        is $extracted[0]{OUTPUT}, $expected,
+            $_->{TEST} . ( $source ? " (defined in $source)" : () ),
+            $descr,
+            pp( $_ ),
+            "extracted data:\n", pp( $extracted[0]{OUTPUT} );
     }
     vsay "";
 }
@@ -120,10 +130,11 @@ Expect: [ -4 ]
 Output: 2, 3
 Expect: [ 2, 3 ]
 
-# Parenthesized lists => arrayrefs
+# Empty lists => empty parameter list
 Output: ()
-Expect: [ [] ]
+Expect: []
 
+# Parenthesized lists => arrayrefs
 Output: ( 11 )
 Expect: [ [ 11 ] ]
 
@@ -204,3 +215,19 @@ Output: [ ["A", "a1@a.com", "a2@a.com"],
           ["A", "a3@a.com"],
           ["B", "b1@b.com", "b2@b.com"] ]
 Expect: [ [ [ 'A', 'a1@a.com', 'a2@a.com' ], [ 'A', 'a3@a.com' ], [ 'B', 'b1@b.com', 'b2@b.com' ] ] ]
+
+# Strings containing special characters.
+Output: "you're given\nthe job"
+Expect: [ "you're given\nthe job" ]
+
+Output: "this: (parenthesized) [bracketed] end"
+Expect: [ "this: (parenthesized) [bracketed] end" ]
+
+Output: "my $variable"
+Expect: [ 'my $variable' ]
+
+Output: "my @variable"
+Expect: [ 'my @variable' ]
+
+Output: 1BRJB
+Expect: [ "1BRJB" ]
