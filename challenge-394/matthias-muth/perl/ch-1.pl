@@ -9,26 +9,29 @@
 #
 
 use v5.36;
-use Dsay;
 
 use List::Util qw( sum min );
 
 sub alternate_case( $str ) {
-    # The approach is following the idea that if we consider only the
-    # upper case letters, each one of them has to be moved to its correct
-    # place in the final alternate case string. Every step is done by
-    # a swap. Thus, the distance of the initial position of a character to
-    # its final position is the number of swaps needed for that character.
-    # There are two types of alternate case strings:
-    # * AbAbAb, starting with an upper case letter,
-    # * aBaBaB, starting with a lower case letter.
-    # We have to compute the number of swaps needed to move all upper case
-    # letters into the first form, and c2Wthe same for the second form.
-    # Then we take the minimum of the two sums.
+    # The approach follows this idea:
+    # Focusing on the uppercase letters only, each one of them has to move
+    # from its current position to the correct position in the final
+    # alternate case string.
+    # Every step is done by a swap, but we are only interested in the
+    # *number* of swaps, which corresponds to the distance between the
+    # initial position and the final position.
+    # So first let's get the initial positions of all uppercase characters:
     my @uc_indices =
-        map { substr( $str, $_, 1 ) =~ /[A-Z]/ ? $_ : () }
+        grep { substr( $str, $_, 1 ) =~ /[A-Z]/ }
             0 .. length( $str ) - 1;
-    dsay "str: $str, uc_indexes: (@uc_indices)";
+    # There are two types of alternate case strings:
+    # * 'AbAbAb', starting with an uppercase letter, with all uppercase
+    #   letters being on odd positions,
+    # * 'aBaBaB', starting with a lower case letter, with all uppercase
+    #   letters on even positions.
+    # The lowest number of swaps can be with either of the two types as a
+    # target type, so we need to calculate the number of necessary swaps
+    # for both of them, and return the lower one.
     return min(
         sum( map {
                 my $target_index = 2 * $_;
