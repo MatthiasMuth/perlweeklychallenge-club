@@ -24,9 +24,10 @@ pwc() {
 
     typeset _pwc_challenge _pwc_cd_to _pwc_announce _pwc_git_status_for
     typeset _pwc_github_repo _pwc_edit _pwc_dir
-    _pwc_challenge=`ls -dr "$pwc"/challenge-*/matthias-muth | head -1`
+    _pwc_challenge=`ls -dr "$pwc"/challenge-*/matthias-muth/README.md | head -1`
     challenge=""
-     [[ "$_pwc_challenge" =~ challenge-([0-9]+) ]] && challenge="${BASH_REMATCH[1]}"
+    _pwc_challenge="$( dirname $_pwc_challenge )"
+    [[ "$_pwc_challenge" =~ challenge-([0-9]+) ]] && challenge="${BASH_REMATCH[1]}"
     _pwc_cd_to="$pwc_challenge"
     _pwc_git_status_for="."
     _pwc_github_repo="https://github.com/MatthiasMuth/perlweeklychallenge-club"
