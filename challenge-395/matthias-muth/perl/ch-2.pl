@@ -11,16 +11,19 @@
 use v5.36;
 
 sub fill_square( $rows, $level, $candidates ) {
-    # Fill the next row with the candidates that match, in turn,
-    # then do a recursive call for the other rows.
+    # Find the candidates that match in the next row.
+    # For each one that does, add it to the square
+    # and do a recursive call to fill the subsequent rows.
     # Return when we get back a fully filled square.
     for my $candidate ( $candidates->@* ) {
-        # Use this candidate if it fits with what is in the square already.
-        my $re = $level == 0 || $rows->[$level];
+        # Only use this candidate if it fits with what already is
+        # in the square. At level 0, every word fits, so this can
+        # be shortcut.
         next unless $level == 0 || $candidate =~ /^$rows->[$level]/;
 
-        # Using a copy of the original rows,
-        # put the candidate into the appropriate row,
+        # Use a copy of the original rows for the recursive calls,
+        # so that own copy remains unchanged.
+        # Put the candidate into the appropriate row.
         my @rows = $rows->@*;
         $rows[$level] = $candidate;
 
@@ -28,8 +31,8 @@ sub fill_square( $rows, $level, $candidates ) {
         return @rows
             if $level == length( $rows[0] ) - 1;
 
-        # Also add the candidate letters as a columns in the
-        # rest of the square.
+        # Also add the candidate's letters in the appropriate column
+        # in the rest of the rows.
         $rows[$_] .= substr( $candidate, $_, 1 )
             for $level + 1 .. length( $candidate ) - 1;
 
@@ -38,7 +41,7 @@ sub fill_square( $rows, $level, $candidates ) {
             fill_square( \@rows, $level + 1,
                 [ grep { $_ ne $candidate } $candidates->@* ] );
         return @result if @result;
-
+        # If no result, try the next candidate.
     }
     return;
 }
