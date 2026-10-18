@@ -88,7 +88,7 @@ for my $gist ( nsort_by { $_->{'description'} =~ /(\d+)/; $1 } @$gists ) {
     system qw( git commit -uno -m ),
         "Add JSON test data and Perl solution templates"
             . " for Challenge $challenge";
-    system qw( ../publish.pl -json ), $challenge;
+    system qw( ../publish -json ), $challenge;
 }
 
 my $timestamp = $start_time->strftime( "%FT%T%z" );
