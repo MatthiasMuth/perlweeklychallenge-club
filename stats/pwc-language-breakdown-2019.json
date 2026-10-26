@@ -98,7 +98,7 @@
             "data" : [
                [
                   "Perl",
-                  37
+                  38
                ],
                [
                   "Raku",
@@ -106,7 +106,7 @@
                ],
                [
                   "Blog",
-                  12
+                  13
                ]
             ],
             "id" : "036",
@@ -458,7 +458,7 @@
             "data" : [
                [
                   "Perl",
-                  40
+                  41
                ],
                [
                   "Raku",
@@ -466,7 +466,7 @@
                ],
                [
                   "Blog",
-                  15
+                  16
                ]
             ],
             "id" : "016",
@@ -788,7 +788,7 @@
             {
                "drilldown" : "036",
                "name" : "036",
-               "y" : 71
+               "y" : 73
             },
             {
                "drilldown" : "035",
@@ -888,7 +888,7 @@
             {
                "drilldown" : "016",
                "name" : "016",
-               "y" : 79
+               "y" : 81
             },
             {
                "drilldown" : "015",
@@ -970,7 +970,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-10-18 22:17:49 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-10-25 23:31:01 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"

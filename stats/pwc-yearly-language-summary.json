@@ -8,15 +8,15 @@
             "data" : [
                [
                   "Perl",
-                  1933
+                  1978
                ],
                [
                   "Raku",
-                  878
+                  900
                ],
                [
                   "Blog",
-                  707
+                  723
                ]
             ],
             "id" : "2026",
@@ -98,15 +98,15 @@
             "data" : [
                [
                   "Perl",
-                  2680
+                  2686
                ],
                [
                   "Raku",
-                  1398
+                  1404
                ],
                [
                   "Blog",
-                  930
+                  933
                ]
             ],
             "id" : "2021",
@@ -134,7 +134,7 @@
             "data" : [
                [
                   "Perl",
-                  1978
+                  1980
                ],
                [
                   "Raku",
@@ -142,7 +142,7 @@
                ],
                [
                   "Blog",
-                  513
+                  515
                ]
             ],
             "id" : "2019",
@@ -169,7 +169,7 @@
             {
                "drilldown" : "2026",
                "name" : "2026",
-               "y" : 3518
+               "y" : 3601
             },
             {
                "drilldown" : "2025",
@@ -194,7 +194,7 @@
             {
                "drilldown" : "2021",
                "name" : "2021",
-               "y" : 5008
+               "y" : 5023
             },
             {
                "drilldown" : "2020",
@@ -204,14 +204,14 @@
             {
                "drilldown" : "2019",
                "name" : "2019",
-               "y" : 3593
+               "y" : 3597
             }
          ],
          "name" : "The Weekly Challenge Languages"
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-10-18 22:17:49 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-10-25 23:31:01 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
