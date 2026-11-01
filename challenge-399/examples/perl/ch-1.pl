@@ -28,7 +28,7 @@ my @tests = (
     [ "Example 2", ["ABCDE", 4], 5 ],
     [ "Example 3", ["AAABBBBAA", 1], 5 ],
     [ "Example 4", ["ABACADA", 2], 5 ],
-    [ "Example 5", ["BAAABAAAA", 1], 5 ],
+    [ "Example 5", ["BAAABAAAA", 1], 8 ],
 );
 
 is longest_repeating_character( $_->[1]->@* ), $_->[2], $_->[0]
