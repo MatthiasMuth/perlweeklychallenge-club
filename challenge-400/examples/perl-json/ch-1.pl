@@ -3,7 +3,7 @@
 #       The Weekly Challenge - Perl & Raku
 #       (https://theweeklychallenge.org)
 #
-#       Challenge 400 Task 1: Longest Repeating Character
+#       Challenge 400 Task 1: Largest Interval
 #
 #       Perl solution template with JSON-based tests.
 #       Uses .json files from the current directory or a sibling
@@ -18,7 +18,7 @@ use warnings;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-sub longest_repeating_character( $int ) {
+sub largest_interval( $int ) {
     my @results;
     return @results;
 }

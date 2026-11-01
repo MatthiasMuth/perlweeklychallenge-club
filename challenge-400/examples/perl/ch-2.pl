@@ -45,7 +45,6 @@ my @tests = (
             "GCCCAAAA",
             "GCCCCAAA",
             "GCCCCCAA",
-            "GCCCCCCAA",
             "GCCCCCCA",
             "GCCCCCCC",
           ],

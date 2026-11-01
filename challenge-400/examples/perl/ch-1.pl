@@ -3,7 +3,7 @@
 #       The Weekly Challenge - Perl & Raku
 #       (https://theweeklychallenge.org)
 #
-#       Challenge 400 Task 1: Longest Repeating Character
+#       Challenge 400 Task 1: Largest Interval
 #
 #       Perl solution template.
 #       Uses test data extracted from the challenge task examples
@@ -16,7 +16,7 @@ use warnings;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-sub longest_repeating_character( $int ) {
+sub largest_interval( $int ) {
     my @results;
     return @results;
 }
@@ -31,7 +31,7 @@ my @tests = (
     [ "Example 5", 10000, 31 ],
 );
 
-is longest_repeating_character( $_->[1] ), $_->[2], $_->[0]
+is largest_interval( $_->[1] ), $_->[2], $_->[0]
     for @tests;
 
 done_testing;
