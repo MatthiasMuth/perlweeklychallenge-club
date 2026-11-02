@@ -926,15 +926,15 @@
             "data" : [
                [
                   "Perl",
-                  44
+                  46
                ],
                [
                   "Raku",
-                  26
+                  28
                ],
                [
                   "Blog",
-                  17
+                  18
                ]
             ],
             "id" : "094",
@@ -1216,14 +1216,14 @@
             {
                "drilldown" : "094",
                "name" : "094",
-               "y" : 87
+               "y" : 92
             }
          ],
          "name" : "The Weekly Challenge Languages"
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-10-25 23:31:01 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-11-01 23:40:38 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"

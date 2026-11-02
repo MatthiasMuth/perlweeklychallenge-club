@@ -232,7 +232,7 @@
                ],
                [
                   "Blog",
-                  31
+                  32
                ]
             ],
             "id" : "290",
@@ -250,7 +250,7 @@
                ],
                [
                   "Blog",
-                  31
+                  32
                ]
             ],
             "id" : "289",
@@ -268,7 +268,7 @@
                ],
                [
                   "Blog",
-                  17
+                  18
                ]
             ],
             "id" : "288",
@@ -286,7 +286,7 @@
                ],
                [
                   "Blog",
-                  28
+                  29
                ]
             ],
             "id" : "287",
@@ -304,7 +304,7 @@
                ],
                [
                   "Blog",
-                  20
+                  21
                ]
             ],
             "id" : "286",
@@ -322,7 +322,7 @@
                ],
                [
                   "Blog",
-                  18
+                  19
                ]
             ],
             "id" : "285",
@@ -340,7 +340,7 @@
                ],
                [
                   "Blog",
-                  17
+                  18
                ]
             ],
             "id" : "284",
@@ -592,7 +592,7 @@
                ],
                [
                   "Blog",
-                  28
+                  29
                ]
             ],
             "id" : "270",
@@ -1039,37 +1039,37 @@
             {
                "drilldown" : "290",
                "name" : "290",
-               "y" : 120
+               "y" : 121
             },
             {
                "drilldown" : "289",
                "name" : "289",
-               "y" : 125
+               "y" : 126
             },
             {
                "drilldown" : "288",
                "name" : "288",
-               "y" : 79
+               "y" : 80
             },
             {
                "drilldown" : "287",
                "name" : "287",
-               "y" : 105
+               "y" : 106
             },
             {
                "drilldown" : "286",
                "name" : "286",
-               "y" : 104
+               "y" : 105
             },
             {
                "drilldown" : "285",
                "name" : "285",
-               "y" : 102
+               "y" : 103
             },
             {
                "drilldown" : "284",
                "name" : "284",
-               "y" : 108
+               "y" : 109
             },
             {
                "drilldown" : "283",
@@ -1139,7 +1139,7 @@
             {
                "drilldown" : "270",
                "name" : "270",
-               "y" : 97
+               "y" : 98
             },
             {
                "drilldown" : "269",
@@ -1246,7 +1246,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-10-25 23:31:01 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-11-01 23:40:38 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"
