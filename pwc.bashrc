@@ -66,9 +66,14 @@ pwc() {
         esac
         shift
     done
-    if [ "$_pwc_announce" -a -f "$_pwc_challenge"/perl/challenge-${challenge}.txt ]; then
-        perl -wne 'print if $. == 1 || /^Task \d+:/' \
-            "$_pwc_challenge"/perl/challenge-${challenge}.txt
+    if [ "$_pwc_announce" \
+        -a -f "$_pwc_challenge"/perl/ch-1.pl \
+        -a -f "$_pwc_challenge"/perl/ch-2.pl ]
+    then
+        perl -wnE '
+            /^#\s*(Challenge \d+) (Task 1:.*)/ and say "The Weekly $1\n$2";
+            /^#\s*(Challenge \d+) (Task 2:.*)/ and say "$2";
+        ' "$_pwc_challenge"/perl/ch-[12].pl
         echo ""
     fi
     cd "${_pwc_cd_to:-$pwc}"
