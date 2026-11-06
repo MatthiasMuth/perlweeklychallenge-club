@@ -28,8 +28,11 @@ use Time::Piece;
 use List::UtilsBy qw( nsort_by );
 use Dsay;
 
+my $last_checked = undef;
+
 GetOptions(
-    "check|n"    => \$options{DRY_RUN},
+    "check|n" => \$options{DRY_RUN},
+    "from:s"  => \$last_checked,
 ) or do {
     say STDERR "    Use '$0 -help' for usage information.";
     exit 2;
@@ -39,24 +42,45 @@ GetOptions(
 # Read 'status.toml' and keep the status as global variables.
 our $status   = read_toml( "status.toml" );
 
-my $last_checked = $status->{'gists-last-checked'};
+$last_checked //= $status->{'gists-last-checked'};
+
+# Turn the last_checked timestamp into a '...Z' timestamp for github.
+# Remove the colon from the timezone offset: +01:00 -> +0100,
+# and replace 'Z' by '+0000' so that Time::Piece can interpret it.
+# $last_checked =~ s/([+-]\d\d):(\d\d)$/$1$2/;
+$last_checked =~ s/Z$/+0000/i; 
+
+my $utc_timestamp = Time::Piece
+    ->strptime( $last_checked, '%Y-%m-%dT%H:%M:%S%z', { islocal => 1 } )
+    ->to_gmtime
+    ->strftime('%Y-%m-%dT%H:%M:%SZ');
+%debug and do {
+    dsay "last_checked: ", pp $last_checked;
+    dsay "utc_timestamp ", pp $utc_timestamp;
+};
+
 my $start_time = localtime;
 
 # Get list of gists from github.
 my $ua = HTTP::Tiny->new;
-my $r = $ua->get(
-    "https://api.github.com/users/manwar/gists?since=$last_checked"
-);
+my $url = "https://api.github.com/users/manwar/gists?since=$utc_timestamp";
+%debug and dsay "checking $url";
+my $r = $ua->get( $url );
 my $gists = decode_json($r->{content});
 
+# Select only gists that contain 'The Weekly Challenge - NNN'.
+$gists->@* =
+    grep $_->{description} =~ /^The Weekly Challenge - \d+/, $gists->@*;
 # dsay "gists: ", pp $gists;
 
 for my $gist ( nsort_by { $_->{'description'} =~ /(\d+)/; $1 } @$gists ) {
     vsay "$gist->{id} $gist->{description}\n",
         "    created $gist->{created_at}\n",
         "    updated $gist->{updated_at}";
-    dsay ":info", "    $_: ", $gist->{$_} // "(undef)"
-        for sort keys %$gist;
+    $debug{INFO} and do {
+	dsay ":info", "    $_: ", $gist->{$_} // "(undef)"
+	    for sort keys %$gist;
+    };
 
     # Get the gists challenge number and html text.
     ( my $challenge ) = $gist->{description} =~ /(\d+)/;
@@ -88,6 +112,7 @@ for my $gist ( nsort_by { $_->{'description'} =~ /(\d+)/; $1 } @$gists ) {
     system qw( git commit -uno -m ),
         "Add JSON test data and Perl solution templates"
             . " for Challenge $challenge";
+    system "git push";
     system qw( ../publish -json ), $challenge;
 }
 

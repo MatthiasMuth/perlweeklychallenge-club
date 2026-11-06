@@ -94,6 +94,7 @@ git_command( $repo, qw( fetch upstream ) );
 
 qsay "updating dev";
 git_command( $repo, qw( switch --quiet dev ) );
+git_command( $repo, qw( pull ) );
 git_command( $repo, qw( merge --quiet --strategy ort -X ours ),
     "-m", "Merge branch 'master' into dev (keeping our changes)",
     "upstream/master" );
