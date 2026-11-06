@@ -9,23 +9,22 @@
 #
 
 use v5.36;
-use Verbose;
-use Dsay;
+
 use List::MoreUtils qw( slide );
 
 sub string_difference( @words ) {
     my %buckets;
     for my $word ( @words ) {
         my $signature =
-            join " ", slide { ord( $b ) - ord( $a ) } split "", $word;
+            join ",", slide { ord( $b ) - ord( $a ) } split "", $word;
         push $buckets{$signature}->@*, $word;
     }
-    delete @buckets{ grep { $buckets{$_}->@* > 1 } keys %buckets };
-    return %buckets ? ( values %buckets )[0][0] : ();
+    return ( map $_->[0], grep $_->@* == 1, values %buckets )[0];
 }
 
 use lib qw( . ../../../lib );
 use MultiTest;
+
 
 my @tests = (
     [ "Example 1", ["ab", "bc", "cd", "zy"], "zy" ],
@@ -34,6 +33,8 @@ my @tests = (
     [ "Example 4", ["aaaa", "zzzz", "mmmm", "aaba"], "aaba" ],
     [ "Example 5", ["aceg", "bdfh", "cegi", "azbz"], "azbz" ],
     [ "Own Test 1: no outlier", ["aceg", "bdfh", "cegi"], undef ],
+    [ "Own Test 2: two outliers", ["aceg", "bdfh", "azbz", "bzbz" ],
+        in_set( "azbz", "bzbz" ) ],
 );
 
 run( "string_difference", \@tests );
