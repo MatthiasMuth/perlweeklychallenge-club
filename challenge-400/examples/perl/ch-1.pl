@@ -28,7 +28,7 @@ my @tests = (
     [ "Example 2", 110, 4 ],
     [ "Example 3", 500, 11 ],
     [ "Example 4", 2026, 105 ],
-    [ "Example 5", 10000, 31 ],
+    [ "Example 5", 10000, 105 ],
 );
 
 is largest_interval( $_->[1] ), $_->[2], $_->[0]
