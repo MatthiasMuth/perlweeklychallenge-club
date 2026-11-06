@@ -28,7 +28,7 @@ my @tests = (
     [ "Example 2", "file1.txt\nfile2.ext\na.png", 9 ],
     [ "Example 3",
         "my documents\n\tproject v1.0\n\t\tnotes v1.txt\n\timage.png",
-        36 ],
+        38 ],
     [ "Example 4", "root\n\ta\n\t\tb\n\t\t\tc.txt\n\td\n\t\te.txt", 14 ],
     [ "Example 5",
         "a\n\tb\n\t\tc\n\t\t\td\n\t\t\t\te.txt\n\tvery_long_directory_name\n\t\tf.txt",
