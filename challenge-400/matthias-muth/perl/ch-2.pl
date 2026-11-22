@@ -9,66 +9,38 @@
 #
 
 use v5.36;
-use Dsay;
-
-sub distance( $gene_1, $gene_2 ) {
-    my $distance = scalar grep
-        { substr( $gene_1, $_, 1 ) ne substr( $gene_2, $_, 1 ) }
-        0 .. length( $gene_1 ) - 1;
-    dsay "distance( \"$gene_1\", \"$gene_2\" ): $distance";
-    return $distance;
-}
-
-use List::Util qw( uniq );
 
 sub minimum_genetic_mutation( $start_gene, $end_gene, $gene_bank ) {
-    state $i = Indent->new;
-    dsay $i++, "minimum_genetic_mutation",
-        pp $start_gene, $end_gene, $gene_bank;
 
-    # End condition for the recursion:
-    # Start gene and end gene are the same.
-    do { dsay $i--, "start gene and end gene are the same"; return 0 }
-        if $start_gene eq $end_gene;
-
-    # Create a list of 'neighbor' genes for each gene in the gene pool.
-    # Make sure the start gene is in the gene bank.
-    my %mutations;
-    unshift $gene_bank->@*, $start_gene;
-    $gene_bank = [ uniq $gene_bank->@* ];
-    for my $i ( keys $gene_bank->@* ) {
-        my $gene_i = $gene_bank->[$i];
-        for my $j ( $i + 1 .. $gene_bank->$#* ) {
-            my $gene_j = $gene_bank->[$j];
-            if ( distance( $gene_i, $gene_j ) == 1 ) {
-                push $mutations{$gene_i}->@*, $gene_j;
-                push $mutations{$gene_j}->@*, $gene_i;
-            }
-        }
-    }
-    dsay $i, "mutations: ", pp_hash %mutations;
-
-    # Verify that the end gene is in the gene pool.
-    do { dsay $i--, "end gene not in gene pool"; return -1 }
-        unless exists $mutations{$end_gene};
-
-    # Using a BFS algorithm to find the shortest path.
-    my ( $gene, $distance ) = ( $start_gene, 0 );
-    my @q = ( [ $gene, $distance ] );
+    # Using a breadth-first search algorithm to find the shortest path.
+    # Queue entries contain the gene string and its distance from the
+    # start gene.
+    my @q = ( [ $start_gene, 0 ] );
     my %visited = ( $start_gene => 1 );
     while ( @q ) {
-        ( $gene, $distance ) = ( shift @q )->@*;
-        dsay $i, "visiting $gene at diatnce $distance";
+        my ( $gene, $distance ) = ( shift @q )->@*;
+
+        # End condition:
         return $distance
             if $gene eq $end_gene;
-        $visited{$gene} = 1;
-        my @next = 
-            map [ $_, $distance + 1 ],
-                grep ! $visited{$_}, $mutations{$gene}->@*;
-        dsay $i, "next: ", pp @next;
-        push @q, @next;
+
+        # Mark all unvisited 'neighbors' (genes from the gene pool that
+        # differ from the current gene in exactly one position) as
+        # visited and add them to the queue.
+        # Using the 'bitstring' xor operator (^.) to get a string
+        # containing the difference between two gene strings, then
+        # split the result into characters and count how many of them
+        # are non-null.
+        # For single mutations ('neighbors'), that count must be 1.
+        do {
+            $visited{$_} = 1;
+            push @q, [ $_, $distance + 1 ];
+        } for grep {
+            ! $visited{$_}
+            && ( scalar grep { $_ ne "\x00" } split "", $gene ^. $_ ) == 1
+        } $gene_bank->@*;
     }
-    do { dsay $i--, "end gene cannot be reached"; return -1 };
+    return -1;
 }
 
 use lib qw( . ../../../lib );
@@ -104,7 +76,7 @@ my @tests = (
     [ "Example 5", ["AACCGGTT", "AACCGGTT", ["AACCGGTA"]], 0 ],
 );
 
-run( "minimum_genetic_mutation", \@tests );
+run( "minimum_genetic_mutation", \@tests, $tests[3][1] );
 
 __END__
 is minimum_genetic_mutation( $_->[1]->@* ), $_->[2], $_->[0]

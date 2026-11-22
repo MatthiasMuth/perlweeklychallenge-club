@@ -11,18 +11,20 @@
 use v5.36;
 
 sub largest_interval( $int ) {
-    my ( $biggest_jump, $current_gap ) = ( 0, 0 );
+    my ( $current_gap, $largest_gap ) = ( 0, 0 );
     for ( 1..$int) {
-        if ( /(.).*\g1/ ) {
+        if ( /(\d).*\1/ ) {
             ++$current_gap;
         }
         else {
-            $biggest_jump = $current_gap + 1
-                if $current_gap + 1 > $biggest_jump;
+            $largest_gap = $current_gap
+                if $current_gap > $largest_gap;
             $current_gap = 0;
         }
     }
-    return $biggest_jump;
+    # The 'biggest jump' is one larger than the largest gap.
+    # (Note that we still have 'jumps' of 1 if there is no gap at all.)
+    return $largest_gap + 1;
 }
 
 use lib qw( . ../../../lib );
@@ -34,6 +36,7 @@ my @tests = (
     [ "Example 3", 500, 11 ],
     [ "Example 4", 2026, 105 ],
     [ "Example 5", 10000, 105 ],
+    [ "Own Test 1", 9, 1 ],
 );
 
 run( "largest_interval", \@tests );
