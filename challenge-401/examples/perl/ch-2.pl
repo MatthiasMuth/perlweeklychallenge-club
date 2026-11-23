@@ -24,9 +24,9 @@ sub reconstruct_digits( $str ) {
 use Test2::V0 qw( -no_srand );
 
 my @tests = (
-    [ "Example 1", "zroezerotwowtwotwo", "00222" ],
-    [ "Example 2", "esveeneinght", "78" ],
-    [ "Example 3", "oneenineeninefive", "1599" ],
+    [ "Example 1", "zroezerotwotwotwo", "00222" ],
+    [ "Example 2", "sveeneinght", "78" ],
+    [ "Example 3", "onenineninefive", "1599" ],
     [ "Example 4", "zeroonetwothreeeightfivesixsevenninefour", "0123456789" ],
     [ "Example 5", "ninenineninenine", "9999" ],
 );
