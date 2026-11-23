@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            1,
             17,
             6,
             4,
@@ -36,15 +37,15 @@
             0,
             0,
             9,
-            396,
+            398,
             156,
-            2,
-            0
+            2
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            35,
             0,
             0,
             0,
@@ -73,13 +74,13 @@
             0,
             0,
             131,
-            6,
-            3
+            6
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
             0,
             0,
             2,
@@ -106,16 +107,15 @@
             13,
             0,
             0,
-            184,
+            185,
             0,
-            0,
-            7
+            0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-11-16 00:29:39 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-11-23 02:42:30 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2026]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Philip Hood",
          "Philip Sharman",
          "Philippe Bricout",
          "Philippe Bruhat",
@@ -154,8 +155,7 @@
          "Rob Turner",
          "Robbie Hatley",
          "Robert DiCicco",
-         "Robert Gratza",
-         "Robert McIntosh"
+         "Robert Gratza"
       ]
    },
    "yAxis" : {

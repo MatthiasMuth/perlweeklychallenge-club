@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            3,
             2,
             63,
             2,
@@ -23,7 +24,7 @@
             2,
             68,
             550,
-            435,
+            437,
             4,
             0,
             8,
@@ -35,16 +36,16 @@
             0,
             82,
             396,
-            785,
+            787,
             2,
             5,
-            8,
-            22
+            8
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            0,
             0,
             0,
             0,
@@ -58,11 +59,11 @@
             0,
             0,
             1,
-            59,
+            61,
             0,
             7,
             0,
-            78,
+            80,
             0,
             0,
             0,
@@ -73,13 +74,13 @@
             0,
             0,
             0,
-            0,
-            561
+            0
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
             0,
             0,
             0,
@@ -108,14 +109,13 @@
             59,
             0,
             0,
-            0,
-            18
+            0
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-11-16 00:29:39 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-11-23 02:42:30 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2026]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Craig",
          "Creewick",
          "Cristina Heredia",
          "Csaba Simandi",
@@ -154,8 +155,7 @@
          "E. Choroba",
          "Eddy HS",
          "Fabio Valeri",
-         "Fabrizio Poggi",
-         "Feng Chang"
+         "Fabrizio Poggi"
       ]
    },
    "yAxis" : {

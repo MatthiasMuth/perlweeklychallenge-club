@@ -8,7 +8,25 @@
             "data" : [
                [
                   "Perl",
-                  31
+                  36
+               ],
+               [
+                  "Raku",
+                  20
+               ],
+               [
+                  "Blog",
+                  11
+               ]
+            ],
+            "id" : "400",
+            "name" : "400"
+         },
+         {
+            "data" : [
+               [
+                  "Perl",
+                  33
                ],
                [
                   "Raku",
@@ -16,7 +34,7 @@
                ],
                [
                   "Blog",
-                  10
+                  11
                ]
             ],
             "id" : "399",
@@ -26,7 +44,7 @@
             "data" : [
                [
                   "Perl",
-                  42
+                  44
                ],
                [
                   "Raku",
@@ -34,7 +52,7 @@
                ],
                [
                   "Blog",
-                  15
+                  16
                ]
             ],
             "id" : "398",
@@ -833,14 +851,19 @@
          "colorByPoint" : "true",
          "data" : [
             {
+               "drilldown" : "400",
+               "name" : "400",
+               "y" : 67
+            },
+            {
                "drilldown" : "399",
                "name" : "399",
-               "y" : 57
+               "y" : 60
             },
             {
                "drilldown" : "398",
                "name" : "398",
-               "y" : 79
+               "y" : 82
             },
             {
                "drilldown" : "397",
@@ -1062,7 +1085,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-11-16 00:29:39 GMT"
+      "text" : "Click the columns to drilldown the language breakdown. Last updated at 2026-11-23 02:42:30 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge Language"

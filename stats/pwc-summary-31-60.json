@@ -11,7 +11,7 @@
       {
          "data" : [
             0,
-            682,
+            684,
             0,
             6,
             45,
@@ -24,12 +24,13 @@
             0,
             0,
             4,
-            520,
+            524,
             6,
             72,
             2,
             2,
             30,
+            2,
             22,
             0,
             384,
@@ -38,15 +39,14 @@
             0,
             0,
             1,
-            337,
-            3
+            337
          ],
          "name" : "Perl"
       },
       {
          "data" : [
             36,
-            644,
+            646,
             0,
             0,
             0,
@@ -65,6 +65,7 @@
             0,
             0,
             8,
+            0,
             12,
             6,
             9,
@@ -73,8 +74,7 @@
             17,
             2,
             0,
-            194,
-            0
+            194
          ],
          "name" : "Raku"
       },
@@ -94,12 +94,13 @@
             0,
             0,
             0,
-            75,
+            76,
             0,
             19,
             0,
             0,
             15,
+            0,
             0,
             0,
             53,
@@ -108,14 +109,13 @@
             0,
             0,
             0,
-            137,
-            0
+            137
          ],
          "name" : "Blog"
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-11-16 00:29:39 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-11-23 02:42:30 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2026]"
@@ -146,6 +146,7 @@
          "Bruce Van Allen",
          "Bruno Ramos",
          "Burkhard Nickels",
+         "Caden Young",
          "Carlos Oliveira",
          "Chenyf",
          "Cheok-Yin Fung",
@@ -154,8 +155,7 @@
          "Clifton Wood",
          "Clifton Wood",
          "Clive Holloway",
-         "Colin Crain",
-         "Craig"
+         "Colin Crain"
       ]
    },
    "yAxis" : {

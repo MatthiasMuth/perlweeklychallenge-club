@@ -10,7 +10,8 @@
    "series" : [
       {
          "data" : [
-            457,
+            87,
+            459,
             1,
             3,
             3,
@@ -26,6 +27,7 @@
             0,
             0,
             0,
+            0,
             3,
             20,
             0,
@@ -36,6 +38,7 @@
       },
       {
          "data" : [
+            18,
             2,
             0,
             0,
@@ -49,7 +52,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 8] Last updated at 2026-11-16 00:29:39 GMT"
+      "text" : "[Champions: 9] Last updated at 2026-11-23 02:42:30 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2026]"
@@ -60,6 +63,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Walt Mankowski",
          "Wanderdoc",
          "William Gilmore",
          "William West",

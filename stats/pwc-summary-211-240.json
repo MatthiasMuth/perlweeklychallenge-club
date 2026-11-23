@@ -10,6 +10,7 @@
    "series" : [
       {
          "data" : [
+            14,
             7,
             88,
             8,
@@ -24,7 +25,7 @@
             0,
             0,
             8,
-            306,
+            308,
             18,
             738,
             3,
@@ -33,18 +34,18 @@
             4,
             180,
             0,
-            524,
+            526,
             1,
-            428,
+            430,
             10,
             11,
-            7,
-            1
+            7
          ],
          "name" : "Perl"
       },
       {
          "data" : [
+            0,
             0,
             0,
             8,
@@ -59,7 +60,7 @@
             0,
             28,
             0,
-            306,
+            308,
             0,
             0,
             0,
@@ -73,13 +74,13 @@
             0,
             4,
             0,
-            0,
-            35
+            0
          ],
          "name" : "Raku"
       },
       {
          "data" : [
+            0,
             4,
             0,
             0,
@@ -94,7 +95,7 @@
             0,
             0,
             0,
-            154,
+            155,
             0,
             0,
             1,
@@ -103,11 +104,10 @@
             0,
             0,
             0,
-            255,
+            256,
             0,
             0,
             2,
-            0,
             0,
             0
          ],
@@ -115,7 +115,7 @@
       }
    ],
    "subtitle" : {
-      "text" : "[Champions: 30] Last updated at 2026-11-16 00:29:39 GMT"
+      "text" : "[Champions: 30] Last updated at 2026-11-23 02:42:30 GMT"
    },
    "title" : {
       "text" : "The Weekly Challenge [2019 - 2026]"
@@ -126,6 +126,7 @@
    },
    "xAxis" : {
       "categories" : [
+         "Nazareno Delucca",
          "Neil Bowers",
          "Nelo Tovar",
          "Nick Logan",
@@ -154,8 +155,7 @@
          "Peter Meszaros",
          "Peter Pentchev",
          "Peter Scott",
-         "Petr Roubicek",
-         "Philip Hood"
+         "Petr Roubicek"
       ]
    },
    "yAxis" : {
