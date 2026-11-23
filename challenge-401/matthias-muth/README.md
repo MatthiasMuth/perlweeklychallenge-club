@@ -1,215 +1,132 @@
-# Don't Jump Mutations
+# Challenge 401 tasks: Fractional Addition Substraction - Reconstruct Digits
+**Challenge 401 solutions in Perl by Matthias Muth**
 
-**Challenge 400 solutions in Perl by Matthias Muth**
+## Task 1: Fractional Addition Substraction
 
-## Task 1: Largest Interval
-
-> You are given a positive integer.<br/>
-> Write a script that generates a sequence of integers from 1 to given positive integer, filtering out any numbers that contain repeating digits (e.g., 11, 99, 100, and 101 are excluded) and return the biggest jump.
+> You are given a string representing an expression of fraction addition and substraction.<br/>
+> Write a script that returns the calculation result of given expression in string format. If final result is an integer, change it to the format of fraction that has a denominator 1.
 >
 > **Example 1**
 >
 > ```text
-> Input: $int = 20
-> Output: 2
+> Input: $expr = "1/2+3/2"
+> Output: "2/1"
 >
-> Biggest jump between 10 and 12.
+> 1/2 + 3/2 => 4/2 => 2
+>
+> As specified by the rules, an integer result must be represented as a fraction with denominator 1, yielding "2/1".
 > ```
 >
 > **Example 2**
 >
 > ```text
-> Input: $int = 110
-> Output: 4
+> Input: $expr = "-5/2-3/2"
+> Output: "-4/1"
 >
-> Biggest jump between 98 and 102.
+> -5/2 - 3/2 => -8/2 => -4 => "-4/1".
 > ```
 >
 > **Example 3**
 >
 > ```text
-> Input: $int = 500
-> Output: 11
+> Input: $expr = "5/3-5/3"
+> Output: "0/1"
 >
-> Biggest jump between:
-> a) 109 and 120 => 11
-> b) 219 and 230 => 11
-> c) 329 and 340 => 11
-> d) 439 and 450 => 11
+> 5/3 - 5/3 => 0/3
+> Zero divided by any valid non-zero denominator reduces to "0/1".
 > ```
 >
 > **Example 4**
 >
 > ```text
-> Input: $int = 2026
-> Output: 105
+> Input: $expr = "10/10-1/10+2/5"
+> Output: "13/10"
 >
-> Biggest jump between 1098 and 1203.
+> 10/10 - 1/10 + 2/5 => 9/10 + 4/10 => 13/10.
+> 13/10 is already irreducible, so the output is "13/10".
 > ```
 >
 > **Example 5**
 >
 > ```text
-> Input: $int = 10000
-> Output: 105
+> Input: $expr = "1/6+1/6+1/6"
+> Output: "1/2"
 >
-> The largest gap is 105, between 1098 and 1203. And again between 8796 and 8901.
+> 1/6 + 1/6 + 1/6 => 3/6 => 1/2
 > ```
 
-The center part of my solution is a loop over the integers from `1` to `$int`. For each integer, I check whether it has repeating digits using a regular expression with a back reference:
+
+Lorem ipsum dolor sit amet...
 
 ```perl
-    /(\d).*\1/
-```
-
-The match succeeds if a digit captured with `(\d)` is found again later in the string, possibly after any number of other characters (the back reference `\1` denotes the digit that was captured). The regex engine tries each digit in turn as the captured digit until it finds the same digit again later in the string or until all digits have been tried.
-
-If a match is found, the current number is part of a gap. I keep a counter for the overall length of the gap, which is incremented in that case.
-
-If no match is found, we have a number without repeating characters, and any possible gap ends. The largest gap encountered is registered in another variable, and the length of the current gap is reset to zero.
-
-Example 5 demonstrates that we must only consider a gap for the largest result when we still find a higher number that has no repeating digits. In that example, the last non-repetitive number is 9876, with 124 repetitive numbers after that, including the final number 10000. This would be the largest gap, but it seems that it doesn't count as a 'gap' because it is only one-sided. The variable containing the largest gap should therefore only be updated once we encounter the next non-repetitive number. 
-
-We are supposed to return the 'biggest jump', which is the size of the largest gap plus 1. This is true even if there was no gap found at all, because we still have 'jumps' of length 1 from number to number.
-
-This is the complete solution: 
-
-```perl
-use v5.36;
-
-sub largest_interval( $int ) {
-    my ( $current_gap, $largest_gap ) = ( 0, 0 );
-    for ( 1..$int) {
-        if ( /(\d).*\1/ ) {
-            ++$current_gap;
-        }
-        else {
-            $largest_gap = $current_gap
-                if $current_gap > $largest_gap;
-            $current_gap = 0;
-        }
-    }
-    # The 'biggest jump' is one larger than the largest gap.
-    return $largest_gap + 1;
+sub fractional_addition_substraction() {
+    ...;
 }
 ```
 
-## Task 2: Minimum Genetic Mutation
+## Task 2: Reconstruct Digits
 
-> You are given start and end gene string along with gene bank.<br/>
-> Write a script to return the minimum number of mutations required to mutate from start to end gene. Return -1 if there is no such mutation. A gene must be in a bank to make it a valid gene string.<br/>
-> A gene string can be represented by an 8-character long string, with choices from ‘A’, ‘C’, ‘G’, and ‘T’.
+> You are given a string containing an out-of-order English representation of digits 0-9.<br/>
+> Write a script to return the digits in ascending order.
 >
 > **Example 1**
 >
 > ```text
-> Input: $start_gene = "AACCGGTT"
->        $end_gene   = "AACCGGTA"
->        @gene_bank  = ("AACCGCTA", "AAACGGTA")
-> Output: -1
+> Input: $str = "zroezerotwotwotwo"
+> Output: "00222"
 >
-> To reach end gene, every intermediate gene and the end gene itself must exist in bank.
-> Since "AACCGGTA" is missing from bank, it is impossible to complete the mutation sequence.
+> 'z' appears two times => two "zero"
+> 'w' appears three times => three "two"
 > ```
 >
 > **Example 2**
 >
 > ```text
-> Input: $start_gene = "AACCGGTT"
->        $end_gene   = "AACCGGAA"
->        @gene_bank  = ("AACCGGTA", "AACCGGAA", "AACCGCTA", "AACCCTAA", "AACCGTAA")
-> Output: 2
+> Input: $str = "sveeneinght"
+> Output: "78"
 >
-> Path 1 (2 steps): "AACCGGTT" => "AACCGGTA" => "AACCGGAA"
-> Path 2 (3 steps): "AACCGGTT" => "AACCGGTA" => "AACCGTAA" => "AACCGGAA"
+> 'g' appears one time => one "eight"
+> Removing the letters of "eight" leaves "sveen".
+> Now 'v' appears one time => one "seven"
 > ```
 >
 > **Example 3**
 >
 > ```text
-> Input: $start_gene = "AAAAAAAA"
->        $end_gene   = "AAAAACCC"
->        @gene_bank  = ("CAAAAAAA", "CCAAAAAA", "AAAAAAAC")
-> Output: -1
+> Input: $str = "onenineninefive"
+> Output: "1599"
+>
+> 'f' appears one time => one "five"
+> After removing "five", 'o' appears one time => one "one".
+> The remaining letters are "ninenine", where 'i' appears two times => two "nine".
 > ```
 >
 > **Example 4**
 >
 > ```text
-> Input: $start_gene = "GAAAAAAA"
->        $end_gene   = "GCCCCCCC"
->        @gene_bank  = ("GCAAAAAA", "GCCAAAAA", "GCCCAAAA", "GCCCCAAA", "GCCCCCAA", "GCCCCCCA", "GCCCCCCC")
-> Output: 7
+> Input: $str = "zeroonetwothreeeightfivesixsevenninefour"
+> Output: "0123456789"
 >
-> "GAAAAAAA" => "GCAAAAAA"
-> "GCAAAAAA" => "GCCAAAAA"
-> "GCCAAAAA" => "GCCCAAAA"
-> "GCCCAAAA" => "GCCCCAAA"
-> "GCCCCAAA" => "GCCCCCAA"
-> "GCCCCCAA" => "GCCCCCCA"
-> "GCCCCCCA" => "GCCCCCCC"
+> The input contains the scrambled letters of every single digit from 0 through 9 exactly once:
+> "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine".
 > ```
 >
 > **Example 5**
 >
 > ```text
-> Input: $start_gene = "AACCGGTT"
->        $end_gene   = "AACCGGTT"
->        @gene_bank = ("AACCGGTA")
-> Output: 0
+> Input: $str = "ninenineninenine"
+> Output: "9999"
 >
-> The current genetic sequence already matches the desired end gene.
-> No mutations are necessary, so the result is 0.
+> Character counts: 'n' = 8, 'i' = 4, 'e' = 4.
+> Every set of letters matches "nine", giving four 9s.
 > ```
 
-My solution is based on a breadth-first search (BFS) algorithm
-that finds the shortest path from the start gene to the end gene.
 
-A BFS algorithm is based on initializing a queue with an entry containing the start node, and then repeatedly adding queue entries for all the direct neighbors of the nodes in the queue as they are processed, until the target node is reached.
-
-As we are interested in the 'distance' between start gene and end gene, each queue entry carries its gene's distance from the start gene as an additional piece of information.
-
-Finding the 'neighbors' of a gene in the gene pool is the most interesting part of the Perl implementation.
-
-Perl's bitstring XOR operator `^.` compares two strings byte by byte and produces a string containing the bitwise XOR of corresponding bytes.
-For identical characters, the result is a zero byte (`"\x00"`).
-For different characters, the byte is non-zero.
-
-The 'neighbors'
-are genes from the gene pool that differ from the current gene in exactly one position. The number of non-zero bytes in the XOR result must therefore be 1.
-
-To count the number of non-zero bytes, `split ""` can be used to divide the xor result into single characters, and `grep` in scalar context can do the counting. All of this can be done in a single Perl expression that fits on one line:
+Lorem ipsum dolor sit amet...
 
 ```perl
-    ( scalar grep { $_ ne "\x00" } split "", $gene_1 ^. $gene_2 ) == 1
-```
-
-This is the complete solution:
-
-```perl
-use v5.36;
-
-sub minimum_genetic_mutation( $start_gene, $end_gene, $gene_bank ) {
-    my @q = ( [ $start_gene, 0 ] );
-    my %visited = ( $start_gene => 1 );
-    while ( @q ) {
-        my ( $gene, $distance ) = ( shift @q )->@*;
-
-        # End condition:
-        return $distance
-            if $gene eq $end_gene;
-
-        # Mark all unvisited 'neighbors' as visited and add them to the queue.
-        do {
-            $visited{$_} = 1;
-            push @q, [ $_, $distance + 1 ];
-        } for grep {
-            ! $visited{$_}
-            && ( scalar grep { $_ ne "\x00" } split "", $gene ^. $_ ) == 1
-        } $gene_bank->@*;
-    }
-    # No solution found.  
-    return -1;
+sub reconstruct_digits() {
+    ...;
 }
 ```
 
