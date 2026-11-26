@@ -25,7 +25,7 @@ use Test2::V0 qw( -no_srand );
 
 my @tests = (
     [ "Example 1", "zroezerotwotwotwo", "00222" ],
-    [ "Example 2", "sveeneinght", "78" ],
+    [ "Example 2", "sveeeinght", "78" ],
     [ "Example 3", "onenineninefive", "1599" ],
     [ "Example 4", "zeroonetwothreeeightfivesixsevenninefour", "0123456789" ],
     [ "Example 5", "ninenineninenine", "9999" ],
